@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<view>
+	<slice-transformation-filename>slice2HTML_tree</slice-transformation-filename>
+	<obsel-transformation-filename>obsel2HTML_tree</obsel-transformation-filename>
+	<default-scale>10</default-scale>
+	<css-filename>empty</css-filename>
+</view>
