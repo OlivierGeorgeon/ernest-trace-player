@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<view>
+	<slice-transformation-filename>slice2SVG_ernest1</slice-transformation-filename>
+	<obsel-transformation-filename>obsel2SVG_ernest1</obsel-transformation-filename>
+	<default-scale>10</default-scale>
+	<css-filename>empty</css-filename>
+</view>
