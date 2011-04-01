@@ -2,6 +2,7 @@
 <view>
 	<slice-transformation-filename>slice2SVG_ernest1</slice-transformation-filename>
 	<obsel-transformation-filename>obsel2SVG_ernest1</obsel-transformation-filename>
+	<view-width>300</view-width>
 	<default-scale>10</default-scale>
 	<css-filename>empty</css-filename>
 </view>

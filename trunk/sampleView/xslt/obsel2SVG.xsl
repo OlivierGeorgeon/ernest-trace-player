@@ -84,7 +84,7 @@
 		<xsl:variable name="currentImage" select="string('')" />
 
 		<!-- Creation of the shape itself -->
-		<g id="{@id}" date="{date}" stroke="#000000" fill="{$varColor}">
+		<g id="{@id}" date="{date}" obsel-id="{@id}" stroke="#000000" fill="{$varColor}">
 			<!-- Selection of the class attribute (for CSS). -->
 			<xsl:attribute name="class">
 		        	<xsl:value-of select="type" />
