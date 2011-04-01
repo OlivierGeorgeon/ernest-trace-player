@@ -7,11 +7,11 @@
 	<!-- Match the obsels having a date value -->
 	<xsl:template match="obsel">
 		<div class="obsel-html" title="obsel-html">
-			<p>
+			<div>
 				<xsl:text>Id: </xsl:text><xsl:value-of select="@id" />
-			</p>
+			</div>
 			
-			<p>
+			<div>
 				<xsl:text>Date: </xsl:text><xsl:value-of select="@date" />
 			
 			<xsl:if test="@begin">
@@ -22,11 +22,11 @@
 					<xsl:text> - End: </xsl:text><xsl:value-of select="@end" />
 			</xsl:if>
 			
-			</p>
+			</div>
 			<xsl:if test="@source">
-				<p>
+				<div>
 					<xsl:text>Source: </xsl:text><xsl:value-of select="@source" />
-				</p>
+				</div>
 			</xsl:if>
 			
 			<xsl:apply-templates select="*" />
@@ -34,42 +34,50 @@
 	</xsl:template>
 	
 	<xsl:template match="color">
-		<p>
+		<div>
 			<xsl:text>Color: </xsl:text>
 				<div style="height:1em; width:10em; background-color:#{.}; color:#000000; display:inline;">
 					<xsl:value-of select="." />
 				</div>
-		</p>
+		</div>
+	</xsl:template>
+	
+	<xsl:template match="*[starts-with(name(), 'pixel_') or name() = 'bump_landmark' or name() = 'check_landmark']">
+		<div>
+			<xsl:value-of select="name()"/><xsl:text>: </xsl:text>
+				<div style="height:1em; width:10em; background-color:#{.}; color:#000000; display:inline;">
+					<xsl:value-of select="." />
+				</div>
+		</div>
 	</xsl:template>
 	
 	<xsl:template match="check_landmark">
-		<p>
+		<div>
 			<xsl:text>check_landmark: </xsl:text>
 				<div style="height:1em; width:10em; background-color:#{.}; color:#000000; display:inline;">
 					<xsl:value-of select="." />
 				</div>
-		</p>
+		</div>
 	</xsl:template>
 	
 	<xsl:template match="slice">
 		<xsl:apply-templates select="*" />
 	</xsl:template>
 	
-	
 	<xsl:template match="*">
-		<p>
+		<div>
 			<xsl:value-of select="name()" /><xsl:text>: </xsl:text>
 			<xsl:choose>
 				<xsl:when test="not(*)">
 					<xsl:value-of select="."/>
 				</xsl:when>
 				<xsl:otherwise>
-					<p style="padding-left: 5em;">
+					<div style="padding-left: 5em;">
 						<xsl:apply-templates select="child::*" />
-					</p>
+					</div>
 				</xsl:otherwise>
 			</xsl:choose>
-		</p>
+		</div>
 	</xsl:template>
 
 </xsl:transform>

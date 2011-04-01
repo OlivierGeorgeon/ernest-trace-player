@@ -88,28 +88,6 @@ function Player(playerDivElement, baseURI)
 		this.displayer.unsuspendRedraw();
 	}
 	
-	this.adaptViewBox = function()
-	{
-		var viewWidth = 1000.0;
-		
-		// For now, we will use these, but it isn't really perfect...
-		// No use being pixel-accurate, since we add some margin for over-scrolls
-		var begin = this.requestedBegin;
-		var end = this.requestedEnd;
-		
-		if(this.requestedBegin == undefined || this.requestedBegin > this.bufferInterval.begin)
-			begin = this.bufferInterval.begin;
-		
-		if(this.requestedEnd == undefined || this.requestedEnd < this.bufferInterval.end)
-			end = this.bufferInterval.end;
-
-		begin *= this.scale;
-		end *= this.scale;
-		
-		this.displayer.setXmin(begin - viewWidth);
-		this.displayer.setXmax(end + viewWidth);
-	}
-	
 	/**
 	 * Rescale one node in width, according to the current scale.
 	 * @private
@@ -130,6 +108,28 @@ function Player(playerDivElement, baseURI)
 			this.lastKnownDate = date;
 		else
 			this.lastKnownDate = Math.max(this.lastKnownDate, date);
+	}
+	
+	this.adaptViewBox = function()
+	{
+		var viewWidth = 1000.0;
+		
+		// For now, we will use these, but it isn't really perfect...
+		// No use being pixel-accurate, since we add some margin for over-scrolls
+		var begin = this.requestedBegin;
+		var end = this.requestedEnd;
+		
+		if(this.requestedBegin == undefined || this.requestedBegin > this.bufferInterval.begin)
+			begin = this.bufferInterval.begin;
+		
+		if(this.requestedEnd == undefined || this.requestedEnd < this.bufferInterval.end)
+			end = this.bufferInterval.end;
+
+		begin *= this.scale;
+		end *= this.scale;
+		
+		this.displayer.setXmin(begin - viewWidth);
+		this.displayer.setXmax(end + viewWidth);
 	}
 	
 	/**
@@ -200,6 +200,35 @@ function Player(playerDivElement, baseURI)
 		return this.lastKnownDate;
 	}
 	
+	this.setWidth = function(width)
+	{
+		this.viewWidth = width;
+		
+		if(this.displayer != undefined)
+			this.displayer.setWidth(width-2);
+		
+		if(this.graphDiv != undefined)
+		{
+			this.graphDiv.style.height = (width-2) + "px";
+		}
+		
+		if(this.uiDiv != undefined)
+		{
+			this.adjustUIWidth();
+		}
+	}
+	
+	this.adjustUIWidth = function()
+	{
+		clearSVGNodeTRansformations(this.buttonsGroup);
+		translateSVGNode(this.buttonsGroup, 0, this.viewWidth);
+		
+		this.frameRect.height.baseVal.value = this.viewWidth;
+		this.uiDiv.getElementsByTagName('svg')[0].viewBox.baseVal.height = this.viewWidth*1 + 70;
+		this.uiDiv.getElementsByTagName('svg')[0].viewBox.baseVal.width = 1000;
+		this.uiDiv.getElementsByTagName('svg')[0].height.baseVal.value = this.viewWidth*1 + 70;
+	}
+	
 	/**
 	 * Initiate the base SVG document loading. Synchroneous. 
 	 */
@@ -225,10 +254,12 @@ function Player(playerDivElement, baseURI)
 		this.graphDiv = getElementsByTitle(this.playerRoot, 'graph-div', true)[0];
 		this.uiDiv = getElementsByTitle(this.playerRoot, 'ui-div', true)[0];
 		this.infosDiv = getElementsByTitle(this.playerRoot, 'obsel-infos', true)[0];
+		this.buttonsGroup = getElementsByTitle(this.uiDiv, 'buttons-group', true)[0];
 		this.playButton = getElementsByTitle(this.playerRoot, 'play-button', true)[0];
 		this.pauseButton = getElementsByTitle(this.playerRoot, 'pause-button', true)[0];
 		this.minusButton = getElementsByTitle(this.playerRoot, 'minus-button', true)[0];
 		this.plusButton = getElementsByTitle(this.playerRoot, 'plus-button', true)[0];
+		this.printButton = getElementsByTitle(this.playerRoot, 'print-button', true)[0];
 		this.frameRect = getElementsByTitle(this.playerRoot, 'trace-frame-rect', true)[0];
 		this.centerText = getElementsByTitle(this.playerRoot, 'center-text', true)[0];
 		this.fullbody = window;
@@ -249,6 +280,9 @@ function Player(playerDivElement, baseURI)
 
 		// Registers the click callback for clicking on the plus button.
 		$(this.plusButton).click(parametrizeCallback(this.onClickPlusPrivate, {scope: this}), false);
+		
+		// Registers the click callback for clicking on the pint button.
+		$(this.printButton).click(parametrizeCallback(this.onClickPrintPrivate, {scope: this}), false);
 		
 		// Registers the mousedown callback for dragging on the rect.
 		$(this.frameRect).bind('mousedown', parametrizeCallback(this.onMouseDownRect, {scope: this}), false);
@@ -297,7 +331,7 @@ function Player(playerDivElement, baseURI)
 		if(this.onClickMinus)
 			this.onClickMinus();
 	}
-	
+
 	/**
 	 * Triggered when plus is clicked. Calls the user given onClickPlus callback (this.onClickPlus).
 	 * @private
@@ -306,6 +340,16 @@ function Player(playerDivElement, baseURI)
 	{
 		if(this.onClickPlus)
 			this.onClickPlus();
+	}
+	
+	/**
+	 * Triggered when print is clicked. Calls the user given onClickPrint callback (this.onClickPrint).
+	 * @private
+	 */
+	this.onClickPrintPrivate = function()
+	{
+		if(this.onClickPrint)
+			this.onClickPrint();
 	}
 
 	/**
@@ -458,10 +502,16 @@ function Player(playerDivElement, baseURI)
 		}
 	}
 	
+	this.exportView = function()
+	{
+		return this.displayer.exportView();
+	}
+	
 	this.onClickPlay = null;
 	this.onClickPause = null;
 	this.onClickMinus = null;
 	this.onClickPlus = null;
+	this.onClickPrint = null;
 	this.onMissingData = null;
 }
 
@@ -472,11 +522,29 @@ function Displayer(divElement, centerOffset)
 	this.svgElement = null;
 	this.divElement = divElement;
 	this.suspendedRedraw = null;
+	this.width = null;
+	this.xcenter = null;
 	
 	this.setSVGElement = function(svgElement)
 	{
 		this.svgElement = svgElement;
 		this.divElement.appendChild(svgElement);
+		
+		if(this.width !== null)
+		{
+			this.setWidth(this.width);
+		}
+	}
+	
+	this.setWidth = function(width)
+	{
+		this.width = width;
+		if(this.svgElement !== null)
+		{
+			this.svgElement.height.baseVal.value = width;
+			this.svgElement.viewBox.baseVal.height = width;
+			this.svgElement.viewBox.baseVal.y = - width/2;
+		}
 	}
 	
 	this.setXmin = function(xmin)
@@ -500,6 +568,7 @@ function Displayer(divElement, centerOffset)
 	
 	this.scrollCenterTo = function(xcenter)
 	{
+		this.xcenter = xcenter;
 		this.divElement.scrollLeft = xcenter + this.zeroOffset - this.centerOffset;
 	}
 
@@ -510,7 +579,7 @@ function Displayer(divElement, centerOffset)
 			// suspendRedraw seems buggy with firefox < 4.0
 			if($.browser['mozilla'] && $.browser['version'].substr(0, 3)*1.0 >= 2.0)
 			{
-				this.suspendedRedraw = this.svgElement.suspendRedraw(1000);
+				this.suspendedRedraw = this.svgElement.suspendRedraw(200);
 			}
 		}
 	}
@@ -522,9 +591,20 @@ function Displayer(divElement, centerOffset)
 			// suspendRedraw seems buggy with firefox < 4.0
 			if($.browser['mozilla'] && $.browser['version'].substr(0, 3)*1.0 >= 2.0)
 			{
-				this.svgElement.unsuspendRedraw(this.suspendedRedraw);
+				/*this.svgElement.unsuspendRedraw(this.suspendedRedraw);
+				this.svgElement.unsuspendRedrawAll();*/
 				this.suspendedRedraw = null;
 			}
 		}
+	}
+	
+	this.exportView = function()
+	{
+		newSVG = this.svgElement.cloneNode(true);
+		newSVG.viewBox.baseVal.x = this.xcenter - this.centerOffset;
+		newSVG.viewBox.baseVal.width = 1000.0; 
+		newSVG.width.baseVal.value = 1000.0;
+		
+		return newSVG
 	}
 }

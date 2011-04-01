@@ -20,14 +20,14 @@ class XMLFileTraceHandler implements TraceHandler
 
 	public function getObsels($timestampBegin, $timestampEnd)
 	{
-		$trace = simplexml_load_file(DATA_DIR . '/' . $this->traceFilename);
+		$trace = simplexml_load_file(DATA_DIR . '/xml_traces/' . $this->traceFilename);
 		$obsels = $trace->xpath('/sequence/obsel[number(@date) <= ' . $timestampEnd . ' and number(@date) >= '. $timestampBegin . ']');
 		return $this->slice($obsels);
 	}
 	
 	public function getObsel($obselId)
 	{
-		$trace = simplexml_load_file(DATA_DIR . '/' . $this->traceFilename);
+		$trace = simplexml_load_file(DATA_DIR . '/xml_traces/' . $this->traceFilename);
 		$obsels = $trace->xpath('/sequence/obsel[@id = ' . $obselId . ']');
 		return $this->slice($obsels);
 	}
@@ -48,7 +48,7 @@ class XMLFileTraceHandler implements TraceHandler
 	 */
 	public function getNextObsels(&$lastKnownId, &$lastKnownTime)
 	{
-		$trace = simplexml_load_file(DATA_DIR . '/' . $this->traceFilename);
+		$trace = simplexml_load_file(DATA_DIR . '/xml_traces/' . $this->traceFilename);
 		
 		if($lastKnownId != "")
 		{
@@ -78,7 +78,7 @@ class XMLFileTraceHandler implements TraceHandler
 	
 	public function getNextObselsNB(&$lastKnownId, &$lastKnownTime)
 	{
-		$trace = simplexml_load_file(DATA_DIR . '/' . $this->traceFilename);
+		$trace = simplexml_load_file(DATA_DIR . '/xml_traces/' . $this->traceFilename);
 		
 		if($lastKnownId != "")
 			$obsels = $trace->xpath('/sequence/obsel[number(@id) > '. $lastKnownId . ']');

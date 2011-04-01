@@ -115,6 +115,7 @@ function TracePlayer(div_id, view, infoView, traceHandler, traceRef, traceModel,
 		
 		// Fetch and use the view informations
 		this.getViewInfos();
+		this.player.setWidth(this.viewWidth);
 		this.player.setScale(this.defaultViewScale);
 		this.player.setCenter(0); // TODO : parametrize, or set a default as a view information
 		this.player.setAutoCenter(false);
@@ -138,11 +139,38 @@ function TracePlayer(div_id, view, infoView, traceHandler, traceRef, traceModel,
 		{
 			this.setScale(this.scale * 1.0/1.5);
 		};
-		
+
 		this.player.onClickPlus = function()
 		{
 			this.setScale(this.scale*1.5);
 		};
+		
+		this.player.onClickPrint = parametrizeCallback(function()
+			{
+				docToPrint = this.player.exportView();
+				var win = window.open('html/void.xhtml', 'print-popup', 'width=1000px, height='+this.viewWidth+'px');
+				win.onload = parametrizeCallback(function(e, win){
+					win.document.body.appendChild(docToPrint);
+				}, {scope: this, args: [win]});
+			}, {scope: this}
+		);	
+
+		
+		this.player.onObselClicked = parametrizeCallback(
+			function(e, clickedNode)
+			{
+				$.ajax({
+					url: this.baseURI + '/php/obsel.php?viewId=' + this.infoView + '&traceHandler=' + this.traceHandler + '&traceRef=' + this.traceRef + '&traceModel=' + this.traceModel + "&obselId=" + clickedNode.getAttribute('obsel-id'),
+					context: this,
+					success: function(data){
+						this.player.infosDiv.innerHTML = data;
+					},
+					async: true,
+					dataType: "html"
+				});
+				
+			}, {scope: this}
+		);
 
 		this.player.onMissingData = parametrizeCallback(
 			function(beginN, endN)
@@ -150,22 +178,6 @@ function TracePlayer(div_id, view, infoView, traceHandler, traceRef, traceModel,
 				this.loadSlice(beginN, endN);
 			}, {scope: this}
 		);
-		
-		this.player.onObselClicked = parametrizeCallback(
-				function(e, clickedNode)
-				{
-					$.ajax({
-						url: this.baseURI + '/php/obsel.php?viewId=' + this.infoView + '&traceHandler=' + this.traceHandler + '&traceRef=' + this.traceRef + '&traceModel=' + this.traceModel + "&obselId=" + clickedNode.getAttribute('obsel-id'),
-						context: this,
-						success: function(data){
-							this.player.infosDiv.innerHTML = data;
-						},
-						async: true,
-						dataType: "html"
-					});
-					
-				}, {scope: this}
-			);
 	}
 	
 	/**
@@ -179,7 +191,7 @@ function TracePlayer(div_id, view, infoView, traceHandler, traceRef, traceModel,
 			context: this,
 			success: function(data){
 				this.defaultViewScale = data.getElementsByTagName('default-scale')[0].textContent;
-				//... only default scale for now
+				this.viewWidth = data.getElementsByTagName('view-width')[0].textContent;
 			},
 			async: false
 		});
@@ -371,7 +383,7 @@ function ObselIntervalBuffer(baseURI, idPrefix)
 					
 					that.maxId = Math.max(that.maxId, this.getAttribute('id'));
 
-					this.setAttribute('obsel-id', this.getAttribute('id'));
+					//this.setAttribute('obsel-id', this.getAttribute('id'));
 					this.setAttribute('id', that.idPrefix + this.getAttribute('id'));
 			},
 			{args: [this]})

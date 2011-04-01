@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
 	<defs>
-		<rect id="eye" x="-4" y="-4" width="8" height="8" stroke="1px" />
+		<rect id="eye" x="-4" y="-4" width="8" height="8" />
 	</defs>
 </svg>
