@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Upload a trace</title>
+</head>
+
+<body>
+	<form method="POST" action="php/temp/uploadtrace.php" enctype="multipart/form-data">
+		Trace name: <input type="text" name="traceName" /> <br/>
+		Transformation file: <input type="text" name="selectionFile" value="select_ernest9.2" /> <br/>
+		File: <input type="file" name="traceFile"/> <br/>
+		<input type="submit" value="Send"/>
+	</form>
+</body>
+</html>
