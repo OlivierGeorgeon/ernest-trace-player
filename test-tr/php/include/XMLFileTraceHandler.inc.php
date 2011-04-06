@@ -16,19 +16,32 @@ class XMLFileTraceHandler implements TraceHandler
 	{
 		$this->traceFilename = $traceFile;
 		$this->atEot = false;
+		
+		$this->trace = simplexml_load_file(DATA_DIR . '/xml_traces/' . $this->traceFilename);
+		$this->events = current($this->trace->children());
+		/*var_dump(current($this->events));
+		next($this->events);
+		var_dump(current($this->events));
+		next($this->events);
+		var_dump(current($this->events));
+		next($this->events);
+		die();*/
+		
+		/*$f = function() { echo "toto"; die();};
+		set_error_handler($f, E_ALL);*/
 	}
 
 	public function getObsels($timestampBegin, $timestampEnd)
 	{
 		$trace = simplexml_load_file(DATA_DIR . '/xml_traces/' . $this->traceFilename);
-		$obsels = $trace->xpath('/sequence/obsel[number(@date) <= ' . $timestampEnd . ' and number(@date) >= '. $timestampBegin . ']');
+		$obsels = $trace->xpath('/sequence/event[number(@date) <= ' . $timestampEnd . ' and number(@date) >= '. $timestampBegin . ']');
 		return $this->slice($obsels);
 	}
 	
 	public function getObsel($obselId)
 	{
 		$trace = simplexml_load_file(DATA_DIR . '/xml_traces/' . $this->traceFilename);
-		$obsels = $trace->xpath('/sequence/obsel[@id = ' . $obselId . ']');
+		$obsels = $trace->xpath('/sequence/event[@id = ' . $obselId . ']');
 		return $this->slice($obsels);
 	}
 	
@@ -37,7 +50,25 @@ class XMLFileTraceHandler implements TraceHandler
 		$xmlStr = "<slice>";
 		foreach($obsels as $obsel)
 		{
+			if(! is_object($obsel))
+			{
+				var_dump($obsel);
+				die('tutuuu');
+			}
+			
 			$xmlStr .= $obsel->asXML();
+			
+			if(isset($php_errormsg))
+			{
+				echo "\n";
+				echo $php_errormsg;
+				die();
+			}
+			if(! is_string($xmlStr))
+			{
+				var_dump($obsel);
+				die('tutuuu');
+			}
 		}
 		$xmlStr .= "</slice>";
 		return $xmlStr;
@@ -48,13 +79,21 @@ class XMLFileTraceHandler implements TraceHandler
 	 */
 	public function getNextObsels(&$lastKnownId, &$lastKnownTime)
 	{
-		$trace = simplexml_load_file(DATA_DIR . '/xml_traces/' . $this->traceFilename);
-		
-		if($lastKnownId != "")
+		/*if($lastKnownId != "")
 		{
-			$obsels = $trace->xpath('/sequence/obsel[number(@id) > '. $lastKnownId . ']');
+			$obsels = $this->trace->xpath('/sequence/event[number(@id) > $lastKnownId]');
 		}else{
-			$obsels = $trace->xpath('/sequence/obsel');
+			$obsels = $this->trace->xpath('/sequence/event[1]');
+		}*/
+		
+		
+		if($temp = next($this->events))
+		{
+			$obsels[] = $temp;
+			if($temp = next($this->events))
+				$obsels[] = $temp;
+		}else{
+			$obsels = false;
 		}
 		
 		// Like it'd work...
@@ -62,18 +101,22 @@ class XMLFileTraceHandler implements TraceHandler
 		//$lastKnownTime = $lastObsel->date;
 		//$lastKnownId = $lastObsel['id'];
 		
-		foreach($obsels as $obsel)
-		{
-			$lastKnownTime = max(floatval($obsel['date']), $lastKnownTime);
-			$lastKnownId = max(floatval($obsel['id']), $lastKnownId);
-		}
 		
-		if(count($obsels) == 0)
+		if(count($obsels) == 0 || $obsels === false)
 		{
 			$this->atEot = true;
+			
+			return "<slice/>";
+		}else{
+			foreach($obsels as $obsel)
+			{
+				$lastKnownTime = max(floatval($obsel['date']), $lastKnownTime);
+				$lastKnownId = max(floatval($obsel['id']), $lastKnownId);
+			}
+			
+			return $this->slice($obsels);
 		}
 		
-		return $this->slice($obsels);
 	}
 	
 	public function getNextObselsNB(&$lastKnownId, &$lastKnownTime)
@@ -81,11 +124,11 @@ class XMLFileTraceHandler implements TraceHandler
 		$trace = simplexml_load_file(DATA_DIR . '/xml_traces/' . $this->traceFilename);
 		
 		if($lastKnownId != "")
-			$obsels = $trace->xpath('/sequence/obsel[number(@id) > '. $lastKnownId . ']');
+			$obsels = $trace->xpath('/sequence/event[number(@id) > '. $lastKnownId . ']');
 		else
-			$obsels = $trace->xpath('/sequence/obsel');
+			$obsels = $trace->xpath('/sequence/event');
 		
-		$lastObsel = $trace->xpath('/sequence/obsel[math:max(/sequence/obsel@id)]');
+		$lastObsel = $trace->xpath('/sequence/event[@id=math:max(/sequence/event@id)]');
 		
 		$lastKnownTime = $lastObsel['date'];
 		$lastKnownId = $lastObsel['id'];
