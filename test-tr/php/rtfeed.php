@@ -77,7 +77,7 @@ do
 	
 	if($obsel !== false)
 	{
-		pushError("XMLDOC: \"\"\"" . $obsel . "\"\"\"");
+		//pushError("XMLDOC: \"\"\"" . $obsel . "\"\"\"");
 		$obsel_doc->loadXML($obsel);
 		$time_end = microtime_float();
 		$time_obs += $time_end - $time_start;
@@ -95,7 +95,6 @@ do
 		pushElement('<eot/>');
 		die("</feed>");
 	}
-	
 }while($obsel !== false and ! $trace->eot());
 
 

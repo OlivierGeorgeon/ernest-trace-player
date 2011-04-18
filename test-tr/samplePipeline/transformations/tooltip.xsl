@@ -3,7 +3,7 @@
 	version="1.0">
 	<xsl:param name="state-filename" />
 	<xsl:param name="name" />
-	<xsl:output method="xml" indent="no" />
+	<xsl:output method="xml" indent="no" omit-xml-declaration="yes" />
 	<xsl:strip-space elements="*" />
 	
 	

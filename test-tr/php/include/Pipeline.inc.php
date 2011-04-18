@@ -29,6 +29,7 @@ class Pipeline
 		$deltas['__input__']->appendChild($ds);
 		$d = $deltas['__input__']->createElement("delta");
 		$d->setAttribute("source", "__input__");
+		$d->setAttribute("date", $obsels->documentElement->getAttribute('date'));
 		$ds->appendChild($d);
 		
 		foreach($obsels->childNodes as $obsel)

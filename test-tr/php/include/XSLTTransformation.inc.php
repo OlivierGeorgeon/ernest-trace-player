@@ -25,12 +25,12 @@ class XSLTTransformation extends Transformation
 		$xsl->setParameter('', $parameters);
 		
 		//TODO: put it back with transformToDoc
-		$xml = $xsl->transformToXML($deltas);
+		/*$xml = $xsl->transformToXML($deltas);
 		pushError("XML(".$this->name.")" . $xml . " /XML");
 		$doc = new DOMDocument();
 		$doc->loadXML($xml);
-		return $doc;
-		//return $xsl->transformToDoc($deltas);
+		return $doc;*/
+		return $xsl->transformToDoc($deltas);
 	}
 	
 	protected function getProc()

@@ -14,6 +14,7 @@ class NamedPipeTraceHandler implements TraceHandler
 	public function __construct($fileName)
 	{
 		$this->fd = fopen($fileName, "r");
+		//stream_set_blocking($this->fd, 0);
 		@unlink("/tmp/trnp");
 	}
 
@@ -30,7 +31,14 @@ class NamedPipeTraceHandler implements TraceHandler
 	public function getNextObsels(&$null1, &$null2)
 	{
 		$line = fgets($this->fd);
-		while(strlen($line) == 0)
+		
+		/*while($line === false and !$this->aborted())
+		{
+			usleep(100000);
+			$line = fgets($this->fd);
+		}*/
+		
+		while(strlen($line) == 0 and !$this->aborted())
 		{
 			pushError("Error while reading size, reopenning the file.");
 			fclose($this->fd);
@@ -38,12 +46,18 @@ class NamedPipeTraceHandler implements TraceHandler
 			$line = fgets($this->fd);
 			sleep(1);
 		}
-		//pushError("Read : '$line'.");
-		
-		
-		//list($len) = fscanf($this->fd, "%i");
+		//pushError("Stat : " . var_export(fstat($this->fd), true) . "");
+		$message = "";
 		$len = intval($line);
-		$message = fread($this->fd, $len);
+		$message .= fread($this->fd, $len);
+		/*
+		$line = fgets($this->fd);
+		while($line !== false and !$this->aborted())
+		{
+			$len = intval($line);
+			$message .= fread($this->fd, $len);
+			$line = fgets($this->fd);
+		}*/
 		
 		$a = fopen("/tmp/trnp", "a+");
 		fwrite($a, "\n\n$len\n");
@@ -56,7 +70,7 @@ class NamedPipeTraceHandler implements TraceHandler
 		}
 		fclose($a);
 		
-		return "<slice>" . $message . "</slice>";
+		return $message;
 	}
 	
 	public function getNextObselsNB(&$lastKnownId, &$lastKnownTime)
@@ -67,6 +81,17 @@ class NamedPipeTraceHandler implements TraceHandler
 	public function eot()
 	{
 		return false;
+	}
+	
+	public function aborted()
+	{
+		echo "\n"; flush();
+		if(connection_aborted() or connection_status() != 0)
+		{
+			return true;
+		}else{
+			return false;
+		}
 	}
 	
 	private $fd;
