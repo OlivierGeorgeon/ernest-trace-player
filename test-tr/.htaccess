@@ -1,0 +1,6 @@
+#--------------------------------------------------
+# PHP.INI CONF:
+#--------------------------------------------------
+
+php_value error_prepend_string "<comet><error>"
+php_value error_append_string "</error></comet>"

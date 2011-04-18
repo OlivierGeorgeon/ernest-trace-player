@@ -24,6 +24,13 @@ abstract class PHPTransformation extends Transformation
 		$this->state->load($this->stateFilename);
 	}
 	
+	public function transform($deltas)
+	{
+		$res = $this->doTransform($deltas);
+		pushError("XML(".$this->name.")" . $res->saveXML() . "/XML");
+		return $res;
+	}
+	
 	protected $xsltProc;
 	protected $xsltFilename;
 	protected $state;

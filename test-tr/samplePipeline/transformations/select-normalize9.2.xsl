@@ -6,13 +6,21 @@
 	<xsl:output method="xml" indent="no" />
 	<xsl:strip-space elements="*" />
 
-	<xsl:template match="/deltas/delta">
-		<delta source="{$name}">
-			<xsl:apply-templates select="slice/event[@source='Ernest']" />
-		</delta>
+	<xsl:template match="/deltas">
+		<deltas>
+			<xsl:for-each select="delta/slice/event">
+				<!-- <xsl:sort data-type="number" select="@date" /> --> <!-- Sérarien. -->
+				<!-- TODO: groups elements with same dates into the same delta
+				     (not necessary and useless for now since the would be only 
+				     one in each anyway) -->
+				<delta source="{$name}" date="{@date}" >
+					<xsl:apply-templates select="." />
+				</delta>
+			</xsl:for-each>
+		</deltas>
 	</xsl:template>
 
-	<xsl:template match="event">
+	<xsl:template match="event[@source='Ernest']">
 		<xsl:if test="@source = 'Ernest'">
 			<obsel id="{@id}^{$name}" date="{@date}" begin="{@date}" end="{@date}">
 				<xsl:copy-of select="@*[name() != 'id']" />
@@ -40,4 +48,8 @@
 			</obsel>
 		</xsl:if>
 	</xsl:template>
+	
+	<xsl:template match="*">
+	</xsl:template>
+	
 </xsl:transform>

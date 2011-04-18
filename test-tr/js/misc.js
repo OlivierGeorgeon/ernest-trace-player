@@ -128,19 +128,27 @@ function getElementsByTitle(elem, title, recursive, elemWasPushed)
 }
 
 var svgns = "http://www.w3.org/2000/svg";
+var htmlns = "http://www.w3.org/1999/xhtml";
 function parseSVGNodeIntoFragment(svgString, svgDoc)
 {
 	//svg = $.xmlDOM(svgString);
 	svg = $(svgString);
 	frag = svgDoc.createDocumentFragment();
-	copyTree(svg, frag);
+	copyTrees(svg.children(), frag, svgns);
 	return frag;
 }
 
-function copyTree(jt, st)
+function parseSVGElementIntoExistingFragment(svgString, svgDoc, frag)
 {
-        jt.children().each(function(){
-                var e = document.createElementNS(svgns, this.tagName);
+	//svg = $.xmlDOM(svgString);
+	svg = $(svgString);
+	copyTrees(svg, frag, svgns);
+}
+
+function copyTrees(jt, st, ns)
+{
+        jt.each(function(){
+                var e = document.createElementNS(ns, this.tagName);
                 $.each(this.attributes, 
                 		function(k, a){
                 		if(a.namespaceURI == undefined || a.namespaceURI === null || a.namespaceURI == "http://www.w3.org/2000/xmlns/")
@@ -154,12 +162,44 @@ function copyTree(jt, st)
                 		$(this).children().length === 0) {
                 			e.textContent = this.textContent;
                 }else{
-                    copyTree($(this), e);
+                	copyTreeBottomLevels($(this), e, ns);
+                }
+                
+                st.appendChild(e);
+        });
+}
+
+function copyTreeBottomLevels(jt, st, ns)
+{
+        jt.children().each(function(){
+                var e = document.createElementNS(ns, this.tagName);
+                $.each(this.attributes, 
+                		function(k, a){
+                		if(a.namespaceURI == undefined || a.namespaceURI === null || a.namespaceURI == "http://www.w3.org/2000/xmlns/")
+                			e.setAttribute(a.nodeName, a.nodeValue);
+                		else{
+                			e.setAttributeNS(a.namespaceURI, a.localName, a.nodeValue);
+                		}
+                });
+                
+                if (this.textContent && this.textContent.length > 0 &&
+                		$(this).children().length === 0) {
+                			e.textContent = this.textContent;
+                }else{
+                	copyTreeBottomLevels($(this), e, ns);
                 }
                 
                 st.appendChild(e);
         });
         
+}
+
+
+function xmlToExistingHTMLFragment(xmlDOM, frag)
+{
+	//svg = $.xmlDOM(svgString);
+	xml = $(xmlDOM);
+	copyTrees(xml, frag, htmlns);
 }
 
 function translateSVGNode(node, dx, dy){

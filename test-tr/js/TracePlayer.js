@@ -78,7 +78,7 @@ function TracePlayer(div_id, view, infoView, traceHandler, traceRef, traceModel,
 	}
 	
 	/**
-	 * Programs a slice tobe loaded into the player.
+	 * Programs a slice to be loaded into the player.
 	 */
 	this.loadSlice = function(begin, end)
 	{
@@ -317,7 +317,7 @@ function ObselIntervalBuffer(baseURI, idPrefix)
 	}
 	
 	/**
-	 * Crops the obsels outside the given interval, and reduce interval boundaries if needed.
+	 * Crops the obsels outside the given interval, and reduces interval boundaries if needed.
 	 */
 	this.cropObsels = function(beginDate, endDate)
 	{
@@ -356,8 +356,10 @@ function ObselIntervalBuffer(baseURI, idPrefix)
 	 */
 	this.addObselsXML = function(xmlDOM)
 	{
+		/* Parses the XML DOM element into a SVG fragment, but doesn't add it to the tree yet. */
 		var fragment = parseSVGNodeIntoFragment(xmlDOM, this.svgElem.ownerDocument);
 		
+		/* Don't add existant obsels. */
 		var newObsels = $(fragment).children();
 		var toRem = newObsels.filter(
 			parametrizeCallback(function(index, whatsthat, that){
@@ -371,6 +373,7 @@ function ObselIntervalBuffer(baseURI, idPrefix)
 		this.newBegin = this.begin;
 		this.newEnd = this.end;
 		
+		/* Adding obsels to the tree, doing some modifications. */
 		if(newObsels.length > 0) this.maxId = newObsels.first()[0].getAttribute('id') + 0;
 		newObsels.each(
 				parametrizeCallback(function(index, whatsthat, that){

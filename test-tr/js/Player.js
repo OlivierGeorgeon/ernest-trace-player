@@ -53,7 +53,7 @@ function Player(playerDivElement, baseURI)
 	{
 		if(this.graphDiv && this.center != undefined && this.scale != undefined)
 		{
-			this.displayer.scrollCenterTo(this.center*1.0*this.scale)
+			this.displayer.scrollCenterTo(this.center*1.0*this.scale);
 			this.centerText.textContent = (this.center*1.0).toFixed(2) + "";
 		}
 	}

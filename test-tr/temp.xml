@@ -1,75 +1,499 @@
-<add>
-	<g id="1-select-normalize-ns" obsel-id="1-select-normalize" date="0"
-		stroke="#000000">
-		<g fill="#000000">
-			<polyline style="stroke:#AAAAAA;stroke-width:1pt" points="0,-35 0,28 " />
-			<g transform="translate(2,-37) rotate(90)">
-				<text
-					style="font-size:9px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;stroke:none;font-family:Sans">0</text>
-			</g>
-		</g>
-	</g>
-	<g id="1-select-normalize-s" obsel-id="1-select-normalize" date="0"
-		begin="0" end="0" stroke-width="1pt" stroke="#000000">
-		<g transform="skewY(0) translate(0, 0)">
-			<g fill="#E6CF00">
-				<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="10"
-					xlink:href="svg/icons/thinline.svg#thinline" />
-			</g>
-			<g fill="#E6CF00">
-				<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="12"
-					xlink:href="svg/icons/thinline.svg#thinline" />
-			</g>
-			<g fill="#E6CF00">
-				<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="14"
-					xlink:href="svg/icons/thinline.svg#thinline" />
-			</g>
-			<g fill="#008000">
-				<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="16"
-					xlink:href="svg/icons/thinline.svg#thinline" />
-			</g>
-			<g fill="#2EE600">
-				<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="18"
-					xlink:href="svg/icons/thinline.svg#thinline" />
-			</g>
-			<g fill="#008000">
-				<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="20"
-					xlink:href="svg/icons/thinline.svg#thinline" />
-			</g>
-			<g fill="#E37CFF">
-				<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="22"
-					xlink:href="svg/icons/thinline.svg#thinline" />
-			</g>
-			<g fill="#E37CFF">
-				<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="24"
-					xlink:href="svg/icons/thinline.svg#thinline" />
-			</g>
-			<g fill="#008000">
-				<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="26"
-					xlink:href="svg/icons/thinline.svg#thinline" />
-			</g>
-			<g fill="#008000">
-				<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="28"
-					xlink:href="svg/icons/thinline.svg#thinline" />
-			</g>
-			<g fill="#008000">
-				<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="30"
-					xlink:href="svg/icons/thinline.svg#thinline" />
-			</g>
-			<g fill="#008000">
-				<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="32"
-					xlink:href="svg/icons/thinline.svg#thinline" />
-			</g>
-		</g>
-	</g>
-	<g id="1-select-normalize-ns2" obsel-id="1-select-normalize" date="0"
-		stroke="#000000" style="opacity: 0.7" />
-</add>
-<add>
-	<g id="1-select-normalize-ttt" date="0" begin="0" end="0" stroke="#000000">
-		<g fill="#008000">
-			<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="-19"
-				xlink:href="svg/icons/thinline.svg#thinline" />
-		</g>
-	</g>
-</add>
+<feed>
+	<comet>
+		<deltas>
+			<delta xmlns:xlink="http://www.w3.org/1999/xlink" source="simple-SVG">
+				<add>
+					<g id="1^select-normalize^ns" obsel-id="1^select-normalize" date="0"
+						stroke="#000000" />
+					<g id="1^select-normalize^s" obsel-id="1^select-normalize" date="0"
+						begin="0" end="0" stroke-width="1pt" stroke="#000000">
+						<g transform="skewY(0) translate(0, 0)">
+							<g fill="#E6CF00">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="10"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#E6CF00">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="12"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="14"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#2EE600">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="16"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#2EE600">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="18"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="20"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#E37CFF">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="22"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#E37CFF">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="24"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#E37CFF">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="26"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="28"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="30"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="32"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+						</g>
+					</g>
+					<g id="1^select-normalize^ns2" obsel-id="1^select-normalize"
+						date="0" stroke="#000000" style="opacity: 0.7">
+						<g fill="#FF0000">
+							<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="21"
+								xlink:href="svg/icons/verticalthinline.svg#verticalthinline" />
+						</g>
+					</g>
+				</add>
+				<add>
+					<g id="1^select-normalize^ttt" date="0" begin="0" end="0" stroke="#000000">
+						<g fill="#E6CF00">
+							<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="-19"
+								xlink:href="svg/icons/thinline.svg#thinline" />
+						</g>
+					</g>
+				</add>
+			</delta>
+			<delta source="clock">0</delta>
+			<delta source="tooltip">
+				<tooltip obsel-id="1^select-normalize">
+					<div class="obsel-html" title="obsel-html">
+						<div>Id: 1^select-normalize</div>
+						<div>Date: 0 - Begin: 0 - End: 0</div>
+						<div>Source: Ernest</div>
+						<div>type: action</div>
+						<div>
+							retina:
+							<div style="padding-left: 5em;">
+								<div>
+									pixel_0_11:
+									<div
+										style="height:1em; width:10em; background-color:#E6CF00; color:#000000; display:inline;">E6CF00</div>
+								</div>
+								<div>
+									pixel_0_10:
+									<div
+										style="height:1em; width:10em; background-color:#E6CF00; color:#000000; display:inline;">E6CF00</div>
+								</div>
+								<div>
+									pixel_0_9:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_8:
+									<div
+										style="height:1em; width:10em; background-color:#2EE600; color:#000000; display:inline;">2EE600</div>
+								</div>
+								<div>
+									pixel_0_7:
+									<div
+										style="height:1em; width:10em; background-color:#2EE600; color:#000000; display:inline;">2EE600</div>
+								</div>
+								<div>
+									pixel_0_6:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_5:
+									<div
+										style="height:1em; width:10em; background-color:#E37CFF; color:#000000; display:inline;">E37CFF</div>
+								</div>
+								<div>
+									pixel_0_4:
+									<div
+										style="height:1em; width:10em; background-color:#E37CFF; color:#000000; display:inline;">E37CFF</div>
+								</div>
+								<div>
+									pixel_0_3:
+									<div
+										style="height:1em; width:10em; background-color:#E37CFF; color:#000000; display:inline;">E37CFF</div>
+								</div>
+								<div>
+									pixel_0_2:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_1:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_0:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_11:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_10:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_9:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_8:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_7:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_6:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_5:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_4:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_3:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_2:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_1:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_0:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+							</div>
+						</div>
+						<div>
+							current_observation:
+							<div style="padding-left: 5em;">
+								<div>
+									Color:
+									<div
+										style="height:1em; width:10em; background-color:#E6CF00; color:#000000; display:inline;">E6CF00</div>
+								</div>
+								<div>time_to_water: 1000</div>
+								<div>time_to_food: 1000</div>
+								<div>last_checked: -1000</div>
+								<div>distance: 20</div>
+								<div>motivation: 980</div>
+								<div>direction: 105</div>
+								<div>dynamic_feature: +.</div>
+								<div>satisfaction: 100</div>
+							</div>
+						</div>
+						<div>clock: 1</div>
+						<div>is_thirsty: true</div>
+						<div>is_hungry: false</div>
+						<div>primitive_enacted_schema: &gt;</div>
+						<div>primitive_feedback: false</div>
+						<div>primitive_satisfaction: 50</div>
+					</div>
+				</tooltip>
+			</delta>
+		</deltas>
+	</comet>
+	<comet>
+		<error>Everything went smoothly.</error>
+	</comet>
+	<comet>
+		<deltas>
+			<delta source="simple-SVG" />
+			<delta source="clock" />
+			<delta source="tooltip" />
+		</deltas>
+	</comet>
+	<comet>
+		<error>Everything went smoothly.</error>
+	</comet>
+	<comet>
+		<deltas>
+			<delta xmlns:xlink="http://www.w3.org/1999/xlink" source="simple-SVG">
+				<add>
+					<g id="3^select-normalize^ns" obsel-id="3^select-normalize" date="1"
+						stroke="#000000" />
+					<g id="3^select-normalize^s" obsel-id="3^select-normalize" date="1"
+						begin="1" end="1" stroke-width="1pt" stroke="#000000">
+						<g transform="skewY(80.5) translate(0, -6)">
+							<g fill="#E6CF00">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="10"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#E6CF00">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="12"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#E6CF00">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="14"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#E6CF00">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="16"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="18"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#2EE600">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="20"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#2EE600">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="22"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="24"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#E37CFF">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="26"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#E37CFF">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="28"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#E37CFF">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="30"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="32"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+						</g>
+					</g>
+					<g id="3^select-normalize^ns2" obsel-id="3^select-normalize"
+						date="1" stroke="#000000" style="opacity: 0.7" />
+				</add>
+				<delete obsel-id="1^select-normalize^ttt" />
+				<add>
+					<g id="1^select-normalize^ttt" date="0" begin="0" end="1" stroke="#000000">
+						<g fill="#E6CF00">
+							<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="-19"
+								xlink:href="svg/icons/thinline.svg#thinline" />
+						</g>
+					</g>
+				</add>
+			</delta>
+			<delta source="clock">1</delta>
+			<delta source="tooltip">
+				<tooltip obsel-id="3^select-normalize">
+					<div class="obsel-html" title="obsel-html">
+						<div>Id: 3^select-normalize</div>
+						<div>Date: 1 - Begin: 1 - End: 1</div>
+						<div>Source: Ernest</div>
+						<div>type: action</div>
+						<div>
+							retina:
+							<div style="padding-left: 5em;">
+								<div>
+									pixel_0_11:
+									<div
+										style="height:1em; width:10em; background-color:#E6CF00; color:#000000; display:inline;">E6CF00</div>
+								</div>
+								<div>
+									pixel_0_10:
+									<div
+										style="height:1em; width:10em; background-color:#E6CF00; color:#000000; display:inline;">E6CF00</div>
+								</div>
+								<div>
+									pixel_0_9:
+									<div
+										style="height:1em; width:10em; background-color:#E6CF00; color:#000000; display:inline;">E6CF00</div>
+								</div>
+								<div>
+									pixel_0_8:
+									<div
+										style="height:1em; width:10em; background-color:#E6CF00; color:#000000; display:inline;">E6CF00</div>
+								</div>
+								<div>
+									pixel_0_7:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_6:
+									<div
+										style="height:1em; width:10em; background-color:#2EE600; color:#000000; display:inline;">2EE600</div>
+								</div>
+								<div>
+									pixel_0_5:
+									<div
+										style="height:1em; width:10em; background-color:#2EE600; color:#000000; display:inline;">2EE600</div>
+								</div>
+								<div>
+									pixel_0_4:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_3:
+									<div
+										style="height:1em; width:10em; background-color:#E37CFF; color:#000000; display:inline;">E37CFF</div>
+								</div>
+								<div>
+									pixel_0_2:
+									<div
+										style="height:1em; width:10em; background-color:#E37CFF; color:#000000; display:inline;">E37CFF</div>
+								</div>
+								<div>
+									pixel_0_1:
+									<div
+										style="height:1em; width:10em; background-color:#E37CFF; color:#000000; display:inline;">E37CFF</div>
+								</div>
+								<div>
+									pixel_0_0:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_11:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_10:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_9:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_8:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_7:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_6:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_5:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_4:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_3:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_2:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_1:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_0:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+							</div>
+						</div>
+						<div>
+							current_observation:
+							<div style="padding-left: 5em;">
+								<div>
+									Color:
+									<div
+										style="height:1em; width:10em; background-color:#E6CF00; color:#000000; display:inline;">E6CF00</div>
+								</div>
+								<div>time_to_water: 1000</div>
+								<div>time_to_food: 1000</div>
+								<div>last_checked: -1000</div>
+								<div>distance: 20</div>
+								<div>motivation: 980</div>
+								<div>direction: 95</div>
+								<div>dynamic_feature: +.</div>
+								<div>satisfaction: 100</div>
+							</div>
+						</div>
+						<div>clock: 2</div>
+						<div>is_thirsty: true</div>
+						<div>is_hungry: false</div>
+						<div>primitive_enacted_schema: ^</div>
+						<div>primitive_feedback: true</div>
+						<div>primitive_satisfaction: 100</div>
+					</div>
+				</tooltip>
+			</delta>
+		</deltas>
+	</comet>
+	<comet>
+		<error>Everything went smoothly.</error>
+	</comet>
+	<comet>
+		<deltas>
+			<delta source="simple-SVG" />
+			<delta source="clock" />
+			<delta source="tooltip" />
+		</deltas>
+	</comet>
+	<comet>
+		<error>Everything went smoothly.</error>
+	</comet>

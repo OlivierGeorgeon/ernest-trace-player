@@ -60,6 +60,12 @@ class PipelineInfos
 		return true;
 	}
 	
+	public function passInfosXML()
+	{
+		if(file_exists(DATA_DIR . '/pipelines/' . $this->id . '.xml'))
+			readfile(DATA_DIR . '/pipelines/' . $this->id . '.xml');
+	}
+	
 	public $levels;
 	public $output;
 	

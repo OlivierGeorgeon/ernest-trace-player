@@ -2,33 +2,112 @@
 <xsl:transform xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:xlink="http://www.w3.org/1999/xlink" exclude-result-prefixes="xlink"
 	xmlns:dyn="http://exslt.org/dynamic" xmlns:exsl="http://exslt.org/common" 
-	extension-element-prefixes="dyn exsl" version="1.1">
+	xmlns:math="http://exslt.org/math" 
+	extension-element-prefixes="math dyn exsl" version="1.1">
 	<xsl:param name="state-filename" />
 	<xsl:param name="name" />
 	<xsl:output method="xml" omit-xml-declaration="yes" indent="no"/>
 	<xsl:strip-space elements="*" />
 	
-	<xsl:variable name="state" select="exsl:node-set(document($state-filename))"/>
+	<xsl:variable name="initial-state" select="exsl:node-set(document($state-filename))"/>
 	
 	<xsl:template match="/">
-		<!-- Compute the transformations -->
-		<xsl:variable name="result">
-			<xsl:apply-templates select="deltas/delta/*" />
-		</xsl:variable>
+		<deltas>
+			<!-- Select, merge and sort the obsels. -->
+			<xsl:variable name="obsels">
+				<xsl:for-each select="deltas/delta">
+					<xsl:sort data-type="number" select="@date" />
+					<xsl:copy-of select="*" />
+				</xsl:for-each>
+			</xsl:variable>
+			
+			<!-- Compute the transformations -->
+			<xsl:choose>
+				<xsl:when test="exsl:node-set($obsels)/*">
+					<xsl:call-template name="fold-applying-templates">
+						<xsl:with-param name="nodes" select="exsl:node-set($obsels)/*" />
+						<xsl:with-param name="state" select="$initial-state" />
+					</xsl:call-template>
+				</xsl:when>
+				<xsl:otherwise><delta source="{$name}" date="{math:max(/deltas/delta/@date)}" /></xsl:otherwise>
+			</xsl:choose>
+		</deltas>
+	</xsl:template>
+	
+	<xsl:template name="fold-applying-templates">
+		<xsl:param name="nodes"/>
+		<xsl:param name="state"/>
+		<xsl:param name="saves" select="/.."/>
+		<xsl:param name="output-data" select="/.."/>
 		
-		<!-- Save new state -->
-		<exsl:document href="{$state-filename}">
-			<xsl:copy-of select="exsl:node-set($result)/save/*"/>
-		</exsl:document>
-		
-		<!-- Display complete delta -->
-		<delta source="{$name}">
-			<xsl:copy-of select="exsl:node-set($result)/*[name() != 'save']"/>
-		</delta>
+		<xsl:if test="$nodes[1]">
+			<xsl:message terminate="no">NODE: (<xsl:value-of select="name($nodes[1])"/>) @date:<xsl:value-of select="$nodes[1]/@date"/> END NODE</xsl:message>
+			
+			<xsl:variable name="outputs">
+				<xsl:apply-templates select="$nodes[1]">
+					<xsl:with-param name="state" select="$initial-state" />
+				</xsl:apply-templates>
+			</xsl:variable>
+			
+			<!-- Extract the result, but not the saves. -->
+			<xsl:variable name="temp-output">
+				<xsl:copy-of select="exsl:node-set($outputs)/*[name() != 'save']" />
+				<xsl:copy-of select="$output-data" />
+			</xsl:variable>
+			
+			<!-- Extract saves -->
+			<xsl:variable name="temp-saves">
+				<xsl:copy-of select="exsl:node-set($outputs)/save/*" />
+				<xsl:copy-of select="$saves/*" />
+			</xsl:variable>
+			
+			<xsl:choose>
+			
+				<!-- The state is the same for all the obsels at the same date, and the next state
+				     will be the concatenations of all the saves. -->
+				<xsl:when test="$nodes[2] and $nodes[1]/@date = $nodes[2]/@date">
+					<xsl:call-template name="fold-applying-templates">
+						<!-- TODO: isn't that way of recursing really slow ? (n^2) -->
+						<xsl:with-param name="nodes" select="$nodes[position() > 1]" />
+						<xsl:with-param name="state" select="$state" />
+						<xsl:with-param name="saves" select="exsl:node-set($temp-saves)" />
+						<xsl:with-param name="output-data" select="$temp-output"/>
+					</xsl:call-template>
+				</xsl:when>
+				
+				<!-- The next state is defined as the concat of the saves of the previous
+				     computations (since the last date change). -->
+				<xsl:when test="$nodes[2]">
+					<delta source="$name" date="$nodes[1]/@date">
+						<xsl:copy-of select="$temp-output"/>
+					</delta>
+					
+					<xsl:call-template name="fold-applying-templates">
+						<!-- TODO: isn't that way of recursing really slow ? (n^2) -->
+						<xsl:with-param name="nodes" select="$nodes[position() > 1]" />
+						<xsl:with-param name="state" select="exsl:node-set($temp-saves)" />
+					</xsl:call-template>
+				</xsl:when>
+				
+				<xsl:otherwise>
+					<delta source="$name" date="$nodes[1]/@date">
+						<xsl:copy-of select="$temp-output"/>
+					</delta>
+					
+					<!-- Write saves. -->
+					<exsl:document href="{$state-filename}">
+						<xsl:copy-of select="exsl:node-set($outputs)/save/*"/>
+					</exsl:document>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:if>
 	</xsl:template>
 	
 	<!-- Match the obsels from the select-normalizer, that is, the ponctual obsels -->
-	<xsl:template match="delta[@source='select-normalize']/obsel">
+	<xsl:template match="obsel">
+		<xsl:param name="state" />
+		<xsl:message terminate="no">OBSEL FOUND of type <xsl:value-of select="type" /></xsl:message>
+		
 		<!-- We first define some variables which values we will use to draw the shape. -->
 		<xsl:variable name="obselType" select="type" />
 
@@ -40,6 +119,7 @@
 			<xsl:when test="$obselType = 'action'">
 				<xsl:variable name="VarType" select="primitive_enacted_schema" />
 				<!-- We create the embedding group. -->
+				<xsl:message terminate="no">ADDITIONNNNNN</xsl:message>
 				<add>
 					<g id="{@id}^ns" obsel-id="{@id}" date="{@date}" stroke="#000000">
 						<!-- [-32, -24) -->
@@ -82,7 +162,8 @@
 	</xsl:template>
 	
 	<!-- Template drawing the time to target lines. -->
-	<xsl:template match="delta[@source='aggregated-ttt']/*">
+	<xsl:template match="new-ttt | lengthen-ttt | finished-ttt">
+		<xsl:param name="state" />
 		<xsl:variable name="ttt-state" select="$state/ttt" />
 		
 		<xsl:choose>
@@ -426,7 +507,7 @@
 				<xsl:when test="$currentShape='side-ruche'">
 					<use x="0" y="{$varLevel}" xlink:href="svg/icons/sideruche.svg#sideruche" />
 				</xsl:when>
-				<!-- TODO: pollen -->
+				<!-- pollen -->
 				<xsl:when test="$currentShape='pollen'">
 					<use x="0" y="{$varLevel}" xlink:href="svg/icons/pollen.svg#pollen" />
 				</xsl:when>

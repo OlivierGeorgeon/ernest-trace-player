@@ -25,9 +25,12 @@ class Pipeline
 		$deltas = array();
 		//Initializing the input of the pipeline with the obsels to transform
 		$deltas['__input__'] = new DOMDocument();
-			$d = $deltas['__input__']->createElement("delta");
-				$d->setAttribute("source", "__input__");
-		$deltas['__input__']->appendChild($d);
+		$ds = $deltas['__input__']->createElement("deltas");
+		$deltas['__input__']->appendChild($ds);
+		$d = $deltas['__input__']->createElement("delta");
+		$d->setAttribute("source", "__input__");
+		$ds->appendChild($d);
+		
 		foreach($obsels->childNodes as $obsel)
 		{
 			$d->appendChild($deltas['__input__']->importNode($obsel, true));
@@ -45,9 +48,17 @@ class Pipeline
 				
 				foreach($transInfo['sources'] as $sourceName)
 				{
-					$delta_element->appendChild(
-						$deltas_minus_1->importNode(
-							$deltas[$sourceName]->documentElement, true));
+					if($deltas[$sourceName]->documentElement === null)
+					{
+						pushError("No output for transformation " . $sourceName . ".");
+					}
+					
+					foreach($deltas[$sourceName]->documentElement->childNodes as $delta)
+					{
+						$delta_element->appendChild(
+							$deltas_minus_1->importNode(
+								$delta, true));
+					}
 				}
 				
 				//Do the transformation
@@ -62,9 +73,17 @@ class Pipeline
 		$deltas_doc->appendChild($deltas_element);
 		foreach($this->infos->output as $outputSourceName)
 		{
-			$deltas_element->appendChild(
-				$deltas_doc->importNode(
-					$deltas[$outputSourceName]->documentElement, true));
+			if($deltas[$outputSourceName]->documentElement === null)
+			{
+				pushError("No output for transformation " . $outputSourceName . ".");
+			}
+			
+			foreach($deltas[$outputSourceName]->documentElement->childNodes as $delta)
+			{
+				$deltas_element->appendChild(
+					$deltas_doc->importNode(
+						$delta, true));
+			}
 		}
 		
 		return $deltas_doc;
