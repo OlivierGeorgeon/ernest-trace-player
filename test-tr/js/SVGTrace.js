@@ -42,9 +42,7 @@ function SVGTrace(baseURI, idPrefix)
 	 */
 	this.getObsel = function(id)
 	{
-		elt = this.getSVGDoc().getElementById(this.idPrefix + id);
-		
-		return elt;
+		return this.getSVGDoc().getElementById(this.idPrefix + id);
 	}
 
 	/**

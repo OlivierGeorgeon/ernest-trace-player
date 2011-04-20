@@ -23,7 +23,7 @@
 		},
 		"checkFrameState":function(){
 			if(this.environment.getTunnel().getElementById(this.environment.getName() + 'FrameBody').readyState=="loading"){
-				setTimeout(this.checkFrameState.curry(this),500);
+				this.toFrameState = setTimeout(this.checkFrameState.curry(this),500);
 			} else {
 				this.environment.getTunnel().parentWindow.PIComet.event.disconnect();
 				this.environment.getTunnel().getElementById(this.environment.getName() + 'FrameBody').parentNode.removeChild(
@@ -33,6 +33,8 @@
 			}
 		},
 		"abort":function(){
+			this.environment.setByteOffset(0);
+			clearTimeout(this.toFrameState);
 			switch(this.environment.getMethod()){
 				case 1:
 					this.environment.getTunnel().abort();
@@ -59,7 +61,7 @@
 					this.environment.getTunnel().close();
 					this.environment.getTunnel().parentWindow.PIComet = this;
 					this.environment.getTunnel().body.innerHTML="<iframe id='{0}' src='{1}'></iframe>".format(this.environment.getName() + 'FrameBody',this.environment.getUrl());
-					setTimeout(this.checkFrameState.curry(this), 500);
+					this.toFrameState = setTimeout(this.checkFrameState.curry(this), 500);
 			};
 			return this;
 		},
@@ -94,19 +96,20 @@
 				if (this._cometApi_.environment.getMethod() == 2)
 					this._cometApi_.event.push(arguments[0].data);
 				else {
-					var buffer = this.environment.getApi().responseText;
-					var newdata = buffer.substring(this._cometApi_.environment.getByteOffset());
+					var newdata = this.environment.getApi().responseText.substring(
+							this._cometApi_.environment.getByteOffset());
 					var offsetOffset = 0;
 					var end = 0;
 					var start = 0;
 					while (true) {
-						var start = newdata.indexOf("<comet>", end), end = newdata.indexOf("</comet>", start);
+						var start = newdata.indexOf("<comet>", end);
+						var end = newdata.indexOf("</comet>", start);
 						
 						if(start >= 0 && end >= 0){
 							offsetOffset = end + 8;
 						}
 						
-						if (end < 0 || start < 0) 
+						if (end < 0 || start < 0)
 							break;
 						this._cometApi_.event.push(newdata.substring(start + 7, end));
 					};

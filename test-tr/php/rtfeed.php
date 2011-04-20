@@ -10,6 +10,7 @@ require_once 'include/KTBSTraceHandler.inc.php';
 require_once 'include/KTBSTraceHandler2.inc.php';
 require_once 'include/XMLFileTraceHandler.inc.php';
 require_once 'include/NamedPipeTraceHandler.inc.php';
+require_once 'include/XMLStreamTraceHandler.inc.php';
 require_once 'include/Pipeline.inc.php';
 
 
@@ -58,12 +59,15 @@ if($traceHandler === "mock")
 }else if($traceHandler === "pipe")
 {
 	$trace = new NamedPipeTraceHandler($traceRef);
+}else if($traceHandler === "stream")
+{
+	$trace = new XMLStreamTraceHandler($traceRef);
 }
 
 /*
  * Streams data to the player from the trace handler, transforming it with the view.
  */
-header("Content-type: text/xml");
+header("Content-type: text/plain");
 $obsel_doc = new DOMDocument();
 echo "<feed>";flush();
 $time = 0.0;
@@ -74,10 +78,8 @@ do
 	$time_start = microtime_float();
 	$obsel = $trace->getNextObsels($lastKnownId, $lastKnownTime);
 	
-	
 	if($obsel !== false)
 	{
-		//pushError("XMLDOC: \"\"\"" . $obsel . "\"\"\"");
 		$obsel_doc->loadXML($obsel);
 		$time_end = microtime_float();
 		$time_obs += $time_end - $time_start;
@@ -88,12 +90,12 @@ do
 		$time += $time_end - $time_start;
 		
 		pushElement($svgElt->saveXML($svgElt->documentElement, LIBXML_COMPACT));
+		
 		++$i;
-		//pushElement("<error>Everything went smoothly.</error>");
+		if($i > 100)
+			$trace->abortASAP();
 	}else{
 		pushError("Couldn't get next event.");
-		pushElement('<eot/>');
-		die("</feed>");
 	}
 }while($obsel !== false and ! $trace->eot());
 
@@ -101,6 +103,7 @@ do
 if($trace->eot())
 {
 	pushElement('<eot/>');
+	$pipeline->cleanStates();
 }
 /*
 echo "Transform: $time seconds\n";

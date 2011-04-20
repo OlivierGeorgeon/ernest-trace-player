@@ -16,20 +16,41 @@
 <script type="text/javascript" src="js/AInInterpreter.js"></script>
 <script type="text/javascript" src="js/StreamControler.js"></script>
 <script type="text/javascript" src="js/SVGTrace.js"></script>
+<script type="text/javascript" src="js/StreamSelector.js"></script>
 <script type="text/javascript">
 function init_start_player()
 {
-	myPlayer2 = new TracePlayer2("my-player-thin-div", "my-player-thin-notices-div", "exemple", "pipe", "/home/pierreyves/temp/ernest-trace", "", "/abstract/Ernest-trace-player-test-tr");
+	//myPlayer2 = new TracePlayer2("my-player-thin-div", "my-player-thin-notices-div", "exemple", "stream", "test", "", "/abstract/Ernest-trace-player-test-tr");
+	//myPlayer2 = new TracePlayer2("my-player-thin-div", "my-player-thin-notices-div", "exemple", "pipe", "/home/pierreyves/temp/ernest-trace", "", "/abstract/Ernest-trace-player-test-tr");
 	//myPlayer2 = new TracePlayer2("my-player-thin-div", "exemple", "ktbs2", "http://localhost:8001/IDEAL/test99/", "http://salade.dyndns.org/nomodel#", "/abstract/Ernest-trace-player-test-tr");
 	//myPlayer2 = new TracePlayer2("my-player-thin-div", "exemple", "file", "92-07.xml", "", "/abstract/Ernest-trace-player-test-tr");
-	myPlayer2.start();
-
-	$("#clear-notices").click(parametrizeCallback(function(e, tracePlayer)
+	//myPlayer2.start();
+	
+	$("#clear-notices").click(parametrizeCallback(function(e, noticeDiv)
 			{
-				tracePlayer.clearUserNotice();
+				noticeDiv.empty();
 			},
-			{args: [myPlayer2]}
+			{args: [$("#my-player-thin-notices-div")]}
 	));
+	streamSelector = new StreamSelector(
+		"stream-selector", "my-player-thin-notices-div", "/abstract/Ernest-trace-player-test-tr",
+		{
+			div_id: "my-player-thin-div",
+			notice_div_id: "my-player-thin-notices-div",
+			pipeline: "exemple"
+		}
+	);
+
+}
+
+function changeAutoStream(check)
+{
+	if(check.checked)
+	{
+		streamSelector.setAutoLast(true);
+	}else{
+		streamSelector.setAutoLast(false);
+	}
 }
 
 $(document).ready(function()
@@ -51,5 +72,11 @@ $(document).ready(function()
 	 <span id="my-player-thin-notices-div" style="background: rgba(255, 255, 255, 0.9)"/> 
 	</div>
 	<button id="clear-notices">Clear</button>
+	
+	<div style="display:block; position:absolute; border:1px solid gray; padding: 7px; padding-top: 2px;">
+	<div style="margin-bottom: 5px; color: gray">Chose the trace to stream</div>
+		<div id="stream-selector" />
+		<label><input name="auto-last" type="checkbox" autocomplete="off" onchange="changeAutoStream(this)"/>Always play last</label>
+	</div>
 </body>
 </html>

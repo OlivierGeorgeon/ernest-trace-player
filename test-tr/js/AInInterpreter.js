@@ -43,7 +43,6 @@ function AInInterpreter(svgTrace, displayInfos)
 		if(instruction.nodeName == "add")
 		{
 			try{
-				currentlyParsing = instruction;
 				$(instruction).children().each(this.parseJQCallback);
 				this.svgTrace.addObsels(this.currentFragment);
 			}catch (e) {

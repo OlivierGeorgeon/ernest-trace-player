@@ -90,6 +90,14 @@ class Pipeline
 		return $deltas_doc;
 	}
 	
+	public function cleanStates()
+	{
+		foreach($this->transformations as $transformation)
+		{
+			$transformation->cleanState();
+		}
+	}
+	
 	protected function instanciateTransformations()
 	{
 		foreach($this->infos->levels as $level)

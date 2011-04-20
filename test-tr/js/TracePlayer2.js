@@ -1,4 +1,4 @@
-function TracePlayer2(div_id, noticeDiv_id, pipeline,/* infoView,*/ traceHandler, traceRef, traceModel, baseURI)
+function TracePlayer2(div_id, noticeDiv_id, pipeline, traceHandler, traceRef, traceModel, baseURI)
 {
 	this.baseURI = baseURI;
 	this.div_id = div_id;
@@ -72,18 +72,8 @@ function TracePlayer2(div_id, noticeDiv_id, pipeline,/* infoView,*/ traceHandler
 		/*
 		 * Set the behaviors of the UI buttons.
 		 */
-		this.player.onClickPlay = parametrizeCallback(function()
-				{
-					this.streamControler.startStreaming({});
-					this.player.setAutoCenter(true);
-				}, {scope: this}
-			);
-		
-		this.player.onClickPause = parametrizeCallback(function()
-				{
-					this.streamControler.stopStreaming();
-				}, {scope: this}
-			);
+		this.player.onClickPlay = parametrizeCallback(this.play, {scope: this});
+		this.player.onClickPause = parametrizeCallback(this.stop, {scope: this});
 		
 		this.player.onClickMinus = function()
 		{
@@ -114,6 +104,17 @@ function TracePlayer2(div_id, noticeDiv_id, pipeline,/* infoView,*/ traceHandler
 			}, {scope: this}
 		);
 	}
+
+	this.play = function()
+	{
+		this.streamControler.startStreaming({});
+		this.player.setAutoCenter(true);
+	}
+	
+	this.stop = function()
+	{
+		this.streamControler.stopStreaming();
+	}
 	
 	this.processMessage = function(element)
 	{
@@ -127,6 +128,9 @@ function TracePlayer2(div_id, noticeDiv_id, pipeline,/* infoView,*/ traceHandler
 			}else if(topnode.nodeName == 'eot')
 			{
 				this.streamControler.stopStreaming();
+				this.notifyUser("End of stream reached.");
+				if(this.onEOT !== null)
+					this.onEOT();
 			}else if(topnode.nodeName == 'error')
 			{
 				this.errorString = topnode.textContent;
@@ -170,5 +174,13 @@ function TracePlayer2(div_id, noticeDiv_id, pipeline,/* infoView,*/ traceHandler
 	{
 		this.player.clearNotices();
 	}
+	
+	this.cleanup = function()
+	{
+		this.stop();
+		this.player.cleanup();
+	}
+	
+	this.onEOT = null;
 	
 }

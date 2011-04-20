@@ -94,7 +94,7 @@ function Player(playerDivElement, baseURI)
 	 */
 	this.applyScale = function(node)
 	{
-		date = node.getAttribute('date')*1.0;
+		var date = node.getAttribute('date')*1.0;
 		if(node.hasAttribute('begin') && node.hasAttribute('end'))
 		{
 			translateSVGNode(node, (date*1.0-0.5)*this.scale, 0);
@@ -431,8 +431,8 @@ function Player(playerDivElement, baseURI)
 	{
 		if(this.dragging)
 		{
-			newX = e.clientX;
-			newY = e.clientY;
+			var newX = e.clientX;
+			var newY = e.clientY;
 			// Too slow !
 			//this.setCenter(this.centerInit - (newX - this.xInit)/this.scale);
 			// A periodic task will do the setCenter at a reasonnable pace.

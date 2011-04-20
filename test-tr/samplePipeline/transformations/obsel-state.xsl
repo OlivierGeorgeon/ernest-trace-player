@@ -47,7 +47,7 @@
 			<xsl:variable name="group-set" select="exsl:node-set($group)/deltas"/>
 			
 			<!-- TODO: isn't that way of selecting really slow ? (n^2 total) -->
-			<xsl:variable name="next-nodes" select="$nodes[position() > count($group-set/delta)]"/>
+			<xsl:variable name="next-nodes" select="$nodes[position() &gt; count($group-set/delta)]"/>
 			
 			<!-- Apply the transformations on the delta elements of the group. -->
 			<xsl:variable name="outputs">
@@ -57,7 +57,7 @@
 			</xsl:variable>
 			
 			<!-- Output the result, but not the saves. -->
-			<delta source="$name" date="$nodes[1]/@date">
+			<delta source="{$name}" date="{$nodes[1]/@date}">
 				<xsl:copy-of select="exsl:node-set($outputs)/*[name() != 'save']" />
 			</delta>
 			
@@ -66,7 +66,8 @@
 			
 			<xsl:choose>
 				<!-- If there are more nodes to process, recurse on them. -->
-				<xsl:when test="$next-nodes">
+				<xsl:when test="count($next-nodes) &gt; 0">
+					<xsl:message terminate="no">NEXT NODES EXISTING !</xsl:message>
 					<xsl:call-template name="fold-applying-templates">
 						<xsl:with-param name="nodes" select="$next-nodes" />
 						<xsl:with-param name="state" select="$saves" />
@@ -90,7 +91,7 @@
 		
 		<xsl:if test="$nodes[2] and $nodes[1]/@date = $nodes[2]/@date">
 			<xsl:call-template name="first-group">
-				<xsl:with-param name="nodes" select="$nodes[position() > 1]" />
+				<xsl:with-param name="nodes" select="$nodes[position() &gt; 1]" />
 			</xsl:call-template>
 		</xsl:if>
 		

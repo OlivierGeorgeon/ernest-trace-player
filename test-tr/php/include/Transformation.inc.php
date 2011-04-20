@@ -38,6 +38,14 @@ abstract class Transformation {
 	 */
 	abstract public function forceSaveState();
 	
+	/*
+	 * Cleans the saved state informations.
+	 */
+	public function cleanState()
+	{
+		unlink($this->stateFilename);
+	}
+	
 	protected $name;
 	protected $stateFilename;
 }

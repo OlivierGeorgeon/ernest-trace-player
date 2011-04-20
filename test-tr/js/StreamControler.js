@@ -22,7 +22,7 @@ function StreamControler(tracePlayer, streamBaseURL, urlOptions)
 	this.startStreaming = function(urlOptions)
 	{
 		var suppOption = "";
-		for(option in urlOptions) {
+		for(var option in urlOptions) {
 			suppOption += encodeURIComponent(option) + "=" + encodeURIComponent(urlOptions[option]) + "&";
 		}
 		var url = this.url + suppOption;
@@ -37,16 +37,15 @@ function StreamControler(tracePlayer, streamBaseURL, urlOptions)
 				this.stream = pi.comet.get(
 					url,
 					parametrizeCallback(function(_response){ this.onStreamElement(_response); }, {scope: this}),
-					parametrizeCallback(function(suppOption){
+					parametrizeCallback(function(urlOptions){
 						if(this.streaming)
 						{
+							this.streaming = false;
 							this.stream.abort();
-							if(this.streaming)
-							{
-								this.startStreaming(suppOption);
-							}
+							this.stream = null;
+							this.startStreaming(urlOptions);
 						}
-					}, {scope: this, args: [suppOption]})  
+					}, {scope: this, args: [urlOptions]})
 				);
 			}else{
 				this.stream.environment.setUrl(url);
@@ -63,6 +62,7 @@ function StreamControler(tracePlayer, streamBaseURL, urlOptions)
 		{
 			this.streaming = false;
 			this.stream.abort();
+			this.stream = null;
 			this.tracePlayer.notifyUser("Streaming stopped.");
 		}
 	}
@@ -98,5 +98,21 @@ function StreamControler(tracePlayer, streamBaseURL, urlOptions)
 	{
 		this.streamTime = clock;
 	}
+	
+	window.addEventListener(
+		"beforeunload", 
+		parametrizeCallback(
+			function(e){
+				if(this.streaming)
+				{
+					this.streaming = false;
+					this.stream.abort();
+					this.steam = null;
+				}
+			},
+			{scope: this}
+		),
+		false
+	);
 	
 }

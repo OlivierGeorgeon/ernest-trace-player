@@ -105,7 +105,8 @@ function getElementsByTitle(elem, title, recursive, elemWasPushed)
 		recursive = false;
 	if(elemWasPushed == undefined)
 		elemWasPushed = false;
-	
+
+	var pushed = false;
 	var elements = new Array();
 	for(var i = 0; i < elem.childNodes.length; i++)
 	{
@@ -132,8 +133,8 @@ var htmlns = "http://www.w3.org/1999/xhtml";
 function parseSVGNodeIntoFragment(svgString, svgDoc)
 {
 	//svg = $.xmlDOM(svgString);
-	svg = $(svgString);
-	frag = svgDoc.createDocumentFragment();
+	var svg = $(svgString);
+	var frag = svgDoc.createDocumentFragment();
 	copyTrees(svg.children(), frag, svgns);
 	return frag;
 }
@@ -141,7 +142,7 @@ function parseSVGNodeIntoFragment(svgString, svgDoc)
 function parseSVGElementIntoExistingFragment(svgString, svgDoc, frag)
 {
 	//svg = $.xmlDOM(svgString);
-	svg = $(svgString);
+	var svg = $(svgString);
 	copyTrees(svg, frag, svgns);
 }
 

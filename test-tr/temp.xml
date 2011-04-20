@@ -1,187 +1,273 @@
-<slice>
-	<event date="0" id="1" source="Ernest">
-		<type>action</type>
-		<retina>
-			<pixel_0_11>E6CF00</pixel_0_11>
-			<pixel_0_10>E6CF00</pixel_0_10>
-			<pixel_0_9>E6CF00</pixel_0_9>
-			<pixel_0_8>008000</pixel_0_8>
-			<pixel_0_7>2EE600</pixel_0_7>
-			<pixel_0_6>008000</pixel_0_6>
-			<pixel_0_5>E37CFF</pixel_0_5>
-			<pixel_0_4>E37CFF</pixel_0_4>
-			<pixel_0_3>008000</pixel_0_3>
-			<pixel_0_2>008000</pixel_0_2>
-			<pixel_0_1>008000</pixel_0_1>
-			<pixel_0_0>008000</pixel_0_0>
-			<pixel_1_11>008000</pixel_1_11>
-			<pixel_1_10>008000</pixel_1_10>
-			<pixel_1_9>008000</pixel_1_9>
-			<pixel_1_8>008000</pixel_1_8>
-			<pixel_1_7>008000</pixel_1_7>
-			<pixel_1_6>008000</pixel_1_6>
-			<pixel_1_5>008000</pixel_1_5>
-			<pixel_1_4>008000</pixel_1_4>
-			<pixel_1_3>008000</pixel_1_3>
-			<pixel_1_2>008000</pixel_1_2>
-			<pixel_1_1>008000</pixel_1_1>
-			<pixel_1_0>008000</pixel_1_0>
-		</retina>
-		<current_observation>
-			<color>E6CF00</color>
-			<time_to_water>1000</time_to_water>
-			<time_to_food>1000</time_to_food>
-			<last_checked>-1000</last_checked>
-			<distance>22</distance>
-			<motivation>978</motivation>
-			<direction>100</direction>
-			<dynamic_feature>+.</dynamic_feature>
-			<satisfaction>100</satisfaction>
-		</current_observation>
-		<clock>0</clock>
-		<is_thristy>true</is_thristy>
-		<is_hungry>false</is_hungry>
-		<activation_context_acts />
-		<learn_count>0</learn_count>
-		<activations />
-		<proposals>
-			<proposal>"&gt; w=1000" w=0 e=0 s=0</proposal>
-			<proposal>"^ w=1000" w=0 e=0 s=0</proposal>
-			<proposal>"v w=1000" w=0 e=0 s=0</proposal>
-		</proposals>
-		<top_intention>(^)</top_intention>
-		<prescribed_intention>(^)</prescribed_intention>
-		<next_primitive_intention>(^)</next_primitive_intention>
-	</event>
-	<event date="0" id="2" source="environment">
-		<type>position</type>
-	</event>
-	<event date="1" id="3" source="Ernest">
-		<type>action</type>
-		<retina>
-			<pixel_0_11>008000</pixel_0_11>
-			<pixel_0_10>008000</pixel_0_10>
-			<pixel_0_9>008000</pixel_0_9>
-			<pixel_0_8>E6CF00</pixel_0_8>
-			<pixel_0_7>E6CF00</pixel_0_7>
-			<pixel_0_6>E6CF00</pixel_0_6>
-			<pixel_0_5>008000</pixel_0_5>
-			<pixel_0_4>2EE600</pixel_0_4>
-			<pixel_0_3>008000</pixel_0_3>
-			<pixel_0_2>E37CFF</pixel_0_2>
-			<pixel_0_1>E37CFF</pixel_0_1>
-			<pixel_0_0>008000</pixel_0_0>
-			<pixel_1_11>008000</pixel_1_11>
-			<pixel_1_10>008000</pixel_1_10>
-			<pixel_1_9>008000</pixel_1_9>
-			<pixel_1_8>008000</pixel_1_8>
-			<pixel_1_7>008000</pixel_1_7>
-			<pixel_1_6>008000</pixel_1_6>
-			<pixel_1_5>008000</pixel_1_5>
-			<pixel_1_4>008000</pixel_1_4>
-			<pixel_1_3>008000</pixel_1_3>
-			<pixel_1_2>008000</pixel_1_2>
-			<pixel_1_1>008000</pixel_1_1>
-			<pixel_1_0>008000</pixel_1_0>
-		</retina>
-		<current_observation>
-			<color>E6CF00</color>
-			<time_to_water>1000</time_to_water>
-			<time_to_food>1000</time_to_food>
-			<last_checked>-1000</last_checked>
-			<distance>22</distance>
-			<motivation>978</motivation>
-			<direction>70</direction>
-			<dynamic_feature>+</dynamic_feature>
-			<satisfaction>150</satisfaction>
-		</current_observation>
-		<primitive_enacted_schema>^</primitive_enacted_schema>
-		<primitive_feedback>true</primitive_feedback>
-		<primitive_satisfaction>150</primitive_satisfaction>
-		<clock>1</clock>
-		<is_thristy>true</is_thristy>
-		<is_hungry>false</is_hungry>
-		<primitive_intended_act>(^)</primitive_intended_act>
-		<primitive_enacted_act>(^+)</primitive_enacted_act>
-		<activation_context_acts>
-			<act>(^+)</act>
-		</activation_context_acts>
-		<learn_count>0</learn_count>
-		<activations />
-		<proposals>
-			<proposal>"&gt; w=1000" w=0 e=0 s=0</proposal>
-			<proposal>"^ w=1000" w=0 e=0 s=0</proposal>
-			<proposal>"v w=1000" w=0 e=0 s=0</proposal>
-		</proposals>
-		<top_intention>(&gt;)</top_intention>
-		<prescribed_intention>(&gt;)</prescribed_intention>
-		<next_primitive_intention>(&gt;)</next_primitive_intention>
-	</event>
-	<event date="1" id="4" source="environment">
-		<type>position</type>
-	</event>
-	<event date="2" id="5" source="Ernest">
-		<type>action</type>
-		<retina>
-			<pixel_0_11>E6CF00</pixel_0_11>
-			<pixel_0_10>E6CF00</pixel_0_10>
-			<pixel_0_9>E6CF00</pixel_0_9>
-			<pixel_0_8>E6CF00</pixel_0_8>
-			<pixel_0_7>E6CF00</pixel_0_7>
-			<pixel_0_6>E6CF00</pixel_0_6>
-			<pixel_0_5>008000</pixel_0_5>
-			<pixel_0_4>2EE600</pixel_0_4>
-			<pixel_0_3>2EE600</pixel_0_3>
-			<pixel_0_2>008000</pixel_0_2>
-			<pixel_0_1>E37CFF</pixel_0_1>
-			<pixel_0_0>E37CFF</pixel_0_0>
-			<pixel_1_11>008000</pixel_1_11>
-			<pixel_1_10>008000</pixel_1_10>
-			<pixel_1_9>008000</pixel_1_9>
-			<pixel_1_8>008000</pixel_1_8>
-			<pixel_1_7>008000</pixel_1_7>
-			<pixel_1_6>008000</pixel_1_6>
-			<pixel_1_5>008000</pixel_1_5>
-			<pixel_1_4>008000</pixel_1_4>
-			<pixel_1_3>008000</pixel_1_3>
-			<pixel_1_2>008000</pixel_1_2>
-			<pixel_1_1>008000</pixel_1_1>
-			<pixel_1_0>008000</pixel_1_0>
-		</retina>
-		<current_observation>
-			<color>E6CF00</color>
-			<time_to_water>1000</time_to_water>
-			<time_to_food>1000</time_to_food>
-			<last_checked>-1000</last_checked>
-			<distance>10</distance>
-			<motivation>990</motivation>
-			<direction>85</direction>
-			<dynamic_feature>+.</dynamic_feature>
-			<satisfaction>100</satisfaction>
-		</current_observation>
-		<primitive_enacted_schema>&gt;</primitive_enacted_schema>
-		<primitive_feedback>true</primitive_feedback>
-		<primitive_satisfaction>100</primitive_satisfaction>
-		<clock>2</clock>
-		<is_thristy>true</is_thristy>
-		<is_hungry>false</is_hungry>
-		<primitive_intended_act>(&gt;)</primitive_intended_act>
-		<primitive_enacted_act>(&gt;+.)</primitive_enacted_act>
-		<activation_context_acts>
-			<act>(&gt;+.)</act>
-		</activation_context_acts>
-		<learn_count>1</learn_count>
-		<activations />
-		<proposals>
-			<proposal>"&gt; w=1000" w=0 e=0 s=0</proposal>
-			<proposal>"^ w=1000" w=0 e=0 s=0</proposal>
-			<proposal>"v w=1000" w=0 e=0 s=0</proposal>
-		</proposals>
-		<top_intention>(^)</top_intention>
-		<prescribed_intention>(^)</prescribed_intention>
-		<next_primitive_intention>(^)</next_primitive_intention>
-	</event>
-	<event date="2" id="6" source="environment">
-		<type>position</type>
-	</event>
-</slice>
+<contents>
+	<slice date="0">
+		<event date="0" id="1" source="Ernest">
+			<type>action</type>
+			<retina>
+				<pixel_0_11>E6CF00</pixel_0_11>
+				<pixel_0_10>E6CF00</pixel_0_10>
+				<pixel_0_9>E6CF00</pixel_0_9>
+				<pixel_0_8>008000</pixel_0_8>
+				<pixel_0_7>2EE600</pixel_0_7>
+				<pixel_0_6>008000</pixel_0_6>
+				<pixel_0_5>E37CFF</pixel_0_5>
+				<pixel_0_4>E37CFF</pixel_0_4>
+				<pixel_0_3>008000</pixel_0_3>
+				<pixel_0_2>008000</pixel_0_2>
+				<pixel_0_1>008000</pixel_0_1>
+				<pixel_0_0>008000</pixel_0_0>
+				<pixel_1_11>008000</pixel_1_11>
+				<pixel_1_10>008000</pixel_1_10>
+				<pixel_1_9>008000</pixel_1_9>
+				<pixel_1_8>008000</pixel_1_8>
+				<pixel_1_7>008000</pixel_1_7>
+				<pixel_1_6>008000</pixel_1_6>
+				<pixel_1_5>008000</pixel_1_5>
+				<pixel_1_4>008000</pixel_1_4>
+				<pixel_1_3>008000</pixel_1_3>
+				<pixel_1_2>008000</pixel_1_2>
+				<pixel_1_1>008000</pixel_1_1>
+				<pixel_1_0>008000</pixel_1_0>
+			</retina>
+			<current_observation>
+				<color>E6CF00</color>
+				<time_to_water>1000</time_to_water>
+				<time_to_food>1000</time_to_food>
+				<last_checked>-1000</last_checked>
+				<distance>22</distance>
+				<motivation>978</motivation>
+				<direction>100</direction>
+				<dynamic_feature>+.</dynamic_feature>
+				<satisfaction>100</satisfaction>
+			</current_observation>
+			<clock>0</clock>
+			<is_thristy>true</is_thristy>
+			<is_hungry>false</is_hungry>
+			<activation_context_acts />
+			<learn_count>0</learn_count>
+			<activations />
+			<proposals>
+				<proposal>"&gt; w=1000" w=0 e=0 s=0</proposal>
+				<proposal>"^ w=1000" w=0 e=0 s=0</proposal>
+				<proposal>"v w=1000" w=0 e=0 s=0</proposal>
+			</proposals>
+			<top_intention>(&gt;)</top_intention>
+			<prescribed_intention>(&gt;)</prescribed_intention>
+			<next_primitive_intention>(&gt;)</next_primitive_intention>
+		</event>
+		<event date="0" id="2" source="environment">
+			<type>position</type>
+			<x>3</x>
+			<y>7</y>
+			<orientation>0</orientation>
+		</event>
+	</slice>
+	<slice date="1">
+		<event date="1" id="3" source="Ernest">
+			<type>action</type>
+			<retina>
+				<pixel_0_11>E6CF00</pixel_0_11>
+				<pixel_0_10>E6CF00</pixel_0_10>
+				<pixel_0_9>008000</pixel_0_9>
+				<pixel_0_8>2EE600</pixel_0_8>
+				<pixel_0_7>2EE600</pixel_0_7>
+				<pixel_0_6>008000</pixel_0_6>
+				<pixel_0_5>E37CFF</pixel_0_5>
+				<pixel_0_4>E37CFF</pixel_0_4>
+				<pixel_0_3>E37CFF</pixel_0_3>
+				<pixel_0_2>008000</pixel_0_2>
+				<pixel_0_1>008000</pixel_0_1>
+				<pixel_0_0>008000</pixel_0_0>
+				<pixel_1_11>008000</pixel_1_11>
+				<pixel_1_10>008000</pixel_1_10>
+				<pixel_1_9>008000</pixel_1_9>
+				<pixel_1_8>008000</pixel_1_8>
+				<pixel_1_7>008000</pixel_1_7>
+				<pixel_1_6>008000</pixel_1_6>
+				<pixel_1_5>008000</pixel_1_5>
+				<pixel_1_4>008000</pixel_1_4>
+				<pixel_1_3>008000</pixel_1_3>
+				<pixel_1_2>008000</pixel_1_2>
+				<pixel_1_1>008000</pixel_1_1>
+				<pixel_1_0>008000</pixel_1_0>
+			</retina>
+			<current_observation>
+				<color>E6CF00</color>
+				<time_to_water>1000</time_to_water>
+				<time_to_food>1000</time_to_food>
+				<last_checked>-1000</last_checked>
+				<distance>20</distance>
+				<motivation>980</motivation>
+				<direction>105</direction>
+				<dynamic_feature>+.</dynamic_feature>
+				<satisfaction>100</satisfaction>
+			</current_observation>
+			<primitive_enacted_schema>&gt;</primitive_enacted_schema>
+			<primitive_feedback>true</primitive_feedback>
+			<primitive_satisfaction>100</primitive_satisfaction>
+			<clock>1</clock>
+			<is_thristy>true</is_thristy>
+			<is_hungry>false</is_hungry>
+			<primitive_intended_act>(&gt;)</primitive_intended_act>
+			<primitive_enacted_act>(&gt;+.)</primitive_enacted_act>
+			<activation_context_acts>
+				<act>(&gt;+.)</act>
+			</activation_context_acts>
+			<learn_count>0</learn_count>
+			<activations />
+			<proposals>
+				<proposal>"&gt; w=1000" w=0 e=0 s=0</proposal>
+				<proposal>"^ w=1000" w=0 e=0 s=0</proposal>
+				<proposal>"v w=1000" w=0 e=0 s=0</proposal>
+			</proposals>
+			<top_intention>(v)</top_intention>
+			<prescribed_intention>(v)</prescribed_intention>
+			<next_primitive_intention>(v)</next_primitive_intention>
+		</event>
+		<event date="1" id="4" source="environment">
+			<type>position</type>
+			<x>3</x>
+			<y>7</y>
+			<orientation>5</orientation>
+		</event>
+	</slice>
+	<slice date="2">
+		<event date="2" id="5" source="Ernest">
+			<type>action</type>
+			<retina>
+				<pixel_0_11>2EE600</pixel_0_11>
+				<pixel_0_10>2EE600</pixel_0_10>
+				<pixel_0_9>008000</pixel_0_9>
+				<pixel_0_8>E37CFF</pixel_0_8>
+				<pixel_0_7>E37CFF</pixel_0_7>
+				<pixel_0_6>E37CFF</pixel_0_6>
+				<pixel_0_5>008000</pixel_0_5>
+				<pixel_0_4>008000</pixel_0_4>
+				<pixel_0_3>008000</pixel_0_3>
+				<pixel_0_2>008000</pixel_0_2>
+				<pixel_0_1>008000</pixel_0_1>
+				<pixel_0_0>008000</pixel_0_0>
+				<pixel_1_11>008000</pixel_1_11>
+				<pixel_1_10>008000</pixel_1_10>
+				<pixel_1_9>008000</pixel_1_9>
+				<pixel_1_8>008000</pixel_1_8>
+				<pixel_1_7>008000</pixel_1_7>
+				<pixel_1_6>008000</pixel_1_6>
+				<pixel_1_5>008000</pixel_1_5>
+				<pixel_1_4>008000</pixel_1_4>
+				<pixel_1_3>008000</pixel_1_3>
+				<pixel_1_2>008000</pixel_1_2>
+				<pixel_1_1>008000</pixel_1_1>
+				<pixel_1_0>008000</pixel_1_0>
+			</retina>
+			<current_observation>
+				<color>E37CFF</color>
+				<time_to_water>1000</time_to_water>
+				<time_to_food>1000</time_to_food>
+				<last_checked>-1000</last_checked>
+				<distance>31</distance>
+				<motivation>969</motivation>
+				<direction>70</direction>
+				<dynamic_feature>-</dynamic_feature>
+				<satisfaction>-150</satisfaction>
+			</current_observation>
+			<primitive_enacted_schema>v</primitive_enacted_schema>
+			<primitive_feedback>true</primitive_feedback>
+			<primitive_satisfaction>-150</primitive_satisfaction>
+			<clock>2</clock>
+			<is_thristy>true</is_thristy>
+			<is_hungry>false</is_hungry>
+			<primitive_intended_act>(v)</primitive_intended_act>
+			<primitive_enacted_act>(v-)</primitive_enacted_act>
+			<activation_context_acts>
+				<act>(v-)</act>
+			</activation_context_acts>
+			<learn_count>1</learn_count>
+			<activations />
+			<proposals>
+				<proposal>"&gt; w=1000" w=0 e=0 s=0</proposal>
+				<proposal>"^ w=1000" w=0 e=0 s=0</proposal>
+				<proposal>"v w=1000" w=0 e=0 s=0</proposal>
+			</proposals>
+			<top_intention>(&gt;)</top_intention>
+			<prescribed_intention>(&gt;)</prescribed_intention>
+			<next_primitive_intention>(&gt;)</next_primitive_intention>
+		</event>
+		<event date="2" id="6" source="environment">
+			<type>position</type>
+			<x>4</x>
+			<y>6</y>
+			<orientation>5</orientation>
+		</event>
+	</slice>
+	<slice date="3">
+		<event date="3" id="7" source="Ernest">
+			<type>action</type>
+			<retina>
+				<pixel_0_11>008000</pixel_0_11>
+				<pixel_0_10>E37CFF</pixel_0_10>
+				<pixel_0_9>E37CFF</pixel_0_9>
+				<pixel_0_8>E37CFF</pixel_0_8>
+				<pixel_0_7>E37CFF</pixel_0_7>
+				<pixel_0_6>008000</pixel_0_6>
+				<pixel_0_5>008000</pixel_0_5>
+				<pixel_0_4>008000</pixel_0_4>
+				<pixel_0_3>008000</pixel_0_3>
+				<pixel_0_2>008000</pixel_0_2>
+				<pixel_0_1>008000</pixel_0_1>
+				<pixel_0_0>008000</pixel_0_0>
+				<pixel_1_11>008000</pixel_1_11>
+				<pixel_1_10>008000</pixel_1_10>
+				<pixel_1_9>008000</pixel_1_9>
+				<pixel_1_8>008000</pixel_1_8>
+				<pixel_1_7>008000</pixel_1_7>
+				<pixel_1_6>008000</pixel_1_6>
+				<pixel_1_5>008000</pixel_1_5>
+				<pixel_1_4>008000</pixel_1_4>
+				<pixel_1_3>008000</pixel_1_3>
+				<pixel_1_2>008000</pixel_1_2>
+				<pixel_1_1>008000</pixel_1_1>
+				<pixel_1_0>008000</pixel_1_0>
+			</retina>
+			<current_observation>
+				<color>E37CFF</color>
+				<time_to_water>1000</time_to_water>
+				<time_to_food>1000</time_to_food>
+				<last_checked>-1000</last_checked>
+				<distance>20</distance>
+				<motivation>980</motivation>
+				<direction>85</direction>
+				<dynamic_feature>+.</dynamic_feature>
+				<satisfaction>100</satisfaction>
+			</current_observation>
+			<primitive_enacted_schema>&gt;</primitive_enacted_schema>
+			<primitive_feedback>true</primitive_feedback>
+			<primitive_satisfaction>100</primitive_satisfaction>
+			<clock>3</clock>
+			<is_thristy>true</is_thristy>
+			<is_hungry>false</is_hungry>
+			<primitive_intended_act>(&gt;)</primitive_intended_act>
+			<primitive_enacted_act>(&gt;+.)</primitive_enacted_act>
+			<activation_context_acts>
+				<act>(&gt;+.)</act>
+			</activation_context_acts>
+			<learn_count>2</learn_count>
+			<activations>
+				<activation>"(&gt;+.)(v-) w=1" s=-150</activation>
+			</activations>
+			<proposals>
+				<proposal>"&gt; w=1000" w=0 e=0 s=0</proposal>
+				<proposal>"^ w=1000" w=0 e=0 s=0</proposal>
+				<proposal>"v w=1000" w=-150 e=1 s=0</proposal>
+			</proposals>
+			<top_intention>(&gt;)</top_intention>
+			<prescribed_intention>(&gt;)</prescribed_intention>
+			<next_primitive_intention>(&gt;)</next_primitive_intention>
+		</event>
+		<event date="3" id="8" source="environment">
+			<type>position</type>
+			<x>4</x>
+			<y>6</y>
+			<orientation>5</orientation>
+		</event>
+	</slice>
+</contents>

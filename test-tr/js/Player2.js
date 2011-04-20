@@ -9,6 +9,8 @@ function Player2(playerDivElement, noticeDivElement, baseURI, svgTrace, defaultW
 	this.xWWidth = xWWidth;
 	this.scale = defaultScale;
 	this.center = defaultCenter;
+	this.eventmove = null;
+	this.eventup = null;
 	
 	//Private
 	this.adjustUIWidth = function()
@@ -185,31 +187,36 @@ function Player2(playerDivElement, noticeDivElement, baseURI, svgTrace, defaultW
 	 */
 	this.onMouseDownRect = function(e)
 	{
-		e.preventDefault();
-		
-		this.displayer.checkAdjustViewPort();
-		
-		this.dragging = true;
-		this.xInit = e.clientX;
-		this.yInit = e.clientY;
-		this.centerInit = this.displayer.getCenter();
-		this.draggedCenter = this.displayer.getCenter();
-
-		//JQuery event management is too slow !
-		//$(this.fullbody).bind('mousemove', this.onMouseMoveRectParam, false);
-		//$(this.fullbody).bind('mouseup', this.onMouseUpRectParam, false);
-		
-		this.oldfullbodyonmousemove = this.fullbody.onmousemove;
-		this.oldfullbodyonmouseup = this.fullbody.onmouseup;
-		
-		this.fullbody.onmousemove = this.onMouseMoveRectParam;
-		this.fullbody.onmouseup = this.onMouseUpRectParam;
-		
-		
-		
-		this.moveCenterTask = setTimeout(
-				parametrizeCallback(this.updateDraggedCenter, {scope: this}),
-				40);
+		if(!this.dragging)
+		{
+			e.preventDefault();
+			
+			this.displayer.checkAdjustViewPort();
+			
+			this.dragging = true;
+			this.xInit = e.clientX;
+			this.yInit = e.clientY;
+			this.centerInit = this.displayer.getCenter();
+			this.draggedCenter = this.displayer.getCenter();
+	
+			//JQuery event management is too slow !
+			//$(this.fullbody).bind('mousemove', this.onMouseMoveRectParam, false);
+			//$(this.fullbody).bind('mouseup', this.onMouseUpRectParam, false);
+			
+			//this.oldfullbodyonmousemove = this.fullbody.onmousemove;
+			//this.oldfullbodyonmouseup = this.fullbody.onmouseup;
+			
+			/*this.fullbody.onmousemove = this.onMouseMoveRectParam;
+			this.fullbody.onmouseup = this.onMouseUpRectParam;
+			*/
+			
+			this.eventmove = this.fullbody.addEventListener("mousemove", this.onMouseMoveRectParam, true);
+			this.eventup = this.fullbody.addEventListener("mouseup", this.onMouseUpRectParam, true);
+			
+			this.moveCenterTask = setTimeout(
+					parametrizeCallback(this.updateDraggedCenter, {scope: this}),
+					40);
+		}
 	}
 	
 	/**
@@ -236,8 +243,8 @@ function Player2(playerDivElement, noticeDivElement, baseURI, svgTrace, defaultW
 	{
 		if(this.dragging)
 		{
-			newX = e.clientX;
-			newY = e.clientY;
+			var newX = e.clientX;
+			var newY = e.clientY;
 			// Too slow !
 			//this.setCenter(this.centerInit - (newX - this.xInit)/this.scale);
 			// A periodic task will do the setCenter at a reasonnable pace.
@@ -247,8 +254,20 @@ function Player2(playerDivElement, noticeDivElement, baseURI, svgTrace, defaultW
 			//$(this.fullbody).unbind('mousemove', this.onMouseMoveRectParam);
 			//$(this.fullbody).unbind('mouseup', this.onMouseUpRectParam);
 
-			this.fullbody.onmousemove = this.oldfullbodyonmousemove;
-			this.fullbody.onmouseup = this.oldfullbodyonmouseup;
+			/*this.fullbody.onmousemove = this.oldfullbodyonmousemove;
+			this.fullbody.onmouseup = this.oldfullbodyonmouseup;*/
+			if(this.eventmove !== null)
+			{
+				this.fullbody.removeEventListener('mousemove', this.eventmove, true);
+				this.eventmove = null;
+			}
+			
+			if(this.eventup !== null)
+			{
+				this.fullbody.removeEventListener('mouseup', this.up, true);
+				this.eventup = null;
+			}
+			
 			clearTimeout(this.moveCenterTask);
 		}
 	}
@@ -266,11 +285,23 @@ function Player2(playerDivElement, noticeDivElement, baseURI, svgTrace, defaultW
 		//$(this.fullbody).unbind('mousemove', this.onMouseMoveRectParam);
 		//$(this.fullbody).unbind('mouseup', this.onMouseUpRectParam);
 		
-		this.fullbody.onmousemove = this.oldfullbodyonmousemove;
-		this.fullbody.onmouseup = this.oldfullbodyonmouseup;
+		//this.fullbody.onmousemove = this.oldfullbodyonmousemove;
+		//this.fullbody.onmouseup = this.oldfullbodyonmouseup;
+		if(this.eventmove !== null)
+		{
+			this.fullbody.removeEventListener('mousemove', this.eventmove, true);
+			this.eventmove = null;
+		}
+		
+		if(this.eventup !== null)
+		{
+			this.fullbody.removeEventListener('mouseup', this.up, true);
+			this.eventup = null;
+		}
+		
 		clearTimeout(this.moveCenterTask);
 	}
-
+	
 	/**
 	 * Returns a copy of the svg tree, with viewport fitting the current view.
 	 */
@@ -339,6 +370,25 @@ function Player2(playerDivElement, noticeDivElement, baseURI, svgTrace, defaultW
 	this.clearNotices = function()
 	{
 		this.playerNotice.empty();
+	}
+	
+	this.cleanup = function()
+	{
+		if(this.eventmove !== null)
+		{
+			this.fullbody.removeEventListener('mousemove', this.eventmove, true);
+			this.eventmove = null;
+		}
+		
+		if(this.eventup !== null)
+		{
+			this.fullbody.removeEventListener('mouseup', this.up, true);
+			this.eventup = null;
+		}
+		
+		clearTimeout(this.moveCenterTask);
+		
+		this.displayer.cleanup();
 	}
 	
 	this.onClickPlay = null;

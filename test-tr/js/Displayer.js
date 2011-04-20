@@ -93,7 +93,7 @@ function Displayer(svgTrace, defaultWidth, xWWidth, defaultScale, defaultCenter,
 	//Private
 	this.scaleObsel = function(node)
 	{
-		date = node.getAttribute('date')*1.0;
+		var date = node.getAttribute('date')*1.0;
 		if(node.hasAttribute('begin') && node.hasAttribute('end'))
 		{
 			translateSVGNode(node, (date*1.0-0.5)*this.scale, 0);
@@ -107,7 +107,7 @@ function Displayer(svgTrace, defaultWidth, xWWidth, defaultScale, defaultCenter,
 	//Private
 	this.rescaleObsel = function(node)
 	{
-		date = node.getAttribute('date')*1.0;
+		var date = node.getAttribute('date')*1.0;
 		if(node.hasAttribute('begin') && node.hasAttribute('end'))
 		{
 			//TODO: do that better
@@ -177,7 +177,7 @@ function Displayer(svgTrace, defaultWidth, xWWidth, defaultScale, defaultCenter,
 	{
 		this.xcenter = this.dateCenter*1.0*this.scale + this.zeroOffset;
 		
-		if(this.ajust)
+		/*if(this.ajust)*/
 			this.checkAdjustViewPort();
 		
 		this.divElement.scrollLeft = this.xcenter - this.centerOffset;
@@ -221,7 +221,6 @@ function Displayer(svgTrace, defaultWidth, xWWidth, defaultScale, defaultCenter,
 	//Private
 	this.adjustViewPort = function()
 	{
-		this.ajust = false;
 		var bbox = this.svgElement.getBBox();
 		
 		//if bbox is too close (100px ? 1 px ?) to the viewport, extend it 1 xWWidth away from it each side
@@ -232,6 +231,8 @@ function Displayer(svgTrace, defaultWidth, xWWidth, defaultScale, defaultCenter,
 		|| bbox.x - 2000 > this.svgElement.viewBox.baseVal.x)
 		{*/
 			this.setViewPort(bbox.x - this.xWWidth, bbox.width + 2.0*this.xWWidth);
+			bboxx = bbox.x;
+			bboxw = bbox.width;
 		/*}*/
 	}
 
@@ -274,7 +275,7 @@ function Displayer(svgTrace, defaultWidth, xWWidth, defaultScale, defaultCenter,
 			// suspendRedraw seems buggy with firefox < 4.0
 			if($.browser['mozilla'] && $.browser['version'].substr(0, 3)*1.0 >= 2.0)
 			{
-				this.suspendedRedraw = this.svgElement.suspendRedraw(200);
+				this.suspendedRedraw = this.svgElement.suspendRedraw(100000);
 			}
 		}
 	}
@@ -289,8 +290,7 @@ function Displayer(svgTrace, defaultWidth, xWWidth, defaultScale, defaultCenter,
 			// suspendRedraw seems buggy with firefox < 4.0
 			if($.browser['mozilla'] && $.browser['version'].substr(0, 3)*1.0 >= 2.0)
 			{
-				/*this.svgElement.unsuspendRedraw(this.suspendedRedraw);
-				this.svgElement.unsuspendRedrawAll();*/
+				this.svgElement.unsuspendRedraw(this.suspendedRedraw);
 				this.suspendedRedraw = null;
 			}
 		}
@@ -307,6 +307,11 @@ function Displayer(svgTrace, defaultWidth, xWWidth, defaultScale, defaultCenter,
 		newSVG.width.baseVal.value = this.xWWidth * 1.0;
 		
 		return newSVG
+	}
+	
+	this.cleanup = function()
+	{
+		this.unsuspendRedraw();
 	}
 	
 	this.onscrolled = null;
