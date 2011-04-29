@@ -48,7 +48,7 @@ class XSLTTransformation extends Transformation
 		return $this->xsltProc;
 	}
 	
-	public function forceSaveState() {}
+	protected function forceSaveStateImpl() {}
 	
 	protected $xsltProc;
 	protected $xsltFilename;

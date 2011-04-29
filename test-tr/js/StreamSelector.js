@@ -1,4 +1,4 @@
-function StreamSelector(div_id, noticeDiv_id, baseURI, tracePlayeInfos)
+function StreamSelector(div_id, noticeDiv_id, baseURI, tracePlayeInfos, configEditor)
 {
 	this.baseURI = baseURI;
 	this.div = $('#' + div_id);
@@ -7,45 +7,89 @@ function StreamSelector(div_id, noticeDiv_id, baseURI, tracePlayeInfos)
 	this.currentPlayer = null;
 	this.currentStream = null;
 	this.autoLast = false;
+	this.configEditor = configEditor;
+	this.reloadProgrammed = false;
 	
 	this.reload = function()
 	{
+		this.reloadProgrammed = false;
+		
 		$.ajax({
 			url: this.baseURI + '/php/streamList.php',
 			context: this,
 			success: function(data){
 				this.div.html(data);
 				this.relink();
+				if(!this.reloadProgrammed)
+				{
+					this.reloadProgrammed = true;
+					setTimeout(parametrizeCallback(this.reload, {scope: this}), 5000);
+				}
 			},
 			dataType: "text",
-			async: false
+			async: true
 		});
 		
-		setTimeout(parametrizeCallback(this.reload, {scope: this}), 5000);
 	}
 	
 	this.relink = function()
 	{
-		this.div.find('ul li a').each(
-			parametrizeCallback(function(index, elem, that)
-				{
-					var name = this.getAttribute('title');
-					//this.addEventListener("click",
-					this.onclick = parametrizeCallback(function(e, name)
-							{
-								this.changeStream(name);
-							},
-							{scope: that, args: [name]}
-						)
-					//)
-					;
-				},
-				{args: [this]}
-			)
-		);
+		this.div.find('ul li a[title=stream]').each(
+				parametrizeCallback(function(index, elem, that)
+					{
+						var name = this.parentNode.getAttribute('title');
+						//this.addEventListener("click",
+						this.onclick = parametrizeCallback(function(e, name)
+								{
+									this.changeStream(name, "stream");
+								},
+								{scope: that, args: [name]}
+							)
+						//)
+						;
+					},
+					{args: [this]}
+				)
+			);
+
+		this.div.find('ul li a[title=stored]').each(
+				parametrizeCallback(function(index, elem, that)
+					{
+						var name = this.parentNode.getAttribute('title');
+						//this.addEventListener("click",
+						this.onclick = parametrizeCallback(function(e, name)
+								{
+									this.changeStream(name, "storedstream");
+								},
+								{scope: that, args: [name]}
+							)
+						//)
+						;
+					},
+					{args: [this]}
+				)
+			);
+		
+		this.div.find('ul li a[title=delete-stored]').each(
+				parametrizeCallback(function(index, elem, that)
+					{
+						var name = this.parentNode.getAttribute('title');
+						//this.addEventListener("click",
+						this.onclick = parametrizeCallback(function(e, name)
+								{
+									this.deleteStored(name, "storedstream");
+								},
+								{scope: that, args: [name]}
+							)
+						//)
+						;
+					},
+					{args: [this]}
+				)
+			);
 	}
 	
-	this.changeStream = function(name)
+	this.changeStream = function(name, handler)
 	{
 		this.currentStream = name;
 		if(this.currentPlayer !== null)
@@ -60,16 +104,25 @@ function StreamSelector(div_id, noticeDiv_id, baseURI, tracePlayeInfos)
 			this.tpInfos.div_id, 
 			this.tpInfos.notice_div_id,
 			this.tpInfos.pipeline, 
-			"stream",
+			handler,
 			name,
 			"",
 			this.baseURI);
 
+		this.currentPlayer.onPlaying = parametrizeCallback(this.configEditor.playing, {scope: this.configEditor});
+		this.currentPlayer.onStopped = parametrizeCallback(this.configEditor.stopped, {scope: this.configEditor});
+		
 		this.currentPlayer.start();
 		
 		this.currentPlayer.onEOT = parametrizeCallback(this.onEOT, {scope: this});
 	}
-
+	
+	this.deleteStored = function(name, type)
+	{
+		$.post(baseURI + "/php/streamDelete.php", {traceId: name});
+		this.reload();
+	}
+	
 	this.setAutoLast = function(auto)
 	{
 		if(this.autoLast != auto)
@@ -92,7 +145,7 @@ function StreamSelector(div_id, noticeDiv_id, baseURI, tracePlayeInfos)
 					var lastTrace = data.documentElement.textContent; //TODO 
 					if(this.currentStream != lastTrace)
 					{
-						this.changeStream(lastTrace);
+						this.changeStream(lastTrace, "stream");
 						this.currentPlayer.play();
 					}else{
 						setTimeout(parametrizeCallback(this.playLast, {scope: this}), 500);

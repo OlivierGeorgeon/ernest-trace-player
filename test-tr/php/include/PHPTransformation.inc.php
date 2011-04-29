@@ -1,5 +1,6 @@
 <?php
 require_once('include/Transformation.inc.php');
+require_once('include/misc.inc.php');
 
 abstract class PHPTransformation extends Transformation
 {
@@ -10,11 +11,13 @@ abstract class PHPTransformation extends Transformation
 	public function __construct($name, $stateFilename)
 	{
 		parent::__construct($name, $stateFilename);
-		$this->loadState();
 	}
 	
 	public function transform($deltas)
 	{
+		$cwd = getcwd();
+		chdir(DATA_DIR . '/pipelines/transformations/');
+		
 		$my_doc = new DOMDocument();
 		$my_deltas = $my_doc->createElement("deltas");
 		$my_doc->appendChild($my_deltas);
@@ -40,12 +43,13 @@ abstract class PHPTransformation extends Transformation
 			$last_date = intval($one_delta['date']);
 		}
 		
-		if($last_date != null)
+		if($last_date !== null)
 		{
 			$tempDeltas .= '</deltas>';
 			$this->transform_many_obsels(simplexml_load_string($tempDeltas), $last_date, $my_doc, $my_deltas);
 		}
 		
+		chdir($cwd);
 		return $my_doc;
 	}
 	
@@ -63,13 +67,14 @@ abstract class PHPTransformation extends Transformation
 		}
 	}
 
-	public function forceSaveState()
+	protected function forceSaveStateImpl()
 	{
 		file_put_contents($this->stateFilename, $this->state->saveXML());
 	}
 	
 	protected function loadState()
 	{
+		parent::loadState();
 		$this->state = simplexml_load_file($this->stateFilename);
 	}
 	

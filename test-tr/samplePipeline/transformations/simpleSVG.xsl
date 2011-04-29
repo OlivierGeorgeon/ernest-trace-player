@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:transform xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.1">
+<xsl:transform xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+		xmlns:exsl="http://exslt.org/common"
+		xmlns:math="http://exslt.org/math" xmlns:dyn="http://exslt.org/dynamic"
+		extension-element-prefixes="exsl math dyn" version="1.1">
 	<xsl:param name="state-filename" />
 	<xsl:param name="name" />
 	<xsl:output method="xml" omit-xml-declaration="yes" indent="no"/>
@@ -287,24 +290,13 @@
 		<xsl:param name="end-position" />
 		<xsl:param name="vertical-offset" />
 		
-		<xsl:if test="primitive_feedback = 'false' and $action-type = '>'">
-			<xsl:variable name="shape-color">
-				<xsl:choose>
-					<xsl:when test="$action-type = '>'">
-						<xsl:text>#FF0000</xsl:text>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:text>#008000</xsl:text>
-					</xsl:otherwise>
-				</xsl:choose>
-			</xsl:variable>
-			
+		<xsl:if test="primitive_encated_act = '[>]'">
 			<xsl:call-template name="draw-shape">
 				<xsl:with-param name="vert-level" select="$vertical-offset + 10" />
 				<xsl:with-param name="begin-position" select="$begin-position" />
 				<xsl:with-param name="end-position" select="$end-position" />
 				<xsl:with-param name="shape-type" select="'vertical-thin-line'" />
-				<xsl:with-param name="shape-color" select="$shape-color" />
+				<xsl:with-param name="shape-color" select="'#FF0000'" />
 			</xsl:call-template>
 		</xsl:if>
 	</xsl:template>

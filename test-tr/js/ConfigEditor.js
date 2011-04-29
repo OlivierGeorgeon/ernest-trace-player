@@ -1,0 +1,350 @@
+function ConfigEditor(div_id, noticeDiv_id, baseURI)
+{
+	this.baseURI = baseURI;
+	this.div = $('#' + div_id);
+	this.notice_div = $('#' + noticeDiv_id);
+	
+	this.init = function()
+	{
+		$.ajax({
+			url: this.baseURI + '/html/baseConfigEditor.html',
+			context: this,
+			success: function(data){
+				this.div.html(data);
+				this.formDiv = this.div.find('div[title=new-symbole-form-div]')
+				this.formLDiv = this.div.find('div[title=new-lsymbole-form-div]');
+				this.symboleListDiv = this.div.find('div[title=symbole-list]');
+				
+				var slDiv = this.div.find('div[title=save-load]');
+				this.saveFormDiv = slDiv.find('div[title=form]');
+				this.confListDiv = slDiv.find('div[title=list]');
+				
+				this.coverSymboleForm = this.div.find('div[title=cover-new-form]');
+				this.coverConfigList = this.div.find('div[title=cover-config-list]');
+			},
+			dataType: "text",
+			async: false
+		});
+
+		this.loadNewSymboleForm();
+		this.loadNewLSymboleForm();
+		this.loadSaveForm();
+		this.loadConfigState();
+		this.loadConfigList();
+	}
+
+	this.loadNewSymboleForm = function()
+	{
+		$.ajax({
+			url: this.baseURI + '/html/confNewSymboleForm.html',
+			context: this,
+			success: function(data){
+				this.formDiv.html(data);
+				
+				this.formNew = this.formDiv.find('form[title=new-symbole]');
+				this.formNewCond = this.formNew.find("input[name=condition]");
+				this.formNewShape = this.formNew.find("input[name=shape]");
+				this.formNewColor = this.formNew.find("input[name=color]");
+				this.formNewVOffset = this.formNew.find("input[name=voffset]");
+				this.formNewImg = this.formNew.find("input[name=image-url]");
+				
+				this.formNewShape.tooltip({tip: "#shape-tooltip", position: "center right", opacity: 0.7});
+				
+				this.formNew.submit(
+					parametrizeCallback(
+						function(e, baseURI) {
+							$.post(baseURI + "/php/confNewSymbole.php", $(this).serialize());
+						}, {args: [this.baseURI]}
+					)
+				);
+			},
+			dataType: "text",
+			async: true
+		});
+	}
+	
+	this.loadNewLSymboleForm = function()
+	{
+		$.ajax({
+			url: this.baseURI + '/html/confNewLSymboleForm.html',
+			context: this,
+			success: function(data){
+				this.formLDiv.html(data);
+				
+				this.formNewL = this.formLDiv.find('form[title=new-lsymbole]');
+				this.formNewLBeginCond = this.formNewL.find("input[name=begin-condition]");
+				this.formNewLEndCond = this.formNewL.find("input[name=end-condition]");
+				this.formNewLShape = this.formNewL.find("input[name=shape]");
+				this.formNewLColor = this.formNewL.find("input[name=color]");
+				this.formNewLVOffset = this.formNewL.find("input[name=voffset]");
+				this.formNewLImg = this.formNewL.find("input[name=image-url]");
+
+				this.formNewLShape.tooltip({tip: "#long-shape-tooltip", position: "center right", opacity: 0.7});
+				
+				this.formNewL.submit(
+					parametrizeCallback(
+						function(e, baseURI) {
+							$.post(baseURI + "/php/confNewLSymbole.php", $(this).serialize());
+						}, {args: [this.baseURI]}
+					)
+				);
+			},
+			dataType: "text",
+			async: true
+		});
+	}
+	
+	this.loadSaveForm = function()
+	{
+		$.ajax({
+			url: this.baseURI + '/html/confSaveForm.html',
+			context: this,
+			success: function(data){
+				this.saveFormDiv.html(data);
+				
+				this.saveFormDiv.find('form').submit(
+					parametrizeCallback(
+						function(e, baseURI, that) {
+							$.ajaxSetup({async:false});
+							$.post(baseURI + "/php/confSaveAs.php", $(this).serialize());
+							$.ajaxSetup({async:true});
+							
+							that.loadConfigList();
+						}, {args: [this.baseURI, this]}
+					)
+				);
+			},
+			dataType: "text",
+			async: true
+		});
+	}
+
+	this.loadConfigList = function()
+	{
+		$.ajax({
+			url: this.baseURI + '/php/confList.php',
+			context: this,
+			success: function(data){
+				this.updateConfigList(data);
+			},
+			dataType: "xml",
+			async: true
+		});
+	}
+	
+	this.updateConfigList = function(xmlList)
+	{
+		var ul = this.confListDiv.children('ul');
+		ul.empty();
+		
+		$(xmlList).find('config').each(
+			parametrizeCallback(function(index, elem, that, ul, xmlList)
+				{
+					var symbole = $(this);
+					ul.append(
+							"<li title=" + this.getAttribute('name') + ">" 
+							+ "<a href=\"#\">" + this.getAttribute('name') + "</a>"
+							+ " <a href=\"#\" title=\"delete\">✗</a>"
+							+ "</li>"
+					);
+					
+					var li = $(ul[0].lastChild);
+					li[0].firstChild.addEventListener("click", parametrizeCallback(function(e, that)
+							{
+								e.preventDefault();
+								// Trigger the config loading
+								$.ajaxSetup({async:false});
+								$.post(
+									baseURI + "/php/confLoad.php", 
+									{configId: this.getAttribute('name')}
+								);
+								$.ajaxSetup({async:true});
+								
+								// Reload the config once done
+								that.loadConfigState();
+								that.saveFormDiv.find('input:first').val(this.getAttribute('name'));
+								
+								return false;
+							},
+							{scope: this, args: [that]}
+						), true);
+
+					li.children('*[title=delete]')[0].addEventListener("click", parametrizeCallback(function(e, that)
+						{
+							e.preventDefault();
+							// Trigger the config deletion
+							$.ajaxSetup({async:false});
+							$.post(
+								baseURI + "/php/confDelete.php", 
+								{configId: this.getAttribute('name')}
+							);
+							$.ajaxSetup({async:true});
+							
+							// Reload the config once done
+							that.loadConfigList();
+							
+							return false;
+						},
+						{scope: this, args: [that]}
+					), true);
+				},
+				{args: [this, ul, xmlList]}
+			)
+		);
+	}
+	
+	this.loadConfigState = function()
+	{
+		this.loadProgrammed = false;
+		
+		$.ajax({
+			url: this.baseURI + '/php/confGetState.php',
+			context: this,
+			success: function(data){
+				this.updateState(data);
+				if(!this.loadProgrammed)
+				{
+					this.loadProgrammed = true;
+					setTimeout(parametrizeCallback(this.loadConfigState, {scope: this}), 1000);
+				}
+			},
+			dataType: "xml",
+			async: true
+		});
+	}
+
+	this.updateState = function(xmlState)
+	{
+		var ul = this.symboleListDiv.children('ul');
+		ul.empty();
+		
+		$(xmlState).find('symbole').each(
+			parametrizeCallback(function(index, elem, that, ul, xmlState)
+				{
+					var symbole = $(this);
+					ul.append(
+						"<li title=" + this.getAttribute('id') + ">" 
+						+ "<div class=\"symbole-title\">" + this.getAttribute('id') + "</div>" 
+						+ " <a href=\"#\" title=\"copy\">⎘</a>"
+						+ " <a href=\"#\" title=\"delete\">✗</a>"
+						+ "<div class=\"symbole-disp\">"
+						+ symbole.children("condition").text() + "<br />"
+						+ symbole.children("shape").text() + "<br />"
+						+ symbole.children("color").text() + "<br />"
+						+ symbole.children("voffset").text() + "<br />"
+						+ symbole.children("image-url").text() + "<br />"
+						+ "</div></li>"
+					);
+
+					var li = $(ul[0].lastChild);
+					li.children('*[title=copy]')[0].addEventListener("click", parametrizeCallback(function(e, that, xmlState)
+						{
+							e.preventDefault();
+							that.copySymbole(xmlState, $(this));
+							return false;
+						},
+						{scope: this, args: [that, xmlState]}
+					), true);
+					
+					li.children('*[title=delete]')[0].addEventListener("click", parametrizeCallback(function(e, that, xmlState)
+						{
+							e.preventDefault();
+							that.deleteSymbole(xmlState, $(this));
+							return false;
+						},
+						{scope: this, args: [that, xmlState]}
+					), true);
+					
+				},
+				{args: [this, ul, xmlState]}
+			)
+		);
+		
+		$(xmlState).find('lsymbole').each(
+			parametrizeCallback(function(index, elem, that, ul, xmlState)
+				{
+					var symbole = $(this);
+					ul.append(
+						"<li title=" + this.getAttribute('id') + ">" 
+						+ "<div class=\"symbole-title\">" + this.getAttribute('id') + "</div>" 
+						+ " <a href=\"#\" title=\"copy\">⎘</a>"
+						+ " <a href=\"#\" title=\"delete\">✗</a>"
+						+ "<div class=\"symbole-disp\">"
+						+ symbole.children("begin-condition").text() + "<br />"
+						+ symbole.children("end-condition").text() + "<br />"
+						+ symbole.children("shape").text() + "<br />"
+						+ symbole.children("color").text() + "<br />"
+						+ symbole.children("voffset").text() + "<br />"
+						+ symbole.children("image-url").text() + "<br />"
+						+ "</div></li>"
+					);
+
+					var li = $(ul[0].lastChild);
+					li.children('*[title=copy]')[0].addEventListener("click", parametrizeCallback(function(e, that, xmlState)
+						{
+							e.preventDefault();
+							that.copyLSymbole(xmlState, $(this));
+							return false;
+						},
+						{scope: this, args: [that, xmlState]}
+					), true);
+					
+					li.children('*[title=delete]')[0].addEventListener("click", parametrizeCallback(function(e, that, xmlState)
+						{
+							e.preventDefault();
+							that.deleteLSymbole(xmlState, $(this));
+							return false;
+						},
+						{scope: this, args: [that, xmlState]}
+					), true);
+					
+				},
+				{args: [this, ul, xmlState]}
+			)
+		);
+	}
+
+	this.copySymbole = function(nothing, symboleElement)
+	{
+		this.formNewCond.val(symboleElement.children("condition").text());
+		this.formNewShape.val(symboleElement.children("shape").text());
+		this.formNewColor.val(symboleElement.children("color").text());
+		this.formNewVOffset.val(symboleElement.children("voffset").text());
+		this.formNewImg.val(symboleElement.children("image-url").text());
+	}
+	
+	this.deleteSymbole = function(nothing, symboleElement)
+	{
+		$.post(baseURI + "/php/confDeleteSymbole.php", {id: symboleElement.attr("id")});
+	}
+	
+	this.copyLSymbole = function(nothing, symboleElement)
+	{
+		this.formNewLBeginCond.val(symboleElement.children("begin-condition").text());
+		this.formNewLEndCond.val(symboleElement.children("end-condition").text());
+		this.formNewLShape.val(symboleElement.children("shape").text());
+		this.formNewLColor.val(symboleElement.children("color").text());
+		this.formNewLVOffset.val(symboleElement.children("voffset").text());
+		this.formNewLImg.val(symboleElement.children("image-url").text());
+	}
+	
+	this.deleteLSymbole = function(nothing, symboleElement)
+	{
+		$.post(baseURI + "/php/confDeleteLSymbole.php", {id: symboleElement.attr("id")});
+	}
+
+	this.playing = function()
+	{
+		this.coverConfigList[0].style.display = "block";
+		this.coverSymboleForm[0].style.display = "none";
+	}
+	
+	this.stopped = function()
+	{
+		this.coverConfigList[0].style.display = "none";
+		this.coverSymboleForm[0].style.display = "block";
+	}
+	
+	
+	this.init();
+}

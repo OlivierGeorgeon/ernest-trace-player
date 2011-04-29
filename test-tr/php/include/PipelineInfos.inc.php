@@ -66,6 +66,11 @@ class PipelineInfos
 			readfile(DATA_DIR . '/pipelines/' . $this->id . '.xml');
 	}
 	
+	public function transformations_include_path()
+	{
+		return DATA_DIR . '/pipelines/';
+	}
+	
 	public $levels;
 	public $output;
 	

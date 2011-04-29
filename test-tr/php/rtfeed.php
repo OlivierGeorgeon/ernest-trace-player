@@ -11,13 +11,16 @@ require_once 'include/KTBSTraceHandler2.inc.php';
 require_once 'include/XMLFileTraceHandler.inc.php';
 require_once 'include/NamedPipeTraceHandler.inc.php';
 require_once 'include/XMLStreamTraceHandler.inc.php';
+require_once 'include/XMLStreamComposerHandler.inc.php';
+require_once 'include/ComposerHandler.inc.php';
 require_once 'include/Pipeline.inc.php';
-
+require_once 'include/XMLFragmentFileTraceHandler.inc.php';
 
 $lastKnownId = isset($_GET['lastKnownId']) ? $_GET['lastKnownId'] : "";
 $lastKnownTime = isset($_GET['lastKnownTime']) ? $_GET['lastKnownTime'] : "";
 
 $pipelineId = $_GET['pipelineId'];
+$cleanup =  isset($_GET['cleanup']);
 
 $traceHandler = $_GET['traceHandler'];
 $traceRef = $_GET['traceRef'];
@@ -39,30 +42,40 @@ $pipelineInfos = new PipelineInfos();
 $pipelineInfos->load($pipelineId)
 	or die();
 
-$pipeline = new Pipeline($pipelineInfos);
+$pipeline = new Pipeline($pipelineInfos, $cleanup);
 
 /*
  * Creates the trace stream handler.
  */
+/*
+ * ~ ~ ~ ~ :'(
 if($traceHandler === "mock")
 {
 	$trace = new MockTraceHandler();
-}else if($traceHandler === "ktbs")
+}elseif($traceHandler === "ktbs")
 {
 	$trace = new KTBSTraceHandler($traceRef, $traceModel);
-}else if($traceHandler === "ktbs2")
+}elseif($traceHandler === "ktbs2")
 {
 	$trace = new KTBSTraceHandler2($traceRef, $traceModel);
-}else if($traceHandler === "file")
+}elseif($traceHandler === "file")
 {
 	$trace = new XMLFileTraceHandler($traceRef);
-}else if($traceHandler === "pipe")
+}elseif($traceHandler === "pipe")
 {
 	$trace = new NamedPipeTraceHandler($traceRef);
-}else if($traceHandler === "stream")
+}else*/
+$traces = ""; 
+if($traceHandler === "stream")
 {
 	$trace = new XMLStreamTraceHandler($traceRef);
+}elseif($traceHandler === "storedstream")
+{
+	$trace = new XMLFragmentFileTraceHandler($traceRef, $lastKnownTime);
 }
+
+$config = new XMLStreamTraceHandler("__config__");
+$traces = new ComposerHandler(array($trace, $config));
 
 /*
  * Streams data to the player from the trace handler, transforming it with the view.
@@ -76,7 +89,7 @@ $i = 0;
 do
 {
 	$time_start = microtime_float();
-	$obsel = $trace->getNextObsels($lastKnownId, $lastKnownTime);
+	list($source, $obsel) = $traces->getNextObsels($lastKnownId, $lastKnownTime);
 	
 	if($obsel !== false)
 	{
@@ -85,7 +98,7 @@ do
 		$time_obs += $time_end - $time_start;
 		
 		$time_start = microtime_float();
-		$svgElt = $pipeline->transform($obsel_doc);
+		$svgElt = $pipeline->transform($obsel_doc, $source->traceId);
 		$time_end = microtime_float();
 		$time += $time_end - $time_start;
 		
@@ -93,14 +106,18 @@ do
 		
 		++$i;
 		if($i > 100)
-			$trace->abortASAP();
+			$traces->abortASAP();
 	}else{
-		pushError("Couldn't get next event.");
+		pushError("Couldn't get next event from " . $source->traceId . ".");
+		if($source !== false and $source->eot())
+		{
+			pushElement('<eot trace="' . $source->traceId . '"/>');
+		}
 	}
-}while($obsel !== false and ! $trace->eot());
+}while(! ($obsel === false and $source === false) and $traces->eot() !== true);
 
 
-if($trace->eot())
+if($traces->eot())
 {
 	pushElement('<eot/>');
 	$pipeline->cleanStates();

@@ -4,7 +4,7 @@ require_once 'include/config.inc.php';
 
 if(isset($_GET['traceId']))
 {
-	$trace = fopen(TEMP_DATA_DIR . '/streams/' . $_GET['traceId'], "r+");
+	$trace = fopen(TEMP_DATA_DIR . '/streams/' . $_REQUEST['traceId'], "r+");
 	stream_set_blocking($trace, 1);
 	
 	for ($i = 0; $i < 5; $i++) {

@@ -1,0 +1,25 @@
+<div style="left:0px; right:0px; border:1px solid gray; padding: 7px; padding-top: 2px; margin-top: 5px;">
+	<div style="display:block; margin-bottom: 5px; color: gray">New long symbole</div>
+	
+	(Fields are xpath expressions)<br/>
+	
+	<form title="new-lsymbole" onSubmit="return false;" autocomplete="on">
+		<table>
+		<tr><td>Begin condition: </td><td><input type="text" name="begin-condition" /></td></tr>
+		<tr><td>End condition: </td><td><input type="text" name="end-condition" /> (Will end on begin if empty)</td></tr>
+		<tr><td>Shape: </td><td><input type="text" name="shape" /></td></tr>
+		<tr><td>Color: </td><td><input type="text" name="color" /></td></tr>
+		<tr><td>Vertical offset: </td><td><input type="text" name="voffset" /></td></tr>
+		<tr><td>Image URL: </td><td><input type="text" name="image-url" /> (if shape evaluates to 'image')</td></tr>
+		<tr><td colspan="2"><input type="submit" value="Send" /></td></tr>
+		</table>
+	</form>
+</div>
+
+<div class="tooltip" id="long-shape-tooltip">Should produce one of those strings : <ul>
+	<li>'hair'</li>
+	<li>'thin-line'</li>
+	<li>'line'</li>
+	<li>'fat-line'</li>
+	<li>'huge-line'</li>
+</ul></div>

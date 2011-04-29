@@ -1,0 +1,83 @@
+<pipeline>
+	<default-scale>6.666666</default-scale>
+	<default-center>0</default-center>
+	<graph-width>80</graph-width>
+	
+	<levels>
+		
+		<level>
+			<transformation type="XSLT">
+				<name>select-normalize</name>
+				<sources>
+					<source>__input__</source>
+				</sources>
+				<file>select-normalize9.2.xsl</file>
+			</transformation>
+			
+			<transformation type="XSLT">
+				<name>clock</name>
+				<sources>
+					<source>__input__</source>
+				</sources>
+				<file>clock.xsl</file>
+			</transformation>
+		</level>
+		
+		<level>
+			<transformation type="PHP">
+				<name>aggregated-ttt</name>
+				<sources>
+					<source>select-normalize</source>
+				</sources>
+				<file>AggregateTTTTransformation.inc.php</file>
+				<classname>AggregateTTTTransformation</classname>
+			</transformation>
+			
+			<transformation type="PHP">
+				<name>buffer-reconfigure</name>
+				<sources>
+					<source>__config__</source>
+					<source>select-normalize</source>
+				</sources>
+				<file>BufferReconfigureTransformation.inc.php</file>
+				<classname>BufferReconfigureTransformation</classname>
+			</transformation>
+			
+			<transformation type="XSLT">
+				<name>tooltip</name>
+				<sources>
+					<source>select-normalize</source>
+				</sources>
+				<file>tooltip.xsl</file>
+			</transformation>
+		</level>
+		
+		<level>
+			<transformation type="XSLT">
+				<name>config-SVG</name>
+				<sources>
+					<source>select-normalize</source>
+					<source>buffer-reconfigure</source>
+				</sources>
+				<file>configSVG.xsl</file>
+			</transformation>
+			
+			<transformation type="XSLT">
+				<name>simple-SVG</name>
+				<sources>
+					<source>select-normalize</source>
+					<source>aggregated-ttt</source>
+				</sources>
+				<file>simpleSVG.xsl</file>
+			</transformation>
+		</level>
+		
+	</levels>
+	
+	<output>
+		<source>simple-SVG</source>
+		<source>config-SVG</source>
+		<source>clock</source>
+		<source>tooltip</source>
+	</output>
+</pipeline>

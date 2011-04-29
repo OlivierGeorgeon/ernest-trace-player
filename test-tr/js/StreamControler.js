@@ -6,7 +6,8 @@ function StreamControler(tracePlayer, streamBaseURL, urlOptions)
 	this.baseURL = streamBaseURL;
 	this.tracePlayer = tracePlayer;
 	this.streamTime = "";
-
+	this.firstRead = true;
+	
 	var url = streamBaseURL + "?";
 	for(option in urlOptions) {
 		if(option !== "")
@@ -27,6 +28,11 @@ function StreamControler(tracePlayer, streamBaseURL, urlOptions)
 		}
 		var url = this.url + suppOption;
 		url = url + "lastKnownTime=" + this.streamTime;
+		if(this.firstRead)
+		{
+			this.firstRead = false;
+			url = url + "&cleanup";
+		}
 		
 		if(! this.streaming)
 		{

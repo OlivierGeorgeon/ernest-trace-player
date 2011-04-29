@@ -1,10 +1,10 @@
 <?php
 require_once 'include/config.inc.php';
 
-if(isset($_POST['traceId']))
+if(isset($_REQUEST['traceId']))
 {
 	@mkdir(TEMP_DATA_DIR . '/streams');
-	$fd = fopen(TEMP_DATA_DIR . '/streams/' . $_POST['traceId'], "w");
+	$fd = fopen(TEMP_DATA_DIR . '/streams/' . $_REQUEST['traceId'], "w");
 	ftruncate($fd, 0);
 	fflush($fd);
 	fclose($fd);

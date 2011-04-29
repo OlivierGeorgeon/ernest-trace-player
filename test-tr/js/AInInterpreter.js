@@ -1,10 +1,12 @@
-function AInInterpreter(svgTrace, displayInfos)
+function AInInterpreter(svgTrace, displayInfos, tracePlayer)
 {
 	this.svgTrace = svgTrace;
 	
 	this.currentFragment = this.svgTrace.createFragment();
 	
 	this.displayInfos = displayInfos;
+	
+	this.tracePlayer = tracePlayer;
 
 	this.execJQCallback = parametrizeCallback(
 		function (index, whatsthat, that)
@@ -46,13 +48,17 @@ function AInInterpreter(svgTrace, displayInfos)
 				$(instruction).children().each(this.parseJQCallback);
 				this.svgTrace.addObsels(this.currentFragment);
 			}catch (e) {
+				//TODO: use notifyUser from tracePlayer
 				alert("Instruction execution failed with exception: " + e);
 			}
 		}else if(instruction.nodeName == "delete")
 		{
 			try{
+				//this.tracePlayer.notifyUser("*Deleting " + instruction.getAttribute("obsel-id"));
 				this.svgTrace.deleteObsel(instruction.getAttribute("obsel-id"));
+				//this.tracePlayer.notifyUser("-Done");
 			}catch (e) {
+				//TODO: use notifyUser from tracePlayer
 				alert("Instruction execution failed with exception: " + e);
 			}
 		}else if(instruction.nodeName == "tooltip")
@@ -60,6 +66,7 @@ function AInInterpreter(svgTrace, displayInfos)
 			try{
 				this.svgTrace.setToolTip($(instruction).children(), instruction.getAttribute("obsel-id"));
 			}catch (e) {
+				//TODO: use notifyUser from tracePlayer
 				alert("Instruction execution failed with exception: " + e);
 			}
 		}

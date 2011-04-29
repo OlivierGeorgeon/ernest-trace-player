@@ -6,16 +6,10 @@ abstract class Transformation {
 	{
 		$this->name = $name;
 		$this->stateFilename = $stateFilename;
+		$this->cleaned = false;
+		$this->saved = false;
 		
-		if(! file_exists($this->stateFilename))
-		{
-			$out = new XMLWriter();
-			$out->openURI('file://' . $this->stateFilename);
-			$out->startDocument();
-			$out->writeElement('nothing');
-			$out->endDocument();
-			$out->flush();
-		}
+		$this->loadState();
 		
 		register_shutdown_function(
 			function($args){
@@ -28,6 +22,19 @@ abstract class Transformation {
 		$this->forceSaveState();
 	}
 	
+	protected function loadState()
+	{
+		if(! file_exists($this->stateFilename))
+		{
+			$out = new XMLWriter();
+			$out->openURI('file://' . $this->stateFilename);
+			$out->startDocument();
+			$out->writeElement('nothing');
+			$out->endDocument();
+			$out->flush();
+		}
+	}
+	
 	/*
 	 * $deltas : xml string of the form <deltas> <delta source="...">...</delta> ... </deltas>
 	 */
@@ -36,18 +43,36 @@ abstract class Transformation {
 	/*
 	 * Called when the php script is going to be shut down.
 	 */
-	abstract public function forceSaveState();
+	public function forceSaveState()
+	{
+		if(!$this->saved)
+		{
+			$this->saved = true;
+			if(! $this->cleaned)
+				$this->forceSaveStateImpl();
+		}
+	}
+	
+	abstract protected function forceSaveStateImpl();
 	
 	/*
 	 * Cleans the saved state informations.
 	 */
 	public function cleanState()
 	{
+		$this->cleaned = true;
+		$this->cleanStateImpl();
+	}
+	
+	protected function cleanStateImpl()
+	{
 		unlink($this->stateFilename);
 	}
 	
+	private $cleaned;
 	protected $name;
 	protected $stateFilename;
+	protected $saved;
 }
 
 ?>

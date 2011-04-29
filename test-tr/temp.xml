@@ -1,273 +1,2372 @@
-<contents>
-	<slice date="0">
-		<event date="0" id="1" source="Ernest">
-			<type>action</type>
-			<retina>
-				<pixel_0_11>E6CF00</pixel_0_11>
-				<pixel_0_10>E6CF00</pixel_0_10>
-				<pixel_0_9>E6CF00</pixel_0_9>
-				<pixel_0_8>008000</pixel_0_8>
-				<pixel_0_7>2EE600</pixel_0_7>
-				<pixel_0_6>008000</pixel_0_6>
-				<pixel_0_5>E37CFF</pixel_0_5>
-				<pixel_0_4>E37CFF</pixel_0_4>
-				<pixel_0_3>008000</pixel_0_3>
-				<pixel_0_2>008000</pixel_0_2>
-				<pixel_0_1>008000</pixel_0_1>
-				<pixel_0_0>008000</pixel_0_0>
-				<pixel_1_11>008000</pixel_1_11>
-				<pixel_1_10>008000</pixel_1_10>
-				<pixel_1_9>008000</pixel_1_9>
-				<pixel_1_8>008000</pixel_1_8>
-				<pixel_1_7>008000</pixel_1_7>
-				<pixel_1_6>008000</pixel_1_6>
-				<pixel_1_5>008000</pixel_1_5>
-				<pixel_1_4>008000</pixel_1_4>
-				<pixel_1_3>008000</pixel_1_3>
-				<pixel_1_2>008000</pixel_1_2>
-				<pixel_1_1>008000</pixel_1_1>
-				<pixel_1_0>008000</pixel_1_0>
-			</retina>
-			<current_observation>
-				<color>E6CF00</color>
-				<time_to_water>1000</time_to_water>
-				<time_to_food>1000</time_to_food>
-				<last_checked>-1000</last_checked>
-				<distance>22</distance>
-				<motivation>978</motivation>
-				<direction>100</direction>
-				<dynamic_feature>+.</dynamic_feature>
-				<satisfaction>100</satisfaction>
-			</current_observation>
-			<clock>0</clock>
-			<is_thristy>true</is_thristy>
-			<is_hungry>false</is_hungry>
-			<activation_context_acts />
-			<learn_count>0</learn_count>
-			<activations />
-			<proposals>
-				<proposal>"&gt; w=1000" w=0 e=0 s=0</proposal>
-				<proposal>"^ w=1000" w=0 e=0 s=0</proposal>
-				<proposal>"v w=1000" w=0 e=0 s=0</proposal>
-			</proposals>
-			<top_intention>(&gt;)</top_intention>
-			<prescribed_intention>(&gt;)</prescribed_intention>
-			<next_primitive_intention>(&gt;)</next_primitive_intention>
-		</event>
-		<event date="0" id="2" source="environment">
-			<type>position</type>
-			<x>3</x>
-			<y>7</y>
-			<orientation>0</orientation>
-		</event>
-	</slice>
-	<slice date="1">
-		<event date="1" id="3" source="Ernest">
-			<type>action</type>
-			<retina>
-				<pixel_0_11>E6CF00</pixel_0_11>
-				<pixel_0_10>E6CF00</pixel_0_10>
-				<pixel_0_9>008000</pixel_0_9>
-				<pixel_0_8>2EE600</pixel_0_8>
-				<pixel_0_7>2EE600</pixel_0_7>
-				<pixel_0_6>008000</pixel_0_6>
-				<pixel_0_5>E37CFF</pixel_0_5>
-				<pixel_0_4>E37CFF</pixel_0_4>
-				<pixel_0_3>E37CFF</pixel_0_3>
-				<pixel_0_2>008000</pixel_0_2>
-				<pixel_0_1>008000</pixel_0_1>
-				<pixel_0_0>008000</pixel_0_0>
-				<pixel_1_11>008000</pixel_1_11>
-				<pixel_1_10>008000</pixel_1_10>
-				<pixel_1_9>008000</pixel_1_9>
-				<pixel_1_8>008000</pixel_1_8>
-				<pixel_1_7>008000</pixel_1_7>
-				<pixel_1_6>008000</pixel_1_6>
-				<pixel_1_5>008000</pixel_1_5>
-				<pixel_1_4>008000</pixel_1_4>
-				<pixel_1_3>008000</pixel_1_3>
-				<pixel_1_2>008000</pixel_1_2>
-				<pixel_1_1>008000</pixel_1_1>
-				<pixel_1_0>008000</pixel_1_0>
-			</retina>
-			<current_observation>
-				<color>E6CF00</color>
-				<time_to_water>1000</time_to_water>
-				<time_to_food>1000</time_to_food>
-				<last_checked>-1000</last_checked>
-				<distance>20</distance>
-				<motivation>980</motivation>
-				<direction>105</direction>
-				<dynamic_feature>+.</dynamic_feature>
-				<satisfaction>100</satisfaction>
-			</current_observation>
-			<primitive_enacted_schema>&gt;</primitive_enacted_schema>
-			<primitive_feedback>true</primitive_feedback>
-			<primitive_satisfaction>100</primitive_satisfaction>
-			<clock>1</clock>
-			<is_thristy>true</is_thristy>
-			<is_hungry>false</is_hungry>
-			<primitive_intended_act>(&gt;)</primitive_intended_act>
-			<primitive_enacted_act>(&gt;+.)</primitive_enacted_act>
-			<activation_context_acts>
-				<act>(&gt;+.)</act>
-			</activation_context_acts>
-			<learn_count>0</learn_count>
-			<activations />
-			<proposals>
-				<proposal>"&gt; w=1000" w=0 e=0 s=0</proposal>
-				<proposal>"^ w=1000" w=0 e=0 s=0</proposal>
-				<proposal>"v w=1000" w=0 e=0 s=0</proposal>
-			</proposals>
-			<top_intention>(v)</top_intention>
-			<prescribed_intention>(v)</prescribed_intention>
-			<next_primitive_intention>(v)</next_primitive_intention>
-		</event>
-		<event date="1" id="4" source="environment">
-			<type>position</type>
-			<x>3</x>
-			<y>7</y>
-			<orientation>5</orientation>
-		</event>
-	</slice>
-	<slice date="2">
-		<event date="2" id="5" source="Ernest">
-			<type>action</type>
-			<retina>
-				<pixel_0_11>2EE600</pixel_0_11>
-				<pixel_0_10>2EE600</pixel_0_10>
-				<pixel_0_9>008000</pixel_0_9>
-				<pixel_0_8>E37CFF</pixel_0_8>
-				<pixel_0_7>E37CFF</pixel_0_7>
-				<pixel_0_6>E37CFF</pixel_0_6>
-				<pixel_0_5>008000</pixel_0_5>
-				<pixel_0_4>008000</pixel_0_4>
-				<pixel_0_3>008000</pixel_0_3>
-				<pixel_0_2>008000</pixel_0_2>
-				<pixel_0_1>008000</pixel_0_1>
-				<pixel_0_0>008000</pixel_0_0>
-				<pixel_1_11>008000</pixel_1_11>
-				<pixel_1_10>008000</pixel_1_10>
-				<pixel_1_9>008000</pixel_1_9>
-				<pixel_1_8>008000</pixel_1_8>
-				<pixel_1_7>008000</pixel_1_7>
-				<pixel_1_6>008000</pixel_1_6>
-				<pixel_1_5>008000</pixel_1_5>
-				<pixel_1_4>008000</pixel_1_4>
-				<pixel_1_3>008000</pixel_1_3>
-				<pixel_1_2>008000</pixel_1_2>
-				<pixel_1_1>008000</pixel_1_1>
-				<pixel_1_0>008000</pixel_1_0>
-			</retina>
-			<current_observation>
-				<color>E37CFF</color>
-				<time_to_water>1000</time_to_water>
-				<time_to_food>1000</time_to_food>
-				<last_checked>-1000</last_checked>
-				<distance>31</distance>
-				<motivation>969</motivation>
-				<direction>70</direction>
-				<dynamic_feature>-</dynamic_feature>
-				<satisfaction>-150</satisfaction>
-			</current_observation>
-			<primitive_enacted_schema>v</primitive_enacted_schema>
-			<primitive_feedback>true</primitive_feedback>
-			<primitive_satisfaction>-150</primitive_satisfaction>
-			<clock>2</clock>
-			<is_thristy>true</is_thristy>
-			<is_hungry>false</is_hungry>
-			<primitive_intended_act>(v)</primitive_intended_act>
-			<primitive_enacted_act>(v-)</primitive_enacted_act>
-			<activation_context_acts>
-				<act>(v-)</act>
-			</activation_context_acts>
-			<learn_count>1</learn_count>
-			<activations />
-			<proposals>
-				<proposal>"&gt; w=1000" w=0 e=0 s=0</proposal>
-				<proposal>"^ w=1000" w=0 e=0 s=0</proposal>
-				<proposal>"v w=1000" w=0 e=0 s=0</proposal>
-			</proposals>
-			<top_intention>(&gt;)</top_intention>
-			<prescribed_intention>(&gt;)</prescribed_intention>
-			<next_primitive_intention>(&gt;)</next_primitive_intention>
-		</event>
-		<event date="2" id="6" source="environment">
-			<type>position</type>
-			<x>4</x>
-			<y>6</y>
-			<orientation>5</orientation>
-		</event>
-	</slice>
-	<slice date="3">
-		<event date="3" id="7" source="Ernest">
-			<type>action</type>
-			<retina>
-				<pixel_0_11>008000</pixel_0_11>
-				<pixel_0_10>E37CFF</pixel_0_10>
-				<pixel_0_9>E37CFF</pixel_0_9>
-				<pixel_0_8>E37CFF</pixel_0_8>
-				<pixel_0_7>E37CFF</pixel_0_7>
-				<pixel_0_6>008000</pixel_0_6>
-				<pixel_0_5>008000</pixel_0_5>
-				<pixel_0_4>008000</pixel_0_4>
-				<pixel_0_3>008000</pixel_0_3>
-				<pixel_0_2>008000</pixel_0_2>
-				<pixel_0_1>008000</pixel_0_1>
-				<pixel_0_0>008000</pixel_0_0>
-				<pixel_1_11>008000</pixel_1_11>
-				<pixel_1_10>008000</pixel_1_10>
-				<pixel_1_9>008000</pixel_1_9>
-				<pixel_1_8>008000</pixel_1_8>
-				<pixel_1_7>008000</pixel_1_7>
-				<pixel_1_6>008000</pixel_1_6>
-				<pixel_1_5>008000</pixel_1_5>
-				<pixel_1_4>008000</pixel_1_4>
-				<pixel_1_3>008000</pixel_1_3>
-				<pixel_1_2>008000</pixel_1_2>
-				<pixel_1_1>008000</pixel_1_1>
-				<pixel_1_0>008000</pixel_1_0>
-			</retina>
-			<current_observation>
-				<color>E37CFF</color>
-				<time_to_water>1000</time_to_water>
-				<time_to_food>1000</time_to_food>
-				<last_checked>-1000</last_checked>
-				<distance>20</distance>
-				<motivation>980</motivation>
-				<direction>85</direction>
-				<dynamic_feature>+.</dynamic_feature>
-				<satisfaction>100</satisfaction>
-			</current_observation>
-			<primitive_enacted_schema>&gt;</primitive_enacted_schema>
-			<primitive_feedback>true</primitive_feedback>
-			<primitive_satisfaction>100</primitive_satisfaction>
-			<clock>3</clock>
-			<is_thristy>true</is_thristy>
-			<is_hungry>false</is_hungry>
-			<primitive_intended_act>(&gt;)</primitive_intended_act>
-			<primitive_enacted_act>(&gt;+.)</primitive_enacted_act>
-			<activation_context_acts>
-				<act>(&gt;+.)</act>
-			</activation_context_acts>
-			<learn_count>2</learn_count>
-			<activations>
-				<activation>"(&gt;+.)(v-) w=1" s=-150</activation>
-			</activations>
-			<proposals>
-				<proposal>"&gt; w=1000" w=0 e=0 s=0</proposal>
-				<proposal>"^ w=1000" w=0 e=0 s=0</proposal>
-				<proposal>"v w=1000" w=-150 e=1 s=0</proposal>
-			</proposals>
-			<top_intention>(&gt;)</top_intention>
-			<prescribed_intention>(&gt;)</prescribed_intention>
-			<next_primitive_intention>(&gt;)</next_primitive_intention>
-		</event>
-		<event date="3" id="8" source="environment">
-			<type>position</type>
-			<x>4</x>
-			<y>6</y>
-			<orientation>5</orientation>
-		</event>
-	</slice>
-</contents>
+<feed>
+	<comet>
+		<error>No slice ready.&lt;br /&gt;</error>
+	</comet>
+	<comet>
+		<deltas>
+			<delta xmlns:xlink="http://www.w3.org/1999/xlink" source="simple-SVG"
+				date="0">
+				<add>
+					<g id="1-select-normalize-ns" obsel-id="1-select-normalize" date="0"
+						stroke="#000000">
+						<g fill="#000000">
+							<polyline style="stroke:#AAAAAA;stroke-width:1pt"
+								points="0,-35 0,28 " />
+							<g transform="translate(2,-37) rotate(90)">
+								<text
+									style="font-size:9px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;stroke:none;font-family:Sans">0</text>
+							</g>
+						</g>
+					</g>
+					<g id="1-select-normalize-s" obsel-id="1-select-normalize" date="0"
+						begin="0" end="0" stroke-width="1pt" stroke="#000000">
+						<g transform="skewY(0) translate(0, 0)">
+							<g fill="#E6CF00">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="10"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#E6CF00">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="12"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#E6CF00">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="14"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="16"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#2EE600">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="18"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="20"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#E37CFF">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="22"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#E37CFF">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="24"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="26"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="28"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="30"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="32"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+						</g>
+					</g>
+					<g id="1-select-normalize-ns2" obsel-id="1-select-normalize"
+						date="0" stroke="#000000" style="opacity: 0.7" />
+				</add>
+			</delta>
+			<delta source="clock" date="0">0</delta>
+			<delta source="tooltip" date="0">
+				<tooltip obsel-id="1-select-normalize">
+					<div class="obsel-html" title="obsel-html">
+						<div>Id: 1-select-normalize</div>
+						<div>Date: 0 - Begin: 0 - End: 0</div>
+						<div>Source: Ernest</div>
+						<div>type: action</div>
+						<div>
+							retina:
+							<div style="padding-left: 5em;">
+								<div>
+									pixel_0_11:
+									<div
+										style="height:1em; width:10em; background-color:#E6CF00; color:#000000; display:inline;">E6CF00</div>
+								</div>
+								<div>
+									pixel_0_10:
+									<div
+										style="height:1em; width:10em; background-color:#E6CF00; color:#000000; display:inline;">E6CF00</div>
+								</div>
+								<div>
+									pixel_0_9:
+									<div
+										style="height:1em; width:10em; background-color:#E6CF00; color:#000000; display:inline;">E6CF00</div>
+								</div>
+								<div>
+									pixel_0_8:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_7:
+									<div
+										style="height:1em; width:10em; background-color:#2EE600; color:#000000; display:inline;">2EE600</div>
+								</div>
+								<div>
+									pixel_0_6:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_5:
+									<div
+										style="height:1em; width:10em; background-color:#E37CFF; color:#000000; display:inline;">E37CFF</div>
+								</div>
+								<div>
+									pixel_0_4:
+									<div
+										style="height:1em; width:10em; background-color:#E37CFF; color:#000000; display:inline;">E37CFF</div>
+								</div>
+								<div>
+									pixel_0_3:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_2:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_1:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_0:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_11:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_10:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_9:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_8:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_7:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_6:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_5:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_4:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_3:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_2:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_1:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_0:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+							</div>
+						</div>
+						<div>
+							current_observation:
+							<div style="padding-left: 5em;">
+								<div>
+									Color:
+									<div
+										style="height:1em; width:10em; background-color:#E6CF00; color:#000000; display:inline;">E6CF00</div>
+								</div>
+								<div>time_to_water: 1000</div>
+								<div>time_to_food: 1000</div>
+								<div>last_checked: -1000</div>
+								<div>distance: 22</div>
+								<div>motivation: 978</div>
+								<div>direction: 100</div>
+								<div>dynamic_feature: +.</div>
+								<div>satisfaction: 100</div>
+							</div>
+						</div>
+						<div>clock: 0</div>
+						<div>is_thirsty: true</div>
+						<div>is_hungry: false</div>
+					</div>
+				</tooltip>
+			</delta>
+		</deltas>
+	</comet>
+	<comet>
+		<deltas>
+			<delta xmlns:xlink="http://www.w3.org/1999/xlink" source="simple-SVG"
+				date="1">
+				<add>
+					<g id="3-select-normalize-ns" obsel-id="3-select-normalize" date="1"
+						stroke="#000000" />
+					<g id="3-select-normalize-s" obsel-id="3-select-normalize" date="1"
+						begin="1" end="1" stroke-width="1pt" stroke="#000000">
+						<g transform="skewY(80.5) translate(0, -6)">
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="10"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="12"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="14"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#E6CF00">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="16"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#E6CF00">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="18"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#E6CF00">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="20"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="22"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#2EE600">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="24"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="26"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#E37CFF">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="28"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#E37CFF">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="30"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="32"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+						</g>
+					</g>
+					<g id="3-select-normalize-ns2" obsel-id="3-select-normalize"
+						date="1" stroke="#000000" style="opacity: 0.7" />
+				</add>
+				<delete obsel-id="3-select-normalize-ttt" />
+				<add>
+					<g id="" date="" begin="" end="1" stroke="#000000">
+						<g fill="#">
+							<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="-19"
+								xlink:href="svg/icons/thinline.svg#thinline" />
+						</g>
+					</g>
+				</add>
+			</delta>
+			<delta source="clock" date="1">1</delta>
+			<delta source="tooltip" date="1">
+				<tooltip obsel-id="3-select-normalize">
+					<div class="obsel-html" title="obsel-html">
+						<div>Id: 3-select-normalize</div>
+						<div>Date: 1 - Begin: 1 - End: 1</div>
+						<div>Source: Ernest</div>
+						<div>type: action</div>
+						<div>
+							retina:
+							<div style="padding-left: 5em;">
+								<div>
+									pixel_0_11:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_10:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_9:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_8:
+									<div
+										style="height:1em; width:10em; background-color:#E6CF00; color:#000000; display:inline;">E6CF00</div>
+								</div>
+								<div>
+									pixel_0_7:
+									<div
+										style="height:1em; width:10em; background-color:#E6CF00; color:#000000; display:inline;">E6CF00</div>
+								</div>
+								<div>
+									pixel_0_6:
+									<div
+										style="height:1em; width:10em; background-color:#E6CF00; color:#000000; display:inline;">E6CF00</div>
+								</div>
+								<div>
+									pixel_0_5:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_4:
+									<div
+										style="height:1em; width:10em; background-color:#2EE600; color:#000000; display:inline;">2EE600</div>
+								</div>
+								<div>
+									pixel_0_3:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_2:
+									<div
+										style="height:1em; width:10em; background-color:#E37CFF; color:#000000; display:inline;">E37CFF</div>
+								</div>
+								<div>
+									pixel_0_1:
+									<div
+										style="height:1em; width:10em; background-color:#E37CFF; color:#000000; display:inline;">E37CFF</div>
+								</div>
+								<div>
+									pixel_0_0:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_11:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_10:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_9:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_8:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_7:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_6:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_5:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_4:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_3:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_2:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_1:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_0:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+							</div>
+						</div>
+						<div>
+							current_observation:
+							<div style="padding-left: 5em;">
+								<div>
+									Color:
+									<div
+										style="height:1em; width:10em; background-color:#E6CF00; color:#000000; display:inline;">E6CF00</div>
+								</div>
+								<div>time_to_water: 1000</div>
+								<div>time_to_food: 1000</div>
+								<div>last_checked: -1000</div>
+								<div>distance: 22</div>
+								<div>motivation: 978</div>
+								<div>direction: 70</div>
+								<div>dynamic_feature: +</div>
+								<div>satisfaction: 150</div>
+							</div>
+						</div>
+						<div>clock: 1</div>
+						<div>is_thirsty: true</div>
+						<div>is_hungry: false</div>
+						<div>primitive_enacted_schema: ^</div>
+						<div>primitive_feedback: true</div>
+						<div>primitive_satisfaction: 150</div>
+					</div>
+				</tooltip>
+			</delta>
+		</deltas>
+	</comet>
+	<comet>
+		<deltas>
+			<delta xmlns:xlink="http://www.w3.org/1999/xlink" source="simple-SVG"
+				date="2">
+				<add>
+					<g id="5-select-normalize-ns" obsel-id="5-select-normalize" date="2"
+						stroke="#000000" />
+					<g id="5-select-normalize-s" obsel-id="5-select-normalize" date="2"
+						begin="2" end="2" stroke-width="1pt" stroke="#000000">
+						<g transform="skewY(-80.5) translate(0, 6)">
+							<g fill="#E6CF00">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="10"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#E6CF00">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="12"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#E6CF00">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="14"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="16"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#2EE600">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="18"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="20"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#E37CFF">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="22"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#E37CFF">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="24"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="26"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="28"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="30"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="32"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+						</g>
+					</g>
+					<g id="5-select-normalize-ns2" obsel-id="5-select-normalize"
+						date="2" stroke="#000000" style="opacity: 0.7" />
+				</add>
+				<delete obsel-id="3-select-normalize-ttt" />
+				<add>
+					<g id="" date="" begin="" end="2" stroke="#000000">
+						<g fill="#">
+							<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="NaN"
+								xlink:href="svg/icons/thinline.svg#thinline" />
+						</g>
+					</g>
+				</add>
+			</delta>
+			<delta source="clock" date="2">2</delta>
+			<delta source="tooltip" date="2">
+				<tooltip obsel-id="5-select-normalize">
+					<div class="obsel-html" title="obsel-html">
+						<div>Id: 5-select-normalize</div>
+						<div>Date: 2 - Begin: 2 - End: 2</div>
+						<div>Source: Ernest</div>
+						<div>type: action</div>
+						<div>
+							retina:
+							<div style="padding-left: 5em;">
+								<div>
+									pixel_0_11:
+									<div
+										style="height:1em; width:10em; background-color:#E6CF00; color:#000000; display:inline;">E6CF00</div>
+								</div>
+								<div>
+									pixel_0_10:
+									<div
+										style="height:1em; width:10em; background-color:#E6CF00; color:#000000; display:inline;">E6CF00</div>
+								</div>
+								<div>
+									pixel_0_9:
+									<div
+										style="height:1em; width:10em; background-color:#E6CF00; color:#000000; display:inline;">E6CF00</div>
+								</div>
+								<div>
+									pixel_0_8:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_7:
+									<div
+										style="height:1em; width:10em; background-color:#2EE600; color:#000000; display:inline;">2EE600</div>
+								</div>
+								<div>
+									pixel_0_6:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_5:
+									<div
+										style="height:1em; width:10em; background-color:#E37CFF; color:#000000; display:inline;">E37CFF</div>
+								</div>
+								<div>
+									pixel_0_4:
+									<div
+										style="height:1em; width:10em; background-color:#E37CFF; color:#000000; display:inline;">E37CFF</div>
+								</div>
+								<div>
+									pixel_0_3:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_2:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_1:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_0:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_11:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_10:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_9:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_8:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_7:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_6:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_5:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_4:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_3:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_2:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_1:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_0:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+							</div>
+						</div>
+						<div>
+							current_observation:
+							<div style="padding-left: 5em;">
+								<div>
+									Color:
+									<div
+										style="height:1em; width:10em; background-color:#E6CF00; color:#000000; display:inline;">E6CF00</div>
+								</div>
+								<div>time_to_water: 1000</div>
+								<div>time_to_food: 1000</div>
+								<div>last_checked: -1000</div>
+								<div>distance: 22</div>
+								<div>motivation: 978</div>
+								<div>direction: 100</div>
+								<div>dynamic_feature: -.</div>
+								<div>satisfaction: -100</div>
+							</div>
+						</div>
+						<div>clock: 2</div>
+						<div>is_thirsty: true</div>
+						<div>is_hungry: false</div>
+						<div>primitive_enacted_schema: v</div>
+						<div>primitive_feedback: true</div>
+						<div>primitive_satisfaction: -100</div>
+					</div>
+				</tooltip>
+			</delta>
+		</deltas>
+	</comet>
+	<comet>
+		<deltas>
+			<delta xmlns:xlink="http://www.w3.org/1999/xlink" source="simple-SVG"
+				date="3">
+				<add>
+					<g id="7-select-normalize-ns" obsel-id="7-select-normalize" date="3"
+						stroke="#000000" />
+					<g id="7-select-normalize-s" obsel-id="7-select-normalize" date="3"
+						begin="3" end="3" stroke-width="1pt" stroke="#000000">
+						<g transform="skewY(-80.5) translate(0, 6)">
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="10"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#2EE600">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="12"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="14"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#E37CFF">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="16"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#E37CFF">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="18"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="20"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="22"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="24"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="26"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="28"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="30"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="32"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+						</g>
+					</g>
+					<g id="7-select-normalize-ns2" obsel-id="7-select-normalize"
+						date="3" stroke="#000000" style="opacity: 0.7" />
+				</add>
+				<add>
+					<g id="7-select-normalize-ttt" date="3" begin="3" end="3" stroke="#000000">
+						<g fill="#E37CFF">
+							<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="-19"
+								xlink:href="svg/icons/thinline.svg#thinline" />
+						</g>
+					</g>
+				</add>
+			</delta>
+			<delta source="clock" date="3">3</delta>
+			<delta source="tooltip" date="3">
+				<tooltip obsel-id="7-select-normalize">
+					<div class="obsel-html" title="obsel-html">
+						<div>Id: 7-select-normalize</div>
+						<div>Date: 3 - Begin: 3 - End: 3</div>
+						<div>Source: Ernest</div>
+						<div>type: action</div>
+						<div>
+							retina:
+							<div style="padding-left: 5em;">
+								<div>
+									pixel_0_11:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_10:
+									<div
+										style="height:1em; width:10em; background-color:#2EE600; color:#000000; display:inline;">2EE600</div>
+								</div>
+								<div>
+									pixel_0_9:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_8:
+									<div
+										style="height:1em; width:10em; background-color:#E37CFF; color:#000000; display:inline;">E37CFF</div>
+								</div>
+								<div>
+									pixel_0_7:
+									<div
+										style="height:1em; width:10em; background-color:#E37CFF; color:#000000; display:inline;">E37CFF</div>
+								</div>
+								<div>
+									pixel_0_6:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_5:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_4:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_3:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_2:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_1:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_0:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_11:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_10:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_9:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_8:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_7:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_6:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_5:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_4:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_3:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_2:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_1:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_0:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+							</div>
+						</div>
+						<div>
+							current_observation:
+							<div style="padding-left: 5em;">
+								<div>
+									Color:
+									<div
+										style="height:1em; width:10em; background-color:#E37CFF; color:#000000; display:inline;">E37CFF</div>
+								</div>
+								<div>time_to_water: 1000</div>
+								<div>time_to_food: 1000</div>
+								<div>last_checked: -1000</div>
+								<div>distance: 41</div>
+								<div>motivation: 959</div>
+								<div>direction: 75</div>
+								<div>dynamic_feature: -</div>
+								<div>satisfaction: -150</div>
+							</div>
+						</div>
+						<div>clock: 3</div>
+						<div>is_thirsty: true</div>
+						<div>is_hungry: false</div>
+						<div>primitive_enacted_schema: v</div>
+						<div>primitive_feedback: true</div>
+						<div>primitive_satisfaction: -150</div>
+					</div>
+				</tooltip>
+			</delta>
+		</deltas>
+	</comet>
+	<comet>
+		<deltas>
+			<delta xmlns:xlink="http://www.w3.org/1999/xlink" source="simple-SVG"
+				date="4">
+				<add>
+					<g id="9-select-normalize-ns" obsel-id="9-select-normalize" date="4"
+						stroke="#000000" />
+					<g id="9-select-normalize-s" obsel-id="9-select-normalize" date="4"
+						begin="4" end="4" stroke-width="1pt" stroke="#000000">
+						<g transform="skewY(80.5) translate(0, -6)">
+							<g fill="#E6CF00">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="10"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#E6CF00">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="12"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#E6CF00">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="14"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="16"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#2EE600">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="18"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="20"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#E37CFF">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="22"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#E37CFF">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="24"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="26"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="28"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="30"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="32"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+						</g>
+					</g>
+					<g id="9-select-normalize-ns2" obsel-id="9-select-normalize"
+						date="4" stroke="#000000" style="opacity: 0.7" />
+				</add>
+				<add>
+					<g id="9-select-normalize-ttt" date="4" begin="4" end="4" stroke="#000000">
+						<g fill="#E6CF00">
+							<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="-19"
+								xlink:href="svg/icons/thinline.svg#thinline" />
+						</g>
+					</g>
+				</add>
+			</delta>
+			<delta source="clock" date="4">4</delta>
+			<delta source="tooltip" date="4">
+				<tooltip obsel-id="9-select-normalize">
+					<div class="obsel-html" title="obsel-html">
+						<div>Id: 9-select-normalize</div>
+						<div>Date: 4 - Begin: 4 - End: 4</div>
+						<div>Source: Ernest</div>
+						<div>type: action</div>
+						<div>
+							retina:
+							<div style="padding-left: 5em;">
+								<div>
+									pixel_0_11:
+									<div
+										style="height:1em; width:10em; background-color:#E6CF00; color:#000000; display:inline;">E6CF00</div>
+								</div>
+								<div>
+									pixel_0_10:
+									<div
+										style="height:1em; width:10em; background-color:#E6CF00; color:#000000; display:inline;">E6CF00</div>
+								</div>
+								<div>
+									pixel_0_9:
+									<div
+										style="height:1em; width:10em; background-color:#E6CF00; color:#000000; display:inline;">E6CF00</div>
+								</div>
+								<div>
+									pixel_0_8:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_7:
+									<div
+										style="height:1em; width:10em; background-color:#2EE600; color:#000000; display:inline;">2EE600</div>
+								</div>
+								<div>
+									pixel_0_6:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_5:
+									<div
+										style="height:1em; width:10em; background-color:#E37CFF; color:#000000; display:inline;">E37CFF</div>
+								</div>
+								<div>
+									pixel_0_4:
+									<div
+										style="height:1em; width:10em; background-color:#E37CFF; color:#000000; display:inline;">E37CFF</div>
+								</div>
+								<div>
+									pixel_0_3:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_2:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_1:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_0:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_11:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_10:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_9:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_8:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_7:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_6:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_5:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_4:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_3:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_2:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_1:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_0:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+							</div>
+						</div>
+						<div>
+							current_observation:
+							<div style="padding-left: 5em;">
+								<div>
+									Color:
+									<div
+										style="height:1em; width:10em; background-color:#E6CF00; color:#000000; display:inline;">E6CF00</div>
+								</div>
+								<div>time_to_water: 1000</div>
+								<div>time_to_food: 1000</div>
+								<div>last_checked: -1000</div>
+								<div>distance: 22</div>
+								<div>motivation: 978</div>
+								<div>direction: 100</div>
+								<div>dynamic_feature: +.</div>
+								<div>satisfaction: 100</div>
+							</div>
+						</div>
+						<div>clock: 4</div>
+						<div>is_thirsty: true</div>
+						<div>is_hungry: false</div>
+						<div>primitive_enacted_schema: ^</div>
+						<div>primitive_feedback: true</div>
+						<div>primitive_satisfaction: 100</div>
+					</div>
+				</tooltip>
+			</delta>
+		</deltas>
+	</comet>
+	<comet>
+		<error>Unlinking
+			/home/pierreyves/traceplayer/data/temp/streams/149.&lt;br /&gt;
+		</error>
+	</comet>
+	<comet>
+		<error>Couldn't get next event..&lt;br /&gt;</error>
+	</comet>
+	<comet>
+		<eot />
+	</comet>
+</feed>
+<feed>
+	<comet>
+		<error>No slice ready.&lt;br /&gt;</error>
+	</comet>
+	<comet>
+		<deltas>
+			<delta xmlns:xlink="http://www.w3.org/1999/xlink" source="simple-SVG"
+				date="0">
+				<add>
+					<g id="1-select-normalize-ns" obsel-id="1-select-normalize" date="0"
+						stroke="#000000">
+						<g fill="#000000">
+							<polyline style="stroke:#AAAAAA;stroke-width:1pt"
+								points="0,-35 0,28 " />
+							<g transform="translate(2,-37) rotate(90)">
+								<text
+									style="font-size:9px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;stroke:none;font-family:Sans">0</text>
+							</g>
+						</g>
+					</g>
+					<g id="1-select-normalize-s" obsel-id="1-select-normalize" date="0"
+						begin="0" end="0" stroke-width="1pt" stroke="#000000">
+						<g transform="skewY(0) translate(0, 0)">
+							<g fill="#E6CF00">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="10"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#E6CF00">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="12"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#E6CF00">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="14"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="16"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#2EE600">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="18"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="20"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#E37CFF">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="22"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#E37CFF">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="24"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="26"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="28"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="30"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="32"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+						</g>
+					</g>
+					<g id="1-select-normalize-ns2" obsel-id="1-select-normalize"
+						date="0" stroke="#000000" style="opacity: 0.7" />
+				</add>
+			</delta>
+			<delta source="clock" date="0">0</delta>
+			<delta source="tooltip" date="0">
+				<tooltip obsel-id="1-select-normalize">
+					<div class="obsel-html" title="obsel-html">
+						<div>Id: 1-select-normalize</div>
+						<div>Date: 0 - Begin: 0 - End: 0</div>
+						<div>Source: Ernest</div>
+						<div>type: action</div>
+						<div>
+							retina:
+							<div style="padding-left: 5em;">
+								<div>
+									pixel_0_11:
+									<div
+										style="height:1em; width:10em; background-color:#E6CF00; color:#000000; display:inline;">E6CF00</div>
+								</div>
+								<div>
+									pixel_0_10:
+									<div
+										style="height:1em; width:10em; background-color:#E6CF00; color:#000000; display:inline;">E6CF00</div>
+								</div>
+								<div>
+									pixel_0_9:
+									<div
+										style="height:1em; width:10em; background-color:#E6CF00; color:#000000; display:inline;">E6CF00</div>
+								</div>
+								<div>
+									pixel_0_8:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_7:
+									<div
+										style="height:1em; width:10em; background-color:#2EE600; color:#000000; display:inline;">2EE600</div>
+								</div>
+								<div>
+									pixel_0_6:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_5:
+									<div
+										style="height:1em; width:10em; background-color:#E37CFF; color:#000000; display:inline;">E37CFF</div>
+								</div>
+								<div>
+									pixel_0_4:
+									<div
+										style="height:1em; width:10em; background-color:#E37CFF; color:#000000; display:inline;">E37CFF</div>
+								</div>
+								<div>
+									pixel_0_3:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_2:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_1:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_0:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_11:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_10:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_9:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_8:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_7:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_6:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_5:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_4:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_3:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_2:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_1:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_0:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+							</div>
+						</div>
+						<div>
+							current_observation:
+							<div style="padding-left: 5em;">
+								<div>
+									Color:
+									<div
+										style="height:1em; width:10em; background-color:#E6CF00; color:#000000; display:inline;">E6CF00</div>
+								</div>
+								<div>time_to_water: 1000</div>
+								<div>time_to_food: 1000</div>
+								<div>last_checked: -1000</div>
+								<div>distance: 22</div>
+								<div>motivation: 978</div>
+								<div>direction: 100</div>
+								<div>dynamic_feature: +.</div>
+								<div>satisfaction: 100</div>
+							</div>
+						</div>
+						<div>clock: 0</div>
+						<div>is_thirsty: true</div>
+						<div>is_hungry: false</div>
+					</div>
+				</tooltip>
+			</delta>
+		</deltas>
+	</comet>
+	<comet>
+		<deltas>
+			<delta xmlns:xlink="http://www.w3.org/1999/xlink" source="simple-SVG"
+				date="1">
+				<add>
+					<g id="3-select-normalize-ns" obsel-id="3-select-normalize" date="1"
+						stroke="#000000" />
+					<g id="3-select-normalize-s" obsel-id="3-select-normalize" date="1"
+						begin="1" end="1" stroke-width="1pt" stroke="#000000">
+						<g transform="skewY(80.5) translate(0, -6)">
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="10"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="12"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="14"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#E6CF00">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="16"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#E6CF00">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="18"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#E6CF00">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="20"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="22"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#2EE600">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="24"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="26"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#E37CFF">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="28"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#E37CFF">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="30"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="32"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+						</g>
+					</g>
+					<g id="3-select-normalize-ns2" obsel-id="3-select-normalize"
+						date="1" stroke="#000000" style="opacity: 0.7" />
+				</add>
+				<delete obsel-id="3-select-normalize-ttt" />
+				<add>
+					<g id="" date="" begin="" end="1" stroke="#000000">
+						<g fill="#">
+							<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="-19"
+								xlink:href="svg/icons/thinline.svg#thinline" />
+						</g>
+					</g>
+				</add>
+			</delta>
+			<delta source="clock" date="1">1</delta>
+			<delta source="tooltip" date="1">
+				<tooltip obsel-id="3-select-normalize">
+					<div class="obsel-html" title="obsel-html">
+						<div>Id: 3-select-normalize</div>
+						<div>Date: 1 - Begin: 1 - End: 1</div>
+						<div>Source: Ernest</div>
+						<div>type: action</div>
+						<div>
+							retina:
+							<div style="padding-left: 5em;">
+								<div>
+									pixel_0_11:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_10:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_9:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_8:
+									<div
+										style="height:1em; width:10em; background-color:#E6CF00; color:#000000; display:inline;">E6CF00</div>
+								</div>
+								<div>
+									pixel_0_7:
+									<div
+										style="height:1em; width:10em; background-color:#E6CF00; color:#000000; display:inline;">E6CF00</div>
+								</div>
+								<div>
+									pixel_0_6:
+									<div
+										style="height:1em; width:10em; background-color:#E6CF00; color:#000000; display:inline;">E6CF00</div>
+								</div>
+								<div>
+									pixel_0_5:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_4:
+									<div
+										style="height:1em; width:10em; background-color:#2EE600; color:#000000; display:inline;">2EE600</div>
+								</div>
+								<div>
+									pixel_0_3:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_2:
+									<div
+										style="height:1em; width:10em; background-color:#E37CFF; color:#000000; display:inline;">E37CFF</div>
+								</div>
+								<div>
+									pixel_0_1:
+									<div
+										style="height:1em; width:10em; background-color:#E37CFF; color:#000000; display:inline;">E37CFF</div>
+								</div>
+								<div>
+									pixel_0_0:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_11:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_10:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_9:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_8:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_7:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_6:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_5:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_4:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_3:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_2:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_1:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_0:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+							</div>
+						</div>
+						<div>
+							current_observation:
+							<div style="padding-left: 5em;">
+								<div>
+									Color:
+									<div
+										style="height:1em; width:10em; background-color:#E6CF00; color:#000000; display:inline;">E6CF00</div>
+								</div>
+								<div>time_to_water: 1000</div>
+								<div>time_to_food: 1000</div>
+								<div>last_checked: -1000</div>
+								<div>distance: 22</div>
+								<div>motivation: 978</div>
+								<div>direction: 70</div>
+								<div>dynamic_feature: +</div>
+								<div>satisfaction: 150</div>
+							</div>
+						</div>
+						<div>clock: 1</div>
+						<div>is_thirsty: true</div>
+						<div>is_hungry: false</div>
+						<div>primitive_enacted_schema: ^</div>
+						<div>primitive_feedback: true</div>
+						<div>primitive_satisfaction: 150</div>
+					</div>
+				</tooltip>
+			</delta>
+		</deltas>
+	</comet>
+	<comet>
+		<deltas>
+			<delta xmlns:xlink="http://www.w3.org/1999/xlink" source="simple-SVG"
+				date="2">
+				<add>
+					<g id="5-select-normalize-ns" obsel-id="5-select-normalize" date="2"
+						stroke="#000000" />
+					<g id="5-select-normalize-s" obsel-id="5-select-normalize" date="2"
+						begin="2" end="2" stroke-width="1pt" stroke="#000000">
+						<g transform="skewY(-80.5) translate(0, 6)">
+							<g fill="#E6CF00">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="10"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#E6CF00">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="12"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#E6CF00">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="14"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="16"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#2EE600">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="18"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="20"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#E37CFF">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="22"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#E37CFF">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="24"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="26"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="28"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="30"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="32"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+						</g>
+					</g>
+					<g id="5-select-normalize-ns2" obsel-id="5-select-normalize"
+						date="2" stroke="#000000" style="opacity: 0.7" />
+				</add>
+				<delete obsel-id="3-select-normalize-ttt" />
+				<add>
+					<g id="" date="" begin="" end="2" stroke="#000000">
+						<g fill="#">
+							<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="NaN"
+								xlink:href="svg/icons/thinline.svg#thinline" />
+						</g>
+					</g>
+				</add>
+			</delta>
+			<delta source="clock" date="2">2</delta>
+			<delta source="tooltip" date="2">
+				<tooltip obsel-id="5-select-normalize">
+					<div class="obsel-html" title="obsel-html">
+						<div>Id: 5-select-normalize</div>
+						<div>Date: 2 - Begin: 2 - End: 2</div>
+						<div>Source: Ernest</div>
+						<div>type: action</div>
+						<div>
+							retina:
+							<div style="padding-left: 5em;">
+								<div>
+									pixel_0_11:
+									<div
+										style="height:1em; width:10em; background-color:#E6CF00; color:#000000; display:inline;">E6CF00</div>
+								</div>
+								<div>
+									pixel_0_10:
+									<div
+										style="height:1em; width:10em; background-color:#E6CF00; color:#000000; display:inline;">E6CF00</div>
+								</div>
+								<div>
+									pixel_0_9:
+									<div
+										style="height:1em; width:10em; background-color:#E6CF00; color:#000000; display:inline;">E6CF00</div>
+								</div>
+								<div>
+									pixel_0_8:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_7:
+									<div
+										style="height:1em; width:10em; background-color:#2EE600; color:#000000; display:inline;">2EE600</div>
+								</div>
+								<div>
+									pixel_0_6:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_5:
+									<div
+										style="height:1em; width:10em; background-color:#E37CFF; color:#000000; display:inline;">E37CFF</div>
+								</div>
+								<div>
+									pixel_0_4:
+									<div
+										style="height:1em; width:10em; background-color:#E37CFF; color:#000000; display:inline;">E37CFF</div>
+								</div>
+								<div>
+									pixel_0_3:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_2:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_1:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_0:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_11:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_10:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_9:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_8:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_7:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_6:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_5:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_4:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_3:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_2:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_1:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_0:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+							</div>
+						</div>
+						<div>
+							current_observation:
+							<div style="padding-left: 5em;">
+								<div>
+									Color:
+									<div
+										style="height:1em; width:10em; background-color:#E6CF00; color:#000000; display:inline;">E6CF00</div>
+								</div>
+								<div>time_to_water: 1000</div>
+								<div>time_to_food: 1000</div>
+								<div>last_checked: -1000</div>
+								<div>distance: 22</div>
+								<div>motivation: 978</div>
+								<div>direction: 100</div>
+								<div>dynamic_feature: -.</div>
+								<div>satisfaction: -100</div>
+							</div>
+						</div>
+						<div>clock: 2</div>
+						<div>is_thirsty: true</div>
+						<div>is_hungry: false</div>
+						<div>primitive_enacted_schema: v</div>
+						<div>primitive_feedback: true</div>
+						<div>primitive_satisfaction: -100</div>
+					</div>
+				</tooltip>
+			</delta>
+		</deltas>
+	</comet>
+	<comet>
+		<deltas>
+			<delta xmlns:xlink="http://www.w3.org/1999/xlink" source="simple-SVG"
+				date="3">
+				<add>
+					<g id="7-select-normalize-ns" obsel-id="7-select-normalize" date="3"
+						stroke="#000000" />
+					<g id="7-select-normalize-s" obsel-id="7-select-normalize" date="3"
+						begin="3" end="3" stroke-width="1pt" stroke="#000000">
+						<g transform="skewY(-80.5) translate(0, 6)">
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="10"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#2EE600">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="12"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="14"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#E37CFF">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="16"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#E37CFF">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="18"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="20"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="22"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="24"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="26"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="28"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="30"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="32"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+						</g>
+					</g>
+					<g id="7-select-normalize-ns2" obsel-id="7-select-normalize"
+						date="3" stroke="#000000" style="opacity: 0.7" />
+				</add>
+				<add>
+					<g id="7-select-normalize-ttt" date="3" begin="3" end="3" stroke="#000000">
+						<g fill="#E37CFF">
+							<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="-19"
+								xlink:href="svg/icons/thinline.svg#thinline" />
+						</g>
+					</g>
+				</add>
+			</delta>
+			<delta source="clock" date="3">3</delta>
+			<delta source="tooltip" date="3">
+				<tooltip obsel-id="7-select-normalize">
+					<div class="obsel-html" title="obsel-html">
+						<div>Id: 7-select-normalize</div>
+						<div>Date: 3 - Begin: 3 - End: 3</div>
+						<div>Source: Ernest</div>
+						<div>type: action</div>
+						<div>
+							retina:
+							<div style="padding-left: 5em;">
+								<div>
+									pixel_0_11:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_10:
+									<div
+										style="height:1em; width:10em; background-color:#2EE600; color:#000000; display:inline;">2EE600</div>
+								</div>
+								<div>
+									pixel_0_9:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_8:
+									<div
+										style="height:1em; width:10em; background-color:#E37CFF; color:#000000; display:inline;">E37CFF</div>
+								</div>
+								<div>
+									pixel_0_7:
+									<div
+										style="height:1em; width:10em; background-color:#E37CFF; color:#000000; display:inline;">E37CFF</div>
+								</div>
+								<div>
+									pixel_0_6:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_5:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_4:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_3:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_2:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_1:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_0:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_11:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_10:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_9:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_8:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_7:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_6:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_5:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_4:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_3:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_2:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_1:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_0:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+							</div>
+						</div>
+						<div>
+							current_observation:
+							<div style="padding-left: 5em;">
+								<div>
+									Color:
+									<div
+										style="height:1em; width:10em; background-color:#E37CFF; color:#000000; display:inline;">E37CFF</div>
+								</div>
+								<div>time_to_water: 1000</div>
+								<div>time_to_food: 1000</div>
+								<div>last_checked: -1000</div>
+								<div>distance: 41</div>
+								<div>motivation: 959</div>
+								<div>direction: 75</div>
+								<div>dynamic_feature: -</div>
+								<div>satisfaction: -150</div>
+							</div>
+						</div>
+						<div>clock: 3</div>
+						<div>is_thirsty: true</div>
+						<div>is_hungry: false</div>
+						<div>primitive_enacted_schema: v</div>
+						<div>primitive_feedback: true</div>
+						<div>primitive_satisfaction: -150</div>
+					</div>
+				</tooltip>
+			</delta>
+		</deltas>
+	</comet>
+	<comet>
+		<deltas>
+			<delta xmlns:xlink="http://www.w3.org/1999/xlink" source="simple-SVG"
+				date="4">
+				<add>
+					<g id="9-select-normalize-ns" obsel-id="9-select-normalize" date="4"
+						stroke="#000000" />
+					<g id="9-select-normalize-s" obsel-id="9-select-normalize" date="4"
+						begin="4" end="4" stroke-width="1pt" stroke="#000000">
+						<g transform="skewY(80.5) translate(0, -6)">
+							<g fill="#E6CF00">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="10"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#E6CF00">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="12"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#E6CF00">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="14"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="16"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#2EE600">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="18"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="20"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#E37CFF">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="22"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#E37CFF">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="24"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="26"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="28"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="30"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+							<g fill="#008000">
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="32"
+									xlink:href="svg/icons/thinline.svg#thinline" />
+							</g>
+						</g>
+					</g>
+					<g id="9-select-normalize-ns2" obsel-id="9-select-normalize"
+						date="4" stroke="#000000" style="opacity: 0.7" />
+				</add>
+				<add>
+					<g id="9-select-normalize-ttt" date="4" begin="4" end="4" stroke="#000000">
+						<g fill="#E6CF00">
+							<use xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="-19"
+								xlink:href="svg/icons/thinline.svg#thinline" />
+						</g>
+					</g>
+				</add>
+			</delta>
+			<delta source="clock" date="4">4</delta>
+			<delta source="tooltip" date="4">
+				<tooltip obsel-id="9-select-normalize">
+					<div class="obsel-html" title="obsel-html">
+						<div>Id: 9-select-normalize</div>
+						<div>Date: 4 - Begin: 4 - End: 4</div>
+						<div>Source: Ernest</div>
+						<div>type: action</div>
+						<div>
+							retina:
+							<div style="padding-left: 5em;">
+								<div>
+									pixel_0_11:
+									<div
+										style="height:1em; width:10em; background-color:#E6CF00; color:#000000; display:inline;">E6CF00</div>
+								</div>
+								<div>
+									pixel_0_10:
+									<div
+										style="height:1em; width:10em; background-color:#E6CF00; color:#000000; display:inline;">E6CF00</div>
+								</div>
+								<div>
+									pixel_0_9:
+									<div
+										style="height:1em; width:10em; background-color:#E6CF00; color:#000000; display:inline;">E6CF00</div>
+								</div>
+								<div>
+									pixel_0_8:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_7:
+									<div
+										style="height:1em; width:10em; background-color:#2EE600; color:#000000; display:inline;">2EE600</div>
+								</div>
+								<div>
+									pixel_0_6:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_5:
+									<div
+										style="height:1em; width:10em; background-color:#E37CFF; color:#000000; display:inline;">E37CFF</div>
+								</div>
+								<div>
+									pixel_0_4:
+									<div
+										style="height:1em; width:10em; background-color:#E37CFF; color:#000000; display:inline;">E37CFF</div>
+								</div>
+								<div>
+									pixel_0_3:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_2:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_1:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_0_0:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_11:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_10:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_9:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_8:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_7:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_6:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_5:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_4:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_3:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_2:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_1:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+								<div>
+									pixel_1_0:
+									<div
+										style="height:1em; width:10em; background-color:#008000; color:#000000; display:inline;">008000</div>
+								</div>
+							</div>
+						</div>
+						<div>
+							current_observation:
+							<div style="padding-left: 5em;">
+								<div>
+									Color:
+									<div
+										style="height:1em; width:10em; background-color:#E6CF00; color:#000000; display:inline;">E6CF00</div>
+								</div>
+								<div>time_to_water: 1000</div>
+								<div>time_to_food: 1000</div>
+								<div>last_checked: -1000</div>
+								<div>distance: 22</div>
+								<div>motivation: 978</div>
+								<div>direction: 100</div>
+								<div>dynamic_feature: +.</div>
+								<div>satisfaction: 100</div>
+							</div>
+						</div>
+						<div>clock: 4</div>
+						<div>is_thirsty: true</div>
+						<div>is_hungry: false</div>
+						<div>primitive_enacted_schema: ^</div>
+						<div>primitive_feedback: true</div>
+						<div>primitive_satisfaction: 100</div>
+					</div>
+				</tooltip>
+			</delta>
+		</deltas>
+	</comet>
+	<comet>
+		<error>Unlinking
+			/home/pierreyves/traceplayer/data/temp/streams/149.&lt;br /&gt;
+		</error>
+	</comet>
+	<comet>
+		<error>Couldn't get next event..&lt;br /&gt;</error>
+	</comet>
+	<comet>
+		<eot />
+	</comet>
+</feed

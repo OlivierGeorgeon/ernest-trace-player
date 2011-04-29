@@ -1,40 +1,7 @@
 <?php
-/*$trace = fopen(TEMP_DATA_DIR . '/streams/' . $_GET['traceId'], "r+");
-	stream_set_blocking($trace, 1);
-	
-	for ($i = 0; $i < 5; $i++) {
-		$data = fread($trace, 1024);
-		while(strlen($data) == 0)
-		{
-			usleep(100000);
-			$data = fread($trace, 1024);
-		}
-		
-		if(flock($trace, LOCK_EX))
-		{
-			while(! feof($trace))
-			{
-				$data .= fread($trace, 1024);
-			}
-			ftruncate($trace, 0);
-			rewind($trace);
-			
-			flock($trace, LOCK_UN);
-		}else{
-			echo "<error>Couldn't get the lock on the trace file.</error>";
-		}
-		
-		//echo "Received :\"\"\"$data\"\"\"<br>"; flush();
-	}*/
 
 require_once 'include/ViewInfos.inc.php';
 require_once 'include/TraceHandler.inc.php';
-
-include_once('include/lib/arc/ARC2.php');
-
-/*set_include_path('./include/lib/');
-require_once "EasyRdf.php";
-require_once "EasyRdf/Parser/Arc.php";*/
 
 class XMLStreamTraceHandler implements TraceHandler
 {
@@ -44,6 +11,7 @@ class XMLStreamTraceHandler implements TraceHandler
 		$this->traceId = $traceId;
 		$this->toAbort = false;
 		$this->atEot = false;
+		$this->filename = TEMP_DATA_DIR . '/streams/' . $this->traceId;
 	}
 
 	public function getObsels($timestampBegin, $timestampEnd)
@@ -65,51 +33,31 @@ class XMLStreamTraceHandler implements TraceHandler
 			if($this->toAbort)
 				return false;
 			
-			if(!file_exists(TEMP_DATA_DIR . '/streams/' . $this->traceId))
+			if(!$this->openFile())
 			{
-				$this->atEot = true;
 				return false;
 			}
-			$this->trace = fopen(TEMP_DATA_DIR . '/streams/' . $this->traceId, "r+");
 			
-			$data = fread($this->trace, 1024);
-			while(strlen($data) == 0)
+			while(! $data = $this->tryRead())
 			{
 				if($this->aborted())
 					return false;
 				usleep(100000);
-				$data .= fread($this->trace, 1024);
+				
+				$data = $this->tryRead();
 			}
 			
-			if(flock($this->trace, LOCK_EX))
-			{
-				while(! feof($this->trace))
-				{
-					$data .= fread($this->trace, 1024);
-				}
-				ftruncate($this->trace, 0);
-				rewind($this->trace);
-				
-				fflush($this->trace);
-				flock($this->trace, LOCK_UN);
-				fclose($this->trace);
-			}else{
-				pushError("Couldn't get the lock on the trace file.");
-			}
-			$this->doc = simplexml_load_string("<contents>" . $data . "</contents>");
-			$this->slices = array();
-			$slices = $this->doc->children();
-			foreach($slices as $slice)
-			{
-				$this->slices[] = $slice;
-			}
+			$data .= $this->readAndFlush();
+			
+			$this->computeSlices($data);
+			
 			$sliceNode = current($this->slices);
 		}
 		
 		if($sliceNode->getName() == "eot")
 		{
 			$this->atEot = true;
-			unlink(TEMP_DATA_DIR . '/streams/' . $this->traceId);
+			unlink($this->filename);
 			return false;
 		}
 		$slice = $sliceNode->asXML();
@@ -117,10 +65,92 @@ class XMLStreamTraceHandler implements TraceHandler
 		return $slice;
 	}
 	
-	public function getNextObselsNB(&$lastKnownId, &$lastKnownTime)
+	public function openFile()
 	{
-		pushError("Unimplemented");
-		die('</feed>');
+		if(!file_exists($this->filename))
+		{
+			$this->atEot = true;
+			return false;
+		}
+		$this->trace = fopen($this->filename, "r+");
+		return true;
+	}
+	
+	public function tryRead()
+	{
+		$data = fread($this->trace, 1024);
+		
+		if(strlen($data) == 0)
+			return false;
+		
+		return $data;
+	}
+	
+	public function readAndFlush()
+	{
+		$data = "";
+		if(flock($this->trace, LOCK_EX))
+		{
+			while(! feof($this->trace))
+			{
+				$data .= fread($this->trace, 1024);
+			}
+			ftruncate($this->trace, 0);
+			rewind($this->trace);
+			
+			fflush($this->trace);
+			flock($this->trace, LOCK_UN);
+			fclose($this->trace);
+		}else{
+			pushError("Couldn't get the lock on the trace file.");
+		}
+		return $data;
+	}
+	
+	public function computeSlices($data)
+	{
+		$this->doc = simplexml_load_string("<contents>" . $data . "</contents>");
+		$this->slices = array();
+		$slices = $this->doc->children();
+		foreach($slices as $slice)
+		{
+			$this->slices[] = $slice;
+		}
+	}
+	
+	public function getNextObselsNB(&$null1, &$null2)
+	{
+		if(!$this->slices or ($sliceNode = next($this->slices)) === false)
+		{
+			if($this->toAbort)
+				return false;
+			
+			if(!$this->openFile())
+			{
+				return false;
+			}
+			
+			if(! $data = $this->tryRead())
+			{
+				return false;
+			}
+			
+			$data .= $this->readAndFlush();
+			
+			$this->computeSlices($data);
+			
+			$sliceNode = current($this->slices);
+		}
+		
+		if($sliceNode->getName() === "eot")
+		{
+			$this->atEot = true;
+			unlink($this->filename);
+			return false;
+		}
+		$slice = $sliceNode->asXML();
+		
+		return $slice;
 	}
 	
 	public function eot()
@@ -148,7 +178,8 @@ class XMLStreamTraceHandler implements TraceHandler
 	private $fd;
 	private $doc;
 	private $atEot;
-	private $slices;
+	//No friend classes in php...
+	public $slices;
 }
 
 ?>

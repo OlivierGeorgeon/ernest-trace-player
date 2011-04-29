@@ -1,11 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?php
+	header("Content-type", "application/xhtml+xml");
+	echo '<?xml version="1.0" encoding="utf-8"?>';
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 
 <head>
+<link rel="stylesheet" type="text/css" href="css/conf.css" />
+
 <!-- <script type="text/javascript" src="js/lib/jquery-1.5.min.js"></script> -->
 <script type="text/javascript" src="js/lib/jquery-1.5.2.js"></script>
 <script type="text/javascript" src="js/lib/jquery.xmldom-1.0.min.js"></script>
+<script type="text/javascript" src="js/lib/jquery.tooltip.js"></script>
 <script type="text/javascript" src="js/lib/pi.1.1.1.min.js"></script>
 <script type="text/javascript" src="js/lib/pi.comet.1.2.js"></script>
 
@@ -17,6 +23,7 @@
 <script type="text/javascript" src="js/StreamControler.js"></script>
 <script type="text/javascript" src="js/SVGTrace.js"></script>
 <script type="text/javascript" src="js/StreamSelector.js"></script>
+<script type="text/javascript" src="js/ConfigEditor.js"></script>
 <script type="text/javascript">
 function init_start_player()
 {
@@ -32,13 +39,17 @@ function init_start_player()
 			},
 			{args: [$("#my-player-thin-notices-div")]}
 	));
+	
+	configEditor = new ConfigEditor("config-editor", "my-player-thin-notices-div", "/abstract/Ernest-trace-player-test-tr");
+	
 	streamSelector = new StreamSelector(
 		"stream-selector", "my-player-thin-notices-div", "/abstract/Ernest-trace-player-test-tr",
 		{
 			div_id: "my-player-thin-div",
 			notice_div_id: "my-player-thin-notices-div",
 			pipeline: "exemplereconf1"
-		}
+		},
+		configEditor
 	);
 
 }
@@ -53,6 +64,7 @@ function changeAutoStream(check)
 	}
 }
 
+
 $(document).ready(function()
 {
 	init_start_player();
@@ -66,17 +78,23 @@ $(document).ready(function()
 <body>
 	<!-- <div id="my-player-div" ></div> -->
 	<div id="my-player-thin-div" style="top:0px; position:relative"></div>
+	
+	<div style="display:table-cell" id="config-editor">
+	</div>
+	
+	<div style="display:table-cell">
+		<div style="display:block; border:1px solid gray; padding: 7px; padding-top: 2px; margin: 1px 1px 1px 5px; ">
+			<div style="display:block; margin-bottom: 5px; color: gray">Chose the trace to stream</div>
+			<div id="stream-selector"></div>
+			<label><input name="auto-last" type="checkbox" autocomplete="off" onchange="changeAutoStream(this)"/>Always play last</label>
+		</div>
+	</div>
 	<br />
 	<div style="display:block; position: absolute; z-index: -1; right:0; margin-right:2em; border: 1px solid gray">Information messages</div>
 	<div style="font-size: 65%; height: 200px; right:0; overflow: auto; border: 1px solid gray; background: rgba(255, 255, 255, 0.6);" >
 	 <span id="my-player-thin-notices-div" style="background: rgba(255, 255, 255, 0.9)"/> 
 	</div>
-	<button id="clear-notices">Clear</button>
+	<button id="clear-notices">Clear</button><br />
 	
-	<div style="display:block; position:absolute; border:1px solid gray; padding: 7px; padding-top: 2px;">
-	<div style="margin-bottom: 5px; color: gray">Chose the trace to stream</div>
-		<div id="stream-selector" />
-		<label><input name="auto-last" type="checkbox" autocomplete="off" onchange="changeAutoStream(this)"/>Always play last</label>
-	</div>
 </body>
 </html>

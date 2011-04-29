@@ -59,7 +59,7 @@ function TracePlayer2(div_id, noticeDiv_id, pipeline, traceHandler, traceRef, tr
 		this.svgTrace = new SVGTrace(this.baseURI, this.div_id);
 
 		// Create the instruction executer.
-		this.ainInterpreter = new AInInterpreter(this.svgTrace, {});
+		this.ainInterpreter = new AInInterpreter(this.svgTrace, {}, this);
 		
 		// Initialize the Player UI
 		this.player = new Player2(this.div, this.notice_div, this.baseURI, this.svgTrace, 
@@ -109,11 +109,17 @@ function TracePlayer2(div_id, noticeDiv_id, pipeline, traceHandler, traceRef, tr
 	{
 		this.streamControler.startStreaming({});
 		this.player.setAutoCenter(true);
+
+		if(this.onPlaying)
+			this.onPlaying();
 	}
 	
 	this.stop = function()
 	{
 		this.streamControler.stopStreaming();
+		
+		if(this.onStopped)
+			this.onStopped();
 	}
 	
 	this.processMessage = function(element)
@@ -127,10 +133,13 @@ function TracePlayer2(div_id, noticeDiv_id, pipeline, traceHandler, traceRef, tr
 				this.notifyUser("Empty message: " + element + ".");
 			}else if(topnode.nodeName == 'eot')
 			{
-				this.streamControler.stopStreaming();
-				this.notifyUser("End of stream reached.");
-				if(this.onEOT !== null)
-					this.onEOT();
+				this.notifyUser("End of stream " + topnode.getAttribute('trace') + " reached.");
+				if(topnode.getAttribute('trace') == traceRef)
+				{
+					//this.streamControler.stopStreaming();
+					if(this.onEOT !== null)
+						this.onEOT();
+				}
 			}else if(topnode.nodeName == 'error')
 			{
 				this.errorString = topnode.textContent;
@@ -180,7 +189,9 @@ function TracePlayer2(div_id, noticeDiv_id, pipeline, traceHandler, traceRef, tr
 		this.stop();
 		this.player.cleanup();
 	}
-	
+
 	this.onEOT = null;
+	this.onPlaying = null;
+	this.onStopped = null;
 	
 }
