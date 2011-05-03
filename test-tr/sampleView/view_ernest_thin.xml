@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<view>
-	<slice-transformation-filename>slice2SVG_ernest_thin</slice-transformation-filename>
-	<obsel-transformation-filename>obsel2SVG_ernest_thin</obsel-transformation-filename>
-	<view-width>72</view-width>
-	<default-scale>6.66666</default-scale>
-	<css-filename>empty</css-filename>
-</view>
