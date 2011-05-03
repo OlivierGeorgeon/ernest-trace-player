@@ -24,13 +24,13 @@
 		<xsl:if test="@source = 'Ernest'">
 			<obsel id="{@id}-{$name}" date="{@date}" begin="{@date}" end="{@date}">
 				<xsl:copy-of select="@*[name() != 'id']" />
-				<type>action</type>
+				<!--<type>action</type>
 
 				<xsl:copy-of select="retina" />
 				<xsl:copy-of select="current_observation" />
 				<xsl:copy-of select="clock" />
 				<xsl:copy-of select="is_thirsty" />
-				<xsl:if test="is_thristy"> <!-- typo -->
+				<xsl:if test="is_thristy">
 					<is_thirsty>
 						<xsl:copy-of select="is_thristy/@*" />
 						<xsl:value-of select="is_thristy" />
@@ -44,7 +44,8 @@
 				<xsl:copy-of select="bump_landmark" />
 				<xsl:copy-of select="check_landmark" />
 				<xsl:copy-of select="eat" />
-				<xsl:copy-of select="drink" />
+				<xsl:copy-of select="drink" />-->
+				<xsl:copy-of select="*[not(@display = 'no')]" />
 			</obsel>
 		</xsl:if>
 	</xsl:template>

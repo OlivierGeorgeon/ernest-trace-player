@@ -1,7 +1,7 @@
 <pipeline>
 	<default-scale>6.666666</default-scale>
 	<default-center>0</default-center>
-	<graph-width>80</graph-width>
+	<graph-width>240</graph-width>
 	
 	<levels>
 		

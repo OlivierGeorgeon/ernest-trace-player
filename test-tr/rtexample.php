@@ -8,6 +8,12 @@
 <head>
 <link rel="stylesheet" type="text/css" href="css/conf.css" />
 
+<link rel="stylesheet" type="text/css" href="js/lib/codemirror/codemirror.css" />
+<link rel="stylesheet" type="text/css" href="js/lib/codemirror/mode/xml/xml.css" />
+<link rel="stylesheet" type="text/css" href="js/lib/codemirror/mode/clike/clike.css" />
+<link rel="stylesheet" type="text/css" href="js/lib/codemirror/mode/javascript/javascript.css" />
+<link rel="stylesheet" type="text/css" href="js/lib/codemirror/mode/css/css.css" />
+
 <!-- <script type="text/javascript" src="js/lib/jquery-1.5.min.js"></script> -->
 <script type="text/javascript" src="js/lib/jquery-1.5.2.js"></script>
 <script type="text/javascript" src="js/lib/jquery.xmldom-1.0.min.js"></script>
@@ -24,6 +30,16 @@
 <script type="text/javascript" src="js/SVGTrace.js"></script>
 <script type="text/javascript" src="js/StreamSelector.js"></script>
 <script type="text/javascript" src="js/ConfigEditor.js"></script>
+<script type="text/javascript" src="js/FileLister.js"></script>
+<script type="text/javascript" src="js/Editor.js"></script>
+
+<script type="text/javascript" src="js/lib/codemirror/codemirror.js"></script>
+<script type="text/javascript" src="js/lib/codemirror/mode/xml/xml.js"></script>
+<script type="text/javascript" src="js/lib/codemirror/mode/php/php.js"></script>
+<script type="text/javascript" src="js/lib/codemirror/mode/clike/clike.js"></script>
+<script type="text/javascript" src="js/lib/codemirror/mode/javascript/javascript.js"></script>
+<script type="text/javascript" src="js/lib/codemirror/mode/css/css.js"></script>
+<!-- <script type="text/javascript" src="js/codemirror093/codemirror.js"></script>-->
 <script type="text/javascript">
 function init_start_player()
 {
@@ -52,6 +68,7 @@ function init_start_player()
 		configEditor
 	);
 
+	fileLister = new FileLister("lister-div", "editor-div", "/abstract/Ernest-trace-player-test-tr");
 }
 
 function changeAutoStream(check)
@@ -63,7 +80,6 @@ function changeAutoStream(check)
 		streamSelector.setAutoLast(false);
 	}
 }
-
 
 $(document).ready(function()
 {
@@ -95,6 +111,13 @@ $(document).ready(function()
 	 <span id="my-player-thin-notices-div" style="background: rgba(255, 255, 255, 0.9)"/> 
 	</div>
 	<button id="clear-notices">Clear</button><br />
+	
+	<div id="editor-div" style="border:1px solid gray; padding: 7px; position: absolute; display:none; left: 10px; top: 10px; right: 10px; z-index: 2; background-color:#FFFFFF; opacity: 1"></div>
+	<div style="border:1px solid gray; padding: 7px; margin-top: 5px">
+		<div style="display:block; margin-bottom: 5px; color: gray">Editable files</div>
+		<div id="lister-div" ></div>
+	</div>
+	
 	
 </body>
 </html>

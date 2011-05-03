@@ -18,7 +18,7 @@ function Displayer(svgTrace, defaultWidth, xWWidth, defaultScale, defaultCenter,
 	{
 		this.svgElement = svgTrace.getSVGNode();
 		
-		this.divElement.appendChild(this.svgElement);
+		this.divElement.getElementsByTagName('div')[0].appendChild(this.svgElement);
 		
 		this.setWidth(this.width);
 		
@@ -210,8 +210,12 @@ function Displayer(svgTrace, defaultWidth, xWWidth, defaultScale, defaultCenter,
 	 */
 	this.checkAdjustViewPort = function()
 	{
-		if(this.xcenter-this.xWWidth*1.0 < this.vbX 
-		   || this.xcenter+this.xWWidth*1.0 - this.vbX > this.vbWidth + this.vbX)
+		if(this.ajust 
+		   && (
+				   this.dateCenter*1.0*this.scale - 0.5*this.xWWidth < this.vbX
+		        || this.dateCenter*1.0*this.scale + 0.5*this.xWWidth > this.vbWidth + this.vbX
+		   )
+		)
 		{
 			this.ajust = false;
 			this.adjustViewPort();
@@ -230,17 +234,33 @@ function Displayer(svgTrace, defaultWidth, xWWidth, defaultScale, defaultCenter,
 		|| bbox.x + bbox.width + 2000 < this.svgElement.viewBox.baseVal.x + this.svgElement.viewBox.baseVal.width
 		|| bbox.x - 2000 > this.svgElement.viewBox.baseVal.x)
 		{*/
-			this.setViewPort(bbox.x - this.xWWidth, bbox.width + 2.0*this.xWWidth);
-			bboxx = bbox.x;
-			bboxw = bbox.width;
+			this.setViewPort(bbox.x-1.0*this.xWWidth, bbox.width + 2.0*this.xWWidth);
 		/*}*/
 	}
-
+	
 	//Private
 	this.setViewPort = function(xMin, xWidth)
 	{
-		var nxMin = Math.min(xMin, this.xcenter-2.5*this.xWWidth);
-		var nxWidth = Math.max(xWidth, (this.xcenter+2.5*this.xWWidth) - nxMin);
+		//var nxMin = Math.min(xMin, this.xcenter-2.5*this.xWWidth);
+		//var nxWidth = Math.max(xWidth, (this.xcenter+2.5*this.xWWidth) - nxMin);
+		
+		/*var nxMin = this.xcenter-2.5*this.xWWidth;
+		var nxWidth = 5*this.xWWidth;*/
+		
+		var nxMin = xMin;
+		var nxWidth = xWidth;
+		
+		if(nxMin < this.dateCenter*1.0*this.scale - 2.0*this.xWWidth)
+		{
+			nxMin = this.dateCenter*1.0*this.scale - 2.0*this.xWWidth;
+			this.adjust = true;
+		}
+		
+		if(nxWidth > 4.0*this.xWWidth)
+		{
+			nxWidth = 4.0*this.xWWidth;
+			this.adjust = true;
+		}
 
 		this.vbX = nxMin;
 		this.vbWidth = nxWidth;

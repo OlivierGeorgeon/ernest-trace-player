@@ -52,12 +52,10 @@
 			<!-- Apply the transformations on the delta elements of the group. -->
 			<xsl:variable name="outputs">
 				<xsl:apply-templates select="$group-set/delta/*">
-					<!-- TOTO: verify this <xsl:with-param name="state" select="$initial-state" /> -->
 					<xsl:with-param name="state" select="$state/saves/save[not(@name)]" />
 				</xsl:apply-templates>
 				
 				<xsl:apply-templates select="$group-set" mode="manage-named-saves">
-					<!-- TOTO: verify this <xsl:with-param name="state" select="$initial-state" /> -->
 					<xsl:with-param name="state" select="$state/saves" />
 				</xsl:apply-templates>
 			</xsl:variable>

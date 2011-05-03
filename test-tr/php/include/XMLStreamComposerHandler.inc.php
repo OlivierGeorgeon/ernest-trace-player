@@ -9,6 +9,8 @@ class XMLStreamComposerHandler implements TraceHandler
 	{
 		$this->handlers =  $traceHandlers;
 		$this->toAbort = false;
+		$this->debugid = uniqid();
+		$this->it = 0;
 	}
 
 	public function getObsels($timestampBegin, $timestampEnd)
@@ -25,6 +27,8 @@ class XMLStreamComposerHandler implements TraceHandler
 	
 	public function getNextObsels(&$null1, &$null2)
 	{
+		file_put_contents("/tmp/toto" , $this->it++);
+		
 		if(!$this->slices or ($sliceNode = next($this->slices)) === false)
 		{
 			//pushError('No slice ready');
@@ -34,6 +38,9 @@ class XMLStreamComposerHandler implements TraceHandler
 			$data = false;
 			while($data === false)
 			{
+				if($this->aborted())
+					return array(false, false);
+				
 				reset($this->handlers);
 				while($handler =& current($this->handlers)
 				      and $data === false)
@@ -100,7 +107,6 @@ class XMLStreamComposerHandler implements TraceHandler
 	public function aborted()
 	{
 		echo "\n"; flush();
-		touch("/tmp/tested-abort");
 		if(connection_aborted() or connection_status() != 0)
 		{
 			return true;

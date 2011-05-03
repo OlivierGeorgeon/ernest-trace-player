@@ -27,5 +27,5 @@ function handle_error($errno, $errstr, $errfile, $errline)
 	pushError("PHP error at $errfile:$errline: $errstr");
 }
 
-set_error_handler(handle_error, E_ALL);
+set_error_handler('handle_error', E_ALL);
 ?>

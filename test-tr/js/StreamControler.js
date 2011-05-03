@@ -46,6 +46,7 @@ function StreamControler(tracePlayer, streamBaseURL, urlOptions)
 					parametrizeCallback(function(urlOptions){
 						if(this.streaming)
 						{
+							this.tracePlayer.notifyUser("Connection lost.");
 							this.streaming = false;
 							this.stream.abort();
 							this.stream = null;

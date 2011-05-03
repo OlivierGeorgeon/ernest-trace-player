@@ -10,7 +10,7 @@ if(isset($_REQUEST['id']))
 	$config->config->addAttribute('date', '0');
 	$config->config->addAttribute('id', '1');
 	$config->config->addAttribute('source', '__config__');
-	$config->config->addChild('type', 'delete-long-symbole');
+	$config->config->addChild('type', 'delete-symbole');
 	$config->config->addAttribute('symbole-id', $id);
 	
 	postObsel('__config__', $config->config->asXML());

@@ -5,3 +5,5 @@
 php_value error_prepend_string "<comet><error>"
 php_value error_append_string "</error></comet>"
 php_flag magic_quotes_gpc Off
+php_flag output_buffering Off
+php_flag zlib.output_compression Off

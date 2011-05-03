@@ -59,7 +59,7 @@ function Player2(playerDivElement, noticeDivElement, baseURI, svgTrace, defaultW
 		this.centerText = getElementsByTitle(this.playerRoot, 'center-text', true)[0];
 		this.fullbody = window;
 		
-		this.displayer = new Displayer(this.svgTrace, this.yWWidth, this.xWWidth, this.scale, this.senter, this.graphDiv, this.xWWidth/2);
+		this.displayer = new Displayer(this.svgTrace, this.yWWidth, this.xWWidth, this.scale, this.senter, this.graphDiv, this.xWWidth/2-1000);
 		
 		// Registers the click callback for clicking on the play button.
 		$(this.playButton).click(parametrizeCallback(this.onClickPlayPrivate, {scope: this}), false);

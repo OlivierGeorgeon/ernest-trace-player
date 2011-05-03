@@ -166,7 +166,6 @@ class XMLStreamTraceHandler implements TraceHandler
 	public function aborted()
 	{
 		echo "\n"; flush();
-		touch("/tmp/tested-abort");
 		if(connection_aborted() or connection_status() != 0)
 		{
 			return true;

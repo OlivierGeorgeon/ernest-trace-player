@@ -108,10 +108,13 @@ do
 		if($i > 100)
 			$traces->abortASAP();
 	}else{
-		pushError("Couldn't get next event from " . $source->traceId . ".");
-		if($source !== false and $source->eot())
+		if($source !== false)
 		{
-			pushElement('<eot trace="' . $source->traceId . '"/>');
+			pushError("Couldn't get next event from " . $source->traceId);
+			if($source->eot())
+			{
+				pushElement('<eot trace="' . $source->traceId . '"/>');
+			}
 		}
 	}
 }while(! ($obsel === false and $source === false) and $traces->eot() !== true);

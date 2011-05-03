@@ -37,6 +37,9 @@ class ComposerHandler implements TraceHandler
 		//Read from each handler, in turn.
 		while(list($key, $handler) = each($this->handlers))
 		{
+			if($this->aborted())
+				return array(false, false);
+			
 			if($handler->eot() !== true)
 			{
 				// Get the next obsel, non blocking

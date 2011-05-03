@@ -66,7 +66,7 @@ class XMLFragmentFileTraceHandler implements TraceHandler
 	
 	public function getNextObselsNB(&$lastKnownId, &$lastKnownTime)
 	{
-		return $this->getNextObsels(&$lastKnownId, &$lastKnownTime);
+		return $this->getNextObsels($lastKnownId, $lastKnownTime);
 	}
 	
 	public function eot()

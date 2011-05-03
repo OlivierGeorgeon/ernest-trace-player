@@ -108,7 +108,7 @@ class BufferReconfigureTransformation extends PHPTransformation
 						$elt->parentNode->removeChild($elt);
 					}
 					
-					$lsymbole = $this->configState->{'long-symboles'}
+					$lsymbole = $this->configState->{'long-symboles'} 
 						-> xpath("lsymbole[@id='" . $obsel['symbole-id'] . "']");
 					$lsydom = dom_import_simplexml($lsymbole[0]);
 					$lsydom->parentNode->removeChild($lsydom);
@@ -178,7 +178,7 @@ class BufferReconfigureTransformation extends PHPTransformation
 		$this->obselsDataElement->insertBefore($data->importNode($obsel), $this->obselsDataElement->firstChild);*/
 		if($this->obselsDataElement->childNodes->length >= 2)
 			$this->obselsDataElement->removeChild($this->obselsDataElement->firstChild);
-		$this->obselsDataElement->appendChild($data->importNode($obsel));
+		$this->obselsDataElement->appendChild($data->importNode($obsel, true));
 	}
 	
 	protected function longSymbolize($obsel, $symbole, &$delta, &$doc)
@@ -377,9 +377,9 @@ class BufferReconfigureTransformation extends PHPTransformation
 		if($obsel == null)
 		{
 			$none = $data->createElement("none");
-			$this->obselsDataElement->appendChild($data->importNode($none));
+			$this->obselsDataElement->appendChild($data->importNode($none, true));
 		}else{
-			$this->obselsDataElement->appendChild($data->importNode($obsel));
+			$this->obselsDataElement->appendChild($data->importNode($obsel, true));
 		}
 	}
 	
