@@ -12,11 +12,18 @@
 		<xsl:element name="result">
 			<xsl:attribute name="value">
 				<xsl:choose>
+					<xsl:when test="/test/end-condition/child::node() and dyn:evaluate(/test/end-condition)">
+						<xsl:choose>
+							<xsl:when test="dyn:evaluate(/test/begin-condition)">
+								<xsl:text>both</xsl:text>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:text>end</xsl:text>
+							</xsl:otherwise>
+						</xsl:choose>
+					</xsl:when>
 					<xsl:when test="dyn:evaluate(/test/begin-condition)">
 						<xsl:text>begin</xsl:text>
-					</xsl:when>
-					<xsl:when test="/test/end-condition/child::node() and dyn:evaluate(/test/end-condition)">
-						<xsl:text>end</xsl:text>
 					</xsl:when>
 					<xsl:otherwise>
 						<xsl:text>none</xsl:text>

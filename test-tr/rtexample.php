@@ -106,13 +106,14 @@ $(document).ready(function()
 		</div>
 	</div>
 	<br />
+	
 	<div style="display:block; position: absolute; z-index: -1; right:0; margin-right:2em; border: 1px solid gray">Information messages</div>
 	<div style="font-size: 65%; height: 200px; right:0; overflow: auto; border: 1px solid gray; background: rgba(255, 255, 255, 0.6);" >
 	 <span id="my-player-thin-notices-div" style="background: rgba(255, 255, 255, 0.9)"/> 
 	</div>
 	<button id="clear-notices">Clear</button><br />
 	
-	<div id="editor-div" style="border:1px solid gray; padding: 7px; position: absolute; display:none; left: 10px; top: 10px; right: 10px; z-index: 2; background-color:#FFFFFF; opacity: 1"></div>
+	<div id="editor-div" style="border:1px solid gray; padding: 7px; position: fixed; display:none; left: 10px; top: 10px; right: 10px; z-index: 2; background-color:#FFFFFF; opacity: 1"></div>
 	<div style="border:1px solid gray; padding: 7px; margin-top: 5px">
 		<div style="display:block; margin-bottom: 5px; color: gray">Editable files</div>
 		<div id="lister-div" ></div>

@@ -191,7 +191,8 @@ function Player2(playerDivElement, noticeDivElement, baseURI, svgTrace, defaultW
 		{
 			e.preventDefault();
 			
-			this.displayer.checkAdjustViewPort();
+			this.displayer.planAdjustViewPort();
+			//this.displayer.checkAdjustViewPort();
 			
 			this.dragging = true;
 			this.xInit = e.clientX;

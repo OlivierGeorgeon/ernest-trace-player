@@ -157,8 +157,6 @@ function Displayer(svgTrace, defaultWidth, xWWidth, defaultScale, defaultCenter,
 	{
 		if(this.autoCenter)
 		{
-			//var bbox = this.svgElement.getBBox();
-			//this.dateCenter  = (bbox.x + bbox.width) / this.scale;
 			this.rescrollCenter();
 		}
 	}
@@ -176,9 +174,8 @@ function Displayer(svgTrace, defaultWidth, xWWidth, defaultScale, defaultCenter,
 	this.rescrollCenter = function()
 	{
 		this.xcenter = this.dateCenter*1.0*this.scale + this.zeroOffset;
-		
-		/*if(this.ajust)*/
-			this.checkAdjustViewPort();
+
+		this.checkAdjustViewPort();
 		
 		this.divElement.scrollLeft = this.xcenter - this.centerOffset;
 		
