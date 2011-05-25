@@ -17,34 +17,34 @@ class ComposerHandler implements TraceHandler
 		pushError("Unimplementable");
 		die('</feed>');
 	}
-	
+
 	public function getObsel($obselId)
 	{
 		pushError("Unimplementable");
 		die('</feed>');
 	}
-	
+
 	public function getNextObsels(&$null1, &$null2)
 	{
 		$nb = count($this->handlers);
 		$i = 0;
-		
+
 		if(! current($this->handlers))
 		{
 			reset($this->handlers);
 		}
-		
+
 		//Read from each handler, in turn.
 		while(list($key, $handler) = each($this->handlers))
 		{
 			if($this->aborted())
-				return array(false, false);
-			
+			return array(false, false);
+				
 			if($handler->eot() !== true)
 			{
 				// Get the next obsel, non blocking
 				$slice = $handler->getNextObselsNB($null1, $null2);
-				
+
 				// If we got obsels, return them
 				if($slice !== false)
 				{
@@ -68,7 +68,7 @@ class ComposerHandler implements TraceHandler
 				reset($this->handlers);
 				return array($handler, false);
 			}
-			
+				
 			// If we couldn't get any obsel form any handler
 			++$i;
 			if($i >= $nb)
@@ -83,40 +83,40 @@ class ComposerHandler implements TraceHandler
 				$i = 0;
 				usleep(100000);
 			}
-			
+				
 			if(! current($this->handlers))
 			{
 				reset($this->handlers);
 			}
 		}
-		
+
 		// All is finished
 		$this->atEot = true;
 		return array(false, false);
 	}
-	
+
 	public function getNextObselsNB(&$lastKnownId, &$lastKnownTime)
 	{
 		//TODO
 		pushError("Unimplemented");
 		die('</feed>');
 	}
-	
+
 	public function eot()
 	{
 		return $this->atEot;
 	}
-	
+
 	public function abortASAP()
 	{
 		foreach($this->handlers as $handler)
 		{
 			$handler->abortASAP();
 		}
-		
+
 		$this->toAbort = true;
 	}
-	
+
 	public function aborted()
 	{
 		echo "\n"; flush();
@@ -128,7 +128,7 @@ class ComposerHandler implements TraceHandler
 			return false;
 		}
 	}
-	
+
 	private $fd;
 	private $doc;
 	private $atEot;

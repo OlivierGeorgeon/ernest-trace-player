@@ -1,6 +1,6 @@
 <?php
-	header("Content-type", "application/xhtml+xml");
-	echo '<?xml version="1.0" encoding="utf-8"?>';
+header("Content-type", "application/xhtml+xml");
+echo '<?xml version="1.0" encoding="utf-8"?>';
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
@@ -8,11 +8,16 @@
 <head>
 <link rel="stylesheet" type="text/css" href="css/conf.css" />
 
-<link rel="stylesheet" type="text/css" href="js/lib/codemirror/codemirror.css" />
-<link rel="stylesheet" type="text/css" href="js/lib/codemirror/mode/xml/xml.css" />
-<link rel="stylesheet" type="text/css" href="js/lib/codemirror/mode/clike/clike.css" />
-<link rel="stylesheet" type="text/css" href="js/lib/codemirror/mode/javascript/javascript.css" />
-<link rel="stylesheet" type="text/css" href="js/lib/codemirror/mode/css/css.css" />
+<link rel="stylesheet" type="text/css"
+	href="js/lib/codemirror/codemirror.css" />
+<link rel="stylesheet" type="text/css"
+	href="js/lib/codemirror/mode/xml/xml.css" />
+<link rel="stylesheet" type="text/css"
+	href="js/lib/codemirror/mode/clike/clike.css" />
+<link rel="stylesheet" type="text/css"
+	href="js/lib/codemirror/mode/javascript/javascript.css" />
+<link rel="stylesheet" type="text/css"
+	href="js/lib/codemirror/mode/css/css.css" />
 
 <!-- <script type="text/javascript" src="js/lib/jquery-1.5.min.js"></script> -->
 <script type="text/javascript" src="js/lib/jquery-1.5.2.js"></script>
@@ -36,8 +41,10 @@
 <script type="text/javascript" src="js/lib/codemirror/codemirror.js"></script>
 <script type="text/javascript" src="js/lib/codemirror/mode/xml/xml.js"></script>
 <script type="text/javascript" src="js/lib/codemirror/mode/php/php.js"></script>
-<script type="text/javascript" src="js/lib/codemirror/mode/clike/clike.js"></script>
-<script type="text/javascript" src="js/lib/codemirror/mode/javascript/javascript.js"></script>
+<script type="text/javascript"
+	src="js/lib/codemirror/mode/clike/clike.js"></script>
+<script type="text/javascript"
+	src="js/lib/codemirror/mode/javascript/javascript.js"></script>
 <script type="text/javascript" src="js/lib/codemirror/mode/css/css.js"></script>
 <!-- <script type="text/javascript" src="js/codemirror093/codemirror.js"></script>-->
 <script type="text/javascript">
@@ -56,10 +63,10 @@ function init_start_player()
 			{args: [$("#my-player-thin-notices-div")]}
 	));
 	
-	configEditor = new ConfigEditor("config-editor", "my-player-thin-notices-div", "/abstract/Ernest-trace-player-test-tr");
+	configEditor = new ConfigEditor("config-editor", "my-player-thin-notices-div", "/abstract/Ernest-trace-player-test2-tr");
 	
 	streamSelector = new StreamSelector(
-		"stream-selector", "my-player-thin-notices-div", "/abstract/Ernest-trace-player-test-tr",
+		"stream-selector", "my-player-thin-notices-div", "/abstract/Ernest-trace-player-test2-tr",
 		{
 			div_id: "my-player-thin-div",
 			notice_div_id: "my-player-thin-notices-div",
@@ -68,7 +75,14 @@ function init_start_player()
 		configEditor
 	);
 
-	fileLister = new FileLister("lister-div", "editor-div", "/abstract/Ernest-trace-player-test-tr");
+	$("#clear-player").click(parametrizeCallback(function(e, streamSelector)
+			{
+				streamSelector.cleanPlayer();
+			},
+			{args: [streamSelector]}
+	));
+
+	fileLister = new FileLister("lister-div", "editor-div", "/abstract/Ernest-trace-player-test2-tr");
 }
 
 function changeAutoStream(check)
@@ -92,33 +106,41 @@ $(document).ready(function()
 </head>
 
 <body>
-	<!-- <div id="my-player-div" ></div> -->
-	<div id="my-player-thin-div" style="top:0px; position:relative"></div>
-	
-	<div style="display:table-cell" id="config-editor">
-	</div>
-	
-	<div style="display:table-cell">
-		<div style="display:block; border:1px solid gray; padding: 7px; padding-top: 2px; margin: 1px 1px 1px 5px; ">
-			<div style="display:block; margin-bottom: 5px; color: gray">Chose the trace to stream</div>
-			<div id="stream-selector"></div>
-			<label><input name="auto-last" type="checkbox" autocomplete="off" onchange="changeAutoStream(this)"/>Always play last</label>
-		</div>
-	</div>
-	<br />
-	
-	<div style="display:block; position: absolute; z-index: -1; right:0; margin-right:2em; border: 1px solid gray">Information messages</div>
-	<div style="font-size: 65%; height: 200px; right:0; overflow: auto; border: 1px solid gray; background: rgba(255, 255, 255, 0.6);" >
-	 <span id="my-player-thin-notices-div" style="background: rgba(255, 255, 255, 0.9)"/> 
-	</div>
-	<button id="clear-notices">Clear</button><br />
-	
-	<div id="editor-div" style="border:1px solid gray; padding: 7px; position: fixed; display:none; left: 10px; top: 10px; right: 10px; z-index: 2; background-color:#FFFFFF; opacity: 1"></div>
-	<div style="border:1px solid gray; padding: 7px; margin-top: 5px">
-		<div style="display:block; margin-bottom: 5px; color: gray">Editable files</div>
-		<div id="lister-div" ></div>
-	</div>
-	
-	
+<!-- <div id="my-player-div" ></div> -->
+<div id="my-player-thin-div" style="top: 0px; position: relative"></div>
+<button id="clear-player">Cleat player (debug)</button>
+
+<div style="display: table-cell" id="config-editor"></div>
+
+<div style="display: table-cell">
+<div
+	style="display: block; border: 1px solid gray; padding: 7px; padding-top: 2px; margin: 1px 1px 1px 5px;">
+<div style="display: block; margin-bottom: 5px; color: gray">Chose the
+trace to stream</div>
+<div id="stream-selector"></div>
+<label><input name="auto-last" type="checkbox" autocomplete="off"
+	onchange="changeAutoStream(this)" />Always play last</label></div>
+</div>
+<br />
+
+<div
+	style="display: block; position: absolute; z-index: -1; right: 0; margin-right: 2em; border: 1px solid gray">Information
+messages</div>
+<div
+	style="font-size: 65%; height: 200px; right: 0; overflow: auto; border: 1px solid gray; background: rgba(255, 255, 255, 0.6);">
+<span id="my-player-thin-notices-div"
+	style="background: rgba(255, 255, 255, 0.9)" /></div>
+<button id="clear-notices">Clear</button>
+<br />
+
+<div id="editor-div"
+	style="border: 1px solid gray; padding: 7px; position: fixed; display: none; left: 10px; top: 10px; right: 10px; z-index: 2; background-color: #FFFFFF; opacity: 1"></div>
+<div style="border: 1px solid gray; padding: 7px; margin-top: 5px">
+<div style="display: block; margin-bottom: 5px; color: gray">Editable
+files</div>
+<div id="lister-div"></div>
+</div>
+
+
 </body>
 </html>

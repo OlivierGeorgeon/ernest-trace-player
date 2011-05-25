@@ -1,75 +1,75 @@
 <?php
 /*
-homepage: http://arc.semsol.org/
-license:  http://arc.semsol.org/license
+ homepage: http://arc.semsol.org/
+ license:  http://arc.semsol.org/license
 
-class:    ARC2 microformats Extractor
-author:   Benjamin Nowack
-version:  2010-11-16
-*/
+ class:    ARC2 microformats Extractor
+ author:   Benjamin Nowack
+ version:  2010-11-16
+ */
 
 ARC2::inc('ARC2_PoshRdfExtractor');
 
 class ARC2_MicroformatsExtractor extends ARC2_PoshRdfExtractor {
 
-  function __construct($a, &$caller) {
-    parent::__construct($a, $caller);
-  }
-  
-  function __init() {
-    parent::__init();
-    $this->terms = $this->getTerms();
-    $this->ns_prefix = 'mf';
-    $this->a['ns']['mf'] = 'http://poshrdf.org/ns/mf#';
-    $this->caller->detected_formats['posh-rdf'] = 1;
-  }
+	function __construct($a, &$caller) {
+		parent::__construct($a, $caller);
+	}
 
-  /*  */
-  
-  function preProcessNode($n) {
-    if (!$n) return $n;
-    /* remove existing poshRDF hooks */
-    if (!is_array($n['a'])) $n['a'] = array();
-    $n['a']['class'] = isset($n['a']['class']) ? preg_replace('/\s?rdf\-(s|p|o|o-xml)/', '', $n['a']['class']): '';
-    if (!isset($n['a']['rel'])) $n['a']['rel'] = '';
-    /* inject poshRDF hooks */
-    foreach ($this->terms as $term => $infos) {
-      if ((!in_array('rel', $infos) && $this->hasClass($n, $term)) || $this->hasRel($n, $term)) {
-        if ($this->v('scope', '', $infos)) $infos[] = 'p';
-        foreach (array('s', 'p', 'o', 'o-xml') as $type) {
-          if (in_array($type, $infos)) {
-            $n['a']['class'] .= ' rdf-' . $type;
-            $n['a']['class'] = preg_replace('/(^|\s)' . $term . '(\s|$)/s', '\\1mf-' . $term . '\\2', $n['a']['class']);
-            $n['a']['rel'] = preg_replace('/(^|\s)' . $term . '(\s|$)/s', '\\1mf-' . $term . '\\2', $n['a']['rel']);
-          }
-        }
-      }
-    }
-    $n['a']['class m'] = preg_split('/ /', $n['a']['class']);
-    $n['a']['rel m'] = preg_split('/ /', $n['a']['rel']);
-    return $n;
-  }
-  
-  function getPredicates($n, $ns) {
-    $ns = array('mf' => $ns['mf']);
-    return parent::getPredicates($n, $ns);
-  }
-  
-  function tweakObject($o, $p, $ct) {
-    $ns = $ct['ns']['mf'];
-    /* rel-tag, skill => extract from URL */
-    if (in_array($p, array($ns . 'tag', $ns . 'skill'))) {
-      $o = preg_replace('/^.*\/([^\/]+)/', '\\1', trim($o, '/'));
-      $o = urldecode(rawurldecode($o));
-    }
-    return $o;
-  }
-  
-  /*  */
-  
-  function getTerms() {
-    /* no need to define 'p' if scope is not empty */
-    return array(
+	function __init() {
+		parent::__init();
+		$this->terms = $this->getTerms();
+		$this->ns_prefix = 'mf';
+		$this->a['ns']['mf'] = 'http://poshrdf.org/ns/mf#';
+		$this->caller->detected_formats['posh-rdf'] = 1;
+	}
+
+	/*  */
+
+	function preProcessNode($n) {
+		if (!$n) return $n;
+		/* remove existing poshRDF hooks */
+		if (!is_array($n['a'])) $n['a'] = array();
+		$n['a']['class'] = isset($n['a']['class']) ? preg_replace('/\s?rdf\-(s|p|o|o-xml)/', '', $n['a']['class']): '';
+		if (!isset($n['a']['rel'])) $n['a']['rel'] = '';
+		/* inject poshRDF hooks */
+		foreach ($this->terms as $term => $infos) {
+			if ((!in_array('rel', $infos) && $this->hasClass($n, $term)) || $this->hasRel($n, $term)) {
+				if ($this->v('scope', '', $infos)) $infos[] = 'p';
+				foreach (array('s', 'p', 'o', 'o-xml') as $type) {
+					if (in_array($type, $infos)) {
+						$n['a']['class'] .= ' rdf-' . $type;
+						$n['a']['class'] = preg_replace('/(^|\s)' . $term . '(\s|$)/s', '\\1mf-' . $term . '\\2', $n['a']['class']);
+						$n['a']['rel'] = preg_replace('/(^|\s)' . $term . '(\s|$)/s', '\\1mf-' . $term . '\\2', $n['a']['rel']);
+					}
+				}
+			}
+		}
+		$n['a']['class m'] = preg_split('/ /', $n['a']['class']);
+		$n['a']['rel m'] = preg_split('/ /', $n['a']['rel']);
+		return $n;
+	}
+
+	function getPredicates($n, $ns) {
+		$ns = array('mf' => $ns['mf']);
+		return parent::getPredicates($n, $ns);
+	}
+
+	function tweakObject($o, $p, $ct) {
+		$ns = $ct['ns']['mf'];
+		/* rel-tag, skill => extract from URL */
+		if (in_array($p, array($ns . 'tag', $ns . 'skill'))) {
+			$o = preg_replace('/^.*\/([^\/]+)/', '\\1', trim($o, '/'));
+			$o = urldecode(rawurldecode($o));
+		}
+		return $o;
+	}
+
+	/*  */
+
+	function getTerms() {
+		/* no need to define 'p' if scope is not empty */
+		return array(
       'acquaintance' => array('o', 'rel', 'scope' => array('_doc', 'hentry')),
       'additional-name' => array('o', 'scope' => array('n')),
       'adr' => array('s', 'o', 'scope' => array('_doc', 'vcard')),
@@ -170,9 +170,9 @@ class ARC2_MicroformatsExtractor extends ARC2_PoshRdfExtractor {
       'vevent' => array('s', 'scope' => array('_doc')),
       'worst' => array('o', 'scope' => array('hreview')),
       'xfolkentry' => array('s', 'scope' => array('_doc')),
-    );
-  }
+		);
+	}
 
-  /*  */
-  
+	/*  */
+
 }

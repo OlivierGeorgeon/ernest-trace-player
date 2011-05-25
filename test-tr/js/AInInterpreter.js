@@ -71,4 +71,13 @@ function AInInterpreter(svgTrace, displayInfos, tracePlayer)
 			}
 		}
 	}
+	
+	this.cleanup = function()
+	{
+		this.svgTrace = null;
+		this.currentFragment = null;
+		this.displayInfos = null;
+		this.tracePlayer = null;
+		
+	}
 }

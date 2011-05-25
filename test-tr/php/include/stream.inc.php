@@ -3,7 +3,7 @@
 function postObsel($traceId, $data)
 {
 	touch('/tmp/streamed');
-	
+
 	$trace = fopen(TEMP_DATA_DIR . '/streams/' . $traceId, "a+");
 	if(flock($trace, LOCK_EX))
 	{
@@ -14,7 +14,7 @@ function postObsel($traceId, $data)
 	}else{
 		echo "<error>Couldn't get the lock on the trace file.</error>";
 	}
-	
+
 	storeObsel($traceId, $data);
 }
 
@@ -30,5 +30,5 @@ function deleteStored($traceId)
 {
 	$fn = DATA_DIR . '/xml_trace_fragments/' . $traceId;
 	if(file_exists($fn))
-		unlink($fn);
+	unlink($fn);
 }

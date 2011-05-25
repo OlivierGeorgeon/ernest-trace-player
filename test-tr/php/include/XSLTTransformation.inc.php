@@ -14,7 +14,7 @@ class XSLTTransformation extends Transformation
 		$this->xsltFilename = $xsltFilename;
 		touch($this->stateFilename);
 	}
-	
+
 	public function transform($deltas)
 	{
 		$xsl = $this->getProc();
@@ -23,7 +23,7 @@ class XSLTTransformation extends Transformation
 			'state-filename' => $this->stateFilename
 		);
 		$xsl->setParameter('', $parameters);
-		
+
 		//TODO: put it back with transformToDoc
 		/*$xml = $xsl->transformToXML($deltas);
 		pushError("XML(".$this->name.")" . $xml . " /XML");
@@ -32,24 +32,24 @@ class XSLTTransformation extends Transformation
 		return $doc;*/
 		return $xsl->transformToDoc($deltas);
 	}
-	
+
 	protected function getProc()
 	{
 		if($this->xsltProc == null)
 		{
 			$this->xsltProc = new XSLTProcessor();
-			
+				
 			$doc = new DOMDocument;
 			$doc->load($this->xsltFilename);
-			
+				
 			$this->xsltProc->importStylesheet($doc);
 		}
-		
+
 		return $this->xsltProc;
 	}
-	
+
 	protected function forceSaveStateImpl() {}
-	
+
 	protected $xsltProc;
 	protected $xsltFilename;
 };

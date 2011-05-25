@@ -1,18 +1,19 @@
 <xsl:transform xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:dyn="http://exslt.org/dynamic" xmlns:math="http://exslt.org/math"
 	extension-element-prefixes="math dyn" version="1.1">
-	
+
 	<xsl:template match="/">
-		<xsl:apply-templates select="test/obsels/*"/>
+		<xsl:apply-templates select="test/obsels/*" />
 	</xsl:template>
-	
+
 	<xsl:template match="/test/obsels/*[2]">
 		<xsl:variable name="last" select="../*[1]" />
-		
+
 		<xsl:element name="result">
 			<xsl:attribute name="value">
 				<xsl:choose>
-					<xsl:when test="/test/end-condition/child::node() and dyn:evaluate(/test/end-condition)">
+					<xsl:when
+				test="/test/end-condition/child::node() and dyn:evaluate(/test/end-condition)">
 						<xsl:choose>
 							<xsl:when test="dyn:evaluate(/test/begin-condition)">
 								<xsl:text>both</xsl:text>
@@ -32,5 +33,5 @@
 			</xsl:attribute>
 		</xsl:element>
 	</xsl:template>
-	
+
 </xsl:transform>

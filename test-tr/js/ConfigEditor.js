@@ -47,6 +47,12 @@ function ConfigEditor(div_id, noticeDiv_id, baseURI)
 				this.formNewColor = this.formNew.find("input[name=color]");
 				this.formNewVOffset = this.formNew.find("input[name=voffset]");
 				this.formNewImg = this.formNew.find("input[name=image-url]");
+
+				this.formNewScaleX = this.formNew.find("input[name=scaleX]");
+				this.formNewScaleY = this.formNew.find("input[name=scaleY]");
+				this.formNewRotate = this.formNew.find("input[name=rotate]");
+				this.formNewSkewX = this.formNew.find("input[name=skewX]");
+				this.formNewSkewY = this.formNew.find("input[name=skewY]");
 				
 				this.formNewShape.tooltip({tip: "#shape-tooltip", position: "center right", opacity: 0.7});
 				
@@ -233,7 +239,19 @@ function ConfigEditor(div_id, noticeDiv_id, baseURI)
 						+ symbole.children("color").text() + "<br />"
 						+ symbole.children("voffset").text() + "<br />"
 						+ symbole.children("image-url").text() + "<br />"
-						+ "</div></li>"
+						+ 
+						(symbole.children("transform").length > 0 ?
+							"<u>Scale:</u><br />"
+							+ "<u>x:</u> " + symbole.children("scaleX").text() + "<br />"
+							+ "<u>y:</u> " + symbole.children("scaleY").text() + "<br />"
+							+ "<u>Rotate:</u><br />"
+							+ symbole.children("rotate").text() + "<br />"
+							+ "<u>Skew:</u><br />"
+							+ "<u>x:</u> " + symbole.children("skewX").text() + "<br />"
+							+ "<u>y:</u> " + symbole.children("skewY").text() + "<br />"
+							+ "</div></li>"
+						: 
+							"")
 					);
 
 					var li = $(ul[0].lastChild);
@@ -311,6 +329,12 @@ function ConfigEditor(div_id, noticeDiv_id, baseURI)
 		this.formNewColor.val(symboleElement.children("color").text());
 		this.formNewVOffset.val(symboleElement.children("voffset").text());
 		this.formNewImg.val(symboleElement.children("image-url").text());
+
+		this.formNewScaleX.val(symboleElement.children("scaleX").text());
+		this.formNewScaleY.val(symboleElement.children("scaleY").text());
+		this.formNewRotate.val(symboleElement.children("rotate").text());
+		this.formNewSkewX.val(symboleElement.children("skewX").text());
+		this.formNewSkewY.val(symboleElement.children("skewY").text());
 	}
 	
 	this.deleteSymbole = function(nothing, symboleElement)

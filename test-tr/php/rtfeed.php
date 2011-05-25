@@ -27,12 +27,12 @@ $traceRef = $_GET['traceRef'];
 $traceModel = $_GET['traceModel'];
 
 /**
-* Fonction simple identique à celle en PHP 5 qui va suivre
-*/
+ * Fonction simple identique à celle en PHP 5 qui va suivre
+ */
 function microtime_float()
 {
-    list($usec, $sec) = explode(" ", microtime());
-    return ((float)$usec + (float)$sec);
+	list($usec, $sec) = explode(" ", microtime());
+	return ((float)$usec + (float)$sec);
 }
 
 /*
@@ -40,7 +40,7 @@ function microtime_float()
  */
 $pipelineInfos = new PipelineInfos();
 $pipelineInfos->load($pipelineId)
-	or die();
+or die();
 
 $pipeline = new Pipeline($pipelineInfos, $cleanup);
 
@@ -49,23 +49,23 @@ $pipeline = new Pipeline($pipelineInfos, $cleanup);
  */
 /*
  * ~ ~ ~ ~ :'(
-if($traceHandler === "mock")
-{
-	$trace = new MockTraceHandler();
-}elseif($traceHandler === "ktbs")
-{
-	$trace = new KTBSTraceHandler($traceRef, $traceModel);
-}elseif($traceHandler === "ktbs2")
-{
-	$trace = new KTBSTraceHandler2($traceRef, $traceModel);
-}elseif($traceHandler === "file")
-{
-	$trace = new XMLFileTraceHandler($traceRef);
-}elseif($traceHandler === "pipe")
-{
-	$trace = new NamedPipeTraceHandler($traceRef);
-}else*/
-$traces = ""; 
+ if($traceHandler === "mock")
+ {
+ $trace = new MockTraceHandler();
+ }elseif($traceHandler === "ktbs")
+ {
+ $trace = new KTBSTraceHandler($traceRef, $traceModel);
+ }elseif($traceHandler === "ktbs2")
+ {
+ $trace = new KTBSTraceHandler2($traceRef, $traceModel);
+ }elseif($traceHandler === "file")
+ {
+ $trace = new XMLFileTraceHandler($traceRef);
+ }elseif($traceHandler === "pipe")
+ {
+ $trace = new NamedPipeTraceHandler($traceRef);
+ }else*/
+$traces = "";
 if($traceHandler === "stream")
 {
 	$trace = new XMLStreamTraceHandler($traceRef);
@@ -90,23 +90,23 @@ do
 {
 	$time_start = microtime_float();
 	list($source, $obsel) = $traces->getNextObsels($lastKnownId, $lastKnownTime);
-	
+
 	if($obsel !== false)
 	{
 		$obsel_doc->loadXML($obsel);
 		$time_end = microtime_float();
 		$time_obs += $time_end - $time_start;
-		
+
 		$time_start = microtime_float();
 		$svgElt = $pipeline->transform($obsel_doc, $source->traceId);
 		$time_end = microtime_float();
 		$time += $time_end - $time_start;
-		
+
 		pushElement($svgElt->saveXML($svgElt->documentElement, LIBXML_COMPACT));
-		
+
 		++$i;
 		if($i > 100)
-			$traces->abortASAP();
+		$traces->abortASAP();
 	}else{
 		if($source !== false)
 		{
@@ -126,13 +126,13 @@ if($traces->eot())
 	$pipeline->cleanStates();
 }
 /*
-echo "Transform: $time seconds\n";
-echo "GetObsel: $time_obs seconds\n";
+ echo "Transform: $time seconds\n";
+ echo "GetObsel: $time_obs seconds\n";
 
-$total_time_end = microtime_float();
-$time = $total_time_end - $total_time_start;
-echo "Total: $time seconds\n";
-*/
+ $total_time_end = microtime_float();
+ $time = $total_time_end - $total_time_start;
+ echo "Total: $time seconds\n";
+ */
 echo "</feed>\n";flush();
 
 ?>

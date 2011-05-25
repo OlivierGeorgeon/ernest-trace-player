@@ -1,13 +1,13 @@
 function Displayer(svgTrace, defaultWidth, xWWidth, defaultScale, defaultCenter, divElement, centerOffset)
 {
 	this.scale = defaultScale;
-	this.dateCenter = defaultCenter
+	this.dateCenter = parseFloat(defaultCenter);
 	this.xcenter = null;
-	this.width = defaultWidth; // Display window height
-	this.xWWidth = xWWidth; // Disaply window width (1000.0)
+	this.width = parseFloat(defaultWidth); // Display window height
+	this.xWWidth = parseFloat(xWWidth); // Disaply window width (1000.0)
 	this.svgTrace = svgTrace;
 	this.divElement = divElement;
-	this.centerOffset = centerOffset;
+	this.centerOffset = parseFloat(centerOffset);
 	this.autoCenter = false;
 	this.svgElement = null;
 	this.suspendedRedraw = null;
@@ -22,7 +22,7 @@ function Displayer(svgTrace, defaultWidth, xWWidth, defaultScale, defaultCenter,
 		
 		this.setWidth(this.width);
 		
-		this.xcenter = this.dateCenter*1.0*this.scale;
+		this.xcenter = this.dateCenter * this.scale;
 		
 		this.setViewPort(this.xcenter-this.xWWidth, this.xcenter+2.0*this.xWWidth);
 		
@@ -76,7 +76,7 @@ function Displayer(svgTrace, defaultWidth, xWWidth, defaultScale, defaultCenter,
 	 */
 	this.setScale = function(scale)
 	{
-		this.scale = scale;
+		this.scale = parseFloat(scale);
 		this.rescaleObsels();
 		this.planAdjustViewPort();
 		this.rescrollCenter();
@@ -93,30 +93,30 @@ function Displayer(svgTrace, defaultWidth, xWWidth, defaultScale, defaultCenter,
 	//Private
 	this.scaleObsel = function(node)
 	{
-		var date = node.getAttribute('date')*1.0;
+		var date = parseFloat(node.getAttribute('date'));
 		if(node.hasAttribute('begin') && node.hasAttribute('end'))
 		{
-			translateSVGNode(node, (date*1.0-0.5)*this.scale, 0);
-			length = node.getAttribute('end') - node.getAttribute('begin') + 1.0;
-			scaleSVGNode(node, this.scale*1.0*length, 1);
+			translateSVGNode(node, (date-0.5)*this.scale, 0);
+			length = parseFloat(node.getAttribute('end')) - parseFloat(node.getAttribute('begin')) + 1.0;
+			scaleSVGNode(node, this.scale*length, 1);
 		}else{
-			translateSVGNode(node, (date*1.0)*this.scale, 0);
+			translateSVGNode(node, date*this.scale, 0);
 		}
 	}
 	
 	//Private
 	this.rescaleObsel = function(node)
 	{
-		var date = node.getAttribute('date')*1.0;
+		var date = parseFloat(node.getAttribute('date'));
 		if(node.hasAttribute('begin') && node.hasAttribute('end'))
 		{
 			//TODO: do that better
 			clearSVGNodeTRansformations(node);
-			translateSVGNode(node, (date*1.0-0.5)*this.scale, 0);
-			length = node.getAttribute('end') - node.getAttribute('begin') + 1.0;
-			scaleSVGNode(node, this.scale*1.0*length, 1);
+			translateSVGNode(node, (date-0.5)*this.scale, 0);
+			length = parseFloat(node.getAttribute('end')) - parseFloat(node.getAttribute('begin')) + 1.0;
+			scaleSVGNode(node, this.scale*length, 1);
 		}else{
-			reTranslateSVGNode(node, (date*1.0)*this.scale, 0);
+			reTranslateSVGNode(node, date*this.scale, 0);
 		}
 	}
 	
@@ -148,7 +148,7 @@ function Displayer(svgTrace, defaultWidth, xWWidth, defaultScale, defaultCenter,
 
 	this.clockTick = function(clock)
 	{
-		this.dateCenter  = clock;
+		this.dateCenter  = parseFloat(clock);
 		this.recenterAuto();
 	}
 	
@@ -166,14 +166,14 @@ function Displayer(svgTrace, defaultWidth, xWWidth, defaultScale, defaultCenter,
 	 */
 	this.scrollCenterTo = function(center)
 	{
-		this.dateCenter = center;
+		this.dateCenter = parseFloat(center);
 		this.rescrollCenter();
 	}
 	
 	//Private
 	this.rescrollCenter = function()
 	{
-		this.xcenter = this.dateCenter*1.0*this.scale + this.zeroOffset;
+		this.xcenter = this.dateCenter*this.scale + this.zeroOffset;
 
 		this.checkAdjustViewPort();
 		
@@ -209,8 +209,8 @@ function Displayer(svgTrace, defaultWidth, xWWidth, defaultScale, defaultCenter,
 	{
 		if(this.ajust 
 		   && (
-				   this.dateCenter*1.0*this.scale - 0.5*this.xWWidth < this.vbX
-		        || this.dateCenter*1.0*this.scale + 0.5*this.xWWidth > this.vbWidth + this.vbX
+				   this.dateCenter*this.scale - 0.5*this.xWWidth < this.vbX
+		        || this.dateCenter*this.scale + 0.5*this.xWWidth > this.vbWidth + this.vbX
 		   )
 		)
 		{
@@ -231,7 +231,7 @@ function Displayer(svgTrace, defaultWidth, xWWidth, defaultScale, defaultCenter,
 		|| bbox.x + bbox.width + 2000 < this.svgElement.viewBox.baseVal.x + this.svgElement.viewBox.baseVal.width
 		|| bbox.x - 2000 > this.svgElement.viewBox.baseVal.x)
 		{*/
-			this.setViewPort(bbox.x-1.0*this.xWWidth, bbox.width + 2.0*this.xWWidth);
+			this.setViewPort(bbox.x-this.xWWidth, bbox.width + 2.0*this.xWWidth);
 		/*}*/
 	}
 	
@@ -247,9 +247,9 @@ function Displayer(svgTrace, defaultWidth, xWWidth, defaultScale, defaultCenter,
 		var nxMin = xMin;
 		var nxWidth = xWidth;
 		
-		if(nxMin < this.dateCenter*1.0*this.scale - 2.0*this.xWWidth)
+		if(nxMin < this.dateCenter*this.scale - 2.0*this.xWWidth)
 		{
-			nxMin = this.dateCenter*1.0*this.scale - 2.0*this.xWWidth;
+			nxMin = this.dateCenter*this.scale - 2.0*this.xWWidth;
 			this.adjust = true;
 		}
 		
@@ -266,20 +266,22 @@ function Displayer(svgTrace, defaultWidth, xWWidth, defaultScale, defaultCenter,
 		this.svgElement.width.baseVal.value = nxWidth;
 		this.svgElement.viewBox.baseVal.x = nxMin;
 		this.svgElement.viewBox.baseVal.width = nxWidth;
+		this.svgElement.style.width = nxWidth;
+		this.divElement.style.width = nxWidth;
 	}
 
 	//Private
 	this.setWidth = function(width)
 	{
-		this.width = width;
+		this.width = parseFloat(width);
 		if(this.svgElement !== null)
 		{
-			this.svgElement.height.baseVal.value = width;
+			this.svgElement.height.baseVal.value =  width;
 			this.svgElement.viewBox.baseVal.height = width;
-			this.svgElement.viewBox.baseVal.y = - width/2;
+			this.svgElement.viewBox.baseVal.y = 1- width/2;
 		}
 		
-		this.divElement.style.height = width + "px";
+		this.divElement.style.height = "" + width + "px";
 	}
 	
 	/**
@@ -290,7 +292,8 @@ function Displayer(svgTrace, defaultWidth, xWWidth, defaultScale, defaultCenter,
 		if(this.suspendedRedraw === null && this.svgElement !== null)
 		{
 			// suspendRedraw seems buggy with firefox < 4.0
-			if($.browser['mozilla'] && $.browser['version'].substr(0, 3)*1.0 >= 2.0)
+			if(($.browser['mozilla'] && parseFloat($.browser['version'].substr(0, 3)) >= 2.0)
+			 || $.browser['webkit'])
 			{
 				this.suspendedRedraw = this.svgElement.suspendRedraw(100000);
 			}
@@ -305,7 +308,8 @@ function Displayer(svgTrace, defaultWidth, xWWidth, defaultScale, defaultCenter,
 		if(this.suspendedRedraw !== null && this.svgElement !== null)
 		{
 			// suspendRedraw seems buggy with firefox < 4.0
-			if($.browser['mozilla'] && $.browser['version'].substr(0, 3)*1.0 >= 2.0)
+			if(($.browser['mozilla'] && parseFloat($.browser['version'].substr(0, 3)) >= 2.0)
+			 || $.browser['webkit'])
 			{
 				this.svgElement.unsuspendRedraw(this.suspendedRedraw);
 				this.suspendedRedraw = null;
@@ -319,9 +323,9 @@ function Displayer(svgTrace, defaultWidth, xWWidth, defaultScale, defaultCenter,
 	this.exportView = function()
 	{
 		var newSVG = this.svgElement.cloneNode(true);
-		newSVG.viewBox.baseVal.x = this.xcenter - this.centerOffset;
-		newSVG.viewBox.baseVal.width = this.xWWidth * 1.0; 
-		newSVG.width.baseVal.value = this.xWWidth * 1.0;
+		newSVG.viewBox.baseVal.x = this.dateCenter*this.scale - .5 * this.xWWidth;//this.centerOffset;
+		newSVG.viewBox.baseVal.width = this.xWWidth; 
+		newSVG.width.baseVal.value = this.xWWidth;
 		
 		return newSVG
 	}
@@ -329,6 +333,10 @@ function Displayer(svgTrace, defaultWidth, xWWidth, defaultScale, defaultCenter,
 	this.cleanup = function()
 	{
 		this.unsuspendRedraw();
+		this.onscrolled = null;
+		this.svgTrace = null;
+		this.divElement = null;
+		this.svgElement = null;
 	}
 	
 	this.onscrolled = null;

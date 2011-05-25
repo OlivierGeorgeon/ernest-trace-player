@@ -19,41 +19,41 @@ class XMLStreamTraceHandler implements TraceHandler
 		pushError("Unimplementable");
 		die('</feed>');
 	}
-	
+
 	public function getObsel($obselId)
 	{
 		pushError("Unimplementable");
 		die('</feed>');
 	}
-	
+
 	public function getNextObsels(&$null1, &$null2)
 	{
 		if(!$this->slices or ($sliceNode = next($this->slices)) === false)
 		{
 			if($this->toAbort)
-				return false;
-			
+			return false;
+				
 			if(!$this->openFile())
 			{
 				return false;
 			}
-			
+				
 			while(! $data = $this->tryRead())
 			{
 				if($this->aborted())
-					return false;
+				return false;
 				usleep(100000);
-				
+
 				$data = $this->tryRead();
 			}
-			
+				
 			$data .= $this->readAndFlush();
-			
+				
 			$this->computeSlices($data);
-			
+				
 			$sliceNode = current($this->slices);
 		}
-		
+
 		if($sliceNode->getName() == "eot")
 		{
 			$this->atEot = true;
@@ -61,10 +61,10 @@ class XMLStreamTraceHandler implements TraceHandler
 			return false;
 		}
 		$slice = $sliceNode->asXML();
-		
+
 		return $slice;
 	}
-	
+
 	public function openFile()
 	{
 		if(!file_exists($this->filename))
@@ -75,17 +75,17 @@ class XMLStreamTraceHandler implements TraceHandler
 		$this->trace = fopen($this->filename, "r+");
 		return true;
 	}
-	
+
 	public function tryRead()
 	{
 		$data = fread($this->trace, 1024);
-		
+
 		if(strlen($data) == 0)
-			return false;
-		
+		return false;
+
 		return $data;
 	}
-	
+
 	public function readAndFlush()
 	{
 		$data = "";
@@ -97,7 +97,7 @@ class XMLStreamTraceHandler implements TraceHandler
 			}
 			ftruncate($this->trace, 0);
 			rewind($this->trace);
-			
+				
 			fflush($this->trace);
 			flock($this->trace, LOCK_UN);
 			fclose($this->trace);
@@ -106,7 +106,7 @@ class XMLStreamTraceHandler implements TraceHandler
 		}
 		return $data;
 	}
-	
+
 	public function computeSlices($data)
 	{
 		$this->doc = simplexml_load_string("<contents>" . $data . "</contents>");
@@ -117,31 +117,31 @@ class XMLStreamTraceHandler implements TraceHandler
 			$this->slices[] = $slice;
 		}
 	}
-	
+
 	public function getNextObselsNB(&$null1, &$null2)
 	{
 		if(!$this->slices or ($sliceNode = next($this->slices)) === false)
 		{
 			if($this->toAbort)
-				return false;
-			
+			return false;
+				
 			if(!$this->openFile())
 			{
 				return false;
 			}
-			
+				
 			if(! $data = $this->tryRead())
 			{
 				return false;
 			}
-			
+				
 			$data .= $this->readAndFlush();
-			
+				
 			$this->computeSlices($data);
-			
+				
 			$sliceNode = current($this->slices);
 		}
-		
+
 		if($sliceNode->getName() === "eot")
 		{
 			$this->atEot = true;
@@ -149,20 +149,20 @@ class XMLStreamTraceHandler implements TraceHandler
 			return false;
 		}
 		$slice = $sliceNode->asXML();
-		
+
 		return $slice;
 	}
-	
+
 	public function eot()
 	{
 		return $this->atEot;
 	}
-	
+
 	public function abortASAP()
 	{
 		$this->toAbort = true;
 	}
-	
+
 	public function aborted()
 	{
 		echo "\n"; flush();
@@ -173,7 +173,7 @@ class XMLStreamTraceHandler implements TraceHandler
 			return false;
 		}
 	}
-	
+
 	private $fd;
 	private $doc;
 	private $atEot;

@@ -17,9 +17,9 @@ function pushElement($text)
 function pushError($text)
 {
 	global $comet;
-	echo $comet->push("<error>" 
-		. htmlentities(htmlentities($text) . ".<br />") // Yes.
-		. "</error>"); flush();
+	echo $comet->push("<error>"
+	. htmlentities(htmlentities($text) . ".<br />") // Yes.
+	. "</error>"); flush();
 }
 
 function handle_error($errno, $errstr, $errfile, $errline)

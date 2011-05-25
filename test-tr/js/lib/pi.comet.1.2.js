@@ -38,6 +38,8 @@
 			switch(this.environment.getMethod()){
 				case 1:
 					this.environment.getTunnel().abort();
+					this.event.push = null;
+					this.event.disconnect = null;
 					break;
 				case 2:
 					document.body.removeChild(this.environment.getTunnel());

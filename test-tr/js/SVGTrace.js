@@ -269,6 +269,19 @@ function SVGTrace(baseURI, idPrefix)
 		}
 	}
 	
+	this.cleanup = function()
+	{
+		this.elementsAdded = null;
+		this.addingElement = null;
+		this.removingElement = null;
+		this.modifiedElement = null;
+		this.elementsDeleted = null;
+		this.willModifyCB = null;
+		this.commitModificationsCB = null;
+		this.svgElem = null;
+		this.tooltips = null;
+	}
+	
 	this.elementsAdded = null; //params : JQuery collection
 	this.addingElement = null; //params : SVGElement
 	this.removingElement = null; //params : SVGElement

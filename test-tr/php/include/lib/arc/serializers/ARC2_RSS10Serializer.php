@@ -8,23 +8,23 @@
  * @homepage <http://arc.semsol.org/>
  * @package ARC2
  * @version 2010-11-16
-*/
+ */
 
 ARC2::inc('RDFXMLSerializer');
 
 class ARC2_RSS10Serializer extends ARC2_RDFXMLSerializer {
 
-  function __construct($a, &$caller) {
-    parent::__construct($a, $caller);
-  }
-  
-  function __init() {
-    parent::__init();
-    $this->content_header = 'application/rss+xml';
-    $this->default_ns = 'http://purl.org/rss/1.0/';
-    $this->type_nodes = true;
-  }
+	function __construct($a, &$caller) {
+		parent::__construct($a, $caller);
+	}
 
-  /*  */
-  
+	function __init() {
+		parent::__init();
+		$this->content_header = 'application/rss+xml';
+		$this->default_ns = 'http://purl.org/rss/1.0/';
+		$this->type_nodes = true;
+	}
+
+	/*  */
+
 }

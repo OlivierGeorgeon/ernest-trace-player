@@ -89,16 +89,21 @@ function StreamSelector(div_id, noticeDiv_id, baseURI, tracePlayeInfos, configEd
 			);
 	}
 	
-	this.changeStream = function(name, handler)
+	this.cleanPlayer = function()
 	{
-		this.currentStream = name;
 		if(this.currentPlayer !== null)
 		{
 			this.currentPlayer.cleanup();
 			$('#' + this.tpInfos.div_id).empty();
-			this.currentPlayer = null
-			1+1;
+			this.currentPlayer = null;
 		}
+	}
+	
+	this.changeStream = function(name, handler)
+	{
+		this.cleanPlayer();
+		
+		this.currentStream = name;
 		
 		this.currentPlayer = new TracePlayer2(
 			this.tpInfos.div_id, 

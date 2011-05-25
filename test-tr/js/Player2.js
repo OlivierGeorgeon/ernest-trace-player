@@ -45,6 +45,7 @@ function Player2(playerDivElement, noticeDivElement, baseURI, svgTrace, defaultW
 	 */
 	this.setupUI = function()
 	{
+		try{
 		// Fetch some elements of the base document.
 		this.graphDiv = getElementsByTitle(this.playerRoot, 'graph-div', true)[0];
 		this.uiDiv = getElementsByTitle(this.playerRoot, 'ui-div', true)[0];
@@ -62,30 +63,43 @@ function Player2(playerDivElement, noticeDivElement, baseURI, svgTrace, defaultW
 		this.displayer = new Displayer(this.svgTrace, this.yWWidth, this.xWWidth, this.scale, this.senter, this.graphDiv, this.xWWidth/2-1000);
 		
 		// Registers the click callback for clicking on the play button.
-		$(this.playButton).click(parametrizeCallback(this.onClickPlayPrivate, {scope: this}), false);
+		//$(this.playButton).click(parametrizeCallback(this.onClickPlayPrivate, {scope: this}), false);
+		//this.playButton.addEventListener("click", parametrizeCallback(this.onClickPlayPrivate, {scope: this}), false);
+		this.playButton.onclick = parametrizeCallback(this.onClickPlayPrivate, {scope: this});
 		
 		// Registers the click callback for clicking on the play button.
-		$(this.pauseButton).click(parametrizeCallback(this.onClickPausePrivate, {scope: this}), false);
-
+		//$(this.pauseButton).click(parametrizeCallback(this.onClickPausePrivate, {scope: this}), false);
+		//this.pauseButton.addEventListener("click", parametrizeCallback(this.onClickPausePrivate, {scope: this}), false);
+		this.pauseButton.onclick = parametrizeCallback(this.onClickPausePrivate, {scope: this});
+		
 		// Registers the click callback for clicking on the minus button.
-		$(this.minusButton).click(parametrizeCallback(this.onClickMinusPrivate, {scope: this}), false);
-
+		//$(this.minusButton).click(parametrizeCallback(this.onClickMinusPrivate, {scope: this}), false);
+		//this.minusButton.addEventListener("click", parametrizeCallback(this.onClickMinusPrivate, {scope: this}), false);
+		this.minusButton.onclick = parametrizeCallback(this.onClickMinusPrivate, {scope: this});
+		
 		// Registers the click callback for clicking on the plus button.
-		$(this.plusButton).click(parametrizeCallback(this.onClickPlusPrivate, {scope: this}), false);
+		//$(this.plusButton).click(parametrizeCallback(this.onClickPlusPrivate, {scope: this}), false);
+		//this.plusButton.addEventListener("click", parametrizeCallback(this.onClickPlusPrivate, {scope: this}), false);
+		this.plusButton.onclick = parametrizeCallback(this.onClickPlusPrivate, {scope: this});
 		
 		// Registers the click callback for clicking on the pint button.
-		$(this.printButton).click(parametrizeCallback(this.onClickPrintPrivate, {scope: this}), false);
+		//$(this.printButton).click(parametrizeCallback(this.onClickPrintPrivate, {scope: this}), false);
+		//this.printButton.addEventListener("click", parametrizeCallback(this.onClickPrintPrivate, {scope: this}), false);
+		this.printButton.onclick = parametrizeCallback(this.onClickPrintPrivate, {scope: this});
 		
 		// Registers the mousedown callback for dragging on the rect.
 		//JQuery event management is too slow !
 		//$(this.frameRect).bind('mousedown', parametrizeCallback(this.onMouseDownRect, {scope: this}), false);
 		this.frameRect.onmousedown = parametrizeCallback(this.onMouseDownRect, {scope: this});
+		//this.frameRect.addEventListener("mousedown", parametrizeCallback(this.onMouseDownRect, {scope: this}), false)
 		//$(this.graphDiv).bind('mousedown', parametrizeCallback(this.onMouseDownRect, {scope: this}), false);
 		this.graphDiv.onmousedown = parametrizeCallback(this.onMouseDownRect, {scope: this});
+		//this.graphDiv.addEventListener("mousedown", parametrizeCallback(this.onMouseDownRect, {scope: this}), false);
 		
 		// Register mouse click on the graph zone to handle obsel clicks.
 		//$(this.graphDiv).bind('click', parametrizeCallback(this.onClickRectPrivate, {scope: this}), false);
 		this.graphDiv.onclick = parametrizeCallback(this.onClickRectPrivate, {scope: this});
+		//this.graphDiv.addEventListener("click", parametrizeCallback(this.onClickRectPrivate, {scope: this}), false);
 		
 		// Constructs the callbacks that will be attached to mousemove and mouseup events when dragging.
 		this.onMouseMoveRectParam = parametrizeCallback(this.onMouseMoveRect, {scope: this});
@@ -95,6 +109,9 @@ function Player2(playerDivElement, noticeDivElement, baseURI, svgTrace, defaultW
 		
 		// Adjust button positions and svg size to the graph width.
 		this.adjustUIWidth();
+		}catch (e) {
+			alert(e.message);
+		}
 	}
 
 	/**
@@ -211,8 +228,10 @@ function Player2(playerDivElement, noticeDivElement, baseURI, svgTrace, defaultW
 			this.fullbody.onmouseup = this.onMouseUpRectParam;
 			*/
 			
-			this.eventmove = this.fullbody.addEventListener("mousemove", this.onMouseMoveRectParam, true);
-			this.eventup = this.fullbody.addEventListener("mouseup", this.onMouseUpRectParam, true);
+			this.eventmove = true;
+			this.fullbody.addEventListener("mousemove", this.onMouseMoveRectParam, true);
+			this.eventup = true;
+			this.fullbody.addEventListener("mouseup", this.onMouseUpRectParam, true);
 			
 			this.moveCenterTask = setTimeout(
 					parametrizeCallback(this.updateDraggedCenter, {scope: this}),
@@ -259,13 +278,13 @@ function Player2(playerDivElement, noticeDivElement, baseURI, svgTrace, defaultW
 			this.fullbody.onmouseup = this.oldfullbodyonmouseup;*/
 			if(this.eventmove !== null)
 			{
-				this.fullbody.removeEventListener('mousemove', this.eventmove, true);
+				this.fullbody.removeEventListener('mousemove', this.onMouseMoveRectParam, true);
 				this.eventmove = null;
 			}
 			
 			if(this.eventup !== null)
 			{
-				this.fullbody.removeEventListener('mouseup', this.up, true);
+				this.fullbody.removeEventListener('mouseup', this.onMouseUpRectParam, true);
 				this.eventup = null;
 			}
 			
@@ -290,13 +309,13 @@ function Player2(playerDivElement, noticeDivElement, baseURI, svgTrace, defaultW
 		//this.fullbody.onmouseup = this.oldfullbodyonmouseup;
 		if(this.eventmove !== null)
 		{
-			this.fullbody.removeEventListener('mousemove', this.eventmove, true);
+			this.fullbody.removeEventListener('mousemove', this.onMouseMoveRectParam, true);
 			this.eventmove = null;
 		}
 		
 		if(this.eventup !== null)
 		{
-			this.fullbody.removeEventListener('mouseup', this.up, true);
+			this.fullbody.removeEventListener('mouseup', this.onMouseUpRectParam, true);
 			this.eventup = null;
 		}
 		
@@ -377,19 +396,39 @@ function Player2(playerDivElement, noticeDivElement, baseURI, svgTrace, defaultW
 	{
 		if(this.eventmove !== null)
 		{
-			this.fullbody.removeEventListener('mousemove', this.eventmove, true);
+			this.fullbody.removeEventListener('mousemove', this.onMouseMoveRectParam, true);
 			this.eventmove = null;
 		}
 		
 		if(this.eventup !== null)
 		{
-			this.fullbody.removeEventListener('mouseup', this.up, true);
+			this.fullbody.removeEventListener('mouseup', this.onMouseUpRectParam, true);
 			this.eventup = null;
 		}
 		
 		clearTimeout(this.moveCenterTask);
 		
 		this.displayer.cleanup();
+		this.displayer = null;
+		this.svgTrace = null;
+		this.playerRoot = null;
+		this.playerNotice = null;
+		
+		this.onClickPlay = null;
+		this.onClickPause = null;
+		this.onClickMinus = null;
+		this.onClickPlus = null;
+		this.onClickPrint = null;
+		this.playButton.onclick = null;
+		this.pauseButton.onclick = null;
+		this.minusButton.onclick = null;
+		this.plusButton.onclick = null;
+		this.printButton.onclick = null;
+		this.frameRect.onmousedown = null;
+		this.graphDiv.onmousedown = null;
+		this.graphDiv.onclick = null;
+		this.onMouseMoveRectParam = null;
+		this.onMouseUpRectParam = null;
 	}
 	
 	this.onClickPlay = null;

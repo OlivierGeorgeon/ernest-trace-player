@@ -72,7 +72,7 @@
 	</xsl:template>
 
 	<xsl:template
-		match="*[starts-with(name(), 'pixel_') or name() = 'bump_landmark' or name() = 'check_landmark']">
+		match="*[starts-with(name(), 'pixel_') or name() = 'bump_landmark' or name() = 'check_landmark' or starts-with(name(), 'position_')]">
 		<xsl:element name="div">
 			<xsl:element name="span">
 				<xsl:value-of select="name()" />
@@ -81,7 +81,7 @@
 			<xsl:element name="div">
 				<xsl:attribute name="style">
 					<xsl:text>height:1em; width:10em; background-color:#</xsl:text>
-					<xsl:value-of select="text()"/>
+					<xsl:value-of select="text()" />
 					<xsl:text>; color:#000000; display:inline;</xsl:text>
 				</xsl:attribute>
 				<xsl:value-of select="text()" />
@@ -94,11 +94,11 @@
 			<xsl:element name="span">
 				<xsl:text>check_landmark: </xsl:text>
 			</xsl:element>
-			
+
 			<xsl:element name="div">
 				<xsl:attribute name="style">
 					<xsl:text>height:1em; width:10em; background-color:#</xsl:text>
-					<xsl:value-of select="text()"/>
+					<xsl:value-of select="text()" />
 					<xsl:text>; color:#000000; display:inline;</xsl:text>
 				</xsl:attribute>
 				<xsl:value-of select="." />

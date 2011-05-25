@@ -106,20 +106,42 @@ function StreamControler(tracePlayer, streamBaseURL, urlOptions)
 		this.streamTime = clock;
 	}
 	
-	window.addEventListener(
-		"beforeunload", 
-		parametrizeCallback(
+	this.beforeUnload = parametrizeCallback(
 			function(e){
 				if(this.streaming)
 				{
 					this.streaming = false;
 					this.stream.abort();
-					this.steam = null;
+					this.stream = null;
 				}
 			},
 			{scope: this}
-		),
+		);
+	
+	window.addEventListener(
+		"beforeunload", 
+		this.beforeUnload,
 		false
 	);
+	
+	this.cleanup = function()
+	{
+		this.stopStreaming();
+		this.tracePlayer = null;
+		
+		this.baseURL = null;
+		this.tracePlayer = null;
+		this.streamTime = null;
+		
+		this.url = null;
+		this.buffer = null;
+		window.removeEventListener(
+			"beforeunload", 
+			this.beforeUnload,
+			false
+		);
+		
+		this.beforeUnload = null;
+	}
 	
 }

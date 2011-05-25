@@ -11,7 +11,8 @@ function TracePlayer2(div_id, noticeDiv_id, pipeline, traceHandler, traceRef, tr
 	this.traceModel = traceModel;
 	this.svgTrace = null;
 	this.xmlSerializer = new XMLSerializer();
-	
+	this.streamControler = null;
+	this.ainInterpreter = null;
 	
 	/**
 	 * Loads the pipeline informations from the server (for now, these informations are 
@@ -23,9 +24,9 @@ function TracePlayer2(div_id, noticeDiv_id, pipeline, traceHandler, traceRef, tr
 			url: this.baseURI + '/php/getPipelineInfos.php?pipelineId=' + this.pipeline,
 			context: this,
 			success: function(data){
-				this.defaultScale = data.getElementsByTagName('default-scale')[0].textContent;
-				this.defaultCenter = data.getElementsByTagName('default-center')[0].textContent;
-				this.yWWidth = data.getElementsByTagName('graph-width')[0].textContent;
+				this.defaultScale = parseFloat(data.getElementsByTagName('default-scale')[0].textContent);
+				this.defaultCenter = parseFloat(data.getElementsByTagName('default-center')[0].textContent);
+				this.yWWidth = parseFloat(data.getElementsByTagName('graph-width')[0].textContent);
 			},
 			async: false
 		});
@@ -188,6 +189,17 @@ function TracePlayer2(div_id, noticeDiv_id, pipeline, traceHandler, traceRef, tr
 	{
 		this.stop();
 		this.player.cleanup();
+		this.player = null;
+		this.svgTrace.cleanup();
+		this.svgTrace = null;
+		this.streamControler.cleanup();
+		this.streamControler = null;
+		this.ainInterpreter.cleanup();
+		this.ainInterpreter = null;
+		
+		this.onEOT = null;
+		this.onPlaying = null;
+		this.onStopped = null;
 	}
 
 	this.onEOT = null;

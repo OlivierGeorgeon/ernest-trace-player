@@ -4,15 +4,13 @@
 	font-family: monospace;
 	border-left: 1px solid black;
 	margin-left: 2px;
-	padding-left:5px;
+	padding-left: 5px;
 }
 
-.symbole-title 
-{
+.symbole-title {
 	font-family: sans-serif;
 	display: inline;
 }
-
 
 a {
 	text-decoration: none
@@ -20,17 +18,15 @@ a {
 
 /* simple css-based tooltip */
 .tooltip {
-	background-color:#000;
-	border:1px solid #fff;
-	padding:10px 15px;
-	width:200px;
-	display:none;
-	color:#fff;
-	text-align:left;
-	font-size:12px;
-
+	background-color: #000;
+	border: 1px solid #fff;
+	padding: 10px 15px;
+	width: 200px;
+	display: none;
+	color: #fff;
+	text-align: left;
+	font-size: 12px;
 	/* outline radius for mozilla/firefox only */
-	-moz-box-shadow:0 0 10px #000;
-	-webkit-box-shadow:0 0 10px #000;
+	-moz-box-shadow: 0 0 10px #000;
+	-webkit-box-shadow: 0 0 10px #000;
 }
-
