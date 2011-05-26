@@ -108,7 +108,7 @@ $(document).ready(function()
 <body>
 <!-- <div id="my-player-div" ></div> -->
 <div id="my-player-thin-div" style="top: 0px; position: relative"></div>
-<button id="clear-player">Cleat player (debug)</button>
+<button id="clear-player">Clear player (debug)</button>
 
 <div style="display: table-cell" id="config-editor"></div>
 

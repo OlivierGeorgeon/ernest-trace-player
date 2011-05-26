@@ -101,6 +101,7 @@ function StreamSelector(div_id, noticeDiv_id, baseURI, tracePlayeInfos, configEd
 	
 	this.changeStream = function(name, handler)
 	{
+		this.notice_div.prepend("Now playing " + name + ".<br/>");
 		this.cleanPlayer();
 		
 		this.currentStream = name;
@@ -130,12 +131,16 @@ function StreamSelector(div_id, noticeDiv_id, baseURI, tracePlayeInfos, configEd
 	
 	this.setAutoLast = function(auto)
 	{
+		try{
 		if(this.autoLast != auto)
 		{
 			this.autoLast = auto;
 			
 			if(this.autoLast == true)
 				this.playLast();
+		}
+		}catch (e) {
+			alert(e);
 		}
 	}
 	

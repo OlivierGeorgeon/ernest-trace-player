@@ -28,13 +28,21 @@ function SVGTrace(baseURI, idPrefix)
 	{
 		return this.svgElem.ownerDocument;
 	}
-	
+
 	/**
 	 * Returns the svg node element managed by the buffer.
 	 */
 	this.getSVGNode = function()
 	{
 		return this.svgElem;
+	}
+	
+	/**
+	 * Returns the svg node element managed by the buffer.
+	 */
+	this.setSVGNode = function(svgElem)
+	{
+		this.svgElem = svgElem;
 	}
 	
 	/**

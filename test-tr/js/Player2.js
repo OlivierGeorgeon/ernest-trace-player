@@ -33,8 +33,12 @@ function Player2(playerDivElement, noticeDivElement, baseURI, svgTrace, defaultW
 			url: this.baseURI + "/html/basepl.xhtml",
 			context: this,
 			success: function(data){
-				this.playerRoot.appendChild(data.documentElement);
-				this.setupUI();
+				try{
+					this.playerRoot.appendChild(this.playerRoot.ownerDocument.importNode(data.documentElement, true));
+					this.setupUI();
+				}catch (e) {
+					alert(e);
+				}
 			},
 			async: false
 		});
@@ -60,8 +64,11 @@ function Player2(playerDivElement, noticeDivElement, baseURI, svgTrace, defaultW
 		this.centerText = getElementsByTitle(this.playerRoot, 'center-text', true)[0];
 		this.fullbody = window;
 		
-		this.displayer = new Displayer(this.svgTrace, this.yWWidth, this.xWWidth, this.scale, this.senter, this.graphDiv, this.xWWidth/2-1000);
-		
+		try{
+			this.displayer = new Displayer(this.svgTrace, this.yWWidth, this.xWWidth, this.scale, this.senter, this.graphDiv, this.xWWidth/2-1000);
+		}catch (e) {
+			alert("In displayer constructor: " + e);
+		}
 		// Registers the click callback for clicking on the play button.
 		//$(this.playButton).click(parametrizeCallback(this.onClickPlayPrivate, {scope: this}), false);
 		//this.playButton.addEventListener("click", parametrizeCallback(this.onClickPlayPrivate, {scope: this}), false);

@@ -11,7 +11,8 @@
 	_scope.comet = pi.base.extend({
 		"$Init":function(_name,_callback,_disconnect){
 			this.environment.setName(_name||"PIComet");
-			this.environment.setMethod(pi.env.ie?3:pi.env.opera?2:1);
+			
+			this.environment.setMethod(pi.env.ie?3:pi.env.opera?2:pi.env.webkit?-1:1);
 			this.environment.setTunnel(
 				this.environment.getMethod()==3?new ActiveXObject("htmlfile"):
 				this.environment.getMethod()==2?document.createElement("event-source"):
@@ -36,7 +37,8 @@
 			this.environment.setByteOffset(0);
 			clearTimeout(this.toFrameState);
 			switch(this.environment.getMethod()){
-				case 1:
+			case -1:
+			case 1:
 					this.environment.getTunnel().abort();
 					this.event.push = null;
 					this.event.disconnect = null;
@@ -50,7 +52,8 @@
 		},
 		"send":function(){
 			switch(this.environment.getMethod()){
-				case 1:
+			case -1:
+			case 1:
 					this.environment.getTunnel().send();
 					break;
 				case 2:
@@ -70,9 +73,10 @@
 		"environment":{
 			"_byteOffset":0, "_name":"", "_tunnel":null, "_method":"", "_url":"",
 			"setTunnel":function(_value){
-				if(this.getMethod()==1){
+				if(this.getMethod()==1 || this.getMethod()==-1){
+					_value.environment.setType("GET");
 					_value.environment.
-					addData("PICometMethod","1").environment.
+					addData("PICometMethod","" + this.getMethod()).environment.
 					addCallback([3],this._parent_.event.change).environment.
 					addCallback([4],this._parent_.event.disconnect).environment.
 					setCache(false);

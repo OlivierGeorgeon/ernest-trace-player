@@ -17,8 +17,11 @@ function Displayer(svgTrace, defaultWidth, xWWidth, defaultScale, defaultCenter,
 	this.init = function()
 	{
 		this.svgElement = svgTrace.getSVGNode();
+		this.svgElement = this.divElement.ownerDocument.importNode(this.svgElement, true);
 		
 		this.divElement.getElementsByTagName('div')[0].appendChild(this.svgElement);
+		
+		svgTrace.setSVGNode(this.svgElement);
 		
 		this.setWidth(this.width);
 		

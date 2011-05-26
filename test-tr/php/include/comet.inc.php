@@ -17,7 +17,7 @@ class PIComet {
 
 	function push($text){
 		$str = "";
-		if($this->method==1){
+		if($this->method==1 or $this->method==-1){
 			$str .= "<comet>";
 			$str .= $text;
 			$str .= "</comet>";

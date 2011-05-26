@@ -1,7 +1,5 @@
 <?php
 $total_time_start = microtime_float();
-set_time_limit(0);
-ignore_user_abort();
 
 require_once 'include/config.inc.php';
 require_once 'include/cometChan.inc.php';
@@ -80,7 +78,7 @@ $traces = new ComposerHandler(array($trace, $config));
 /*
  * Streams data to the player from the trace handler, transforming it with the view.
  */
-header("Content-type: text/plain");
+
 $obsel_doc = new DOMDocument();
 echo "<feed>";flush();
 $time = 0.0;
