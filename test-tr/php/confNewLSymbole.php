@@ -26,6 +26,10 @@ and isset($_REQUEST['voffset'])
 	$color = $_REQUEST['color'];
 	$voffset = $_REQUEST['voffset'];
 	$imageUrl = isset($_REQUEST['image-url']) ? $_REQUEST['image-url'] : '';
+	$colorEnd = isset($_REQUEST['color-end']) ? $_REQUEST['color-end'] : '';
+	$shapeEnd = isset($_REQUEST['shape-end']) ? $_REQUEST['shape-end'] : '';
+	$voffsetEnd = isset($_REQUEST['voffset-end']) ? $_REQUEST['voffset-end'] : '';
+	$imageUrlEnd = isset($_REQUEST['image-url-end']) ? $_REQUEST['image-url-end'] : '';
 
 	$config = new SimpleXMLElement('<root><config/></root>');
 	$config->config->addAttribute('date', '0');
@@ -40,6 +44,10 @@ and isset($_REQUEST['voffset'])
 	$symbole->addChild('color', $color);
 	$symbole->addChild('voffset', $voffset);
 	$symbole->addChild('image-url', $imageUrl);
+	$symbole->addChild('shape-end', $shapeEnd);
+	$symbole->addChild('color-end', $colorEnd);
+	$symbole->addChild('voffset-end', $voffsetEnd);
+	$symbole->addChild('image-url-end', $imageUrlEnd);
 
 	postObsel('__config__', $config->config->asXML());
 }

@@ -19,28 +19,6 @@
  *
  */
 
-/*
- * From  http://stackoverflow.com/questions/1997661/unique-object-identifier-in-javascript
- * 
- * Sets a unique identifier to each object when toString'd, and embed it in the string. 
- * Meant for debuging purpose. Disabled because it somehow breaks the scripts (!!!).
- */
-/*Object.prototype.__defineGetter__('__id__', function () {
-    var gid = 0;
-    return function(){
-        var id = gid++;
-        this.__proto__ = {
-             __proto__: this.__proto__,
-             get __id__(){ return id }
-        };
-        return id;
-    }
-}.call() );
-
-Object.prototype.toString = function () {
-    return '[Object ' + this.__id__ + ']';
-};*/
-
 /*	
  * From http://onemarco.com/2008/11/12/callbacks-and-binding-and-callback-arguments-and-references/
  * 
@@ -206,7 +184,8 @@ function xmlToExistingHTMLFragment(xmlDOM, frag)
 function translateSVGNode(node, dx, dy){
 	try
 	{
-		if (node.transform && node.ownerSVGElement && node.ownerSVGElement.createSVGTransform){
+		if (node.transform && node.ownerSVGElement && node.ownerSVGElement.createSVGTransform)
+		{
 			var t = node.ownerSVGElement.createSVGTransform();
 			t.setTranslate(dx, dy);
 			node.transform.baseVal.appendItem(t);
@@ -220,19 +199,10 @@ function translateSVGNode(node, dx, dy){
 
 
 function reTranslateSVGNode(node, dx, dy){
-	//try
-	//{
-		if (node.transform && node.transform && node.transform.baseVal.numberOfItems == 1){
-			/*var t = node.ownerSVGElement.createSVGTransform();
-			t.setTranslate(dx, dy);
-			node.transform.baseVal.appendItem(t);*/
+		if (node.transform && node.transform && node.transform.baseVal.numberOfItems == 1)
+		{
 			node.transform.baseVal.getItem(0).setTranslate(dx, dy);
 		}
-	//}
-	//catch(err)
-	//{
-	//	alert(err);
-	//}
 };
 
 function clearSVGNodeTRansformations(node){
@@ -251,5 +221,12 @@ function scaleSVGNode(node, scaleX, scaleY){
 	}
 };
 
+function serializeXML(domElement)
+{
+	if(typeof serializer == "undefined")
+		serializer = new XMLSerializer();
+	
+	return serializer.serializeToString(domElement);
+}
 
 

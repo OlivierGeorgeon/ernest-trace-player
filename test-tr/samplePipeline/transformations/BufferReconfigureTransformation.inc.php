@@ -13,7 +13,7 @@ class BufferReconfigureTransformation extends PHPTransformation
 				{
 					// Append the new symbole to the symbole set.
 					SimpleXMLElement_append($this->configState->symboles, $obsel->symbole);
-						
+					
 					// Reprocess all the trace obsels for the new symbole.
 					foreach($this->trace->children() as $trace_obsel)
 					{
@@ -31,7 +31,7 @@ class BufferReconfigureTransformation extends PHPTransformation
 				{
 					$id = $obsel['id'];
 					$sid = $obsel['symbole-id'];
-						
+					
 					// Find the symbole with the given id
 					$symboles = $this->configState->symboles->xpath("symbole[@id='$sid']");
 					foreach($symboles as $symbole)
@@ -40,7 +40,7 @@ class BufferReconfigureTransformation extends PHPTransformation
 						// TODO: do that differently, keeping track of the created obsels
 						//  (because the condition might be nondeterministic)
 						$xpathres = $this->trace->xpath("/slice/*[" . (string)$symbole->condition . "]");
-
+						
 						if($xpathres !== false and count($xpathres) != 0)
 						{
 							foreach($xpathres as $trace_obsel)
@@ -52,7 +52,7 @@ class BufferReconfigureTransformation extends PHPTransformation
 								$delta->appendChild($deleteElement);
 							}
 						}
-
+						
 						$sydom = dom_import_simplexml($symbole);
 						$sydom->parentNode->removeChild($sydom);
 					}
@@ -60,7 +60,7 @@ class BufferReconfigureTransformation extends PHPTransformation
 				{
 					// Append the new symbole to the symbole set.
 					SimpleXMLElement_append($this->configState->{'long-symboles'}, $obsel->lsymbole);
-						
+					
 					// Reprocess all the trace obsels for the new symbole.
 					// Reinitialize the dom doc used with the stylesheet
 					$this->initLSData($this->getDataDoc());
@@ -68,15 +68,8 @@ class BufferReconfigureTransformation extends PHPTransformation
 					{
 						$this->prepareLSDataWithObsel(dom_import_simplexml($trace_obsel));
 						$symboleElement = $this->longSymbolize($trace_obsel, $obsel->lsymbole, $delta, $doc, true);
-						/*
-						 if($symboleElement !== false)
-						 {
-							$obselElement = $doc->createElement('original-obsel');
-							$obselElement->appendChild($doc->importNode(dom_import_simplexml($trace_obsel), true));
-							$symboleElement->appendChild($obselElement);
-							}*/
 					}
-						
+					
 					$this->initLSData($this->getDataDoc(), dom_import_simplexml($this->lastTraceObsel));
 				}elseif($obsel->type == "delete-long-symbole")
 				{
@@ -148,6 +141,11 @@ class BufferReconfigureTransformation extends PHPTransformation
 		}
 	}
 
+	/*
+	 * Checks if a symbole should be created for the obsel by the symbole rule $symbole,
+	 * and in this case adds the symbole ton construct to the delta.
+	 * Returns : the symbole element added to the delta, or false if no symbole created.
+	 */
 	protected function symbolize($obsel, $symbole, &$delta, &$doc)
 	{
 		//If the obsel meets the symbole's conditions, add an symbole instance.
@@ -203,15 +201,21 @@ class BufferReconfigureTransformation extends PHPTransformation
 		$this->endConditionText->replaceData(0, $this->endConditionText->length, (string)$symbole->{'end-condition'});
 	}
 
+	/*
+	 * Checks if a long symbole should be created, lengthen or finished for 
+	 * the obsel by the symbole rule $symbole, and in this case adds the 
+	 * necessary instruction to the delta.
+	 * Returns : the long symbole instruction element added to the delta, or false if no symbole created.
+	 */
 	protected function longSymbolize($obsel, $symbole, &$delta, &$doc, $repeat_obsel = false)
 	{
 		$symboleElement = false;
 		// An XSLT stylesheet tests the symbole's conditions, as SimpleXML's
-		//  xpath doesn't support variables.
+		// xpath doesn't support variables.
 		// It receives $this->lastTraceObsel, $obsel and the $symbole conditions.
 		$this->prepareLSDataWithSymbole($symbole);
 		$result = $this->getLSProc()->transformToDoc($this->getDataDoc());
-
+		
 		if($result->documentElement and $result->documentElement->nodeType == XML_ELEMENT_NODE
 		and $result->documentElement->tagName == "result")
 		{
@@ -220,32 +224,48 @@ class BufferReconfigureTransformation extends PHPTransformation
 			if($condValue != 'none')
 			{
 				$noCurrent = true;
-				// End the current long symbole if one is being drawn.
+				// Get the current long symbole if one is being drawn.
 				$oldLS = $this->lsState->xpath("/state/current-ls[@ls-id='" . $symbole['id'] . "']");
 				if($oldLS !== false and count($oldLS) > 0)
 				{
 					$noCurrent = false;
 					// If the end condition is met or no end condition and begin.
 					if($condValue == 'end' or $condValue == 'both'
-					or $this->endConditionText->wholeText == "")
+					or ($condValue == 'begin' and $this->endConditionText->wholeText == "")
+					// or $this->endConditionText->wholeText == ""
+					)
 					{
 						$noCurrent = true;
-							
+						
 						$oldLS = $oldLS[0];
-
+						
 						$symboleElement = $doc->createElement('finished-ls');
 						$symboleElement->setAttribute('ls-id', $oldLS['ls-id']);
 						$symboleElement->setAttribute('obsel-id', $obsel['id']);
-
+						$symboleElement->setAttribute('id', $oldLS['id']);
+						
+						if((string)$symbole->{'shape-end'} != '') {
+							$symboleElement->setAttribute('shape', $symbole->{'shape-end'});
+						}
+						if((string)$symbole->{'color-end'} != '') {
+							$symboleElement->setAttribute('color', $symbole->{'color-end'});
+						}
+						if((string)$symbole->{'voffset-end'} != '') {
+							$symboleElement->setAttribute('voffset', $symbole->{'voffset-end'});
+						}
+						if((string)$symbole->{'image-url-end'} != '') {
+							$symboleElement->setAttribute('image-url', $symbole->{'image-url-end'});
+						}
+						
 						$delta->appendChild($symboleElement);
-
+						
 						$finalLS = $this->lsState->addChild("ls");
 						$finalLS->addAttribute('id', $oldLS['id']);
 						$finalLS->addAttribute('ls-id', $oldLS['ls-id']);
-
+						
 						$lsNode = dom_import_simplexml($oldLS);
 						$lsNode->parentNode->removeChild($lsNode);
-
+						
 						if($repeat_obsel)
 						{
 							$obselElement = $doc->createElement('original-obsel');
@@ -254,7 +274,7 @@ class BufferReconfigureTransformation extends PHPTransformation
 						}
 					}
 				}
-
+				
 				// Begin a new symbole if condition is met.
 				if(($condValue == 'begin' or $condValue == 'both') and $noCurrent)
 				{
@@ -263,20 +283,20 @@ class BufferReconfigureTransformation extends PHPTransformation
 					$symboleElement->setAttribute('id', $obsel['id'] . "-sym" . $symbole['id']);
 					$symboleElement->setAttribute('ls-id', $symbole['id']);
 					$symboleElement->setAttribute('obsel-id', $obsel['id']);
-						
+					
 					$symboleElement->setAttribute('shape', $symbole->shape);
 					$symboleElement->setAttribute('color', $symbole->color);
 					$symboleElement->setAttribute('voffset', $symbole->voffset);
 					$symboleElement->setAttribute('image-url', $symbole->{'image-url'});
-						
+					
 					$delta->appendChild($symboleElement);
-						
+					
 					// Adds the new lsymbole to the state
 					$ls = $this->lsState->addChild("current-ls");
 					$ls->addAttribute("id", $obsel['id'] . "-sym" . $symbole['id']);
 					$ls->addAttribute('ls-id', $symbole['id']);
 					$ls->addAttribute('obsel-id', $obsel['id']);
-
+					
 					if($repeat_obsel)
 					{
 						$obselElement = $doc->createElement('original-obsel');
@@ -285,23 +305,23 @@ class BufferReconfigureTransformation extends PHPTransformation
 					}
 				}
 			}
-				
-			if($condValue = 'none'
-			or ($condValue = 'begin' and $this->endConditionText->wholeText == ""))
+			
+			if($condValue == 'none'
+			or ($condValue == 'begin' and $this->endConditionText->wholeText != ""))
 			{
 				$ls = $this->lsState->xpath("/state/current-ls[@ls-id='" . $symbole['id'] . "']");
 				if($ls !== false and count($ls) > 0)
 				{
 					$ls = $ls[0];
-						
+					
 					$symboleElement = $doc->createElement('lengthen-ls');
 					$symboleElement->setAttribute('date', $obsel['date']);
 					$symboleElement->setAttribute('id', $ls['id']);
 					$symboleElement->setAttribute('ls-id', $symbole['id']);
 					$symboleElement->setAttribute('obsel-id', $obsel['id']);
-						
+					
 					$delta->appendChild($symboleElement);
-
+					
 					if($repeat_obsel)
 					{
 						$obselElement = $doc->createElement('original-obsel');
@@ -311,10 +331,10 @@ class BufferReconfigureTransformation extends PHPTransformation
 				}
 			}
 		}
-
+		
 		//return $symboleElement;
 	}
-
+	
 	// Load the trace stored in the state file if not already done.
 	protected function loadTrace()
 	{

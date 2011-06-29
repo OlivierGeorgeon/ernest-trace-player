@@ -84,6 +84,10 @@ function ConfigEditor(div_id, noticeDiv_id, baseURI)
 				this.formNewLColor = this.formNewL.find("input[name=color]");
 				this.formNewLVOffset = this.formNewL.find("input[name=voffset]");
 				this.formNewLImg = this.formNewL.find("input[name=image-url]");
+				this.formNewLShapeEnd = this.formNewL.find("input[name=shape-end]");
+				this.formNewLColorEnd = this.formNewL.find("input[name=color-end]");
+				this.formNewLVOffsetEnd = this.formNewL.find("input[name=voffset-end]");
+				this.formNewLImgEnd = this.formNewL.find("input[name=image-url-end]");
 
 				this.formNewLShape.tooltip({tip: "#long-shape-tooltip", position: "center right", opacity: 0.7});
 				
@@ -294,9 +298,13 @@ function ConfigEditor(div_id, noticeDiv_id, baseURI)
 						+ symbole.children("color").text() + "<br />"
 						+ symbole.children("voffset").text() + "<br />"
 						+ symbole.children("image-url").text() + "<br />"
+						+ (symbole.children("shape-end").length > 0 ? (symbole.children("shape-end").text() + "<br />") : "")
+						+ (symbole.children("color-end").length > 0 ? (symbole.children("color-end").text() + "<br />") : "")
+						+ (symbole.children("voffset-end").length > 0 ? (symbole.children("voffset-end").text() + "<br />") : "")
+						+ (symbole.children("image-url-end").length > 0 ? (symbole.children("image-url-end").text() + "<br />") : "")
 						+ "</div></li>"
 					);
-
+					
 					var li = $(ul[0].lastChild);
 					li.children('*[title=copy]')[0].addEventListener("click", parametrizeCallback(function(e, that, xmlState)
 						{
@@ -350,6 +358,10 @@ function ConfigEditor(div_id, noticeDiv_id, baseURI)
 		this.formNewLColor.val(symboleElement.children("color").text());
 		this.formNewLVOffset.val(symboleElement.children("voffset").text());
 		this.formNewLImg.val(symboleElement.children("image-url").text());
+		this.formNewLShapeEnd.val(symboleElement.children("shape-end").text());
+		this.formNewLColorEnd.val(symboleElement.children("color-end").text());
+		this.formNewLVOffsetEnd.val(symboleElement.children("voffset-end").text());
+		this.formNewLImgEnd.val(symboleElement.children("image-url-end").text());
 	}
 	
 	this.deleteLSymbole = function(nothing, symboleElement)

@@ -2,8 +2,6 @@
 
 function postObsel($traceId, $data)
 {
-	touch('/tmp/streamed');
-
 	$trace = fopen(TEMP_DATA_DIR . '/streams/' . $traceId, "a+");
 	if(flock($trace, LOCK_EX))
 	{

@@ -2,6 +2,7 @@ function SVGTrace(baseURI, idPrefix)
 {
 	this.idPrefix = idPrefix + "-";
 	this.svgElem = null;
+	this.hiddenDiv = null;
 	this.tooltips = {};
 	
 	/**
@@ -62,32 +63,48 @@ function SVGTrace(baseURI, idPrefix)
 	}
 
 	/**
+	 * Sets the hidden DOM div element that should be used to parse svg.
+	 */
+	this.setHiddenDiv = function(hiddenDiv)
+	{
+		this.hiddenDiv = hiddenDiv;
+	}
+	
+	/**
 	 * Parses a svg string into a svg dom fragment belonging to the document.
 	 * It is *necessary* to use this method to parse it, the browser's XML parser
 	 * won't make svg dom nodes (neither html ones alas unless one uses innerHTML). 
 	 */
-	this.parseSVGIntoFragment = function(svgString)
+	this.parseSVGToFragment = function(svgString, fragment)
 	{
-		var xmlDOM = $.xmlDOM(svgString)[0].documentElement;
-		return this.xmlToSVGNewFragment(xmlDOM);
+		//var xmlDOM = $.xmlDOM(svgString)[0].documentElement;
+		//return this.xmlToSVGNewFragment(xmlDOM);
+		//return this.xmlToSVGNewFragment(svgString);
+		
+		this.hiddenDiv.innerHTML = "<svg>" + svgString + "</svg>";
+		var svgElements = $(this.hiddenDiv).children("svg").children();
+		
+		svgElements.each(function(){ 
+			fragment.appendChild(fragment.ownerDocument.importNode(this, true));
+		});
 	}
 
 	/**
 	 * Translates a xml tree into a svg dom tree (see parseSVGIntoFragment()).
 	 */
-	this.xmlToSVGNewFragment = function(xmlDOM)
+	/*this.xmlToSVGNewFragment = function(xmlDOM)
 	{
 		var fragment = parseSVGNodeIntoFragment(xmlDOM, this.svgElem.ownerDocument);
 		return fragment;
-	}
+	}*/
 	
 	/**
 	 * Translates a xml tree into a svg dom tree (see parseSVGIntoFragment()).
 	 */
-	this.xmlToSVGFragment = function(xmlDOM, fragment)
+	/*this.xmlToSVGFragment = function(xmlDOM, fragment)
 	{
 		parseSVGElementIntoExistingFragment(xmlDOM, this.getSVGDoc(), fragment);
-	}
+	}*/
 
 	/**
 	 * Deletes an obsel based on its id.
@@ -288,6 +305,7 @@ function SVGTrace(baseURI, idPrefix)
 		this.commitModificationsCB = null;
 		this.svgElem = null;
 		this.tooltips = null;
+		this.hiddenDiv = null;
 	}
 	
 	this.elementsAdded = null; //params : JQuery collection

@@ -102,7 +102,8 @@
 				if (this._cometApi_.environment.getMethod() == 2)
 					this._cometApi_.event.push(arguments[0].data);
 				else {
-					var newdata = this.environment.getApi().responseText.substring(
+					var temp = this.environment.getApi().responseText;
+					var newdata = temp.substring(
 							this._cometApi_.environment.getByteOffset());
 					var offsetOffset = 0;
 					var end = 0;

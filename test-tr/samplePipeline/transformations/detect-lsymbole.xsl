@@ -1,7 +1,11 @@
 <xsl:transform xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:dyn="http://exslt.org/dynamic" xmlns:math="http://exslt.org/math"
-	extension-element-prefixes="math dyn" version="1.1">
+	xmlns:func="http://exslt.org/functions"
+	xmlns:my="http://salade.dyndns.org/my"
+	extension-element-prefixes="math dyn func" version="1.1">
 
+	<xsl:include href="functions.xsl" />
+	
 	<xsl:template match="/">
 		<xsl:apply-templates select="test/obsels/*" />
 	</xsl:template>

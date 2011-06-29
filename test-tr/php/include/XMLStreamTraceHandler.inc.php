@@ -41,7 +41,7 @@ class XMLStreamTraceHandler implements TraceHandler
 			while(! $data = $this->tryRead())
 			{
 				if($this->aborted())
-				return false;
+					return false;
 				usleep(100000);
 
 				$data = $this->tryRead();

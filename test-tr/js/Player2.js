@@ -54,6 +54,7 @@ function Player2(playerDivElement, noticeDivElement, baseURI, svgTrace, defaultW
 		this.graphDiv = getElementsByTitle(this.playerRoot, 'graph-div', true)[0];
 		this.uiDiv = getElementsByTitle(this.playerRoot, 'ui-div', true)[0];
 		this.infosDiv = getElementsByTitle(this.playerRoot, 'obsel-infos', true)[0];
+		this.hiddenDiv = getElementsByTitle(this.playerRoot, 'hidden-div', true)[0];
 		this.buttonsGroup = getElementsByTitle(this.uiDiv, 'buttons-group', true)[0];
 		this.playButton = getElementsByTitle(this.playerRoot, 'play-button', true)[0];
 		this.pauseButton = getElementsByTitle(this.playerRoot, 'pause-button', true)[0];
@@ -63,6 +64,8 @@ function Player2(playerDivElement, noticeDivElement, baseURI, svgTrace, defaultW
 		this.frameRect = getElementsByTitle(this.playerRoot, 'trace-frame-rect', true)[0];
 		this.centerText = getElementsByTitle(this.playerRoot, 'center-text', true)[0];
 		this.fullbody = window;
+		
+		this.svgTrace.setHiddenDiv(this.hiddenDiv);
 		
 		try{
 			this.displayer = new Displayer(this.svgTrace, this.yWWidth, this.xWWidth, this.scale, this.senter, this.graphDiv, this.xWWidth/2-1000);

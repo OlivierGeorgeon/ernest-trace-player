@@ -13,6 +13,7 @@ function TracePlayer2(div_id, noticeDiv_id, pipeline, traceHandler, traceRef, tr
 	this.xmlSerializer = new XMLSerializer();
 	this.streamControler = null;
 	this.ainInterpreter = null;
+	this.domParser = new DOMParser();
 	
 	/**
 	 * Loads the pipeline informations from the server (for now, these informations are 
@@ -125,53 +126,62 @@ function TracePlayer2(div_id, noticeDiv_id, pipeline, traceHandler, traceRef, tr
 	
 	this.processMessage = function(element)
 	{
-		try{
-			var message = $.xmlDOM(element);
-			var topnode = message.children()[0];
-			
-			if(topnode == undefined)
+		//var message = $.xmlDOM(element);
+		var message = this.domParser.parseFromString(element, "text/xml");
+		//var topnode = message.children()[0];
+		var topnode = message.childNodes[0];
+		
+		if(topnode == undefined)
+		{
+			this.notifyUser("Empty message: " + element + ".");
+		}else if(topnode.nodeName == 'eot')
+		{
+			this.notifyUser("End of stream " + topnode.getAttribute('trace') + " reached.");
+			if(topnode.getAttribute('trace') == traceRef)
 			{
-				this.notifyUser("Empty message: " + element + ".");
-			}else if(topnode.nodeName == 'eot')
-			{
-				this.notifyUser("End of stream " + topnode.getAttribute('trace') + " reached.");
-				if(topnode.getAttribute('trace') == traceRef)
-				{
-					//this.streamControler.stopStreaming();
-					if(this.onEOT !== null)
-						this.onEOT();
-				}
-			}else if(topnode.nodeName == 'error')
-			{
-				this.errorString = topnode.textContent;
-				/*$(topnode).contents().each(
-						parametrizeCallback(function(index, elem, that)
-							{
-								if(this.nodeType != 3)
-								{
-									that.errorString += that.xmlSerializer.serializeToString(this)
-								}else{
-									that.errorString += this.nodeValue;
-								}
-							},
-							{args: [this]}
-						)
-				);*/
-				this.notifyUser(this.errorString);
-				this.errorString = undefined;
-			}else if(topnode.nodeName == 'deltas'){
-				var clock = jQuery('deltas > delta[source="clock"]:last', message).text();
-				var instructions = jQuery('deltas > delta[source!="clock"]', message).children();
-				
-				this.ainInterpreter.execute(instructions);
-				if(clock != "")
-				{
-					this.player.clockTick(clock);
-					this.streamControler.setStreamTime(clock);
-				}
+				//this.streamControler.stopStreaming();
+				if(this.onEOT !== null)
+					this.onEOT();
 			}
-		}catch (e) {
-			alert("While streaming :" + e);
+		}else if(topnode.nodeName == 'error')
+		{
+			this.errorString = topnode.textContent;
+			/*$(topnode).contents().each(
+					parametrizeCallback(function(index, elem, that)
+						{
+							if(this.nodeType != 3)
+							{
+								that.errorString += that.xmlSerializer.serializeToString(this)
+							}else{
+								that.errorString += this.nodeValue;
+							}
+						},
+						{args: [this]}
+					)
+			);*/
+			this.notifyUser(this.errorString);
+			this.errorString = undefined;
+		}else if(topnode.nodeName == 'deltas'){
+			var clock = "";
+			var delta = topnode.getElementsByTagName("delta");
+			var instructions = null;
+			for(var j = 0; j < delta.length; ++j)
+			{
+				if(delta[j].getAttribute("source") == "clock")
+					clock = delta[j].textContent;
+				else
+					if(instructions === null)
+						instructions = $(delta[j]).children();
+					else
+						instructions = instructions.add($(delta[j]).children());
+			}
+			
+			this.ainInterpreter.execute(instructions);
+			if(clock != "")
+			{
+				this.player.clockTick(clock);
+				this.streamControler.setStreamTime(clock);
+			}
 		}
 	}
 

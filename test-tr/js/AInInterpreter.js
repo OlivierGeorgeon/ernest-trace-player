@@ -31,7 +31,7 @@ function AInInterpreter(svgTrace, displayInfos, tracePlayer)
 	this.execute = function(instructions)
 	{
 		this.svgTrace.willModify();
-		instructions.each(this.execJQCallback)
+		instructions.each(this.execJQCallback);
 		this.svgTrace.commitModifications();
 	}
 	
@@ -45,7 +45,14 @@ function AInInterpreter(svgTrace, displayInfos, tracePlayer)
 		if(instruction.nodeName == "add")
 		{
 			try{
-				$(instruction).children().each(this.parseJQCallback);
+				//$(instruction).children().each(this.parseJQCallback);
+				var childrenXML = "";
+				$(instruction).children().each(function()
+					{
+						childrenXML += serializeXML(this);
+					}
+				);
+				this.svgTrace.parseSVGToFragment(childrenXML, this.currentFragment);
 				this.svgTrace.addObsels(this.currentFragment);
 			}catch (e) {
 				//TODO: use notifyUser from tracePlayer
