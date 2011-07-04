@@ -2,6 +2,9 @@
 require_once('include/Transformation.inc.php');
 require_once('include/misc.inc.php');
 
+/*
+ * A helper to implement php transformations. 
+ */
 abstract class PHPTransformation extends Transformation
 {
 	/*
@@ -53,7 +56,7 @@ abstract class PHPTransformation extends Transformation
 		return $my_doc;
 	}
 
-	public function transform_many_obsels($merged_deltas, $date, &$doc, &$deltasElement)
+	protected function transform_many_obsels($merged_deltas, $date, &$doc, &$deltasElement)
 	{
 		$deltaElement = $doc->createElement("delta");
 		$deltaElement->setAttribute("source", $this->name);
@@ -78,6 +81,12 @@ abstract class PHPTransformation extends Transformation
 		$this->state = simplexml_load_file($this->stateFilename);
 	}
 
+	/*
+	 * Should transform one obsel.
+	 * $obsel : the obsel data (a SimpleXMLElement).
+	 * &$delta : the element to which append results (a DOMElement).
+	 * &$doc : the document to which belongs &$delta.
+	 */
 	abstract protected function transform_one_obsel($obsel, &$delta, &$doc);
 
 	protected $xsltProc;

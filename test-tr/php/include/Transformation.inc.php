@@ -1,6 +1,10 @@
 <?php
 require_once 'include/config.inc.php';
 
+/*
+ * The transformation class represents one transformation that takes place in 
+ * a pipeline. It transforms set of obsels in an XML representation.
+ */
 abstract class Transformation {
 	public function __construct($name, $stateFilename)
 	{
@@ -22,6 +26,9 @@ abstract class Transformation {
 		$this->forceSaveState();
 	}
 
+	/*
+	 * Loads the states from the disk.
+	 */
 	protected function loadState()
 	{
 		if(! file_exists($this->stateFilename))
@@ -36,6 +43,7 @@ abstract class Transformation {
 	}
 
 	/*
+	 * The function that really does the transformation.
 	 * $deltas : xml string of the form <deltas> <delta source="...">...</delta> ... </deltas>
 	 */
 	abstract public function transform($deltas);
@@ -53,6 +61,9 @@ abstract class Transformation {
 		}
 	}
 
+	/*
+	 * This function should save the transformation state on disk.
+	 */
 	abstract protected function forceSaveStateImpl();
 
 	/*

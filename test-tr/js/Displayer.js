@@ -97,10 +97,16 @@ function Displayer(svgTrace, defaultWidth, xWWidth, defaultScale, defaultCenter,
 	this.scaleObsel = function(node)
 	{
 		var date = parseFloat(node.getAttribute('date'));
+		if(isNaN(date))
+			date = 0.0;
+		
 		if(node.hasAttribute('begin') && node.hasAttribute('end'))
 		{
 			translateSVGNode(node, (date-0.5)*this.scale, 0);
 			length = parseFloat(node.getAttribute('end')) - parseFloat(node.getAttribute('begin')) + 1.0;
+			if(isNaN(length))
+				length = 1.0;
+			
 			scaleSVGNode(node, this.scale*length, 1);
 		}else{
 			translateSVGNode(node, date*this.scale, 0);
@@ -111,12 +117,18 @@ function Displayer(svgTrace, defaultWidth, xWWidth, defaultScale, defaultCenter,
 	this.rescaleObsel = function(node)
 	{
 		var date = parseFloat(node.getAttribute('date'));
+		if(isNaN(date))
+			date = 0.0;
+		
 		if(node.hasAttribute('begin') && node.hasAttribute('end'))
 		{
 			//TODO: do that better
 			clearSVGNodeTRansformations(node);
 			translateSVGNode(node, (date-0.5)*this.scale, 0);
-			length = parseFloat(node.getAttribute('end')) - parseFloat(node.getAttribute('begin')) + 1.0;
+			
+			var length = parseFloat(node.getAttribute('end')) - parseFloat(node.getAttribute('begin')) + 1.0;
+			if(isNaN(length))
+				length = 1.0;
 			scaleSVGNode(node, this.scale*length, 1);
 		}else{
 			reTranslateSVGNode(node, date*this.scale, 0);

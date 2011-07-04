@@ -1,13 +1,17 @@
 <?php
 require_once('include/config.inc.php');
 
+/*
+ * Reads and holds the informations concerning a pipeline.
+ */
 class PipelineInfos
 {
 	public function __construct()
-	{
+	{ }
 
-	}
-
+	/*
+	 * Loads the infos of the $pipelineId pipeline from the disk.
+	 */
 	public function load($pipelineId)
 	{
 		$complete_filename = DATA_DIR . '/pipelines/' . $pipelineId . '.xml';
@@ -60,17 +64,15 @@ class PipelineInfos
 		return true;
 	}
 
+	/*
+	 * Echoes the raw informations.
+	 */
 	public function passInfosXML()
 	{
 		if(file_exists(DATA_DIR . '/pipelines/' . $this->id . '.xml'))
 		readfile(DATA_DIR . '/pipelines/' . $this->id . '.xml');
 	}
-
-	public function transformations_include_path()
-	{
-		return DATA_DIR . '/pipelines/';
-	}
-
+	
 	public $levels;
 	public $output;
 

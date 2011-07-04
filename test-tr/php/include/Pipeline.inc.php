@@ -4,21 +4,35 @@ require_once 'include/PipelineInfos.inc.php';
 require_once 'include/XSLTTransformation.inc.php';
 require_once 'include/PHPTransformation.inc.php';
 
+/*
+ * A transformation pipeline that processes xml obsels thru transformations.
+ */
 class Pipeline
 {
+	/*
+	 * Constructs and initializes the pipeline.
+	 * $info : a PipelineInfos.
+	 * $cleanup : a boolean ; if true, transformations states will be cleaned
+	 * up. It allows to resume a trace transformations if set to false.
+	 */
 	public function __construct($infos, $cleanup)
 	{
 		$this->infos = $infos;
 
 		$this->transformations = array();
 		if($cleanup)
-		$this->cleanStates();
+		{
+			$this->cleanStates();
+		}
 
 		$this->instanciateTransformations();
 		$this->deltas_minus_1 = new DOMDocument();
 		$this->deltas_doc = new DOMDocument();
 	}
 
+	/*
+	 * Transforms an obsel
+	 */
 	public function transform($obsels, $source = "Ernest")
 	{
 		$baseSourceName = ($source == "__config__") ? "__config__" : "__input__";
@@ -33,20 +47,20 @@ class Pipeline
 		$deltas = array();
 		//Initializing the input of the pipeline with the obsels to transform
 		$deltas['__input__'] = new DOMDocument();
-		$ds = $deltas['__input__']->createElement("deltas");
-		$deltas['__input__']->appendChild($ds);
-		$d['__input__'] = $deltas['__input__']->createElement("delta");
-		$d['__input__']->setAttribute("source", '__input__');
-		$d['__input__']->setAttribute("date", $obsels->documentElement->getAttribute('date'));
-		$ds->appendChild($d['__input__']);
+			$ds = $deltas['__input__']->createElement("deltas");
+			$deltas['__input__']->appendChild($ds);
+				$d['__input__'] = $deltas['__input__']->createElement("delta");
+				$d['__input__']->setAttribute("source", '__input__');
+				$d['__input__']->setAttribute("date", $obsels->documentElement->getAttribute('date'));
+			$ds->appendChild($d['__input__']);
 
 		$deltas['__config__'] = new DOMDocument();
-		$ds = $deltas['__config__']->createElement("deltas");
-		$deltas['__config__']->appendChild($ds);
-		$d['__config__'] = $deltas['__config__']->createElement("delta");
-		$d['__config__']->setAttribute("source", '__config__');
-		$d['__config__']->setAttribute("date", $obsels->documentElement->getAttribute('date'));
-		$ds->appendChild($d['__config__']);
+			$ds = $deltas['__config__']->createElement("deltas");
+			$deltas['__config__']->appendChild($ds);
+				$d['__config__'] = $deltas['__config__']->createElement("delta");
+				$d['__config__']->setAttribute("source", '__config__');
+				$d['__config__']->setAttribute("date", $obsels->documentElement->getAttribute('date'));
+			$ds->appendChild($d['__config__']);
 
 		foreach($obsels->childNodes as $obsel)
 		{
@@ -86,6 +100,7 @@ class Pipeline
 			}
 		}
 
+		//Merge the results from the final transformations.
 		$deltas_element = $deltas_doc->createElement('deltas');
 		$deltas_doc->appendChild($deltas_element);
 		foreach($this->infos->output as $outputSourceName)
@@ -94,7 +109,7 @@ class Pipeline
 			{
 				pushError("No output for transformation " . $outputSourceName . ".");
 			}
-				
+			
 			foreach($deltas[$outputSourceName]->documentElement->childNodes as $delta)
 			{
 				$deltas_element->appendChild(
@@ -106,6 +121,9 @@ class Pipeline
 		return $deltas_doc;
 	}
 
+	/*
+	 * Cleans the transformation states (files).
+	 */
 	public function cleanStates()
 	{
 		foreach($this->transformations as $transformation)
@@ -129,7 +147,6 @@ class Pipeline
 			{
 				if($transInfo['type'] == 'XSLT')
 				{
-					// TODO : the temp state file name should depend on the session !!!
 					$this->transformations[$name] = new XSLTTransformation(
 					$name,
 					TEMP_DATA_DIR . '/states/' . $name . '-state.xml',

@@ -187,13 +187,14 @@ function translateSVGNode(node, dx, dy){
 		if (node.transform && node.ownerSVGElement && node.ownerSVGElement.createSVGTransform)
 		{
 			var t = node.ownerSVGElement.createSVGTransform();
+			
 			t.setTranslate(dx, dy);
 			node.transform.baseVal.appendItem(t);
 		}
 	}
 	catch(err)
 	{
-		alert(err);
+		alert(err + "(" + dx + ", " + dy + ")");
 	}
 };
 

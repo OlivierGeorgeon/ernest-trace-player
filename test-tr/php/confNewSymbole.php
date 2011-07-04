@@ -35,7 +35,7 @@ and isset($_REQUEST['voffset'])
 	$transform = $scaleX || $scaleY || $rotate || $skewX || $skewY;
 
 	$config = new SimpleXMLElement('<root><config/></root>');
-	$config->config->addAttribute('date', '0');
+	$config->config->addAttribute('date', '');
 	$config->config->addAttribute('id', '1');
 	$config->config->addAttribute('source', '__config__');
 	$config->config->addChild('type', 'new-symbole');

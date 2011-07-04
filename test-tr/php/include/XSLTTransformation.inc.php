@@ -1,6 +1,9 @@
 <?php
 require_once('include/Transformation.inc.php');
 
+/*
+ * Represents a transformation using an XSLT stylesheet. 
+ */
 class XSLTTransformation extends Transformation
 {
 	/*

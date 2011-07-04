@@ -32,7 +32,7 @@ and isset($_REQUEST['voffset'])
 	$imageUrlEnd = isset($_REQUEST['image-url-end']) ? $_REQUEST['image-url-end'] : '';
 
 	$config = new SimpleXMLElement('<root><config/></root>');
-	$config->config->addAttribute('date', '0');
+	$config->config->addAttribute('date', '');
 	$config->config->addAttribute('id', '1');
 	$config->config->addAttribute('source', '__config__');
 	$config->config->addChild('type', 'new-long-symbole');
