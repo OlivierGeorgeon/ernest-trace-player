@@ -1,6 +1,6 @@
 <?php
 header("Content-type: text/xml");
-require_once 'include/config.inc.php';
+require_once 'include/session.inc.php';
 
 $fd = fopen(DATA_DIR . "/stream_id", "r");
 

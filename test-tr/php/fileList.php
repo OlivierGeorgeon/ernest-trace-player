@@ -1,8 +1,14 @@
 <?php
 // List pipeline and transformation files.
 header("Content-type: application/xhtml+xml");
-require_once 'include/config.inc.php';
+require_once 'include/session.inc.php';
 require_once 'include/misc.inc.php';
+
+if(! ICANHASEDIT)
+{
+	http_send_status(401);
+	die();
+}
 
 echo "<files>";
 $files = scandir(DATA_DIR . "/pipelines");

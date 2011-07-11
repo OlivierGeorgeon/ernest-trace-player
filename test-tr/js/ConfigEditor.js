@@ -21,6 +21,13 @@ function ConfigEditor(div_id, noticeDiv_id, baseURI)
 				
 				this.coverSymboleForm = this.div.find('div[title=cover-new-form]');
 				this.coverConfigList = this.div.find('div[title=cover-config-list]');
+
+				this.publicButton = this.div.find('button[title=button-set-public]');
+				this.publicUrl = this.div.find('div[title=set-public-url]');
+				this.publicButton.click(parametrizeCallback(
+						this.setPublic
+						, {scope: this}
+				));
 			},
 			dataType: "text",
 			async: false
@@ -32,7 +39,22 @@ function ConfigEditor(div_id, noticeDiv_id, baseURI)
 		this.loadConfigState();
 		this.loadConfigList();
 	}
-
+	
+	this.setPublic = function()
+	{
+		$.ajax({
+			url: this.baseURI + '/php/transformationSetPublic.php',
+			context: this,
+			success: function(data){
+				this.publicUrl.html("<a href=\"" + 
+					window.location.protocol + '//' + window.location.host + this.baseURI + '/autoconf.php?transformationId=' + data.documentElement.textContent
+					+ "\">" + window.location.protocol + '//' + window.location.host + this.baseURI + '/autoconf.php?transformationId=' + data.documentElement.textContent);
+			},
+			dataType: "xml",
+			async: true
+		});
+	}
+	
 	this.loadNewSymboleForm = function()
 	{
 		$.ajax({

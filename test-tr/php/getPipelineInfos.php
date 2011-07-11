@@ -2,10 +2,8 @@
 
 require_once('include/PipelineInfos.inc.php');
 
-if(isset($_GET['pipelineId']))
+if(isset($_GET['pipelineId']) and $pipelineId = filter_lnd($_GET['pipelineId']))
 {
-	$pipelineId = $_GET['pipelineId'];
-
 	$pipelineInfos = new PipelineInfos();
 	$pipelineInfos->load($pipelineId);
 

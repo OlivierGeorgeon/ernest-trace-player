@@ -1,10 +1,16 @@
 <?php
-require_once 'include/config.inc.php';
+require_once 'include/session.inc.php';
 require_once 'include/misc.inc.php';
 
-if(isset($_REQUEST['name']) and isset($_REQUEST['type']) and isset($_REQUEST['data']))
+if(! ICANHASEDIT)
 {
-	$name = $_REQUEST['name'];
+	http_send_status(401);
+	die();
+}
+
+if(isset($_REQUEST['name']) and $name = filter_atom_filename($_REQUEST['name'])
+	and isset($_REQUEST['type']) and isset($_REQUEST['data']))
+{
 	$type = $_REQUEST['type'];
 
 	if($type === 'pipeline')

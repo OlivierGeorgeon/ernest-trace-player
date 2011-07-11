@@ -1,19 +1,19 @@
 <?php
-require_once 'include/config.inc.php';
+@unlink("/tmp/finished");
+require_once 'include/session.inc.php';
 require_once 'include/cometChan.inc.php';
 require_once 'include/Pipeline.inc.php';
 require_once 'include/DBAndSocketHandler.inc.php';
 require_once 'include/Trace.inc.php';
 
-$lastKnownId = isset($_GET['lastKnownId']) ? $_GET['lastKnownId'] : "";
-$lastKnownTime = isset($_GET['lastKnownTime']) ? $_GET['lastKnownTime'] : "";
+//$lastKnownId = isset($_GET['lastKnownId']) ? $_GET['lastKnownId'] : "";
+$lastKnownTime = isset($_GET['lastKnownTime']) ? floatval($_GET['lastKnownTime']) : "";
 
-$pipelineId = $_GET['pipelineId'];
+$pipelineId = filter_lnd($_GET['pipelineId']);
 $cleanup =  isset($_GET['cleanup']);
 
-$traceHandler = $_GET['traceHandler'];
-$traceRef = $_GET['traceRef'];
-$traceModel = $_GET['traceModel'];
+$traceHandler = filter_lnd($_GET['traceHandler']);
+$traceRef = filter_lnd($_GET['traceRef']);
 
 /*
  * Loads the pipeline.
@@ -45,7 +45,7 @@ echo "<feed>";flush();
 $i = 0;
 do
 {
-	list($source, $obsel) = $traces->getNextObsels($lastKnownId, $lastKnownTime);
+	list($source, $obsel) = $traces->getNextObsels($lastKnownTime);
 
 	if($obsel !== false)
 	{
@@ -70,7 +70,7 @@ do
 			}
 		}
 	}
-}while(! ($obsel === false and $source === false) and $traces->eot() !== true);
+} while(! ($obsel === false and $source === false) and $traces->eot() !== true);
 
 if($traces->eot())
 {
@@ -78,5 +78,4 @@ if($traces->eot())
 	$pipeline->cleanStates();
 }
 echo "</feed>\n";flush();
-
 ?>

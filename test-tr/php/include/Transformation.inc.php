@@ -1,5 +1,5 @@
 <?php
-require_once 'include/config.inc.php';
+require_once 'include/session.inc.php';
 
 /*
  * The transformation class represents one transformation that takes place in 

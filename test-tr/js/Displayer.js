@@ -19,7 +19,11 @@ function Displayer(svgTrace, defaultWidth, xWWidth, defaultScale, defaultCenter,
 		this.svgElement = svgTrace.getSVGNode();
 		this.svgElement = this.divElement.ownerDocument.importNode(this.svgElement, true);
 		
-		this.divElement.getElementsByTagName('div')[0].appendChild(this.svgElement);
+		this.divElement.appendChild(this.svgElement);
+
+		//Add some margin to allow scrolling over the edge
+		this.svgElement.style.marginLeft = '1000px';
+		this.svgElement.style.marginRight = '1000px';
 		
 		svgTrace.setSVGNode(this.svgElement);
 		

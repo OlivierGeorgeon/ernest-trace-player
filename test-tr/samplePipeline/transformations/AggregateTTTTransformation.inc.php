@@ -13,19 +13,19 @@ class AggregateTTTTransformation extends PHPTransformation
 			{
 				$need = "thirsty";
 				if(count($obsel->current_observation->time_to_water))
-				$obsel_ttt = (string)$obsel->current_observation->time_to_water;
+					$obsel_ttt = (string)$obsel->current_observation->time_to_water;
 				else
-				$obsel_ttt = "Far";
+					$obsel_ttt = "Far";
 			}else{
 				$need = "hungry";
 				if(count($obsel->current_observation->time_to_food))
-				$obsel_ttt = (string)$obsel->current_observation->time_to_food;
+					$obsel_ttt = (string)$obsel->current_observation->time_to_food;
 				else
-				$obsel_ttt = "Far";
+					$obsel_ttt = "Far";
 			}
 				
 			if($obsel_ttt == '1000')
-			$obsel_ttt = 'Far';
+				$obsel_ttt = 'Far';
 				
 			$color = null;
 			if(count($obsel->current_observation->color))
@@ -62,9 +62,9 @@ class AggregateTTTTransformation extends PHPTransformation
 				if($need != $interval['need'])
 				{
 					if($obsel_ttt != "Far")
-					$max_ttt = $obsel_ttt;
+						$max_ttt = $obsel_ttt;
 					else
-					$max_ttt = 1000;
+						$max_ttt = 1000;
 				}else{
 					$max_ttt = $interval['max-ttt'];
 				}
@@ -74,10 +74,10 @@ class AggregateTTTTransformation extends PHPTransformation
 					$obsel_ttt = "Far";
 						
 					if($obsel_ttt != "Far")
-					$obsel_ttt = $obsel_ttt*100.0 / $max_ttt;
+						$obsel_ttt = $obsel_ttt*100.0 / $max_ttt;
 						
 					if($obsel_ttt > 100)
-					$obsel_ttt = "Far";
+						$obsel_ttt = "Far";
 				}
 
 				if((string)$interval['color'] == $color)

@@ -2,8 +2,13 @@
 set_time_limit(0);
 ignore_user_abort();
 
-require_once 'include/config.inc.php';
+require_once 'include/session.inc.php';
 require_once 'include/comet.inc.php';
+
+if(! isset($_GET['PICometMethod']))
+{
+	die();
+}
 
 $piCometMethod = $_GET['PICometMethod'];
 /*

@@ -1,9 +1,16 @@
 <?php
-require_once 'include/config.inc.php';
+require_once 'include/tracerIdent.inc.php';
 require_once 'include/stream.inc.php';
 
-if(isset($_REQUEST['traceId']) && isset($_REQUEST['data']))
+system("echo 'stream " . $_REQUEST['traceId'] . " " . DATA_DIR . '/trace_fragments.db' . "...' >> /tmp/streamit");
+
+if(isset($_REQUEST['traceId'])
+	and isset($_REQUEST['data'])
+	and $traceId = filter_lnd($_REQUEST['traceId']))
 {
-	postObsel($_REQUEST['traceId'], $_REQUEST['data']);
+	system("echo 'OK\n' >> /tmp/streamit");
+	postObsel($traceId, $_REQUEST['data']);
+}else{
+	system("echo 'KO\n' >> /tmp/streamit");
 }
 ?>

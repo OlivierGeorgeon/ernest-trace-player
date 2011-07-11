@@ -57,4 +57,30 @@ function rrmdir($dir) {
 	}
 }
 
+/*
+ * Copies and finalize an SQLite3Result.
+ * Private.
+ */
+function copyResultSet(&$resultSet)
+{
+	$rows = array();
+	while($row = $resultSet->fetchArray(SQLITE3_ASSOC))
+	{
+		$rows[] = $row;
+	}
+	$resultSet->finalize();
+	
+	return $rows;
+}
+
+function filter_lnd($str)
+{
+	return filter_var($str, FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => '/^[a-zA-Z0-9-]+$/')));
+}
+
+function filter_atom_filename($str)
+{
+	return filter_var($str, FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => '/^[a-zA-Z0-9_-][a-zA-Z0-9._-]*$/')));
+}
+
 ?>

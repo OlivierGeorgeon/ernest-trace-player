@@ -114,10 +114,12 @@ function StreamSelector(div_id, noticeDiv_id, baseURI, tracePlayeInfos, configEd
 			name,
 			"",
 			this.baseURI);
-
-		this.currentPlayer.onPlaying = parametrizeCallback(this.configEditor.playing, {scope: this.configEditor});
-		this.currentPlayer.onStopped = parametrizeCallback(this.configEditor.stopped, {scope: this.configEditor});
 		
+		if(this.configEditor !== null)
+		{
+			this.currentPlayer.onPlaying = parametrizeCallback(this.configEditor.playing, {scope: this.configEditor});
+			this.currentPlayer.onStopped = parametrizeCallback(this.configEditor.stopped, {scope: this.configEditor});
+		}
 		this.currentPlayer.start();
 		
 		this.currentPlayer.onEOT = parametrizeCallback(this.onEOT, {scope: this});

@@ -1,9 +1,12 @@
 <?php
 require_once 'include/ViewInfos.inc.php';
 
+/*
+ * ca sert plus a rien ca...
+ */
 interface TraceHandler {
-	public function getNextObsels(&$lastKnownId, &$lastKnownTime);
-	public function getNextObselsNB(&$lastKnownId, &$lastKnownTime);
+	public function getNextObsels(&$lastKnownTime);
+	public function getNextObselsNB(&$lastKnownTime);
 	public function eot();
 }
 

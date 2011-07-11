@@ -1,5 +1,5 @@
 <?php
-require_once 'include/config.inc.php';
+require_once 'include/session.inc.php';
 require_once 'include/PipelineInfos.inc.php';
 require_once 'include/XSLTTransformation.inc.php';
 require_once 'include/PHPTransformation.inc.php';
@@ -19,12 +19,14 @@ class Pipeline
 	{
 		$this->infos = $infos;
 
+		$this->lockStreaming();
+		
 		$this->transformations = array();
 		if($cleanup)
 		{
 			$this->cleanStates();
 		}
-
+		
 		$this->instanciateTransformations();
 		$this->deltas_minus_1 = new DOMDocument();
 		$this->deltas_doc = new DOMDocument();
@@ -137,6 +139,8 @@ class Pipeline
 		}
 
 		touch(TEMP_DATA_DIR . '/streams/__config__');
+		
+		$this->unlockStreaming();
 	}
 
 	protected function instanciateTransformations()
@@ -162,6 +166,22 @@ class Pipeline
 				}
 			}
 		}
+	}
+
+	protected function lockStreaming()
+	{
+		$lock = TEMP_DATA_DIR . '/streaming';
+		$this->lockfd = fopen($lock, 'w');
+		if(! flock($this->lockfd, LOCK_EX))
+		{
+			pushError("Couldn't get stream lock.");
+			die();
+		}
+	}
+	
+	protected function unlockStreaming()
+	{
+		flock($this->lockfd, LOCK_UN);
 	}
 
 	protected $infos;

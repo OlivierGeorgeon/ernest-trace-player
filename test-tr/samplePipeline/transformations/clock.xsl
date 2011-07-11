@@ -13,9 +13,11 @@
 				<xsl:sort data-type="number" select="@date" />
 				<!-- TODO: groups elements with same dates into the same delta (not necessary 
 					and useless for now since the would be only one in each anyway) -->
-				<delta source="{$name}" date="{@date}">
-					<xsl:value-of select="@date" />
-				</delta>
+				<xsl:if test="@date !=''">
+					<delta source="{$name}" date="{@date}">
+						<xsl:value-of select="@date" />
+					</delta>
+				</xsl:if>
 			</xsl:for-each>
 		</deltas>
 	</xsl:template>

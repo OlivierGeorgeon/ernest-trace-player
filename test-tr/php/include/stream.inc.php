@@ -1,4 +1,6 @@
 <?php
+require_once 'include/misc.inc.php';
+require_once 'include/config.inc.php';
 
 /*
  * Posts an obsels into the system.
@@ -9,9 +11,6 @@
  */
 function postObsel($traceId, $data)
 {
-	// Stream the obsel to the handler if one is running on this traces 
-	streamPushObsel($traceId, $data);
-	
 	// Store the obesl on db.
 	// First, extract the date to set to the date column.
 	$xml_data = simplexml_load_string($data);
@@ -25,6 +24,9 @@ function postObsel($traceId, $data)
 		else
 			dbStoreObsel($traceId, false, $data);
 	}
+	
+	// Stream the obsel to the handler if one is running on this traces 
+	streamPushObsel($traceId, $data);
 }
 
 /*
@@ -83,18 +85,19 @@ function streamGetObsel($serverArray, $timeout)
 	
 	if($server === false)
 	{
-		$read   = NULL;
-		$write  = $serverArray;
+		$read   = $serverArray;
+		$write  = NULL;
 		$except = NULL;
-		if (false !== ($num_changed_streams = stream_select($read, $write, $except, $timeout)) && $num_changed_streams > 0)
+		
+		$num_changed_streams = stream_select($read, $write, $except, $timeout);
+		if ($num_changed_streams !== false && $num_changed_streams > 0)
 		{
-			$server = current($write);
+			$server = current($read);
+			$sock = stream_socket_accept($server, 10);
 		}else{
-			pushError("Select error...");
+			//pushError("Select error...");
 			return array(false, "");
 		}
-		
-		$sock = stream_socket_accept($server);
 	}
 	
 	$slice = "";
@@ -114,26 +117,17 @@ function streamGetObsel($serverArray, $timeout)
 function getDB()
 {
 	global $db;
-	if(!isset($db)) $db = new SQLite3(DATA_DIR . '/trace_fragments.db');
 	
-	$db->busyTimeout(1000);
-	return $db;
-}
-
-/*
- * Copies and finalize an SQLite3Result.
- * Private.
- */
-function copyResultSet(&$resultSet)
-{
-	$rows = array();
-	while($row = $resultSet->fetchArray(SQLITE3_ASSOC))
+	if(!isset($db))
 	{
-		$rows[] = $row;
+		$db = new SQLite3(DATA_DIR . '/trace_fragments.db');
+		$db->busyTimeout(1000);
+
+		$db->exec("CREATE TABLE IF NOT EXISTS obsels (trace_id VARCHAR, o_date FLOAT, o_data BLOB);" .
+				  "CREATE INDEX IF NOT EXISTS 'index_obsels' ON 'obsels' ('trace_id', 'o_date');");
 	}
-	$resultSet->finalize();
 	
-	return $rows;
+	return $db;
 }
 
 /*
@@ -148,13 +142,12 @@ function dbStoreObsel($traceId, $date, $data)
 	
 	$data = $db->escapeString($data);
 	$traceId = $db->escapeString($traceId);
-	if($date != '' or $date === false)
+	if($date != '' or $date !== false)
 	{
-		$db->exec("INSERT INTO obsels VALUES ('$traceId', '$date', '$data')");
+		$date = floatval($date);
+		$db->exec("INSERT INTO obsels VALUES ('$traceId', $date, '$data');");
 	}else{
-		$db->exec("begin;" .
-			"INSERT INTO obsels VALUES ('$traceId', 9e999, '$data');" . // Alas, no portable way to say Infinity
-			"commit;");
+		$db->exec("INSERT INTO obsels VALUES ('$traceId', 9e999, '$data');"); // Alas, no portable way to say Infinity
 	}
 }
 
@@ -166,10 +159,12 @@ function dbStoreObsel($traceId, $date, $data)
 function dbGetObsels($traceId, $lastKnownDate, $deleteAfterSelect = false)
 {
 	$db = getDB();
+	$lastKnownDate = floatval($lastKnownDate);
+	$traceId = $db->escapeString($traceId);
 	
 	if($deleteAfterSelect)
 		$db->exec("BEGIN;");
-		
+	
 	$res = $db->query("SELECT o_date, o_data FROM obsels WHERE trace_id='$traceId' AND o_date>$lastKnownDate ORDER BY o_date ASC;");
 	
 	$rows = copyResultSet($res);
@@ -190,6 +185,7 @@ function dbGetObsels($traceId, $lastKnownDate, $deleteAfterSelect = false)
 function dbGetAllObsels($traceId, $deleteAfterSelect = false)
 {
 	$db = getDB();
+	$traceId = $db->escapeString($traceId);
 	
 	if($deleteAfterSelect)
 		$db->exec("BEGIN;");
@@ -220,11 +216,11 @@ function dbGetTraces()
 }
 
 /*
- * (Re)Initialize the obsel database.
+ * (Re)Initializes the obsel database.
  */
 function initdb()
 {
-	$db = getDB();
+	$db = new SQLite3(DATA_DIR . '/trace_fragments.db');
 	
 	$db->exec(
 		"DROP TABLE IF EXISTS obsels;" .

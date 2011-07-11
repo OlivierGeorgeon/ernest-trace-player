@@ -1,19 +1,15 @@
 <?php
-require_once 'include/config.inc.php';
+require_once 'include/session.inc.php';
 require_once 'include/stream.inc.php';
 require_once 'include/misc.inc.php';
 
-/*<config date="0" id="1" source='__config__'>
- <type>new-symbole</type>
- <symbole>
- <condition>primitive_enacted_schema='>'</condition>
- <shape>'pollen'</shape>
- <color>'FF0000'</color>
- <voffset>math:random()*30</voffset>
- <image-url>''</image-url>
- </symbole>
- </config>*/
+if(! ICANHASFORMS)
+{
+	http_send_status(401);
+	die();
+}
 
+// TODO : check for offensive xpath expressions
 if( isset($_REQUEST['condition'])
 and isset($_REQUEST['shape'])
 and isset($_REQUEST['color'])
@@ -56,7 +52,6 @@ and isset($_REQUEST['voffset'])
 		if($skewX) $symbole->addChild('skewX', $skewX);
 		if($skewY) $symbole->addChild('skewY', $skewY);
 	}
-
 
 	postObsel('__config__', $config->config->asXML());
 }

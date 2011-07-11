@@ -13,6 +13,7 @@ class DBAndSocketHandler implements TraceHandler
 {
 	public function __construct()
 	{
+		$this->atEot = false;
 		$this->traces = array();
 		$this->oldDataTraces = array();
 		$this->servers = array();
@@ -37,7 +38,7 @@ class DBAndSocketHandler implements TraceHandler
 	 * When the end of a stream is reached, returns (traceId, false).
 	 * When the script is aborted, return (false, false).
 	 */
-	public function getNextObsels(&$lkid, &$lastKnownTime)
+	public function getNextObsels(&$lastKnownTime)
 	{
 		// If there is data stored in the db, begin by reading it.
 		$slice = false;
@@ -57,9 +58,12 @@ class DBAndSocketHandler implements TraceHandler
 		{
 			// Wait for an obsel on a stream (server)
 			do {
-				list($server, $slice) = streamGetObsel($this->servers, 1);
-				if(! $server and $this->aborted() or $this->toAbort)
+				list($server, $slice) = streamGetObsel($this->servers, 3);
+				
+				if(! $server and ($this->toAbort or $this->aborted()))
+				{
 					return array(false, false);
+				}
 			} while(! $server);
 			
 			// To which trace belongs this stream (server) ?
@@ -93,12 +97,12 @@ class DBAndSocketHandler implements TraceHandler
 		return array($trace, $slice);
 	}
 	
-	public function getNextObselsNB(&$lkid, &$lastKnownTime)
+	public function getNextObselsNB(&$lastKnownTime)
 	{
 		pushError("Unimplemented : DBAndSockHandler::getNextObselsNB()");
 		return $slice;
 	}
-
+	
 	/*
 	 * Returns false.
 	 */
@@ -123,7 +127,7 @@ class DBAndSocketHandler implements TraceHandler
 	{
 		$this->toAbort = true;
 	}
-
+	
 	/*
 	 * Tests wether the script has been aborted (browser closed, connection lost, etc.).
 	 */

@@ -27,8 +27,6 @@ class Trace
 			$this->storedTrace = dbGetObsels($this->traceId, $lastKnownTime, $deleteAfterUse);
 		else
 			$this->storedTrace = dbGetAllObsels($this->traceId, $deleteAfterUse);
-		
-		pushError(count($this->storedTrace));
 
 		$this->res = current($this->storedTrace);
 	}
