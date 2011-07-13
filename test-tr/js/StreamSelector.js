@@ -154,7 +154,7 @@ function StreamSelector(div_id, noticeDiv_id, baseURI, tracePlayeInfos, configEd
 				url: this.baseURI + '/php/lastStreamedTrace.php',
 				context: this,
 				success: function(data){
-					var lastTrace = data.documentElement.textContent; //TODO 
+					var lastTrace = data.documentElement.textContent;
 					if(this.currentStream != lastTrace)
 					{
 						this.changeStream(lastTrace, "stream");

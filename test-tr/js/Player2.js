@@ -11,6 +11,8 @@ function Player2(playerDivElement, noticeDivElement, baseURI, svgTrace, defaultW
 	this.center = defaultCenter;
 	this.eventmove = null;
 	this.eventup = null;
+	this.focusOnClick = false;
+	this.redsquare = null;
 	
 	//Private
 	this.adjustUIWidth = function()
@@ -204,10 +206,62 @@ function Player2(playerDivElement, noticeDivElement, baseURI, svgTrace, defaultW
 			if (node != this.graphDiv)
 			{
 				this.onObselClicked(e, node);
+
+				if (this.focusOnClick === true)
+				{
+					this.displayFocus(node);
+				}
 			}
 		}
 	}
 
+	this.setDisplayFocusOnClick = function(focus)
+	{
+		this.focusOnClick = focus;
+	}
+	
+	this.getDisplayFocusOnClick = function()
+	{
+		return this.focusOnClick;
+	}
+	
+	/**
+	 * Displays a red square around a given obsel.
+	 */
+	this.displayFocus = function(node)
+	{
+		if(this.redsquare === undefined || this.redsquare === null)
+		{
+			this.redsquare = this.svgTrace.drawRedSquare();
+		}else{
+			this.redsquare = this.svgTrace.getSVGNode().appendChild(this.redsquare);
+		}
+
+		var bbox = node.getBBox();
+		var matrix = node.transform.baseVal.consolidate().matrix;
+
+		var orig = this.redsquare.ownerSVGElement.createSVGPoint();
+		orig.x = 0;
+		orig.y = 0;
+		orig = orig.matrixTransform(matrix);
+		
+		var tl = this.redsquare.ownerSVGElement.createSVGPoint();
+		tl.x = bbox.x;
+		tl.y = bbox.y;
+		tl = tl.matrixTransform(matrix);
+		
+		var s = this.redsquare.ownerSVGElement.createSVGPoint();
+		s.x = bbox.width;
+		s.y = bbox.height;
+		s = s.matrixTransform(matrix);
+		
+		this.redsquare.x.baseVal.value = tl.x;
+		this.redsquare.y.baseVal.value = tl.y;
+
+		this.redsquare.width.baseVal.value = s.x - orig.x;
+		this.redsquare.height.baseVal.value = s.y - orig.y;
+	}
+	
 	/**
 	 * Callback triggered while pressing button on the view rectangle, to initiate the drag.
 	 * @private

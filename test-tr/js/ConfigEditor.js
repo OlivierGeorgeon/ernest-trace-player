@@ -247,109 +247,113 @@ function ConfigEditor(div_id, noticeDiv_id, baseURI)
 
 	this.updateState = function(xmlState)
 	{
-		var ul = this.symboleListDiv.children('ul');
-		ul.empty();
-		
-		$(xmlState).find('symbole').each(
-			parametrizeCallback(function(index, elem, that, ul, xmlState)
-				{
-					var symbole = $(this);
-					ul.append(
-						"<li title=" + this.getAttribute('id') + ">" 
-						+ "<div class=\"symbole-title\">" + this.getAttribute('id') + "</div>" 
-						+ " <a href=\"#\" title=\"copy\">⎘</a>"
-						+ " <a href=\"#\" title=\"delete\">✗</a>"
-						+ "<div class=\"symbole-disp\">"
-						+ symbole.children("condition").text() + "<br />"
-						+ symbole.children("shape").text() + "<br />"
-						+ symbole.children("color").text() + "<br />"
-						+ symbole.children("voffset").text() + "<br />"
-						+ symbole.children("image-url").text() + "<br />"
-						+ 
-						(symbole.children("transform").length > 0 ?
-							"<u>Scale:</u><br />"
-							+ "<u>x:</u> " + symbole.children("scaleX").text() + "<br />"
-							+ "<u>y:</u> " + symbole.children("scaleY").text() + "<br />"
-							+ "<u>Rotate:</u><br />"
-							+ symbole.children("rotate").text() + "<br />"
-							+ "<u>Skew:</u><br />"
-							+ "<u>x:</u> " + symbole.children("skewX").text() + "<br />"
-							+ "<u>y:</u> " + symbole.children("skewY").text() + "<br />"
+		try{
+			var ul = this.symboleListDiv.children('ul');
+			ul.empty();
+			
+			$(xmlState).find('symbole').each(
+				parametrizeCallback(function(index, elem, that, ul, xmlState)
+					{
+						var symbole = $(this);
+						ul.append(
+							"<li title=" + this.getAttribute('id') + ">" 
+							+ "<div class=\"symbole-title\">" + this.getAttribute('id') + "</div>" 
+							+ " <a href=\"#\" title=\"copy\">⎘</a>"
+							+ " <a href=\"#\" title=\"delete\">✗</a>"
+							+ "<div class=\"symbole-disp\">"
+							+ symbole.children("condition").text() + "<br />"
+							+ symbole.children("shape").text() + "<br />"
+							+ symbole.children("color").text() + "<br />"
+							+ symbole.children("voffset").text() + "<br />"
+							+ symbole.children("image-url").text() + "<br />"
+							+ 
+							(symbole.children("transform").length > 0 ?
+								"<u>Scale:</u><br />"
+								+ "<u>x:</u> " + symbole.children("scaleX").text() + "<br />"
+								+ "<u>y:</u> " + symbole.children("scaleY").text() + "<br />"
+								+ "<u>Rotate:</u><br />"
+								+ symbole.children("rotate").text() + "<br />"
+								+ "<u>Skew:</u><br />"
+								+ "<u>x:</u> " + symbole.children("skewX").text() + "<br />"
+								+ "<u>y:</u> " + symbole.children("skewY").text() + "<br />"
+								+ "</div></li>"
+							: 
+								"")
+						);
+	
+						var li = $(ul[0].lastChild);
+						li.children('*[title=copy]')[0].addEventListener("click", parametrizeCallback(function(e, that, xmlState)
+							{
+								e.preventDefault();
+								that.copySymbole(xmlState, $(this));
+								return false;
+							},
+							{scope: this, args: [that, xmlState]}
+						), true);
+						
+						li.children('*[title=delete]')[0].addEventListener("click", parametrizeCallback(function(e, that, xmlState)
+							{
+								e.preventDefault();
+								that.deleteSymbole(xmlState, $(this));
+								return false;
+							},
+							{scope: this, args: [that, xmlState]}
+						), true);
+						
+					},
+					{args: [this, ul, xmlState]}
+				)
+			);
+			
+			$(xmlState).find('lsymbole').each(
+				parametrizeCallback(function(index, elem, that, ul, xmlState)
+					{
+						var symbole = $(this);
+						ul.append(
+							"<li title=" + this.getAttribute('id') + ">" 
+							+ "<div class=\"symbole-title\">" + this.getAttribute('id') + "</div>" 
+							+ " <a href=\"#\" title=\"copy\">⎘</a>"
+							+ " <a href=\"#\" title=\"delete\">✗</a>"
+							+ "<div class=\"symbole-disp\">"
+							+ symbole.children("begin-condition").text() + "<br />"
+							+ symbole.children("end-condition").text() + "<br />"
+							+ symbole.children("shape").text() + "<br />"
+							+ symbole.children("color").text() + "<br />"
+							+ symbole.children("voffset").text() + "<br />"
+							+ symbole.children("image-url").text() + "<br />"
+							+ (symbole.children("shape-end").length > 0 ? (symbole.children("shape-end").text() + "<br />") : "")
+							+ (symbole.children("color-end").length > 0 ? (symbole.children("color-end").text() + "<br />") : "")
+							+ (symbole.children("voffset-end").length > 0 ? (symbole.children("voffset-end").text() + "<br />") : "")
+							+ (symbole.children("image-url-end").length > 0 ? (symbole.children("image-url-end").text() + "<br />") : "")
 							+ "</div></li>"
-						: 
-							"")
-					);
-
-					var li = $(ul[0].lastChild);
-					li.children('*[title=copy]')[0].addEventListener("click", parametrizeCallback(function(e, that, xmlState)
-						{
-							e.preventDefault();
-							that.copySymbole(xmlState, $(this));
-							return false;
-						},
-						{scope: this, args: [that, xmlState]}
-					), true);
-					
-					li.children('*[title=delete]')[0].addEventListener("click", parametrizeCallback(function(e, that, xmlState)
-						{
-							e.preventDefault();
-							that.deleteSymbole(xmlState, $(this));
-							return false;
-						},
-						{scope: this, args: [that, xmlState]}
-					), true);
-					
-				},
-				{args: [this, ul, xmlState]}
-			)
-		);
-		
-		$(xmlState).find('lsymbole').each(
-			parametrizeCallback(function(index, elem, that, ul, xmlState)
-				{
-					var symbole = $(this);
-					ul.append(
-						"<li title=" + this.getAttribute('id') + ">" 
-						+ "<div class=\"symbole-title\">" + this.getAttribute('id') + "</div>" 
-						+ " <a href=\"#\" title=\"copy\">⎘</a>"
-						+ " <a href=\"#\" title=\"delete\">✗</a>"
-						+ "<div class=\"symbole-disp\">"
-						+ symbole.children("begin-condition").text() + "<br />"
-						+ symbole.children("end-condition").text() + "<br />"
-						+ symbole.children("shape").text() + "<br />"
-						+ symbole.children("color").text() + "<br />"
-						+ symbole.children("voffset").text() + "<br />"
-						+ symbole.children("image-url").text() + "<br />"
-						+ (symbole.children("shape-end").length > 0 ? (symbole.children("shape-end").text() + "<br />") : "")
-						+ (symbole.children("color-end").length > 0 ? (symbole.children("color-end").text() + "<br />") : "")
-						+ (symbole.children("voffset-end").length > 0 ? (symbole.children("voffset-end").text() + "<br />") : "")
-						+ (symbole.children("image-url-end").length > 0 ? (symbole.children("image-url-end").text() + "<br />") : "")
-						+ "</div></li>"
-					);
-					
-					var li = $(ul[0].lastChild);
-					li.children('*[title=copy]')[0].addEventListener("click", parametrizeCallback(function(e, that, xmlState)
-						{
-							e.preventDefault();
-							that.copyLSymbole(xmlState, $(this));
-							return false;
-						},
-						{scope: this, args: [that, xmlState]}
-					), true);
-					
-					li.children('*[title=delete]')[0].addEventListener("click", parametrizeCallback(function(e, that, xmlState)
-						{
-							e.preventDefault();
-							that.deleteLSymbole(xmlState, $(this));
-							return false;
-						},
-						{scope: this, args: [that, xmlState]}
-					), true);
-					
-				},
-				{args: [this, ul, xmlState]}
-			)
-		);
+						);
+						
+						var li = $(ul[0].lastChild);
+						li.children('*[title=copy]')[0].addEventListener("click", parametrizeCallback(function(e, that, xmlState)
+							{
+								e.preventDefault();
+								that.copyLSymbole(xmlState, $(this));
+								return false;
+							},
+							{scope: this, args: [that, xmlState]}
+						), true);
+						
+						li.children('*[title=delete]')[0].addEventListener("click", parametrizeCallback(function(e, that, xmlState)
+							{
+								e.preventDefault();
+								that.deleteLSymbole(xmlState, $(this));
+								return false;
+							},
+							{scope: this, args: [that, xmlState]}
+						), true);
+						
+					},
+					{args: [this, ul, xmlState]}
+				)
+			);
+		}catch (e) {
+			alert('Something went terribly wrong with the config state retrieval: ' + e);
+		}
 	}
 
 	this.copySymbole = function(nothing, symboleElement)

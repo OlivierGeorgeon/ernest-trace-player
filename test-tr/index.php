@@ -11,7 +11,6 @@ echo '<?xml version="1.0" encoding="utf-8"?>';
 
 <link rel="stylesheet" type="text/css" href="css/codemirror/codemirror.css" />
 <link rel="stylesheet" type="text/css" href="css/codemirror/theme/default.css" />
-<link rel="stylesheet" type="text/css" href="css/codemirror/theme/eleguant.css" />
 
 <!-- <script type="text/javascript" src="js/lib/jquery-1.5.min.js"></script> -->
 <script type="text/javascript" src="js/lib/jquery-1.5.2.js"></script>

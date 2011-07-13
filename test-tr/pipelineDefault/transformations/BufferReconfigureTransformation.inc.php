@@ -8,113 +8,30 @@ class BufferReconfigureTransformation extends PHPTransformation
 		{
 			if($obsel['source'] and $obsel['source'] == "__config__")
 			{
+				// Load the stored trace in its whole
 				$this->loadTrace();
+				
 				if($obsel->type == "new-symbole")
 				{
 					// Append the new symbole to the symbole set.
-					SimpleXMLElement_append($this->configState->symboles, $obsel->symbole);
+					$this->newSymbole($obsel, $delta, $doc);
 					
-					// Reprocess all the trace obsels for the new symbole.
-					foreach($this->trace->children() as $trace_obsel)
-					{
-						$symboleElement = $this->symbolize($trace_obsel, $obsel->symbole, $delta, $doc);
-
-						if($symboleElement !== false)
-						{
-							$obselElement = $doc->createElement('original-obsel');
-							$obselElement->appendChild($doc->importNode(dom_import_simplexml($trace_obsel), true));
-							$symboleElement->appendChild($obselElement);
-						}
-					}
-						
 				}elseif($obsel->type == "delete-symbole")
 				{
-					$id = $obsel['id'];
-					$sid = $obsel['symbole-id'];
-					
-					// Find the symbole with the given id
-					$symboles = $this->configState->symboles->xpath("symbole[@id='$sid']");
-					foreach($symboles as $symbole)
-					{
-						// Find all symboles created by this symbole
-						// TODO: do that differently, keeping track of the created obsels
-						//  (because the condition might be nondeterministic)
-						$xpathres = $this->trace->xpath("/slice/*[" . (string)$symbole->condition . "]");
-						
-						if($xpathres !== false and count($xpathres) != 0)
-						{
-							foreach($xpathres as $trace_obsel)
-							{
-								$symboleId = $trace_obsel['id'] . "-sym" . $sid;
-								$deleteElement = $doc->createElement('delete');
-								$deleteElement->setAttribute('obsel-id', $symboleId);
-								$deleteElement->setAttribute('id', $id);
-								$delta->appendChild($deleteElement);
-							}
-						}
-						
-						$sydom = dom_import_simplexml($symbole);
-						$sydom->parentNode->removeChild($sydom);
-					}
+					$this->deleteSymbole($obsel, $delta, $doc);
 				}elseif($obsel->type == "new-long-symbole")
 				{
 					// Append the new symbole to the symbole set.
-					SimpleXMLElement_append($this->configState->{'long-symboles'}, $obsel->lsymbole);
-					
-					// Reprocess all the trace obsels for the new symbole.
-					// Reinitialize the dom doc used with the stylesheet
-					$this->initLSData($this->getDataDoc());
-					foreach($this->trace->children() as $trace_obsel)
-					{
-						$this->prepareLSDataWithObsel(dom_import_simplexml($trace_obsel));
-						$symboleElement = $this->longSymbolize($trace_obsel, $obsel->lsymbole, $delta, $doc, true);
-					}
-					
-					$this->initLSData($this->getDataDoc(), dom_import_simplexml($this->lastTraceObsel));
+					$this->newLSymbole($obsel, $delta, $doc);
 				}elseif($obsel->type == "delete-long-symbole")
 				{
 					// Find the symboles instances drawn by the symbole being deleted,
 					// and delete them from the displayed trace.
-					$lsymboles = $this->lsState->xpath("/state/ls[@ls-id = '" . $obsel['symbole-id'] . "']");
-					$del = array();
-					foreach($lsymboles as $ls)
-					{
-						$deleteElement = $doc->createElement('ldelete');
-						$deleteElement->setAttribute('obsel-id', $ls['id']);
-
-						$delta->appendChild($deleteElement);
-
-						$del[] = dom_import_simplexml($ls);
-					}
-						
-					// If there is an instance being drawn, delete it from the displayed trace.
-					$lcurrent = $this->lsState->xpath("/state/current-ls[@ls-id = '" . $obsel['symbole-id'] . "']");
-					if(count($lcurrent) > 0)
-					{
-						$ls = $lcurrent[0];
-						$deleteElement = $doc->createElement('ldelete');
-						$deleteElement->setAttribute('obsel-id', $ls['id']);
-						
-						$delta->appendChild($deleteElement);
-						
-						$del[] = dom_import_simplexml($ls);
-					}
-					
-					// Also remove them from the symbole instances state.
-					foreach($del as $elt)
-					{
-						$elt->parentNode->removeChild($elt);
-					}
-					
-					// Remove the symbole from the config state.
-					$lsymbole = $this->configState->{'long-symboles'}
-					-> xpath("lsymbole[@id='" . $obsel['symbole-id'] . "']");
-					$lsydom = dom_import_simplexml($lsymbole[0]);
-					$lsydom->parentNode->removeChild($lsydom);
+					$this->deleteLSymbole($obsel, $delta, $doc);
 				}
-				
+
 				// Update the config file with the new config.
-				file_put_contents(CONFIG_DATA_DIR . '/__current__/' . $this->name, $this->configState->asXML());
+				$this->saveConfigState();
 			}else{
 				// Append the new obsel to the stored trace (either loaded in memory or in a file).
 				if(!$this->loaded)
@@ -142,6 +59,123 @@ class BufferReconfigureTransformation extends PHPTransformation
 	}
 
 	/*
+	 * Manages the appearance of a new symbole rule.
+	 */
+	protected function newSymbole($obsel, &$delta, &$doc)
+	{
+		SimpleXMLElement_append($this->configState->symboles, $obsel->symbole);
+		
+		// Reprocess all the trace obsels for the new symbole.
+		foreach($this->trace->children() as $trace_obsel)
+		{
+			$symboleElement = $this->symbolize($trace_obsel, $obsel->symbole, $delta, $doc);
+	
+			if($symboleElement !== false)
+			{
+				$obselElement = $doc->createElement('original-obsel');
+				$obselElement->appendChild($doc->importNode(dom_import_simplexml($trace_obsel), true));
+				$symboleElement->appendChild($obselElement);
+			}
+		}
+	}
+	
+	/*
+	 * Manages the deletion of an existing symbole rule.
+	 */
+	protected function deleteSymbole($obsel, &$delta, &$doc)
+	{
+		$id = $obsel['id'];
+		$sid = $obsel['symbole-id'];
+		
+		// Generate a delete element for each symbole instance created by the deleted symbole
+		$symboles = $this->sState->xpath("/state/sym[@s-id = '" . $sid . "']");
+		$del = array();
+		foreach($symboles as $sym)
+		{
+			$deleteElement = $doc->createElement('delete');
+			$deleteElement->setAttribute('obsel-id', $sym['inst-id']);
+			$deleteElement->setAttribute('id', $sym['orig-id']);
+
+			$delta->appendChild($deleteElement);
+
+			$del[] = dom_import_simplexml($sym);
+		}
+		
+		// Also remove them from the symbole instances state.
+		foreach($del as $elt)
+		{
+			$elt->parentNode->removeChild($elt);
+		}
+		
+		// Remove the symbole from the config state.
+		$symbole = $this->configState->symboles->xpath("symbole[@id='$sid']");
+		$lsydom = dom_import_simplexml($symbole[0]);
+		$lsydom->parentNode->removeChild($lsydom);
+	}
+	
+	/*
+	 * Manages the appaerance of a new symbole rule.
+	 */
+	protected function newLSymbole($obsel, &$delta, &$doc)
+	{
+		SimpleXMLElement_append($this->configState->{'long-symboles'}, $obsel->lsymbole);
+					
+		// Reprocess all the trace obsels for the new symbole.
+		// Reinitialize the dom doc used with the stylesheet
+		$this->initLSData($this->getDataDoc());
+		foreach($this->trace->children() as $trace_obsel)
+		{
+			$this->prepareLSDataWithObsel(dom_import_simplexml($trace_obsel));
+			$symboleElement = $this->longSymbolize($trace_obsel, $obsel->lsymbole, $delta, $doc, true);
+		}
+		
+		$this->initLSData($this->getDataDoc(), dom_import_simplexml($this->lastTraceObsel));
+	}
+	
+	/*
+	 * Manages the deletion of an existing long symbole rule.
+	 */
+	protected function deleteLSymbole($obsel, &$delta, &$doc)
+	{
+		// Generate a ldelete element for each lsymbole instance created by the deleted lsymbole
+		$lsymboles = $this->lsState->xpath("/state/ls[@ls-id = '" . $obsel['symbole-id'] . "']");
+		$del = array();
+		foreach($lsymboles as $ls)
+		{
+			$deleteElement = $doc->createElement('ldelete');
+			$deleteElement->setAttribute('obsel-id', $ls['id']);
+
+			$delta->appendChild($deleteElement);
+
+			$del[] = dom_import_simplexml($ls);
+		}
+		
+		// If there is an instance being drawn, delete it from the displayed trace.
+		$lcurrent = $this->lsState->xpath("/state/current-ls[@ls-id = '" . $obsel['symbole-id'] . "']");
+		if(count($lcurrent) > 0)
+		{
+			$ls = $lcurrent[0];
+			$deleteElement = $doc->createElement('ldelete');
+			$deleteElement->setAttribute('obsel-id', $ls['id']);
+
+			$delta->appendChild($deleteElement);
+
+			$del[] = dom_import_simplexml($ls);
+		}
+		
+		// Also remove them from the symbole instances state.
+		foreach($del as $elt)
+		{
+			$elt->parentNode->removeChild($elt);
+		}
+		
+		// Remove the symbole from the config state.
+		$lsymbole = $this->configState->{'long-symboles'}->xpath("lsymbole[@id='" . $obsel['symbole-id'] . "']");
+		$lsydom = dom_import_simplexml($lsymbole[0]);
+		$lsydom->parentNode->removeChild($lsydom);
+	}
+	
+	/*
 	 * Checks if a symbole should be created for the obsel by the symbole rule $symbole,
 	 * and in this case adds the symbole ton construct to the delta.
 	 * Returns : the symbole element added to the delta, or false if no symbole created.
@@ -156,12 +190,12 @@ class BufferReconfigureTransformation extends PHPTransformation
 			$symboleElement->setAttribute('date', $obsel['date']);
 			$symboleElement->setAttribute('id', $obsel['id'] . "-sym" . $symbole['id']);
 			$symboleElement->setAttribute('obsel-id', $obsel['id']);
-				
+			
 			$symboleElement->setAttribute('shape', $symbole->shape);
 			$symboleElement->setAttribute('color', $symbole->color);
 			$symboleElement->setAttribute('voffset', $symbole->voffset);
 			$symboleElement->setAttribute('image-url', $symbole->{'image-url'});
-				
+			
 			if(!empty($symbole->{'transform'}))
 			{
 				$symboleElement->setAttribute('transform', '');
@@ -172,11 +206,18 @@ class BufferReconfigureTransformation extends PHPTransformation
 				if(!empty($symbole->{'rotate'})) $symboleElement->setAttribute('rotate', $symbole->{'rotate'});
 			}
 			$delta->appendChild($symboleElement);
+			
+			// Adds the new symbole to the state
+			$ls = $this->sState->addChild("sym");
+			$ls->addAttribute("inst-id", $obsel['id'] . "-sym" . $symbole['id']);
+			$ls->addAttribute('s-id', $symbole['id']);
+			$ls->addAttribute('orig-id', $obsel['id']);
+			
 			return $symboleElement;
 		}
 		return false;
 	}
-
+	
 	/*
 	 * Prepares the data doc to test a lsymbole condition on
 	 * [$lastObsel, $obsel].
@@ -185,12 +226,12 @@ class BufferReconfigureTransformation extends PHPTransformation
 	protected function prepareLSDataWithObsel($obsel)
 	{
 		$data = $this->getDataDoc();
-
+		
 		if($this->obselsDataElement->childNodes->length >= 2)
 		$this->obselsDataElement->removeChild($this->obselsDataElement->firstChild);
 		$this->obselsDataElement->appendChild($data->importNode($obsel, true));
 	}
-
+	
 	/*
 	 * Prepares the data doc to test the lsymbole's conditions.
 	 */
@@ -200,7 +241,7 @@ class BufferReconfigureTransformation extends PHPTransformation
 		$this->beginConditionText->replaceData(0, $this->beginConditionText->length, (string)$symbole->{'begin-condition'});
 		$this->endConditionText->replaceData(0, $this->endConditionText->length, (string)$symbole->{'end-condition'});
 	}
-
+	
 	/*
 	 * Checks if a long symbole should be created, lengthen or finished for 
 	 * the obsel by the symbole rule $symbole, and in this case adds the 
@@ -331,8 +372,6 @@ class BufferReconfigureTransformation extends PHPTransformation
 				}
 			}
 		}
-		
-		//return $symboleElement;
 	}
 	
 	// Load the trace stored in the state file if not already done.
@@ -346,7 +385,7 @@ class BufferReconfigureTransformation extends PHPTransformation
 			$this->loaded = true;
 		}
 	}
-
+	
 	// Don't load anything unless absolutely necessary.
 	protected function loadState()
 	{
@@ -354,28 +393,61 @@ class BufferReconfigureTransformation extends PHPTransformation
 		$this->loaded = false;
 		$this->xsltProc = null;
 		$this->dataDoc = null;
-
+		
 		if(file_exists($this->stateFilename . '-ls'))
 		{
 			$this->lsState = simplexml_load_file($this->stateFilename . '-ls');
 		}else{
 			$this->lsState = simplexml_load_string("<state/>");
 		}
-
-		$this->stateFD = fopen($this->stateFilename, "a");
-		if(file_exists(CONFIG_DATA_DIR . '/__current__/' . $this->name))
+		
+		if(file_exists($this->stateFilename . '-s'))
 		{
-			$this->configState = simplexml_load_file(CONFIG_DATA_DIR . '/__current__/' . $this->name);
+			$this->sState = simplexml_load_file($this->stateFilename . '-s');
 		}else{
-			$this->configState = simplexml_load_string("<config><symboles></symboles><long-symboles></long-symboles></config>");
+			$this->sState = simplexml_load_string("<state/>");
+		}
+		
+		$this->stateFD = fopen($this->stateFilename, "a");
+		
+		$confFileName = CONFIG_DATA_DIR . '/__current__/' . $this->name;
+		$tempConfFileName = CONFIG_DATA_DIR . '/__temp__/' . $this->name;
+		$lockFD = fopen($tempConfFileName . '.lock', 'c');
+		if(flock($lockFD, LOCK_EX))
+		{
+			if(file_exists($confFileName))
+			{
+				if(file_exists($tempConfFileName . '.old'))
+					unlink($tempConfFileName . '.old');
+				// Yes.
+				rename($confFileName, $tempConfFileName . '.old');
+				copy($tempConfFileName . '.old', $confFileName);
+				
+				$this->configState = simplexml_load_file($confFileName);
+			}else{
+				$this->configState = simplexml_load_string("<config><symboles></symboles><long-symboles></long-symboles></config>");
+			}
+			
+			$this->configStateFD = fopen($confFileName, 'w');
+			$this->saveConfigState();
+			
+			flock($lockFD, LOCK_UN);
 		}
 	}
-
+	
+	protected function saveConfigState()
+	{
+		fseek($this->configStateFD, 0);
+		ftruncate($this->configStateFD, 0);
+		fwrite($this->configStateFD, $this->configState->asXML());
+		fflush($this->configStateFD);
+	}
+	
 	protected function forceSaveStateImpl()
 	{
-		// Don't write config state files as it could cause bugs...
 		file_put_contents($this->stateFilename . '-ls', $this->lsState->saveXML());
-		file_put_contents(CONFIG_DATA_DIR . '/__current__/' . $this->name, $this->configState->saveXML());
+		file_put_contents($this->stateFilename . '-s', $this->sState->saveXML());
+		$this->saveConfigState();
 		if($this->loaded)
 		{
 			$fd = fopen($this->stateFilename, "w");
@@ -389,7 +461,7 @@ class BufferReconfigureTransformation extends PHPTransformation
 			fclose($this->stateFD);
 		}
 	}
-
+	
 	protected function cleanStateImpl()
 	{
 		if(! $this->loaded)
@@ -397,12 +469,14 @@ class BufferReconfigureTransformation extends PHPTransformation
 			fflush($this->stateFD);
 			fclose($this->stateFD);
 		}
-
+		
 		parent::cleanStateImpl();
 	}
-
-	// Get the XSLTProcessor used to test long symboles' conditions,
-	// already configured with the stylesheet.
+	
+	/*
+	 * Get the XSLTProcessor used to test long symboles' conditions,
+	 * already configured with the stylesheet.
+	 */
 	protected function getLSProc()
 	{
 		if($this->xsltProc == null)
@@ -411,14 +485,16 @@ class BufferReconfigureTransformation extends PHPTransformation
 				
 			$doc = new DOMDocument;
 			$doc->load("detect-lsymbole.xsl");
-				
+			
 			$this->xsltProc->importStylesheet($doc);
 		}
-
+		
 		return $this->xsltProc;
 	}
-
-	// Get the DOMDocument used to test long symboles' conditions.
+	
+	/*
+	 * Get the DOMDocument used to test long symboles' conditions.
+	 */
 	protected function getDataDoc()
 	{
 		if($this->dataDoc == null)
@@ -430,20 +506,20 @@ class BufferReconfigureTransformation extends PHPTransformation
 			$this->beginConditionText = $this->dataDoc->createTextNode("");
 			$this->endConditionText = $this->dataDoc->createTextNode("");
 			$this->obselsDataElement = $this->dataDoc->createElement("obsels");
-				
+			
 			$this->dataDoc->appendChild($test);
 			$test->appendChild($beginCondition);
 			$test->appendChild($endCondition);
 			$beginCondition->appendChild($this->beginConditionText);
 			$endCondition->appendChild($this->endConditionText);
 			$test->appendChild($this->obselsDataElement);
-				
+			
 			$this->initLSData($this->dataDoc);
 		}
-
+		
 		return $this->dataDoc;
 	}
-
+	
 	/* Init the data doc with the fist obsel of the trace. */
 	protected function initLSData($data, $obsel = null)
 	{
@@ -451,7 +527,7 @@ class BufferReconfigureTransformation extends PHPTransformation
 		{
 			$this->obselsDataElement->removeChild($this->obselsDataElement->lastChild);
 		}
-
+		
 		if($obsel === null)
 		{
 			$none = $data->createElement("none");
@@ -460,11 +536,15 @@ class BufferReconfigureTransformation extends PHPTransformation
 			$this->obselsDataElement->appendChild($data->importNode($obsel, true));
 		}
 	}
-
+	
 	protected $beginConditionText;
+	protected $endConditionText;
+	protected $obselsDataElement;
 	protected $dataDoc;
 	protected $xsltProc;
 	protected $loaded;
 	protected $lastTraceObsel;
 	protected $trace;
+	protected $lsState;
+	protected $sState;
 };

@@ -126,7 +126,7 @@ function Displayer(svgTrace, defaultWidth, xWWidth, defaultScale, defaultCenter,
 		
 		if(node.hasAttribute('begin') && node.hasAttribute('end'))
 		{
-			//TODO: do that better
+			//TODO: do that better (one g scaled)
 			clearSVGNodeTRansformations(node);
 			translateSVGNode(node, (date-0.5)*this.scale, 0);
 			
@@ -314,7 +314,7 @@ function Displayer(svgTrace, defaultWidth, xWWidth, defaultScale, defaultCenter,
 			if(($.browser['mozilla'] && parseFloat($.browser['version'].substr(0, 3)) >= 2.0)
 			 || $.browser['webkit'])
 			{
-				this.suspendedRedraw = this.svgElement.suspendRedraw(100000);
+				//this.suspendedRedraw = this.svgElement.suspendRedraw(100000);
 			}
 		}
 	}
@@ -330,7 +330,7 @@ function Displayer(svgTrace, defaultWidth, xWWidth, defaultScale, defaultCenter,
 			if(($.browser['mozilla'] && parseFloat($.browser['version'].substr(0, 3)) >= 2.0)
 			 || $.browser['webkit'])
 			{
-				this.svgElement.unsuspendRedraw(this.suspendedRedraw);
+				//this.svgElement.unsuspendRedraw(this.suspendedRedraw);
 				this.suspendedRedraw = null;
 			}
 		}
@@ -345,6 +345,9 @@ function Displayer(svgTrace, defaultWidth, xWWidth, defaultScale, defaultCenter,
 		newSVG.viewBox.baseVal.x = this.dateCenter*this.scale - .5 * this.xWWidth;//this.centerOffset;
 		newSVG.viewBox.baseVal.width = this.xWWidth; 
 		newSVG.width.baseVal.value = this.xWWidth;
+		
+		newSVG.style.marginLeft = '0px';
+		newSVG.style.marginRight = '0px';
 		
 		return newSVG
 	}

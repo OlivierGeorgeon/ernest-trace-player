@@ -77,10 +77,6 @@ function SVGTrace(baseURI, idPrefix)
 	 */
 	this.parseSVGToFragment = function(svgString, fragment)
 	{
-		//var xmlDOM = $.xmlDOM(svgString)[0].documentElement;
-		//return this.xmlToSVGNewFragment(xmlDOM);
-		//return this.xmlToSVGNewFragment(svgString);
-		
 		this.hiddenDiv.innerHTML = "<svg>" + svgString + "</svg>";
 		var svgElements = $(this.hiddenDiv).children("svg").children();
 		
@@ -89,23 +85,7 @@ function SVGTrace(baseURI, idPrefix)
 		});
 	}
 
-	/**
-	 * Translates a xml tree into a svg dom tree (see parseSVGIntoFragment()).
-	 */
-	/*this.xmlToSVGNewFragment = function(xmlDOM)
-	{
-		var fragment = parseSVGNodeIntoFragment(xmlDOM, this.svgElem.ownerDocument);
-		return fragment;
-	}*/
 	
-	/**
-	 * Translates a xml tree into a svg dom tree (see parseSVGIntoFragment()).
-	 */
-	/*this.xmlToSVGFragment = function(xmlDOM, fragment)
-	{
-		parseSVGElementIntoExistingFragment(xmlDOM, this.getSVGDoc(), fragment);
-	}*/
-
 	/**
 	 * Deletes an obsel based on its id.
 	 */
@@ -190,7 +170,7 @@ function SVGTrace(baseURI, idPrefix)
 			this.addingElement(obselNode);
 		}
 	}
-
+	
 	/**
 	 * Adds an obsel to the displayed trace.
 	 */
@@ -269,13 +249,24 @@ function SVGTrace(baseURI, idPrefix)
 	this.getHTMLTooltip = function(obsel_id)
 	{
 		var fragment = document.createDocumentFragment();
-		this.tooltips[obsel_id].each(parametrizeCallback(function(index, Element, fragment)
-			{
-				xmlToExistingHTMLFragment(this, fragment);
-			},
-			{args: [fragment]}
-		));
+		if(obsel_id !== undefined && typeof obsel_id == 'string')
+		{
+			this.tooltips[obsel_id].each(parametrizeCallback(function(index, Element, fragment)
+				{
+					xmlToExistingHTMLFragment(this, fragment);
+				},
+				{args: [fragment]}
+			));
+		}
 		return fragment;
+	}
+	
+	this.drawRedSquare = function()
+	{
+		var rs = '<rect style="fill:none; stroke-width:1; stroke:rgb(255, 0, 0)"></rect>'
+		var frag = this.createFragment();
+		this.parseSVGToFragment(rs, frag);
+		return this.svgElem.appendChild(frag.firstChild);
 	}
 	
 	this.willModify = function()

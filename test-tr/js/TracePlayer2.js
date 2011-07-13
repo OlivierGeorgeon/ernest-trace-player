@@ -105,6 +105,8 @@ function TracePlayer2(div_id, noticeDiv_id, pipeline, traceHandler, traceRef, tr
 				this.player.infosDiv.appendChild(data);
 			}, {scope: this}
 		);
+		
+		this.player.setDisplayFocusOnClick(true);
 	}
 
 	this.play = function()

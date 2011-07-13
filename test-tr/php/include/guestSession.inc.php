@@ -8,7 +8,8 @@ if(!isset($_SESSION['identified']))
 	{
 		$cookie = getRandomString(10);
 	}
-	//deleteTemporaryUsers();
+	
+	deleteTemporaryUsers();
 	
 	$username = 'guest-' . getRandomString(10);
 	newUser($username, $username, $cookie);

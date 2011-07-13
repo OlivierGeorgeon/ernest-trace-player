@@ -1,5 +1,3 @@
-//TODO: Send feedback about connection state to the tracePlayer for awareness purpose.
-// Is it possible to do that correctly with this comet library ?
 //TODO: Use a better comet library or make one.
 function StreamControler(tracePlayer, streamBaseURL, urlOptions)
 {

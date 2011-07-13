@@ -94,6 +94,7 @@ function Editor (getURL, getParameters, setURL, setParameters, mode, domElement,
 			  mode: this.mode,
 			  value: ''
 			});
+		this.editor.setOption("theme", 'default');
 
 		this.saveButton[0].addEventListener(
 			'click', 
