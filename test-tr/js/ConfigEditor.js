@@ -81,7 +81,7 @@ function ConfigEditor(div_id, noticeDiv_id, baseURI)
 				this.formNew.submit(
 					parametrizeCallback(
 						function(e, baseURI) {
-							$.post(baseURI + "/php/confNewSymbole.php", $(this).serialize());
+							$.post(baseURI + "/php/config/newSymbole.php", $(this).serialize());
 						}, {args: [this.baseURI]}
 					)
 				);
@@ -116,7 +116,7 @@ function ConfigEditor(div_id, noticeDiv_id, baseURI)
 				this.formNewL.submit(
 					parametrizeCallback(
 						function(e, baseURI) {
-							$.post(baseURI + "/php/confNewLSymbole.php", $(this).serialize());
+							$.post(baseURI + "/php/config/newLSymbole.php", $(this).serialize());
 						}, {args: [this.baseURI]}
 					)
 				);
@@ -138,7 +138,7 @@ function ConfigEditor(div_id, noticeDiv_id, baseURI)
 					parametrizeCallback(
 						function(e, baseURI, that) {
 							$.ajaxSetup({async:false});
-							$.post(baseURI + "/php/confSaveAs.php", $(this).serialize());
+							$.post(baseURI + "/php/config/saveAs.php", $(this).serialize());
 							$.ajaxSetup({async:true});
 							
 							that.loadConfigList();
@@ -154,7 +154,7 @@ function ConfigEditor(div_id, noticeDiv_id, baseURI)
 	this.loadConfigList = function()
 	{
 		$.ajax({
-			url: this.baseURI + '/php/confList.php',
+			url: this.baseURI + '/php/config/list.php',
 			context: this,
 			success: function(data){
 				this.updateConfigList(data);
@@ -187,7 +187,7 @@ function ConfigEditor(div_id, noticeDiv_id, baseURI)
 								// Trigger the config loading
 								$.ajaxSetup({async:false});
 								$.post(
-									baseURI + "/php/confLoad.php", 
+									baseURI + "/php/config/load.php", 
 									{configId: this.getAttribute('name')}
 								);
 								$.ajaxSetup({async:true});
@@ -207,7 +207,7 @@ function ConfigEditor(div_id, noticeDiv_id, baseURI)
 							// Trigger the config deletion
 							$.ajaxSetup({async:false});
 							$.post(
-								baseURI + "/php/confDelete.php", 
+								baseURI + "/php/config/delete.php", 
 								{configId: this.getAttribute('name')}
 							);
 							$.ajaxSetup({async:true});
@@ -230,7 +230,7 @@ function ConfigEditor(div_id, noticeDiv_id, baseURI)
 		this.loadProgrammed = false;
 		
 		$.ajax({
-			url: this.baseURI + '/php/confGetState.php',
+			url: this.baseURI + '/php/config/getState.php',
 			context: this,
 			success: function(data){
 				this.updateState(data);
@@ -373,7 +373,7 @@ function ConfigEditor(div_id, noticeDiv_id, baseURI)
 	
 	this.deleteSymbole = function(nothing, symboleElement)
 	{
-		$.post(baseURI + "/php/confDeleteSymbole.php", {id: symboleElement.attr("id")});
+		$.post(baseURI + "/php/config/deleteSymbole.php", {id: symboleElement.attr("id")});
 	}
 	
 	this.copyLSymbole = function(nothing, symboleElement)
@@ -392,7 +392,7 @@ function ConfigEditor(div_id, noticeDiv_id, baseURI)
 	
 	this.deleteLSymbole = function(nothing, symboleElement)
 	{
-		$.post(baseURI + "/php/confDeleteLSymbole.php", {id: symboleElement.attr("id")});
+		$.post(baseURI + "/php/config/deleteLSymbole.php", {id: symboleElement.attr("id")});
 	}
 
 	this.playing = function()

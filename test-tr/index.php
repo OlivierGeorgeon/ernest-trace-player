@@ -98,9 +98,9 @@ $(document).ready(function()
 	
 	<!-- Top menu -->
 	<div style="left: 0px; right: 0px; border: 1px solid gray; padding: 2px 7px 2px; margin-top: 5px">
-		<a href="php/disconnect.php">Disconnect</a>
-		&nbsp;&nbsp;&nbsp;&nbsp;<a href="php/changePassword.php">Change password</a> 
-		&nbsp;&nbsp;&nbsp;&nbsp;<a href="php/getCookie.php">My cookie</a>
+		<a href="php/session/disconnect.php">Disconnect</a>
+		&nbsp;&nbsp;&nbsp;&nbsp;<a href="php/session/changePassword.php">Change password</a> 
+		&nbsp;&nbsp;&nbsp;&nbsp;<a href="php/session/getCookie.php">My cookie</a>
 	<?php if(ICANHASADMIN) {?>
 		&nbsp;&nbsp;&nbsp;&nbsp;<a href="php/admin.php">Admin</a><?}?>
 	</div>

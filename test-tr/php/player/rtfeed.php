@@ -1,4 +1,5 @@
 <?php
+set_include_path('..' . PATH_SEPARATOR . get_include_path());
 @unlink("/tmp/finished");
 require_once 'include/session.inc.php';
 require_once 'include/cometChan.inc.php';

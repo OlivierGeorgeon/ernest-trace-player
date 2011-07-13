@@ -15,7 +15,7 @@ function StreamSelector(div_id, noticeDiv_id, baseURI, tracePlayeInfos, configEd
 		this.reloadProgrammed = false;
 		
 		$.ajax({
-			url: this.baseURI + '/php/streamList.php',
+			url: this.baseURI + '/php/streamSelection/streamList.php',
 			context: this,
 			success: function(data){
 				this.div.html(data);
@@ -127,7 +127,7 @@ function StreamSelector(div_id, noticeDiv_id, baseURI, tracePlayeInfos, configEd
 	
 	this.deleteStored = function(name, type)
 	{
-		$.post(baseURI + "/php/streamDelete.php", {traceId: name});
+		$.post(baseURI + "/php/streamSelection/streamDelete.php", {traceId: name});
 		this.reload();
 	}
 	
@@ -151,7 +151,7 @@ function StreamSelector(div_id, noticeDiv_id, baseURI, tracePlayeInfos, configEd
 		if(this.autoLast)
 		{
 			$.ajax({
-				url: this.baseURI + '/php/lastStreamedTrace.php',
+				url: this.baseURI + '/php/streamSelection/lastStreamedTrace.php',
 				context: this,
 				success: function(data){
 					var lastTrace = data.documentElement.textContent;

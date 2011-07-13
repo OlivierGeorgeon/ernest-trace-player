@@ -22,7 +22,7 @@ function TracePlayer2(div_id, noticeDiv_id, pipeline, traceHandler, traceRef, tr
 	this.getPipelineInfos = function()
 	{
 		$.ajax({
-			url: this.baseURI + '/php/getPipelineInfos.php?pipelineId=' + this.pipeline,
+			url: this.baseURI + '/php/player/getPipelineInfos.php?pipelineId=' + this.pipeline,
 			context: this,
 			success: function(data){
 				this.defaultScale = parseFloat(data.getElementsByTagName('default-scale')[0].textContent);
@@ -48,7 +48,7 @@ function TracePlayer2(div_id, noticeDiv_id, pipeline, traceHandler, traceRef, tr
 		// Initiate the stream controler.
 		this.streamControler = new StreamControler(
 			this,
-			this.baseURI + '/php/rtfeed.php',
+			this.baseURI + '/php/player/rtfeed.php',
 			{
 				 "pipelineId": this.pipeline,
 			     "traceHandler": this.traceHandler,

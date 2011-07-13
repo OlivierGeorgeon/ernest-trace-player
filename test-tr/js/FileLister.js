@@ -30,7 +30,7 @@ function FileLister (divId, editorDivId, baseURL)
 	{
 		$.ajax({
 			type: "GET",
-			url: this.baseURL + "/php/fileList.php",
+			url: this.baseURL + "/php/edition/fileList.php",
 			context: this,
 			success: function(data) {
 				this.updateFileList(data);
@@ -65,10 +65,10 @@ function FileLister (divId, editorDivId, baseURL)
 								var type = this.getAttribute('type');
 								
 								that.currentEditor = new Editor(
-									that.baseURL + "/php/getFile.php",
+									that.baseURL + "/php/edition/getFile.php",
 									{"name": name, "type": type},
 									
-									that.baseURL + "/php/setFile.php",
+									that.baseURL + "/php/edition/setFile.php",
 									{"name": name, "type": type},
 
 									(name.match("xml$") == "xml" ? "xml" :
@@ -96,7 +96,7 @@ function FileLister (divId, editorDivId, baseURL)
 								
 								$.ajaxSetup({async:false});
 								$.post(
-									baseURI + "/php/deleteFile.php", 
+									baseURI + "/php/edition/deleteFile.php", 
 									{configId: this.getAttribute('name')}
 								);
 								$.ajaxSetup({async:true});
