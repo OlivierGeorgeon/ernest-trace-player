@@ -112,6 +112,7 @@ function ConfigEditor(div_id, noticeDiv_id, baseURI)
 				this.formNewLImgEnd = this.formNewL.find("input[name=image-url-end]");
 
 				this.formNewLShape.tooltip({tip: "#long-shape-tooltip", position: "center right", opacity: 0.7});
+				this.formNewLShapeEnd.tooltip({tip: "#long-shape-tooltip", position: "center right", opacity: 0.7});
 				
 				this.formNewL.submit(
 					parametrizeCallback(

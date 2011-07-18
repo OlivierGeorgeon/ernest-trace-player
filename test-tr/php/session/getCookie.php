@@ -21,7 +21,7 @@ echo "Your cookie is '" . $_SESSION['cookie'] . "'.<br /> " .
 ?>
 				<br />
 				<br />
-				<div style="text-align:center;"><a href="../index.php">Index</a></div>
+				<div style="text-align:center;"><a href="../../index.php">Index</a></div>
 			</div>
 		</div>
 	</body>

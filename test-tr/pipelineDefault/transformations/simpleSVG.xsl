@@ -65,7 +65,7 @@
 				<xsl:with-param name="shape-type" select="'tick-sided-left'" />
 				<xsl:with-param name="text-value" select="clock" />
 				<xsl:with-param name="shape-color" select="'#000000'" />
-				<xsl:with-param name="height" select="'220'" />
+				<xsl:with-param name="height" select="'280'" />
 			</xsl:call-template>
 		</xsl:if>
 	</xsl:template>

@@ -175,7 +175,7 @@
 					</g>
 				</xsl:when>
 				<!-- ruche -->
-				<xsl:when test="$shape-type='ruche'">
+				<xsl:when test="$shape-type='hive'">
 					<polygon points="-5,5 5,5 5,-3 0,-7 -5,-3" >
 						<xsl:call-template name="transform-shape">
 							<xsl:with-param name="transform" select="$transform"/>

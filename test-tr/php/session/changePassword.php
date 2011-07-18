@@ -7,19 +7,19 @@ if(isset($_REQUEST['password']) and isset($_REQUEST['password2']))
 {
 	if($_REQUEST['password'] !== $_REQUEST['password2'])
 	{
-		readfile('../html/failedChange.html');
+		readfile('../../html/failedChange.html');
 		die();
 	}
 	
 	if(userSetPassword($_SESSION['username'], $_REQUEST['password']))
 	{
-		readfile('../html/successChange.html');
+		readfile('../../html/successChange.html');
 	}else{
-		readfile('../html/failedChange.html');
+		readfile('../../html/failedChange.html');
 		die();
 	}
 }else{
-	readfile("../html/changePassword.html");
+	readfile("../../html/changePassword.html");
 }
 
 ?>
