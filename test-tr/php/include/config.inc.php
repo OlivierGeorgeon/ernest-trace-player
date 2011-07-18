@@ -1,6 +1,6 @@
 <?php
 
-define('BASE_DATA_DIR', '/home/pierreyves/traceplayer2/data');
+define('BASE_DATA_DIR', '/home/pierreyves/traceplayer-new/data');
 define('TRANSFO_PUB_DIR', BASE_DATA_DIR . '/pub');
 
 /*define('VIEW_DATA_DIR', '/home/pierreyves/traceplayer2/data/view');
