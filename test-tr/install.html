@@ -4,36 +4,39 @@
 	<style>
 		.screenshot { border: 2px solid #CCCCCC; }
 		.code-sample { margin: 5px 0px; position: relative; display: table; border: 1px solid #CCCCCC; background-color: #EEEEEE; padding: 0 13px;}
-		h3 { margin-left: 10px; }
-		h2 { margin-left: 20px; }
+		h4 { margin-left: 2em; }
+		h3 { margin-left: 1em; }
+		h2 { margin-left: 0; }
+		body { text-indent: 2em }
+		pre { text-indent: 0 }
 	</style>
 </head>
 <body>
 	<h2>Abstract Light installation guide</h2>
 	
 	<h3>Prerequisites</h3>
-	To run Abstract Light, you will need :
+	<p>To run Abstract Light, you will need :</p>
 	<ul>
-		<li /> Apache and PHP5
-		<li /> PHP5 xslt module (see <a href="http://fr2.php.net/manual/en/xsl.installation.php">the php manual entry</a>)
-		<li /> PHP5 sqlite module (see <a href="http://fr2.php.net/manual/en/sqlite3.installation.php">the php manual entry</a>)
+		<li> Apache and PHP5
+		<li> PHP5 xslt module (see <a href="http://fr2.php.net/manual/en/xsl.installation.php">the php manual entry</a>)
+		<li> PHP5 sqlite module (see <a href="http://fr2.php.net/manual/en/sqlite3.installation.php">the php manual entry</a>)
 	</ul>
 	
 	<h3>Checkout abstract code from SVN</h3>
-	Check the sources from SVN using the command: <br />
+	<p>Check the sources from SVN using the command:</p>
 	<pre class="code-sample"> svn checkout http://ernest-trace-player.googlecode.com/svn/trunk/ ernest-trace-player-read-only</pre>
 	
 	<h3>Remove SVN informations</h3>
-	Remove the svn informations with:
+	<p>Remove the svn informations with:</p>
 	<pre class="code-sample">svn export ernest-trace-player-read-only ernest-trace-player-clean/
 # You can now delete the first directory:
 rm -rf ernest-trace-player-read-only</pre>
 
 	<h3>Install the website</h3>
-	Put the directory into its definitive place and configure the website:
-	<pre class="code-sample">mv ernest-trace-player-clean /foo/bar/abstract_light</pre>
-	<br/>
-	The apache configuration should look like: 
+	<p>Put the directory into its definitive place and configure the website:</p>
+	<pre class="code-sample">mv ernest-trace-player-clean/webapp /foo/bar/abstract_light</pre>
+	
+	<p>The apache configuration should look like: </p>
 	<pre class="code-sample">
 Alias "/alight" "/foo/bar/abstract_light"
 #(Or any other name, you don't have to use "alight")
@@ -45,19 +48,17 @@ Alias "/alight" "/foo/bar/abstract_light"
 &lt;/Directory&gt;</pre>
 	
 	<h3>Configure and initialize the data directories</h3>
-	You now have to configure where Abstract Light will write its data. For this, edit the 'config.inc.php' file in the php/include dir (in our example, /foo/bor/abstract_light/php/include/config.inc.php).
-	If you want the data to be saved in the '/boo/far/alight_data' directory, the file should look like:
+	<p>You now have to configure where Abstract Light will write its data. For this, edit the 'config.inc.php' file in the php/include dir (in our example, /foo/bar/abstract_light/php/include/config.inc.php).
+	If you want the data to be saved in the '/boo/far/alight_data' directory, the file should look like:</p>
 	<pre class="code-sample">
-<?php
+&lt;?php
 	define('BASE_DATA_DIR', '/boo/far/alight_data');
 	define('TRANSFO_PUB_DIR', BASE_DATA_DIR . '/pub');
-?></pre>
+?&gt;</pre>
 
-	<br />
-	Now you have to create the said directory and its subdirectories. Just:
+	<p>Now you have to create the said directory and its subdirectories. Just:</p>
 	<pre class="code-sample">
 tpdir="/boo/far/alight_data"
-sitedir="/foo/bor/abstract_light"
 
 mkdir -p $tpdir/pub
 mkdir -p $tpdir/default/pipelines/config/__current__
@@ -65,24 +66,22 @@ mkdir -p $tpdir/default/pipelines/config/__temp__
 mkdir -p $tpdir/default/temp/states
 mkdir -p $tpdir/default/temp/streams</pre>
 
-	<br />
-	Copy the default pipeline into it :
+	<p>Copy the default pipeline into it :</p>
 	<pre class="code-sample">
-cp -fR $sitedir/samplePipeline/* $tpdir/default/pipelines/
+cp -fR ernest-trace-player-clean/samplePipeline/* $tpdir/default/pipelines/
 #OR if you want a more generic one (not tested yet):
-cp -fR $sitedir/pipelineDefault/* $tpdir/default/pipelines/</pre>
+cp -fR ernest-trace-player-clean/pipelineDefault/* $tpdir/default/pipelines/</pre>
 
-	<br />
-	Finally, you may want to allow abstract light to use it :
+	<p>Finally, you may want to allow abstract light to use it :</p>
 	<pre class="code-sample">
 chmod 777 -R $tpdir</pre>
 
 	<h3>Create the first user</h3>
-	At this point, no user exists on the system. The first user to register will automatically be granted with administration privileges.
+	<p>At this point, no user exists on the system. The first user to register will automatically be granted with administration privileges.</p>
 	<br />
 	<br />
 	<h3>Contact</h3>
-	Mail <a href="mailto: ronotDILITEpy AT gmail DOT com">me</a> for any question.
+	<p>Mail <a href="mailto: ronotDILITEpy AT gmail DOT com">me</a> for any question.</p>
 
 </body>
 </html>
