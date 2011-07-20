@@ -202,6 +202,14 @@ function dbGetAllObsels($traceId, $deleteAfterSelect = false)
 	return $rows;
 }
 
+function dbGetLastDate($traceId)
+{
+	$db = getDB();
+	$traceId = $db->escapeString($traceId);
+		
+	return $db->querySingle("SELECT MAX(o_date) FROM obsels WHERE trace_id='$traceId';");
+}
+
 /*
  * Retreives a list of all the existing traces.
  * Returns : an iterable containing trace ids (strings).

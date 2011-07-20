@@ -228,7 +228,7 @@ class BufferReconfigureTransformation extends PHPTransformation
 		$data = $this->getDataDoc();
 		
 		if($this->obselsDataElement->childNodes->length >= 2)
-		$this->obselsDataElement->removeChild($this->obselsDataElement->firstChild);
+			$this->obselsDataElement->removeChild($this->obselsDataElement->firstChild);
 		$this->obselsDataElement->appendChild($data->importNode($obsel, true));
 	}
 	

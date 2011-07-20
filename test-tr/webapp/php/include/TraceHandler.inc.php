@@ -1,5 +1,4 @@
 <?php
-require_once 'include/ViewInfos.inc.php';
 
 /*
  * ca sert plus a rien ca...

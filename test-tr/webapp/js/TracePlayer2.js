@@ -90,7 +90,7 @@ function TracePlayer2(div_id, noticeDiv_id, pipeline, traceHandler, traceRef, tr
 		this.player.onClickPrint = parametrizeCallback(function()
 			{
 				docToPrint = this.player.exportView();
-				var win = window.open('html/void.xhtml', 'print-popup', 'width=1000px, height='+this.viewWidth+'px');
+				var win = window.open('html/void.xhtml', 'print-popup', 'width=1000px, height='+this.yWWidth+'px');
 				win.onload = parametrizeCallback(function(e, win){
 					win.document.body.appendChild(docToPrint);
 				}, {scope: this, args: [win]});

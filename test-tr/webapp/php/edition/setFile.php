@@ -13,6 +13,7 @@ if(isset($_REQUEST['name']) and $name = filter_atom_filename($_REQUEST['name'])
 	and isset($_REQUEST['type']) and isset($_REQUEST['data']))
 {
 	$type = $_REQUEST['type'];
+	$name = $_REQUEST['name'];
 
 	if($type === 'pipeline')
 	{

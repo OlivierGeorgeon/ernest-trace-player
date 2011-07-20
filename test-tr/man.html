@@ -1,26 +1,31 @@
 <html>
 <head>
-	<title>Abstract Light User Guide</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Abstract Lite User Guide</title>
 	<style>
 		.screenshot { border: 2px solid #CCCCCC; }
 		.code-sample { margin: 5px 0px; position: relative; display: table; border: 1px solid #CCCCCC; background-color: #EEEEEE; padding: 0 13px;}
+		h5 { margin-left: 3em; }
 		h4 { margin-left: 2em; }
 		h3 { margin-left: 1em; }
 		h2 { margin-left: 0; }
+		h1 { margin-left: -1em; }
 		body { text-indent: 2em }
+		p { vertical-align: middle; }
+		p * { vertical-align: middle; }
 	</style>
 </head>
 <body>
-	<h2>Abstract Light user guide</h2>
+	<h2>Abstract Lite user guide</h2>
 	
-	<p>Abstract Light is designed to allow one to visualize their agent's activity traces in real time.
+	<p>Abstract Lite is designed to allow one to visualize their agent's activity traces in real time.
 	The most interesting features is one can (and has to !) create a custom view, and modify it interactively.</p>
 	
 	<p>In this guide, we will see how to do that, and show a simple exemple. We will fist see how to instrument your agent. Then, we will show how to use the two configuration panels, allowing one to display simple symbols. Then we will go on a quick tour of the stylesheets you may want customize, and finally see how the pipelines work.</p>
 	
 	<p>A basic knowledge of XML, HTML and XPATH is assumed. Though not strictly necessary, knowing XSLT and SVG will allow you a much more advanced use of the tool.</p>
 	
-	<p>To run Abstract Light, you must have <a href="install.html">installed it</a>. The interface is known to run on recent Mozilla Firefox or Google Chrome browsers, but will probably fail at it on any other one.</p>
+	<p>To run Abstract Lite, you must have <a href="install.html">installed it</a>. The interface is known to run on recent Mozilla Firefox or Google Chrome browsers, but will probably fail at it on any other one.</p>
 	
 	<h3>Agent instrumentation</h3>
 	<!--
@@ -28,43 +33,82 @@
 		utilisation (obsels simultanés)
 		parametrage du cookie et de l'url
 	  -->
-	<p></p>
+	<p>A java tracer class is available in the subdir java-tracer/ . It will help you instrument your program, and manage the communication with Abstract Lite.
+	A javadoc is available in <a href="java-tracer/tracer-doc/index.html">java-tracer/tracer-doc/index.html</a>.</p>
+	
+	<p>To instantiate the tracer, you have to give the constructor the URL indicating where to send the trace, and the stream cookie specific to your user. To get this cookie, log into Abstract Lite and click 'My cookie'. The declaration should look like this:</p>
+	<pre class="code-sample">m_tracer = new XMLStreamTracer("http://vm.liris.cnrs.fr:34080/abstract/lite/php/stream/", "fjSmkmyvAKgByfDAfXuYGjAJLzrWrf");</pre>
+	<p>You can then create obsels, by (i) creating it with the newEvent method giving it that event date, (ii) populating it with the addEventElement methods, and (iii) if necessary, add any number of element sub-levels with the addSubelement methods. When the event is completed, finish it with <span>finishEvent</span>, or it will be automatically finished when you start a new one. Note that we recommend that you create only one event for each date (this will facilitate the transformations).</p>
 	
 	<h3>Usage</h3>
-		
+		<p>The first thing you have to do is to create a user. You have to give him the permissions to use the forms and the file edition from the administration panel (if you are not administrator, contact him).</p>
 		<h4>Basic usage</h4>
-		<!--
-			Trace list
-			Start/stop
-			Trace display : drag, click on obsels
-			Always play last
-		  -->
-		<p></p>
+			<p>When you log in, you should get something like that: </p>
+			<img class="screenshot" src="images/screen1.png" width="845" />
+			<p><FONT SIZE="+2">➀</font> At the top, the menu bar allows you basic operations. Clicking My cookie lets you see your stream cookie.</p>
+			<p><FONT SIZE="+2">➁</font> The trace selector allows you to chose the trace you want to display or play. Old stored trace as well as traces currently being streamed in are displayed here. This bar is initially empty, and is updated when a new trace is streamed. The Always play last checkbox at the bottom of the panel ➁ activates a mode in which new traces streamed into the system are automatically played.</p>
+			<p><FONT SIZE="+2">➂</font> The configuration panels (including all the grey panels, as well as the three of Share transformation, Save config as, and Existing configs) allow you to configure symbol rules (defining when and how symbols will be displayed), and to manage such configurations (save and load sets of symbol rules). The New symbole and New long symbole forms serve to create new rules. Just beneath those (not visible here), is the list of the current rules. The Save config as form save all the current rule with the name you give it. The saved configurations then show in the list below (Existing configs, empty here), allowing you to load them back.</p>
 		
+			<p>After you click on a trace in the panel ➁, the player appears :</p>
+			<img class="screenshot" src="images/screen2.png" width="840.7" /><br />
+			<p>Pressing the play button triggers the displaying of the trace, and the pause button will stop it. The plus and minus buttons let you zoom in and out (horizontally only), and the P button opens the current view in a separate window allowing you to save or print it without the whole interface. </p>
+			<p>When you press play, as no symbol rule is defined yet, the ticks will be the only displayed elements : 
+			<img class="screenshot" src="images/screen3.png" width="750" /><br />
+			<p>You can drag inside the player box to shift the view, and click on a symbol to display the data of its original event (it will be shown in the box just below the player).</p>
+			
 		<h4>Basic configuration</h4>
-		<!--
-			Deux formulaires
-			liste de symboles (copy, delete)
-			sauvegarde des configs (et delete)
-			my:ifthenelse()
-		  -->
-		<p></p>
-		
+			<p>So we now need to define symbol rules. the form fields content must be expressed in XPATH. The expressions given will be interpreted in the context of each event. The events are represented in the form of XML trees, which structures are those constructed with the java tracer. The expression results are then fed to the function that draws the symbols. The Condition fields are special, as their expected results are booleans, and determine whether the symbol will be draw (in the case of a punctual symbol) or when the symbols begins and ends (in the case of a long symbol).</p>
+			
+			<h5>Punctual symbols</h5>
+				<p>In our example trace, the event data includes a field named 'primitive_enacted_schema' which basically tells what action the agent has just done. It take the value '^' if the agent turned left, 'v' if it turned right, or '>' if it advanced forward. We define the first rule as this: </p>
+				<img class="screenshot" src="images/screen4.png" /><br />
+				<p>This rule defines that the symbol 'up' (that is, a triangle pointing up) should be draw whenever the field primitive_enacted_schema contains text '^', in green ('00EE00') and 10 pixels above the center.</p>
+				<p>When sent, the view is modified to display that :</p>
+				<img class="screenshot" src="images/screen5.png" width="750" /><br />
+				<p>Following the same schema, we define those for the other actions :</p>
+				<img class="screenshot" src="images/screen6.png" />
+				<img class="screenshot" src="images/screen7.png" /><br />
+				<p>In the end, we get that view :</p>
+				<img class="screenshot" src="images/screen8.png" width="750" /><br />
+			
+			<h5>Long symbols</h5>
+				<p>The second form works similarly. For example, we could create a rule that will draw lines for the intervals of equals values of the property 'current_observation/color'. They will be positioned according to the property 'current_observation/distance'. Such a rule would look like :</p>
+				<img class="screenshot" src="images/screen9.png" /><br />
+				<p>And would give the result:</p>
+				<img class="screenshot" src="images/screen10.png" /><br />
+				<p>As you can see in the previous example, the variable $last represents the previous obsel in the stream.</p>
+				<p>The XPATH language (version 1.1 with our xslt lib) is quite limited, and in particular, we sometimes needed conditional structures, that are tricky to do in this version of the langage. We then povide a function that make this easier : </p>
+				<pre class="code-sample">my:ifthenelse(&lt;condition&gt;, &lt;value if true&gt;, &lt;value if false&gt;)</pre>
+				<p>Its return value is either its second or its third parameter.</p>
+			
+			<h5>The symbol list</h5>
+				<p>The symbol list (below the symbol forms) is now populated with the rules we just created :</p>
+				<img class="screenshot" src="images/screen11.png" /><br />
+				Clicking on the link ⎘ copies the symbol data into the form fields, while clicking on ✗ deletes the symbol rule.
+				
 		<h4>Stylesheets and pipelines</h4>
-		<!--
-			structure d'un pipeline
-			Les feuilles qu'il faut pas toucher (clock, BufferReconfigureTransformation, configSVG, shapes, obsel-state, functions, select-normalize)
-			Les instructions (tooltip, delete, add)
-			Attributs spéciaux (en svg) des obsels (date, begin+end, obsel-id, title='obsel')
-			Headers (includes) des xslt.
-			Template 'draw-shape' pour tracer des formes.
-		  -->
-		<p></p>
-	
-	<h3>Example</h3>
-	
+		If you want a more advanced way of specifying how to display your trace, you might want to edit or create your XSLT stylesheets. We see in this section how the transformation pipeline works, the stylesheets you should edit and those you should not, and how to change them to display your art.
+		
+			<h5>The pipeline structure</h5>
+			<!-- structure d'un pipeline
+				- 
+				- 
+			-->
+			
+			<h5>The default stylesheets</h5>
+			<!-- Les feuilles qu'il faut pas toucher (clock, BufferReconfigureTransformation, configSVG, shapes, obsel-state, functions, select-normalize) 
+			     et ce à quoi elles servent -->
+			
+			<h5>The drawing instructions and how to write a stylesheet</h5>
+			<!--
+				Les instructions (tooltip, delete, add)
+				Attributs spéciaux (en svg) des obsels (date, begin+end, obsel-id, title='obsel')
+				Headers (includes) des xslt.
+				Template 'draw-shape' pour tracer des formes.
+			  -->
+			
 	<h3>Contact</h3>
-	Mail <a href="mailto: ronotDILITEpy AT gmail DOT com">me</a> for any question.
+	Mail <a href="mailto: ronot DOTT py AT gmail DOT com">me</a> for any question.
 
 	<pre class="code-sample"></pre>
 </body>

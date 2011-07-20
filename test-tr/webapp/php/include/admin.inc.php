@@ -19,6 +19,7 @@ function displayUserListForm()
 	echo "		<th>Can use forms</th>\n";
 	echo "		<th>Can use edition</th>\n";
 	echo "		<th>Can use administration</th>\n";
+	echo "		<th>Cookie</th>\n";
 	echo "		<th colspan=\"2\">Actions</th>\n";
 	
 	echo "	</tr>\n";
@@ -30,6 +31,7 @@ function displayUserListForm()
 		echo "		<td> " . checkBox($user['icanhasforms'], "icanhasforms") . " </td>\n";
 		echo "		<td> " . checkBox($user['icanhasedit'], "icanhasedit") . " </td>\n";
 		echo "		<td> " . checkBox($user['icanhasadmin'], "icanhasadmin") . " </td>\n";
+		echo "		<td> " . $user['cookie'] . " </td>\n";
 		echo "		<td> <button class=\"apply-user-change\">Apply</button> </td>\n";
 		echo "		<td> <button class=\"delete-user\">Delete</button> </td>\n";
 		

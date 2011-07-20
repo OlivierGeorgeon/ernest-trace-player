@@ -20,6 +20,31 @@ function FileLister (divId, editorDivId, baseURL)
 			success: function(data) {
 				this.div.html(data);
 				this.ul = this.div.find('ul');
+				this.ulIframe = this.div.find('iframe');
+				this.ulForm = this.div.find('form');
+				this.ulSubmit = this.ulForm.find("input[type='submit']");
+				this.ulAware = this.div.find("span[title='upload-awareness']");
+				
+				this.ulForm.submit(
+						parametrizeCallback(
+							function(e, baseURI, that) {
+								that.ulSubmit[0].disabled = true;
+								that.ulAware.css('display', 'inline');
+							}, {args: [this.baseURL, this]}
+						)
+					);
+				
+				this.ulIframe.load(
+						parametrizeCallback(
+								function(e, baseURI, that) {
+									that.loadList();
+									that.ulSubmit[0].disabled = false;
+									that.ulAware.css('display', 'none');
+								}, {args: [this.baseURL, this]}
+							)
+					);
+				
+				
 			},
 			dataType: "text",
 			async: false
@@ -51,6 +76,7 @@ function FileLister (divId, editorDivId, baseURL)
 						"<li>" 
 						+ "<a href=\"#\">(" + this.getAttribute('type') + ")" + this.getAttribute('name') + "</a>"
 						+ " <a href=\"#\" title=\"delete\">✗</a>"
+						+ " <a href=\"#\" title=\"download\">⇩</a>"
 						+ "</li>");
 					
 					var li = $(that.ul[0].lastChild);
@@ -96,8 +122,9 @@ function FileLister (divId, editorDivId, baseURL)
 								
 								$.ajaxSetup({async:false});
 								$.post(
-									baseURI + "/php/edition/deleteFile.php", 
-									{configId: this.getAttribute('name')}
+									baseURL + "/php/edition/deleteFile.php", 
+									{name: this.getAttribute('name'),
+									 type: this.getAttribute('type')}
 								);
 								$.ajaxSetup({async:true});
 								
@@ -107,6 +134,24 @@ function FileLister (divId, editorDivId, baseURL)
 							},
 							{scope: this, args: [that]}
 						), true);
+					try{
+						li.children('*[title=download]').click(parametrizeCallback(function(e, that)
+								{
+									e.preventDefault();
+									
+									win = window.open(that.baseURL + "/php/edition/dlFile.php?name=" + 
+											this.getAttribute('name') + "&type=" + 
+											this.getAttribute('type'),
+										'_newtab');
+									
+									return false;
+								},
+								{scope: this, args: [that]}
+						));
+					}catch(e)
+					{
+						alert(e);
+					}
 				},
 				{args: [this]}
 			)

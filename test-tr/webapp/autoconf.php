@@ -72,7 +72,7 @@ $(document).ready(function()
 
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Trace player example</title>
+<title>Abstract Lite</title>
 </head>
 
 <body>
@@ -91,12 +91,12 @@ $(document).ready(function()
 	</div>
 	<br />
 		<!-- Notification area -->
-	<div style="display: block; position: absolute; z-index: -1; right: 0; margin-right: 2em; border: 1px solid gray">Information messages</div>
+	<!-- <div style="display: block; position: absolute; z-index: -1; right: 0; margin-right: 2em; border: 1px solid gray">Information messages</div>
 	<div style="font-size: 65%; height: 200px; right: 0; overflow: auto; border: 1px solid gray; background: rgba(255, 255, 255, 0.6);">
 		<span id="my-player-thin-notices-div" style="background: rgba(255, 255, 255, 0.9)" />
 	</div>
 	<button id="clear-notices">Clear</button>
-	<br />
+	<br /> -->
 
 </body>
 </html>

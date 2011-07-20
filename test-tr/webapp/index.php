@@ -38,6 +38,7 @@ echo '<?xml version="1.0" encoding="utf-8"?>';
 <script type="text/javascript" src="js/lib/codemirror/mode/javascript/javascript.js"></script>
 <script type="text/javascript" src="js/lib/codemirror/mode/css/css.js"></script>
 <!-- <script type="text/javascript" src="js/codemirror093/codemirror.js"></script>-->
+
 <script type="text/javascript">
 function init_start_player()
 {
@@ -91,7 +92,7 @@ $(document).ready(function()
 
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Trace player example</title>
+<title>Abstract Lite</title>
 </head>
 
 <body>

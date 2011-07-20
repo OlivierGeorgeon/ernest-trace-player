@@ -12,7 +12,7 @@
 
 	<xsl:template match="/test/obsels/*[2]">
 		<xsl:variable name="last" select="../*[1]" />
-
+		
 		<xsl:element name="result">
 			<xsl:attribute name="value">
 				<xsl:choose>

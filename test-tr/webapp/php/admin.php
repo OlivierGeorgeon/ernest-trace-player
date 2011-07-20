@@ -13,8 +13,15 @@ require_once 'include/admin.inc.php';
 		<script type="text/javascript">
 			$(document).ready(onAdminReady);
 		</script>
+		<style type="text/css">
+			table {
+				margin: auto;
+				margin-top: 20px;
+			}
+		</style>
 	</head>
 	<body>
+		<div style="text-align:center;">
 <?php
 
 if(! ICANHASADMIN)
@@ -23,7 +30,9 @@ if(! ICANHASADMIN)
 }
 
 displayUserListForm();
-?>	
+?>
+		<br />(Changes take effect at reconnection)</div>
+
 		<br />
 		<div style="text-align:center;"><a href="../index.php">Index</a></div>
 	</body>

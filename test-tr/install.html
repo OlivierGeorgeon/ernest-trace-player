@@ -1,8 +1,8 @@
 <html>
 <head>
-	<title>Howto install Abstract Light</title>
+	<title>Howto install Abstract Lite</title>
 	<style>
-		.screenshot { border: 2px solid #CCCCCC; }
+		.screenshot { border: 2px solid #CCCCCC; }	
 		.code-sample { margin: 5px 0px; position: relative; display: table; border: 1px solid #CCCCCC; background-color: #EEEEEE; padding: 0 13px;}
 		h4 { margin-left: 2em; }
 		h3 { margin-left: 1em; }
@@ -13,10 +13,10 @@
 	</style>
 </head>
 <body>
-	<h2>Abstract Light installation guide</h2>
+	<h2>Abstract Lite installation guide</h2>
 	
 	<h3>Prerequisites</h3>
-	<p>To run Abstract Light, you will need :</p>
+	<p>To run Abstract Lite, you will need :</p>
 	<ul>
 		<li> Apache and PHP5
 		<li> PHP5 xslt module (see <a href="http://fr2.php.net/manual/en/xsl.installation.php">the php manual entry</a>)
@@ -35,13 +35,13 @@ rm -rf ernest-trace-player-read-only</pre>
 
 	<h3>Install the website</h3>
 	<p>Put the directory into its definitive place and configure the website:</p>
-	<pre class="code-sample">mv ernest-trace-player-clean/webapp /foo/bar/abstract_light</pre>
+	<pre class="code-sample">mv ernest-trace-player-clean/webapp /foo/bar/abstract_lite</pre>
 	
 	<p>The apache configuration should look like: </p>
 	<pre class="code-sample">
-Alias "/alight" "/foo/bar/abstract_light"
-#(Or any other name, you don't have to use "alight")
-&lt;Directory "/foo/bar/abstract_light"&gt;
+Alias "/alite" "/foo/bar/abstract_lite"
+#(Or any other name, you don't have to use "alite")
+&lt;Directory "/foo/bar/abstract_lite"&gt;
 	Options Indexes FollowSymLinks MultiViews
 	AllowOverride All
 	Order allow,deny
@@ -49,17 +49,18 @@ Alias "/alight" "/foo/bar/abstract_light"
 &lt;/Directory&gt;</pre>
 	
 	<h3>Configure and initialize the data directories</h3>
-	<p>You now have to configure where Abstract Light will write its data. For this, edit the 'config.inc.php' file in the php/include dir (in our example, /foo/bar/abstract_light/php/include/config.inc.php).
-	If you want the data to be saved in the '/boo/far/alight_data' directory, the file should look like:</p>
+	<p>You now have to configure where Abstract Lite will write its data. For this, edit the 'config.inc.php' file in the php/include dir (in our example, /foo/bar/abstract_lite/php/include/config.inc.php).
+	If you want the data to be saved in the '/boo/far/alite_data' directory, the file should look like:</p>
 	<pre class="code-sample">
 &lt;?php
-	define('BASE_DATA_DIR', '/boo/far/alight_data');
+	// This is the *base* repertory (not the subdirs you will create next)
+	define('BASE_DATA_DIR', '/boo/far/alite_data');
 	define('TRANSFO_PUB_DIR', BASE_DATA_DIR . '/pub');
 ?&gt;</pre>
 
 	<p>Now you have to create the said directory and its subdirectories. Just:</p>
 	<pre class="code-sample">
-tpdir="/boo/far/alight_data"
+tpdir="/boo/far/alite_data"
 
 mkdir -p $tpdir/pub
 mkdir -p $tpdir/default/pipelines/config/__current__
@@ -73,12 +74,17 @@ cp -fR ernest-trace-player-clean/samplePipeline/* $tpdir/default/pipelines/
 #OR if you want a more generic one (not tested yet):
 cp -fR ernest-trace-player-clean/pipelineDefault/* $tpdir/default/pipelines/</pre>
 
-	<p>Finally, you may want to allow abstract light to use it :</p>
+	<p>Finally, you may want to allow abstract lite to use it :</p>
 	<pre class="code-sample">
-chmod 777 -R $tpdir</pre>
+chmod -R 777 $tpdir</pre>
 
 	<h3>Create the first user</h3>
 	<p>At this point, no user exists on the system. The first user to register will automatically be granted with administration privileges.</p>
+	
+	<h3>The stream URL</h3>
+	<p>The URL to feed to the tracer would be of the form :</p>
+	<pre class="code-sample">http://&lt;my_server&gt;/alite/php/stream/</pre>
+	<p>If you set the alias to "/alite" in the apache configuration file.</p>
 	<br />
 	<br />
 	<h3>Contact</h3>

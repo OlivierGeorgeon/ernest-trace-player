@@ -50,12 +50,13 @@
 					</div>
 				</xsl:if>
 
-				<xsl:apply-templates select="child::node()" />
+				<xsl:apply-templates select="child::node()[not(@display = 'no')]" />
 			</div>
 		</tooltip>
 	</xsl:template>
 
-	<xsl:template match="*[ends-with(name(), 'color')]">
+	<!-- match="*[ends-with(name(), 'color')]", but it's only available in XPATH 2.0, so : -->
+	<xsl:template match="*['color' = substring(name(), string-length(name())- string-length('color') +1)]">
 		<xsl:element name="div">
 			<xsl:element name="span">
 				<xsl:value-of select="name()" />

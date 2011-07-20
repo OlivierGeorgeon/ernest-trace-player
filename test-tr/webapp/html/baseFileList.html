@@ -1,1 +1,11 @@
 <ul />
+<form  action="php/edition/ulFile.php" method="post" enctype="multipart/form-data" target="upload_target">
+	Upload file : <input type="file" name="file" size="30" /> &nbsp;
+	Type: <select name="type">
+	  <option value="pipeline" >pipeline</option>
+	  <option value="transformation" >transformation</option>
+	</select> &nbsp;
+	Name: <input type="text" name="name" /> &nbsp;
+	<input type="submit" value="Upload" /> &nbsp; <span title="upload-awareness" style="display:none"><img src="images/ajax-loader.gif" /></span>
+</form>
+<iframe id="upload_target" name="upload_target" src="#" style="width: 0; height: 0; border: 0px solid white;"></iframe> 
