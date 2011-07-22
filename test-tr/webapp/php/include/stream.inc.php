@@ -202,6 +202,9 @@ function dbGetAllObsels($traceId, $deleteAfterSelect = false)
 	return $rows;
 }
 
+/*
+ * Finds the most recent obsel date of the given trace.
+ */
 function dbGetLastDate($traceId)
 {
 	$db = getDB();
@@ -221,6 +224,52 @@ function dbGetTraces()
 	$res = $db->query("SELECT DISTINCT trace_id FROM obsels ORDER BY trace_id;");
 	
 	return copyResultSet($res);
+}
+
+/*
+ * Serializes a trace's data into an xml string.
+ */
+function dbXMLDumpTrace($traceId)
+{
+	$db = getDB();
+	$traceId = $db->escapeString($traceId);
+	
+	$res = $db->query("SELECT o_data FROM obsels WHERE trace_id='$traceId';");
+	
+	$xml = "<trace id=\"$traceId\">";
+	while($row = $res->fetchArray(SQLITE3_NUM))
+	{
+		$xml .= $row[0];
+	}
+	$xml .= "</trace>";
+	
+	$res->finalize();
+	
+	return $xml;
+}
+
+/*
+ * Load an xml serialized trace into the database.
+ */
+function dbXMLLoadTrace($xml)
+{
+	$db = getDB();
+	$db->exec("begin;");
+	$trace = simplexml_load_string($xml);
+	if($trace !== false
+		and isset($trace['id']))
+	{
+		$traceId = $trace['id'];
+		foreach ($trace->children() as $slice)
+		{
+			if(isset($slice['date']))
+			{
+				$date = $slice['date'];
+				dbStoreObsel($traceId, $date, $slice->asXML());
+			}
+		}
+	}
+	$db->exec("commit;");
 }
 
 /*

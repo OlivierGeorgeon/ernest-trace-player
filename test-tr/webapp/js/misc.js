@@ -2,7 +2,7 @@
  *   Copyright (C) 2011  LIRIS
  *
  *
- *   This file is part of Abstract XML.
+ *   This file was part of Abstract XML.
  *
  *   Abstract XML is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by

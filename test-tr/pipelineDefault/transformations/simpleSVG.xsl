@@ -57,11 +57,10 @@
 		<xsl:param name="end-position" />
 		<xsl:param name="vertical-offset" />
 		
-		<xsl:if test="number(clock) mod 10 = 0">
+		<xsl:if test="number(@date) mod 10 = 0">
 			<xsl:call-template name="draw-shape">
 				<xsl:with-param name="vert-level" select="$vertical-offset" />
 				<xsl:with-param name="begin-position" select="$begin-position" />
-				<xsl:with-param name="end-position" select="$end-position" />
 				<xsl:with-param name="shape-type" select="'tick-sided-left'" />
 				<xsl:with-param name="text-value" select="clock" />
 				<xsl:with-param name="shape-color" select="'#000000'" />

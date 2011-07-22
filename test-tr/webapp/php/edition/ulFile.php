@@ -22,13 +22,7 @@ if(isset($_REQUEST['name']) and $name = filter_atom_filename($_REQUEST['name'])
 	}elseif($type === 'transformation'){
 		$uploadfile = DATA_DIR . '/pipelines/transformations/' . $name;
 		move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile);
-	}else{
-		echo 'nan';
 	}
-}else{
-	var_dump($_REQUEST);
-	echo 'non';
 }
 
 ?>
-toto

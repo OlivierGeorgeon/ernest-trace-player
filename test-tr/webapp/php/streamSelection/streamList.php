@@ -9,7 +9,11 @@ $traces = dbGetTraces();
 echo "<ul>";
 foreach($traces as $trace)
 {
-	echo "<li title=\"" . $trace['trace_id'] . "\"><a title=\"stream\" href=\"#\">▶ " . $trace['trace_id'] . "</a> <a title=\"delete-stored\" href=\"#\">✗</a></li>";
+	echo "<li title=\"" . $trace['trace_id'] . "\">" .
+		"<a title=\"stream\" href=\"#\">▶ " . $trace['trace_id'] . "</a> " .
+		"<a title=\"delete-stored\" href=\"#\">✗</a>" .
+		"<a title=\"download\" href=\"#\">⇩</a>" .
+		"</li>";
 }
 
 echo "</ul>";

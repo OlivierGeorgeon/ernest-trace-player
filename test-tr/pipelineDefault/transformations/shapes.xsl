@@ -4,7 +4,6 @@
 	<xsl:template name="draw-shape">
 		<xsl:param name="vert-level" />
 		<xsl:param name="begin-position" />
-		<xsl:param name="end-position" />
 		<xsl:param name="shape-type" />
 		<xsl:param name="image-url" select="''" />
 		<xsl:param name="text-value" select="''" />
@@ -277,26 +276,6 @@
 							<xsl:value-of select="$text-value" />
 						</text></g>
 					</g>
-				</xsl:when>
-				<!-- Strip -->
-				<xsl:when test="$shape-type='strip' and endTimecode">
-					<polygon>
-						<xsl:call-template name="transform-shape">
-							<xsl:with-param name="transform" select="$transform"/>
-						</xsl:call-template>
-						
-						<!-- Set the attributes of the obsels -->
-						<xsl:attribute name="points">
-							<xsl:value-of select="$begin-position" /><xsl:text>,</xsl:text>
-							<xsl:value-of select="$vert-level - 6" /><xsl:text> </xsl:text>
-							<xsl:value-of select="$end-position" /><xsl:text>,</xsl:text>
-							<xsl:value-of select="$vert-level - 6" /><xsl:text> </xsl:text>
-							<xsl:value-of select="$end-position" /><xsl:text>, </xsl:text>
-							<xsl:value-of select="$vert-level + 6" /><xsl:text> </xsl:text>
-							<xsl:value-of select="$begin-position" /><xsl:text>, </xsl:text>
-							<xsl:value-of select="$vert-level + 6" /><xsl:text> </xsl:text>
-						</xsl:attribute>
-					</polygon>
 				</xsl:when>
 				<!-- Square -->
 				<xsl:when test="$shape-type='square'">

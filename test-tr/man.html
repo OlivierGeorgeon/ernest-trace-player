@@ -13,10 +13,41 @@
 		body { text-indent: 2em }
 		p { vertical-align: middle; }
 		p * { vertical-align: middle; }
+		
+		#TOC *
+		{
+			padding-left: 1em;
+			text-decoration: none;
+			color: #5555BB;
+		}
+		
+		#TOC ul
+		{
+			list-style-type: none;
+			padding-left: 1em;
+		}
+		
+		#TOC > ul
+		{
+			padding-left: 0;
+		}
 	</style>
+	
+	<script type="text/javascript" src="scripts/auto-toc.js"></script>
+	
+	<script type="text/javascript" src="scripts/shCore.js"></script>
+	<script type="text/javascript" src="scripts/shBrushXml.js"></script>
+	 
+	<link href="styles/shCore.css" rel="stylesheet" type="text/css" />
+	<link href="styles/shThemeDefault.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript">
+		SyntaxHighlighter.all()
+	</script>
 </head>
 <body>
+	
 	<h2>Abstract Lite user guide</h2>
+	<div class="code-sample" style="color: gray;padding: 2px;">Table of contents<br/><div id="TOC"></div></div>
 	
 	<p>Abstract Lite is designed to allow one to visualize their agent's activity traces in real time.
 	The most interesting features is one can (and has to !) create a custom view, and modify it interactively.</p>
@@ -25,14 +56,9 @@
 	
 	<p>A basic knowledge of XML, HTML and XPATH is assumed. Though not strictly necessary, knowing XSLT and SVG will allow you a much more advanced use of the tool.</p>
 	
-	<p>To run Abstract Lite, you must have <a href="install.html">installed it</a>. The interface is known to run on recent Mozilla Firefox or Google Chrome browsers, but will probably fail at it on any other one.</p>
+	<p>To run Abstract Lite, you must have it <a href="install.html">installed</a> on a server. The interface is known to run on recent Mozilla Firefox or Google Chrome browsers, but will probably fail at it on any other one.</p>
 	
 	<h3>Agent instrumentation</h3>
-	<!--
-		class java
-		utilisation (obsels simultanés)
-		parametrage du cookie et de l'url
-	  -->
 	<p>A java tracer class is available in the subdir java-tracer/ . It will help you instrument your program, and manage the communication with Abstract Lite.
 	A javadoc is available in <a href="java-tracer/tracer-doc/index.html">java-tracer/tracer-doc/index.html</a>.</p>
 	
@@ -90,23 +116,315 @@
 		If you want a more advanced way of specifying how to display your trace, you might want to edit or create your XSLT stylesheets. We see in this section how the transformation pipeline works, the stylesheets you should edit and those you should not, and how to change them to display your art.
 		
 			<h5>The pipeline structure</h5>
-			<!-- structure d'un pipeline
-				- 
-				- 
-			-->
+				<p>The transformation that occurs to an obsel between the time it enters the system and the time it is displayed on the screen take place into a transformation pipeline. The obsels from the agent are pushed at the entry of the pipeline, they transite through its components, and at the end, the result is sent to the player to be printed on the screen. The transformation components are organized in a lattice.</p>
+				<p>This lattice is defined in the file pipeline.xml. To forbid circles, transformations are organized into levels : the obsels will travel first through the levels that occur first in the file. Each transformation possess sources that define from where its incoming obsel will come. Special sources are __input__ that are the raw obsel source, and __config__ from which come special obsels from the user interface (but there is no need to dig more on the config unless you aim at creating a new generic transformation with forms and all -- like the one that executes the symboles rules). The output part at the end defines from where are taken the obsels that are sent to the view.</p>
+			<pre class="brush: xml">&lt;pipeline&gt;
+	&lt;default-scale&gt;6.666666&lt;/default-scale&gt;
+	&lt;default-center&gt;0&lt;/default-center&gt;
+	&lt;graph-width&gt;240&lt;/graph-width&gt;
+
+	&lt;levels&gt;
+
+		&lt;level&gt;
+			&lt;transformation type="XSLT"&gt;
+				&lt;name&gt;select-normalize&lt;/name&gt;
+				&lt;sources&gt;
+					&lt;source&gt;__input__&lt;/source&gt;
+				&lt;/sources&gt;
+				&lt;file&gt;select-normalize.xsl&lt;/file&gt;
+			&lt;/transformation&gt;
+
+			&lt;transformation type="XSLT"&gt;
+				&lt;name&gt;clock&lt;/name&gt;
+				&lt;sources&gt;
+					&lt;source&gt;__input__&lt;/source&gt;
+				&lt;/sources&gt;
+				&lt;file&gt;clock.xsl&lt;/file&gt;
+			&lt;/transformation&gt;
+		&lt;/level&gt;
+
+		&lt;level&gt;
+			&lt;transformation type="PHP"&gt;
+				&lt;name&gt;buffer-reconfigure&lt;/name&gt;
+				&lt;sources&gt;
+					&lt;source&gt;__config__&lt;/source&gt;
+					&lt;source&gt;select-normalize&lt;/source&gt;
+				&lt;/sources&gt;
+				&lt;file&gt;BufferReconfigureTransformation.inc.php&lt;/file&gt;
+				&lt;classname&gt;BufferReconfigureTransformation&lt;/classname&gt;
+			&lt;/transformation&gt;
+
+			&lt;transformation type="XSLT"&gt;
+				&lt;name&gt;tooltip&lt;/name&gt;
+				&lt;sources&gt;
+					&lt;source&gt;select-normalize&lt;/source&gt;
+				&lt;/sources&gt;
+				&lt;file&gt;tooltip.xsl&lt;/file&gt;
+			&lt;/transformation&gt;
+		&lt;/level&gt;
+
+		&lt;level&gt;
+			&lt;transformation type="XSLT"&gt;
+				&lt;name&gt;config-SVG&lt;/name&gt;
+				&lt;sources&gt;
+					&lt;source&gt;select-normalize&lt;/source&gt;
+					&lt;source&gt;buffer-reconfigure&lt;/source&gt;
+				&lt;/sources&gt;
+				&lt;file&gt;configSVG.xsl&lt;/file&gt;
+			&lt;/transformation&gt;
+
+			&lt;transformation type="XSLT"&gt;
+				&lt;name&gt;simple-SVG&lt;/name&gt;
+				&lt;sources&gt;
+					&lt;source&gt;select-normalize&lt;/source&gt;
+				&lt;/sources&gt;
+				&lt;file&gt;simpleSVG.xsl&lt;/file&gt;
+			&lt;/transformation&gt;
+		&lt;/level&gt;
+
+	&lt;/levels&gt;
+
+	&lt;output&gt;
+		&lt;source&gt;simple-SVG&lt;/source&gt;
+		&lt;source&gt;config-SVG&lt;/source&gt;
+		&lt;source&gt;clock&lt;/source&gt;
+		&lt;source&gt;tooltip&lt;/source&gt;
+	&lt;/output&gt;
+&lt;/pipeline&gt;
+</pre>
+				<h5>The default stylesheets</h5>
+				<p>The base stylesheets aim to provide necessary informations to the player (clock.xsl), draw the ticks (simpleSVG.xsl), as well as to execute the symbole rules and draw the result (BufferReconfigureTransformation.php and configSVG.xsl). The stylesheet select-normalise.xsl filters and selects the incoming data (by default, it doesn't filter anything).</p>
+				<p>You may modify simpleSVG.xsl if you want to dram custom shapes. If you want to change what's displayed in the box below the player when you click on an obsel, you may want to modify tooltip.xsl. However, you *will* need to know basic XSLT and SVG.</p>
 			
-			<h5>The default stylesheets</h5>
-			<!-- Les feuilles qu'il faut pas toucher (clock, BufferReconfigureTransformation, configSVG, shapes, obsel-state, functions, select-normalize) 
-			     et ce à quoi elles servent -->
-			
-			<h5>The drawing instructions and how to write a stylesheet</h5>
-			<!--
-				Les instructions (tooltip, delete, add)
-				Attributs spéciaux (en svg) des obsels (date, begin+end, obsel-id, title='obsel')
-				Headers (includes) des xslt.
-				Template 'draw-shape' pour tracer des formes.
-			  -->
-			
+			<h5>The drawing instructions</h5>
+				<p>The pipeline generate instructions that are passed to the player. The player then executes them. These are 4 instructions : add, delete, clock, tooltip.</p>
+				<p>The instruction add allows you to add a given obsel (ie an SVG element) into the view.</p>
+				<p>The instruction delete deletes the obsel having the given id from the view.</p>
+				<p>The instruction clock tells the player at which point of the stream we currently are, resulting in the view to scroll to this date (the player does not automatically scroll to the latest obsel, because we may want the stream obsels in the future, without scrolling to them).</p>
+				<p>The instruction tooltip set the association between the given obsel and the given tooltip content (in HTML).</p>
+				<p>One more special element that looks like an instruction is the <i>save</i> element, that allows you to save informations (a value or a node-set) for use in a future obsel's processing. This can be especially useful when drawing symbols that take informations from multiple obsels to draw, thou its can be a little bit tricky.</p>
+				
+				<p>We will see these instructions in more details in the example</p>
+				
+			<h5>Example</h5>
+				<p>We show here the simpleXML stylesheet in its initial state. Note the includes : obsel-state.xsl is necessary to the operation, while shapes.xsl provide shape drawing facilities in the form of the <i>draw-shape</i> template.</p>
+				
+				<pre class="brush: xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;xsl:transform xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	xmlns:exsl="http://exslt.org/common" xmlns:math="http://exslt.org/math"
+	xmlns:dyn="http://exslt.org/dynamic" extension-element-prefixes="exsl math dyn"
+	version="1.1"&gt;
+	&lt;xsl:param name="state-filename" /&gt;
+	&lt;xsl:param name="name" /&gt;
+	&lt;xsl:output method="xml" omit-xml-declaration="yes" indent="no" /&gt;
+	&lt;xsl:strip-space elements="*" /&gt;
+
+	&lt;xsl:include href="obsel-state.xsl" /&gt;
+	&lt;xsl:include href="shapes.xsl" /&gt;
+
+	&lt;!-- Match the obsels from the select-normalizer, that is, the ponctual 
+		obsels. --&gt;
+	&lt;xsl:template match="obsel" mode="named-saves"&gt;
+		&lt;xsl:param name="state" /&gt;
+
+		&lt;!-- We first define some variables which values we will use to draw the 
+			shape. --&gt;
+		&lt;xsl:variable name="obsel-type"&gt;
+			&lt;xsl:choose&gt;
+				&lt;xsl:when test="type"&gt;
+					 &lt;xsl:value-of select="type" /&gt;
+				&lt;/xsl:when&gt;
+				&lt;xsl:otherwise&gt;
+					&lt;xsl:text&gt;action&lt;/xsl:text&gt;
+				&lt;/xsl:otherwise&gt;
+			&lt;/xsl:choose&gt;
+		&lt;/xsl:variable&gt;
+		
+		&lt;!-- Lateral position of the shape. --&gt;
+		&lt;xsl:variable name="begin-position" select="0" /&gt;
+		&lt;xsl:variable name="end-position"
+			select="$begin-position + number(@end) - number(@begin)" /&gt;
+		
+		&lt;xsl:choose&gt;
+			&lt;xsl:when test="$obsel-type = 'action'"&gt;
+				&lt;add&gt;
+					&lt;!-- We create the embedding group. --&gt;
+					&lt;g id="{@id}-ns" obsel-id="{@id}" date="{@date}" stroke="#000000"&gt;
+						&lt;xsl:call-template name="draw-num-iter"&gt;
+							&lt;xsl:with-param name="begin-position" select="$begin-position" /&gt;
+							&lt;xsl:with-param name="end-position" select="$end-position" /&gt;
+							&lt;xsl:with-param name="vertical-offset" select="-110" /&gt;
+						&lt;/xsl:call-template&gt;
+					&lt;/g&gt;
+				&lt;/add&gt;
+			&lt;/xsl:when&gt;
+			&lt;xsl:otherwise&gt;&lt;/xsl:otherwise&gt;
+		&lt;/xsl:choose&gt;
+	&lt;/xsl:template&gt;
+	
+	&lt;xsl:template name="draw-num-iter"&gt;
+		&lt;xsl:param name="begin-position" /&gt;
+		&lt;xsl:param name="end-position" /&gt;
+		&lt;xsl:param name="vertical-offset" /&gt;
+		
+		&lt;xsl:if test="number(@date) mod 10 = 0"&gt;
+			&lt;xsl:call-template name="draw-shape"&gt;
+				&lt;xsl:with-param name="vert-level" select="$vertical-offset" /&gt;
+				&lt;xsl:with-param name="begin-position" select="$begin-position" /&gt;
+				&lt;xsl:with-param name="shape-type" select="'tick-sided-left'" /&gt;
+				&lt;xsl:with-param name="text-value" select="clock" /&gt;
+				&lt;xsl:with-param name="shape-color" select="'#000000'" /&gt;
+				&lt;xsl:with-param name="height" select="'280'" /&gt;
+			&lt;/xsl:call-template&gt;
+		&lt;/xsl:if&gt;
+	&lt;/xsl:template&gt;
+
+&lt;/xsl:transform&gt;</pre>
+				<p>Let's see how it works. The transformation's point of entry is the template that matches <i>obsel</I> elements. It will execute once for each obsel encountered, and call sub-templates to actually generate the various shapes. Only one sub-template is called at the moment, the <i>draw-num-iter</i> template. This template is the one that draws the ticks.</p>
+				<p>If you look at what it does in more details, you will notice the SVG elements (including what's returned by the draw-shape template) are embedded into an &lt;add&gt; element. This is how the <i>add</i> instruction works: everything inside of an &lt;add&gt; element will be added to the view.</p>
+				<p>Just inside that element, you can see a &lt;g&gt; element. Notice its attributes. They are necessary to allow the player to handle the symbol correctly and place it. The id element is necessary if you want to reference the shape later (for example to delete it). The date attribute will determine where the symbol is placed. The obsel-id correspond in our example to the id of the original obsel. The id will be used (only) to find the corresponding tooltip when the user click on this symbol (so you must be careful to create tooltip with corresponding ids; our policy here is to use the original obsel ids). The stroke attribute is not necessary, just standard SVG.</p>
+				<p>If your symbol is not punctual, but represents a time interval, you should use the attributes <i>begin</i> and <i>end</i> instead of the attribute <i>date</i>. The player will then stretch the symbol to cover this interval (The symbol is supposed to be 1 pixel wide before the stretching).</p>
+				<p>Inside of this &lt;g&gt;, is finally called the template that will generate the effective symbol SVG code. To do that, the <i>draw-num-iter</i> template calls <i>draw-shape</i>. What are the <i>draw-shape</i>'s parameters ?</p>
+				<pre class="brush: xml">
+					&lt;xsl:template name="draw-shape"&gt;
+						&lt;xsl:param name="vert-level" /&gt;
+						&lt;xsl:param name="begin-position" /&gt;
+						&lt;xsl:param name="shape-type" /&gt;
+						&lt;xsl:param name="image-url" select="''" /&gt;
+						&lt;xsl:param name="text-value" select="''" /&gt;
+						&lt;xsl:param name="shape-color" select="''" /&gt;
+						&lt;xsl:param name="height" select="'10'" /&gt;
+						&lt;xsl:param name="transform" select="''" /&gt;
+						...
+					&lt;/xsl:template&gt;</pre>
+				<p> The parameters mean:<br/>
+					<ul>
+						<li><i>vert-level</i> defines the vertical offset in pixels at which the symbol is to be drawn (0 is the center, growing downward).</li>
+						<li><i>begin-position</i> defines the horizontal offset in pixels (0 will position the symbol on the position defined by its date).</li>
+						<li><i>shape-type</i> defines what shape should be drawn (square, circle, etc.).</li>
+						<li><i>image-url</i> defines, in case the shape type is 'image', where is the image to draw.</li>
+						<li><i>text-value</i> defines, if the shape type can have text, its text content.</li>
+						<li><i>shape-color</i> defines the symbol's filling color.</li>
+						<li><i>height</i> defines the height of the symbol (in case the shape type uses it).</li>
+						<li><i>transform</i> is a string formatted to be used in a SVG transform attribute (for example 'rotate(45) skewX(33)'), that will be applied to the symbol.</li>
+					</ul>
+				</p>
+				
+				<p>Now suppose we want to do the same long symbol than we generated previously with the form. We had a field <i>current_observation/color</i> and we wanted to draw and aggregate symbol for successive obsels that have the same values for this field. What we want to do then, is for each obsel, to detect whether its <i>current_observation/color</i>'s value is the same as the previous symbol's, and extend the previous symbol until the date of the current obsel. If it is not equal, we should finish the previous symbol and create a new one.</p>
+				
+				<p>The first thing is to make our own drawing template and call it from the entry point. The call will look like:</p>
+				<pre class="brush: xml">
+					&lt;xsl:template match="obsel" mode="named-saves"&gt;
+					&lt;xsl:param name="state" /&gt;
+
+						&lt;!-- We first define some variables which values we will use to draw the 
+							shape. --&gt;
+						&lt;xsl:variable name="obsel-type"&gt;
+							&lt;xsl:choose&gt;
+								&lt;xsl:when test="type"&gt;
+									 &lt;xsl:value-of select="type" /&gt;
+								&lt;/xsl:when&gt;
+								&lt;xsl:otherwise&gt;
+									&lt;xsl:text&gt;action&lt;/xsl:text&gt;
+								&lt;/xsl:otherwise&gt;
+							&lt;/xsl:choose&gt;
+						&lt;/xsl:variable&gt;
+		
+						&lt;!-- Lateral position of the shape. --&gt;
+						&lt;xsl:variable name="begin-position" select="0" /&gt;
+						&lt;xsl:variable name="end-position"
+							select="$begin-position + number(@end) - number(@begin)" /&gt;
+		
+						&lt;xsl:choose&gt;
+							&lt;xsl:when test="$obsel-type = 'action'"&gt;
+							
+								&lt;!-- This, here :. --&gt;
+								&lt;xsl:call-template name="draw-example-symbol"&gt;
+									&lt;xsl:with-param name="state" select="$state" /&gt;
+								&lt;/xsl:call-template&gt;
+								&lt;!-- Just up there. --&gt;
+								
+								&lt;add&gt;
+									&lt;!-- We create the embedding group. --&gt;
+									&lt;g id="{@id}-ns" obsel-id="{@id}" date="{@date}" stroke="#000000"&gt;
+										&lt;xsl:call-template name="draw-num-iter"&gt;
+											&lt;xsl:with-param name="begin-position" select="$begin-position" /&gt;
+											&lt;xsl:with-param name="vertical-offset" select="-110" /&gt;
+										&lt;/xsl:call-template&gt;
+									&lt;/g&gt;
+								&lt;/add&gt;
+							&lt;/xsl:when&gt;
+							&lt;xsl:otherwise&gt;&lt;/xsl:otherwise&gt;
+						&lt;/xsl:choose&gt;
+					&lt;/xsl:template&gt;</pre>
+				
+				<p>And our template will be the following:</p>
+				<pre class="brush: xml">
+&lt;xsl:template name="draw-example-symbol"&gt;
+		&lt;xsl:param name="state" /&gt;
+		&lt;xsl:variable name="sym-state"
+			select="$state/save[@name='example-sym']/symbol" /&gt;
+		&lt;xsl:variable name="last-state" select="$state/save[@name='example-last']" /&gt;
+		&lt;xsl:choose&gt;
+
+			&lt;!-- In the case we have to create a new symbol: at the beginning or
+				when colors mismatch between this element and the previous one. --&gt;
+			&lt;xsl:when
+				test="not($last-state/color) or $last-state/color != current_observation/color"&gt;
+				&lt;!-- All we have to do is to add the symbol. --&gt;
+				&lt;add&gt;
+					&lt;g id="{@id}-s" obsel-id="{@id}" date="{@date}" begin="{@date}"
+						end="{@date}" stroke="#000000"&gt;
+						&lt;xsl:call-template name="draw-shape"&gt;
+							&lt;xsl:with-param name="vert-level"
+								select="- current_observation/distance div 5 + 75" /&gt;
+							&lt;xsl:with-param name="begin-position" select="0" /&gt;
+							&lt;xsl:with-param name="shape-type" select="'line'" /&gt;
+							&lt;xsl:with-param name="shape-color"
+								select="concat('#', current_observation/color)" /&gt;
+						&lt;/xsl:call-template&gt;
+					&lt;/g&gt;
+				&lt;/add&gt;
+
+				&lt;!-- We save the symbole caracteristics, we will probably have to draw 
+					it again. --&gt;
+				&lt;save name='example-sym'&gt;
+					&lt;symbol id="{@id}-s" obsel-id="{@id}" begin="{@date}" end="{@date}"
+						vert-level="{- current_observation/distance div 5 + 75}" 
+						color="#{current_observation/color}" /&gt;
+				&lt;/save&gt;
+			&lt;/xsl:when&gt;
+			&lt;xsl:otherwise&gt;
+				&lt;!-- We want to lengthen the symbole, so we first have to delete
+					the old one, before we draw a longer one --&gt;
+				&lt;delete obsel-id="{$sym-state/@id}" /&gt;
+
+				&lt;!-- We draw the longer symbol, using the saved properties. --&gt;
+				&lt;add&gt;
+					&lt;g id="{$sym-state/@id}" obsel-id="{$sym-state/@obsel-id}" date="{$sym-state/@begin}"
+						begin="{$sym-state/@begin}" end="{@date}" stroke="#000000"&gt;
+						&lt;xsl:call-template name="draw-shape"&gt;
+							&lt;xsl:with-param name="vert-level" select="$sym-state/@vert-level" /&gt;
+							&lt;xsl:with-param name="begin-position" select="0" /&gt;
+							&lt;xsl:with-param name="shape-type" select="'line'" /&gt;
+							&lt;xsl:with-param name="shape-color" select="$sym-state/@color" /&gt;
+						&lt;/xsl:call-template&gt;
+					&lt;/g&gt;
+				&lt;/add&gt;
+
+			&lt;/xsl:otherwise&gt;
+		&lt;/xsl:choose&gt;
+
+		&lt;!-- We save the current obsel color for the next iteration. --&gt;
+		&lt;save name='example-last'&gt;
+			&lt;color&gt;
+				&lt;xsl:value-of select='current_observation/color' /&gt;
+			&lt;/color&gt;
+		&lt;/save&gt;
+	&lt;/xsl:template&gt;
+				</pre>
+				
+				<p>The nodes we save with the &lt;save&gt; instruction will be passed back to us by the state param next time the template is executed, allowing us to remember the last color value thanks to the <i>example-last</i> save, and the symbol characteristics thanks to the <i>example-sym</i> save.</p>
 	<h3>Contact</h3>
 	Mail <a href="mailto: ronot DOTT py AT gmail DOT com">me</a> for any question.
 

@@ -12,7 +12,6 @@ echo '<?xml version="1.0" encoding="utf-8"?>';
 <link rel="stylesheet" type="text/css" href="css/codemirror/codemirror.css" />
 <link rel="stylesheet" type="text/css" href="css/codemirror/theme/default.css" />
 
-<!-- <script type="text/javascript" src="js/lib/jquery-1.5.min.js"></script> -->
 <script type="text/javascript" src="js/lib/jquery-1.5.2.js"></script>
 <script type="text/javascript" src="js/lib/jquery.xmldom-1.0.min.js"></script>
 <script type="text/javascript" src="js/lib/jquery.tooltip.js"></script>
@@ -37,7 +36,6 @@ echo '<?xml version="1.0" encoding="utf-8"?>';
 <script type="text/javascript" src="js/lib/codemirror/mode/php/php.js"></script>
 <script type="text/javascript" src="js/lib/codemirror/mode/javascript/javascript.js"></script>
 <script type="text/javascript" src="js/lib/codemirror/mode/css/css.js"></script>
-<!-- <script type="text/javascript" src="js/codemirror093/codemirror.js"></script>-->
 
 <script type="text/javascript">
 function init_start_player()
@@ -75,16 +73,6 @@ function init_start_player()
 <?php }?>
 }
 
-function changeAutoStream(check)
-{
-	if(check.checked)
-	{
-		streamSelector.setAutoLast(true);
-	}else{
-		streamSelector.setAutoLast(false);
-	}
-}
-
 $(document).ready(function()
 {
 	init_start_player();
@@ -115,20 +103,13 @@ $(document).ready(function()
 	<?php }?>
 	
 	<!-- Trace list -->
-	<div style="display: table-cell">
-		<div style="display: block; border: 1px solid gray; padding: 7px; padding-top: 2px; margin: 1px 1px 1px 5px;">
-			<div style="display: block; margin-bottom: 5px; color: gray">Chose the trace to stream</div>
-			<div id="stream-selector"></div>
-			<label><input name="auto-last" type="checkbox" autocomplete="off"
-				onchange="changeAutoStream(this)" />Always play last</label>
-		</div>
-	</div>
+	<div style="display: table-cell" id="stream-selector"></div>
 	<br />
 	
 	<!-- Notification area -->
 	<div style="display: block; position: absolute; z-index: -1; right: 0; margin-right: 2em; border: 1px solid gray">Information messages</div>
 	<div style="font-size: 65%; height: 200px; right: 0; overflow: auto; border: 1px solid gray; background: rgba(255, 255, 255, 0.6);">
-		<span id="my-player-thin-notices-div" style="background: rgba(255, 255, 255, 0.9)" />
+		<span id="my-player-thin-notices-div" style="background: rgba(255, 255, 255, 0.9)"></span>
 	</div>
 	<button id="clear-notices">Clear</button>
 	<br />

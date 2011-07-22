@@ -139,7 +139,7 @@ function FileLister (divId, editorDivId, baseURL)
 								{
 									e.preventDefault();
 									
-									win = window.open(that.baseURL + "/php/edition/dlFile.php?name=" + 
+									window.open(that.baseURL + "/php/edition/dlFile.php?name=" + 
 											this.getAttribute('name') + "&type=" + 
 											this.getAttribute('type'),
 										'_newtab');

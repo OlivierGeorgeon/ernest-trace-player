@@ -2,6 +2,7 @@
 set_include_path('..' . PATH_SEPARATOR . get_include_path());
 require_once 'include/config.inc.php';
 require_once 'include/user.inc.php';
+require_once 'include/stream.inc.php';
 session_start();
 
 if(isset($_REQUEST['username']) and isset($_REQUEST['password']) and isset($_REQUEST['password2']))

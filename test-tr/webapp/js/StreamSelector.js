@@ -10,6 +10,56 @@ function StreamSelector(div_id, noticeDiv_id, baseURI, tracePlayeInfos, configEd
 	this.configEditor = configEditor;
 	this.reloadProgrammed = false;
 	
+	this.init = function()
+	{
+		this.loadBase();
+		this.reload();
+	}
+	
+	this.loadBase = function()
+	{
+		$.ajax({
+			type: "GET",
+			url: this.baseURI + "/html/baseStreamList.html",
+			context: this,
+			success: function(data) {
+				this.div.html(data);
+				this.ulForm = this.div.find('form');
+				this.ulSubmit = this.ulForm.find("input[type='submit']");
+				this.ulAware = this.div.find("span[title='upload-awareness']");
+				this.ulIframe = this.div.find("iframe");
+				this.apl = this.div.find("input[name='auto-last']");
+				this.apl.change(parametrizeCallback(
+							function(e, that) {
+								that.changeAutoStream(this);
+							}, {args: [this]}
+						)
+					);
+				
+				this.ulForm.submit(
+						parametrizeCallback(
+							function(e, that) {
+								that.ulSubmit[0].disabled = true;
+								that.ulAware.css('display', 'inline');
+							}, {args: [this]}
+						)
+					);
+				
+				this.ulIframe.load(
+						parametrizeCallback(
+								function(e, that) {
+									that.ulSubmit[0].disabled = false;
+									that.ulAware.css('display', 'none');
+								}, {args: [this]}
+							)
+					);
+				this.div = this.div.find("div[title='stream-list']");
+			},
+			dataType: "text",
+			async: false
+		});
+	}
+	
 	this.reload = function()
 	{
 		this.reloadProgrammed = false;
@@ -32,20 +82,28 @@ function StreamSelector(div_id, noticeDiv_id, baseURI, tracePlayeInfos, configEd
 		
 	}
 	
+	this.changeAutoStream = function(check)
+	{
+		if(check.checked)
+		{
+			this.setAutoLast(true);
+		}else{
+			this.setAutoLast(false);
+		}
+	}
+	
 	this.relink = function()
 	{
 		this.div.find('ul li a[title=stream]').each(
 				parametrizeCallback(function(index, elem, that)
 					{
 						var name = this.parentNode.getAttribute('title');
-						//this.addEventListener("click",
 						this.onclick = parametrizeCallback(function(e, name)
 								{
 									this.changeStream(name, "stream");
 								},
 								{scope: that, args: [name]}
 							)
-						//)
 						;
 					},
 					{args: [this]}
@@ -56,32 +114,43 @@ function StreamSelector(div_id, noticeDiv_id, baseURI, tracePlayeInfos, configEd
 				parametrizeCallback(function(index, elem, that)
 					{
 						var name = this.parentNode.getAttribute('title');
-						//this.addEventListener("click",
 						this.onclick = parametrizeCallback(function(e, name)
 								{
 									this.changeStream(name, "storedstream");
 								},
 								{scope: that, args: [name]}
 							)
-						//)
 						;
 					},
 					{args: [this]}
 				)
 			);
-		
+
 		this.div.find('ul li a[title=delete-stored]').each(
 				parametrizeCallback(function(index, elem, that)
 					{
 						var name = this.parentNode.getAttribute('title');
-						//this.addEventListener("click",
 						this.onclick = parametrizeCallback(function(e, name)
 								{
 									this.deleteStored(name, "storedstream");
 								},
 								{scope: that, args: [name]}
 							)
-						//)
+						;
+					},
+					{args: [this]}
+				)
+			);
+		this.div.find('ul li a[title=download]').each(
+				parametrizeCallback(function(index, elem, that)
+					{
+						var name = this.parentNode.getAttribute('title');
+						this.onclick = parametrizeCallback(function(e, name)
+								{
+									this.downloadTrace(name);
+								},
+								{scope: that, args: [name]}
+							)
 						;
 					},
 					{args: [this]}
@@ -124,10 +193,16 @@ function StreamSelector(div_id, noticeDiv_id, baseURI, tracePlayeInfos, configEd
 		
 		this.currentPlayer.onEOT = parametrizeCallback(this.onEOT, {scope: this});
 	}
-	
+
 	this.deleteStored = function(name, type)
 	{
 		$.post(baseURI + "/php/streamSelection/streamDelete.php", {traceId: name});
+		this.reload();
+	}
+
+	this.downloadTrace = function(name)
+	{
+		window.open(baseURI + "/php/streamSelection/dlTrace.php?traceId=" + name, '_newtab');
 		this.reload();
 	}
 	
@@ -160,7 +235,12 @@ function StreamSelector(div_id, noticeDiv_id, baseURI, tracePlayeInfos, configEd
 						this.changeStream(lastTrace, "stream");
 						this.currentPlayer.play();
 					}else{
-						setTimeout(parametrizeCallback(this.playLast, {scope: this}), 500);
+						try{
+							setTimeout(parametrizeCallback(this.playLast, {scope: this}), 500);
+						}catch(e)
+						{
+							alert(e);
+						}
 					}
 				},
 				dataType: "xml",
@@ -177,5 +257,5 @@ function StreamSelector(div_id, noticeDiv_id, baseURI, tracePlayeInfos, configEd
 		}
 	}
 	
-	this.reload();
+	this.init();
 }

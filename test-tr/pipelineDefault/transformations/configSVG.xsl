@@ -87,7 +87,6 @@
 						<xsl:with-param name="vert-level"
 							select="dyn:evaluate($symbole/@voffset)" />
 						<xsl:with-param name="begin-position" select="0" />
-						<xsl:with-param name="end-position" select="0" />
 						<xsl:with-param name="shape-type"
 							select="dyn:evaluate($symbole/@shape)" />
 						<xsl:with-param name="shape-color"
@@ -142,7 +141,6 @@
 					<xsl:call-template name="draw-shape">
 						<xsl:with-param name="vert-level" select="$voffset" />
 						<xsl:with-param name="begin-position" select="0" />
-						<xsl:with-param name="end-position" select="0" />
 						<xsl:with-param name="shape-type" select="$shape" />
 						<xsl:with-param name="shape-color" select="$color" />
 						<xsl:with-param name="image-url" select="$image-url" />
@@ -197,7 +195,6 @@
 					<xsl:call-template name="draw-shape">
 						<xsl:with-param name="vert-level" select="$voffset" />
 						<xsl:with-param name="begin-position" select="0" />
-						<xsl:with-param name="end-position" select="0" />
 						<xsl:with-param name="shape-type" select="$shape" />
 						<xsl:with-param name="shape-color" select="$color" />
 						<xsl:with-param name="image-url" select="$image-url" />
@@ -290,7 +287,6 @@
 					<xsl:call-template name="draw-shape">
 						<xsl:with-param name="vert-level" select="$voffset" />
 						<xsl:with-param name="begin-position" select="0" />
-						<xsl:with-param name="end-position" select="0" />
 						<xsl:with-param name="shape-type" select="$shape" />
 						<xsl:with-param name="shape-color" select="$color" />
 						<xsl:with-param name="image-url" select="$image-url" />
@@ -301,5 +297,5 @@
 		
 		
 	</xsl:template>
-
+	
 </xsl:transform>
