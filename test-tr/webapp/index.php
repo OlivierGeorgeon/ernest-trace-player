@@ -12,7 +12,7 @@ echo '<?xml version="1.0" encoding="utf-8"?>';
 <link rel="stylesheet" type="text/css" href="css/codemirror/codemirror.css" />
 <link rel="stylesheet" type="text/css" href="css/codemirror/theme/default.css" />
 
-<script type="text/javascript" src="js/lib/jquery-1.5.2.js"></script>
+<script type="text/javascript" src="js/lib/jquery-1.6.2.min.js"></script>
 <script type="text/javascript" src="js/lib/jquery.xmldom-1.0.min.js"></script>
 <script type="text/javascript" src="js/lib/jquery.tooltip.js"></script>
 <script type="text/javascript" src="js/lib/pi.1.1.1.min.js"></script>

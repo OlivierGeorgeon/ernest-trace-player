@@ -14,7 +14,7 @@ mkdir(TRANSFO_PUB_DIR . '/' . $transfo_cookie);
 mkdir(TRANSFO_PUB_DIR . '/' . $transfo_cookie . '/pipelines');
 mkdir(TRANSFO_PUB_DIR . '/' . $transfo_cookie . '/pipelines/transformations');
 mkdir(TRANSFO_PUB_DIR . '/' . $transfo_cookie . '/pipelines/config');
-system("cp -r " . DATA_DIR . '/pipelines/transformations ' . TRANSFO_PUB_DIR . '/' . $transfo_cookie . '/pipelines/transformations', $ret1);
+system("cp -r " . DATA_DIR . '/pipelines/transformations/* ' . TRANSFO_PUB_DIR . '/' . $transfo_cookie . '/pipelines/transformations', $ret1);
 //DATA_DIR . '/pipelines/transformations'
 //TRANSFO_PUB_DIR . $transfo_cookie . '/pipelines/transformations'
 

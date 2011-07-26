@@ -2,7 +2,7 @@
 require_once __DIR__ . '/config.inc.php';
 require_once __DIR__ . '/user.inc.php';
 session_start();
-if(!isset($_SESSION['identified']))
+if(!isset($_SESSION['identified']) or (isset($_REQUEST['streamcookie']) and $_SESSION['cookie'] != $_REQUEST['streamcookie']))
 {
 	if(!isset($_REQUEST['streamcookie']) or ! $cookie = filter_atom_filename($_REQUEST['streamcookie']))
 	{

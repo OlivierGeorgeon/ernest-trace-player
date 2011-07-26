@@ -31,8 +31,6 @@
 		
 		<!-- Lateral position of the shape. -->
 		<xsl:variable name="begin-position" select="0" />
-		<xsl:variable name="end-position"
-			select="$begin-position + number(@end) - number(@begin)" />
 		
 		<xsl:choose>
 			<xsl:when test="$obsel-type = 'action'">
@@ -42,7 +40,6 @@
 						<!-- [-32, -24) -->
 						<xsl:call-template name="draw-num-iter">
 							<xsl:with-param name="begin-position" select="$begin-position" />
-							<xsl:with-param name="end-position" select="$end-position" />
 							<xsl:with-param name="vertical-offset" select="-110" />
 						</xsl:call-template>
 					</g>
@@ -54,7 +51,6 @@
 	
 	<xsl:template name="draw-num-iter">
 		<xsl:param name="begin-position" />
-		<xsl:param name="end-position" />
 		<xsl:param name="vertical-offset" />
 		
 		<xsl:if test="number(@date) mod 10 = 0">

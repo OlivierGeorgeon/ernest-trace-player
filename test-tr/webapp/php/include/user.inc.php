@@ -82,7 +82,7 @@ function userSetPassword($username, $newPassword)
 	$db = getUserDB();
 	$username = $db->escapeString($username);
 	$password = hashPassword($username, $newPassword);
-	return @($db->exec("UPDATE users SET password='password' WHERE username='$username';"));
+	return @($db->exec("UPDATE users SET password='$password' WHERE username='$username';"));
 }
 
 ?>

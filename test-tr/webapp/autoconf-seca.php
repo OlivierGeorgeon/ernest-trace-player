@@ -38,7 +38,7 @@ function init_start_player()
 
 	configEditor = null;
 	streamSelector = new StreamSelector(
-		"stream-selector", "my-player-thin-notices-div", "<?=dirname($_SERVER['SCRIPT_NAME'])?>",
+		"", "my-player-thin-notices-div", "<?=dirname($_SERVER['SCRIPT_NAME'])?>",
 		{
 			div_id: "my-player-thin-div",
 			notice_div_id: "my-player-thin-notices-div",
@@ -53,8 +53,10 @@ function init_start_player()
 			},
 			{args: [streamSelector]}
 	));
-}
 
+	streamSelector.setAutoLast(true);
+}
+/*
 function changeAutoStream(check)
 {
 	if(check.checked)
@@ -63,7 +65,7 @@ function changeAutoStream(check)
 	}else{
 		streamSelector.setAutoLast(false);
 	}
-}
+}*/
 
 $(document).ready(function()
 {
@@ -76,12 +78,12 @@ $(document).ready(function()
 </head>
 
 <body>
-	<div style="display: inline-block;left: 0px; right: 0px; border: 1px solid gray; padding: 5px; margin: 1px 1px 1px 5px;"><?=$_SESSION['cookie']?></div>
+	<?php /* ?><div style="display: inline-block;left: 0px; right: 0px; border: 1px solid gray; padding: 5px; margin: 1px 1px 1px 5px;"><?=$_SESSION['cookie']?></div><?php */ ?>
 	<!-- Trace display -->
 	<div id="my-player-thin-div" style="top: 0px; position: relative"></div>
 	
 	<!-- Trace list -->
-	<div style="display: table-cell">
+	<!-- <div style="display: table-cell">
 		<div style="display: block; border: 1px solid gray; padding: 7px; padding-top: 2px; margin: 1px 1px 1px 5px;">
 			<div style="display: block; margin-bottom: 5px; color: gray">Chose the trace to stream</div>
 			<div id="stream-selector"></div>
@@ -89,7 +91,7 @@ $(document).ready(function()
 				onchange="changeAutoStream(this)" />Always play last</label>
 		</div>
 	</div>
-	<br />
+	<br /> -->
 		<!-- Notification area -->
 	<!-- <div style="display: block; position: absolute; z-index: -1; right: 0; margin-right: 2em; border: 1px solid gray">Information messages</div>
 	<div style="font-size: 65%; height: 200px; right: 0; overflow: auto; border: 1px solid gray; background: rgba(255, 255, 255, 0.6);">

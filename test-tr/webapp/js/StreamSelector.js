@@ -1,7 +1,10 @@
 function StreamSelector(div_id, noticeDiv_id, baseURI, tracePlayeInfos, configEditor)
 {
 	this.baseURI = baseURI;
-	this.div = $('#' + div_id);
+	if(div_id != "")
+		this.div = $('#' + div_id);
+	else
+		this.div = null;
 	this.notice_div = $('#' + noticeDiv_id);
 	this.tpInfos = tracePlayeInfos;
 	this.currentPlayer = null;
@@ -12,8 +15,11 @@ function StreamSelector(div_id, noticeDiv_id, baseURI, tracePlayeInfos, configEd
 	
 	this.init = function()
 	{
-		this.loadBase();
-		this.reload();
+		if(this.div !== null)
+		{
+			this.loadBase();
+			this.reload();
+		}
 	}
 	
 	this.loadBase = function()

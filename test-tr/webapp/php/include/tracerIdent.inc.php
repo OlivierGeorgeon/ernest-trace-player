@@ -11,7 +11,13 @@ if(isset($_REQUEST['streamcookie'])
 	define('VIEW_DATA_DIR', DATA_DIR . '/view');
 	define('CONFIG_DATA_DIR', DATA_DIR . '/pipelines/config');
 	define('TEMP_DATA_DIR', DATA_DIR . '/temp');
+	
+	//fwrite(fopen("/tmp/tracerident.log", "a"), "Good one: " . $_REQUEST['streamcookie'] . "\n"); 
 }else{
+	ob_start();
+	echo "Non : " . BASE_DATA_DIR . '/' . $cookie;
+	var_dump($_REQUEST);
+	fwrite(fopen("/tmp/tracerident.log", "a"), ob_get_contents() . "\n"); 
 	http_send_status(401);
 	die();
 }

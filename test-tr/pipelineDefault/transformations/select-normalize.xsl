@@ -15,8 +15,9 @@
 			</xsl:for-each>
 		</deltas>
 	</xsl:template>
-
-	<xsl:template match="event[@source='Ernest']">
+	
+	<!-- For the example compat ; the condition could be removed -->
+	<xsl:template match="event[@source!='environment']">
 			<obsel id="{@id}-{$name}" date="{@date}" begin="{@date}" end="{@date}">
 				<xsl:copy-of select="@*[name() != 'id']" />
 				<!-- <xsl:copy-of select="*[not(@display = 'no')]" /> -->

@@ -31,8 +31,6 @@
 		
 		<!-- Lateral position of the shape. -->
 		<xsl:variable name="begin-position" select="0" />
-		<xsl:variable name="end-position"
-			select="$begin-position + number(@end) - number(@begin)" />
 		
 		<xsl:choose>
 			<xsl:when test="$obsel-type = 'action'">
@@ -45,7 +43,6 @@
 						<!-- [-32, -24) -->
 						<xsl:call-template name="draw-num-iter">
 							<xsl:with-param name="begin-position" select="$begin-position" />
-							<xsl:with-param name="end-position" select="$end-position" />
 							<xsl:with-param name="vertical-offset" select="-110" />
 						</xsl:call-template>
 					</g>
@@ -57,14 +54,12 @@
 	
 	<xsl:template name="draw-num-iter">
 		<xsl:param name="begin-position" />
-		<xsl:param name="end-position" />
 		<xsl:param name="vertical-offset" />
 		
 		<xsl:if test="number(@date) mod 10 = 0">
 			<xsl:call-template name="draw-shape">
 				<xsl:with-param name="vert-level" select="$vertical-offset" />
 				<xsl:with-param name="begin-position" select="$begin-position" />
-				<xsl:with-param name="end-position" select="$end-position" />
 				<xsl:with-param name="shape-type" select="'tick-sided-left'" />
 				<xsl:with-param name="text-value" select="clock" />
 				<xsl:with-param name="shape-color" select="'#000000'" />
@@ -87,7 +82,6 @@
                     <xsl:call-template name="draw-shape">
                               <xsl:with-param name="vert-level" select=" - current_observation/distance div 5 + 75" />
                               <xsl:with-param name="begin-position" select="0" />
-                              <xsl:with-param name="end-position" select="0" />
                               <xsl:with-param name="shape-type" select="'line'" />
                               <xsl:with-param name="shape-color" select="concat('#', current_observation/color)" />
                     </xsl:call-template>
@@ -105,14 +99,12 @@
               <!-- We want to lengthen the symbole, so we first have to delete the old one, before we draw a longer one -->
               <delete obsel-id="{$sym-state/@id}" />
               
-              <xsl:message><xsl:value-of select="$sym-state/@color" /></xsl:message>
               <!-- We draw the longer symbol, using the saved properties.  -->
               <add>
                 <g id="{$sym-state/@id}" obsel-id="{$sym-state/@obsel-id}" date="{$sym-state/@begin}" begin="{$sym-state/@begin}" end="{@date}" stroke="#000000">
                     <xsl:call-template name="draw-shape">
                               <xsl:with-param name="vert-level" select="$sym-state/@vert-level" />
                               <xsl:with-param name="begin-position" select="0" />
-                              <xsl:with-param name="end-position" select="0" />
                               <xsl:with-param name="shape-type" select="'line'" />
                               <xsl:with-param name="shape-color" select="$sym-state/@color" />
                     </xsl:call-template>
