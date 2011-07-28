@@ -120,15 +120,18 @@ function FileLister (divId, editorDivId, baseURL)
 							{
 								e.preventDefault();
 								
-								$.ajaxSetup({async:false});
-								$.post(
-									baseURL + "/php/edition/deleteFile.php", 
-									{name: this.getAttribute('name'),
-									 type: this.getAttribute('type')}
-								);
-								$.ajaxSetup({async:true});
-								
-								that.loadList();
+								if(confirm("Do you really want to delete that file ?"))
+								{
+									$.ajaxSetup({async:false});
+									$.post(
+										baseURL + "/php/edition/deleteFile.php", 
+										{name: this.getAttribute('name'),
+										 type: this.getAttribute('type')}
+									);
+									$.ajaxSetup({async:true});
+									
+									that.loadList();
+								}
 								
 								return false;
 							},

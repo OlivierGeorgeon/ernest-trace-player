@@ -374,7 +374,10 @@ function ConfigEditor(div_id, noticeDiv_id, baseURI)
 	
 	this.deleteSymbole = function(nothing, symboleElement)
 	{
-		$.post(baseURI + "/php/config/deleteSymbole.php", {id: symboleElement.attr("id")});
+		if(confirm("Do you really want to delete that symbole ?"))
+		{
+			$.post(baseURI + "/php/config/deleteSymbole.php", {id: symboleElement.attr("id")});
+		}
 	}
 	
 	this.copyLSymbole = function(nothing, symboleElement)

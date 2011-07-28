@@ -202,8 +202,12 @@ function StreamSelector(div_id, noticeDiv_id, baseURI, tracePlayeInfos, configEd
 
 	this.deleteStored = function(name, type)
 	{
-		$.post(baseURI + "/php/streamSelection/streamDelete.php", {traceId: name});
-		this.reload();
+
+		if(confirm("Do you really want to delete that trace ?"))
+		{
+			$.post(baseURI + "/php/streamSelection/streamDelete.php", {traceId: name});
+			this.reload();
+		}
 	}
 
 	this.downloadTrace = function(name)
