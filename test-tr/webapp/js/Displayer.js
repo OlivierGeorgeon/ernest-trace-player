@@ -20,7 +20,7 @@ function Displayer(svgTrace, defaultWidth, xWWidth, defaultScale, defaultCenter,
 		this.svgElement = this.divElement.ownerDocument.importNode(this.svgElement, true);
 		
 		this.divElement.appendChild(this.svgElement);
-
+		
 		//Add some margin to allow scrolling over the edge
 		this.svgElement.style.marginLeft = '1000px';
 		this.svgElement.style.marginRight = '1000px';
@@ -296,6 +296,7 @@ function Displayer(svgTrace, defaultWidth, xWWidth, defaultScale, defaultCenter,
 		if(this.svgElement !== null)
 		{
 			this.svgElement.height.baseVal.value =  width;
+			this.svgElement.style.height = "" + width + "px";
 			this.svgElement.viewBox.baseVal.height = width;
 			this.svgElement.viewBox.baseVal.y = 1- width/2;
 		}

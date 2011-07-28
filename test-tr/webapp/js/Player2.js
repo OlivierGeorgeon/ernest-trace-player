@@ -18,12 +18,14 @@ function Player2(playerDivElement, noticeDivElement, baseURI, svgTrace, defaultW
 	this.adjustUIWidth = function()
 	{
 		clearSVGNodeTRansformations(this.buttonsGroup);
-		translateSVGNode(this.buttonsGroup, 0, this.yWWidth*1+2);
+		translateSVGNode(this.buttonsGroup, 0, this.yWWidth*1-8);
+		var svgElt = this.uiDiv.getElementsByTagName('svg')[0];
 		
 		this.frameRect.height.baseVal.value = this.yWWidth*1+2;
-		this.uiDiv.getElementsByTagName('svg')[0].viewBox.baseVal.height = this.yWWidth*1 + 72;
-		this.uiDiv.getElementsByTagName('svg')[0].viewBox.baseVal.width = this.xWWidth;
-		this.uiDiv.getElementsByTagName('svg')[0].height.baseVal.value = this.yWWidth*1 + 72;
+		svgElt.viewBox.baseVal.height = this.yWWidth*1 + 72;
+		svgElt.viewBox.baseVal.width = this.xWWidth;
+		svgElt.height.baseVal.convertToSpecifiedUnits(SVGLength.SVG_LENGTHTYPE_PX);
+		svgElt.height.baseVal.value = this.yWWidth*1 + 72;
 	}
 	
 	/**

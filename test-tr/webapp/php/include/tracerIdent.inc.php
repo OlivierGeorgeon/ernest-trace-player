@@ -14,11 +14,11 @@ if(isset($_REQUEST['streamcookie'])
 	
 	//fwrite(fopen("/tmp/tracerident.log", "a"), "Good one: " . $_REQUEST['streamcookie'] . "\n"); 
 }else{
-	ob_start();
+	/*ob_start();
 	echo "Non : " . BASE_DATA_DIR . '/' . $cookie;
 	var_dump($_REQUEST);
-	fwrite(fopen("/tmp/tracerident.log", "a"), ob_get_contents() . "\n"); 
-	http_send_status(401);
+	fwrite(fopen("/tmp/tracerident.log", "a"), ob_get_contents() . "\n");*/ 
+	//http_send_status(401);
 	die();
 }
 

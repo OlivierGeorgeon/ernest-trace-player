@@ -77,7 +77,7 @@ $(document).ready(function()
 <title>Abstract Lite</title>
 </head>
 
-<body>
+<body style="margin: 0px; padding:0px;">
 	<?php /* ?><div style="display: inline-block;left: 0px; right: 0px; border: 1px solid gray; padding: 5px; margin: 1px 1px 1px 5px;"><?=$_SESSION['cookie']?></div><?php */ ?>
 	<!-- Trace display -->
 	<div id="my-player-thin-div" style="top: 0px; position: relative"></div>
