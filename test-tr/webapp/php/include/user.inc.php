@@ -32,7 +32,7 @@ function newUser($username, $password, $cookie = false)
 	$username = $db->escapeString($username);
 	$password = hashPassword($username, $password);
 	$cookie = $cookie !== false ? $cookie : getRandomString(30);
-	return @($db->exec("INSERT INTO users (username, password, cookie, creation_date, icanhasforms, icanhasedit, icanhasadmin) SELECT '$username', '$password', '$cookie', datetime('now'), 0, 0, CASE WHEN count(*) > 0 THEN 0 ELSE 1 END FROM users;"));
+	return @($db->exec("INSERT INTO users (username, password, cookie, creation_date, icanhasforms, icanhasedit, icanhasadmin) SELECT '$username', '$password', '$cookie', datetime('now'), 1, 0, CASE WHEN count(*) > 0 THEN 0 ELSE 1 END FROM users;"));
 	//return @($db->exec("INSERT INTO users VALUES('$username', '$password', '$cookie', datetime('now'), 0, 0, 0);"));
 }
 
