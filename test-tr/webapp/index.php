@@ -7,6 +7,7 @@ echo '<?xml version="1.0" encoding="utf-8"?>';
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 
 <head>
+<link rel="icon" href="images/favicon.ico" type="image/ico"/>	
 <link rel="stylesheet" type="text/css" href="css/conf.css" />
 
 <link rel="stylesheet" type="text/css" href="css/codemirror/codemirror.css" />

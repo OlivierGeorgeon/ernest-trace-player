@@ -1,47 +1,48 @@
 <html>
 <head>
-	<title>Howto install Abstract Lite</title>
+	<title>Abstract Lite Installation guide</title>
+	<link rel="icon" href="images/favicon.ico" type="image/ico"/>	
 	<style>
 		.screenshot { border: 2px solid #CCCCCC; }	
 		.code-sample { margin: 5px 0px; position: relative; display: table; border: 1px solid #CCCCCC; background-color: #EEEEEE; padding: 0 13px;}
-		h4 { margin-left: 2em; }
-		h3 { margin-left: 1em; }
+		h4 { margin-left: 1em; }
+		h3 { margin-left: 0em; }
 		h2 { margin-left: 0; }
 		h1 { margin-left: -1em; }
-		body { text-indent: 2em }
-		pre { text-indent: 0 }
+		body { margin-left: 2em;text-indent: 0em }
+		pre { text-indent: 2 }
 	</style>
 </head>
 <body>
 	<h2>Abstract Lite installation guide</h2>
 	
 	<h3>Prerequisites</h3>
-	<p>To run Abstract Lite, you will need :</p>
-	<ul>
-		<li> Apache and PHP5
-		<li> PHP5 xslt module (see <a href="http://fr2.php.net/manual/en/xsl.installation.php">the php manual entry</a>)
-		<li> PHP5 sqlite module (see <a href="http://fr2.php.net/manual/en/sqlite3.installation.php">the php manual entry</a>)
-	</ul>
 	
-	<h3>Checkout abstract code from SVN</h3>
-	<p>Check the sources from SVN using the command:</p>
+	<p>Abstract Lite Server requires an Apache server with PHP5, the XSLT module (see <a href="http://fr2.php.net/manual/en/xsl.installation.php">the php manual entry</a>)
+		and the SQLITE module (see <a href="http://fr2.php.net/manual/en/sqlite3.installation.php">the php manual entry</a>)</p>
+	
+	<h3>Checkout the Abstract project from the SVN repository</h3>
+	<p>In the console, use the command:</p>
 	<pre class="code-sample"> svn checkout http://ernest-trace-player.googlecode.com/svn/test-tr/ ernest-trace-player-read-only</pre>
 	
-	<h3>Remove SVN informations</h3>
-	<p>Remove the svn informations with:</p>
-	<pre class="code-sample">svn export ernest-trace-player-read-only ernest-trace-player-clean/
-# You can now delete the first directory:
-rm -rf ernest-trace-player-read-only</pre>
+	<h3>Remove the SVN data</h3>
+	<p>In the console, use the command:</p>
+	<pre class="code-sample">svn export ernest-trace-player-read-only ernest-trace-player-clean/</pre>
+	<p>Now, you can delete the initial checkout directory:<p>
+	<pre class="code-sample">rm -rf ernest-trace-player-read-only</pre>
 
 	<h3>Install the website</h3>
-	<p>Put the directory into its definitive place and configure the website:</p>
-	<pre class="code-sample">mv ernest-trace-player-clean/webapp /foo/bar/abstract_lite</pre>
+	<p>Move the directory to its final location. For example:</p>
+	<pre class="code-sample">mv ernest-trace-player-clean/webapp ~/Sites/abstract_lite</pre>
 	
-	<p>The apache configuration should look like: </p>
+	<p> Create an alias in your Apache server configuration
+	(In my Macbook Pro / Leopard, this is in the file /etc/apache2/users/Olivier.conf).</p>
 	<pre class="code-sample">
-Alias "/alite" "/foo/bar/abstract_lite"
-#(Or any other name, you don't have to use "alite")
-&lt;Directory "/foo/bar/abstract_lite"&gt;
+Alias "/alite" "~/Sites/abstract_lite"</pre>
+	
+	<p>Make sure you have the option AllowOverride All. If you don't, you will need the additional lines:</p>
+	<pre class="code-sample">
+&lt;Directory "~/Sites/abstract_lite"&gt;
 	Options Indexes FollowSymLinks MultiViews
 	AllowOverride All
 	Order allow,deny
@@ -49,18 +50,20 @@ Alias "/alite" "/foo/bar/abstract_lite"
 &lt;/Directory&gt;</pre>
 	
 	<h3>Configure and initialize the data directories</h3>
-	<p>You now have to configure where Abstract Lite will write its data. For this, edit the 'config.inc.php' file in the php/include dir (in our example, /foo/bar/abstract_lite/php/include/config.inc.php).
-	If you want the data to be saved in the '/boo/far/alite_data' directory, the file should look like:</p>
+	
+	<p>Now, you must configure the directory where Abstract Lite will write your data. 
+	Edit the 'config.inc.php' file in the webapp/php/include dir (in our example, ~/Sites/abstract_lite/webapp/php/include/config.inc.php).
+	If you want the data to be saved in the '~/Sites/alite_data' directory, the file looks like this:</p>
 	<pre class="code-sample">
 &lt;?php
-	// This is the *base* repertory (not the subdirs you will create next)
-	define('BASE_DATA_DIR', '/boo/far/alite_data');
+	// This is the *base* directory (not the subdirs you will create next)
+	define('BASE_DATA_DIR', '~/Sites/alite_data');
 	define('TRANSFO_PUB_DIR', BASE_DATA_DIR . '/pub');
 ?&gt;</pre>
 
-	<p>Now you have to create the said directory and its subdirectories. Just:</p>
+	<p>Create the data directory and its subdirectories:</p>
 	<pre class="code-sample">
-tpdir="/boo/far/alite_data"
+tpdir="~/Sites/alite_data"
 
 mkdir -p $tpdir/pub
 mkdir -p $tpdir/default/pipelines/config/__current__
@@ -68,7 +71,7 @@ mkdir -p $tpdir/default/pipelines/config/__temp__
 mkdir -p $tpdir/default/temp/states
 mkdir -p $tpdir/default/temp/streams</pre>
 
-	<p>Copy the default pipeline into it :</p>
+	<p>Copy the default pipeline into the appropriate pipeline directory:</p>
 	<pre class="code-sample">
 cp -fR ernest-trace-player-clean/samplePipeline/* $tpdir/default/pipelines/
 #OR if you want a more generic one (not tested yet):
@@ -78,17 +81,22 @@ cp -fR ernest-trace-player-clean/pipelineDefault/* $tpdir/default/pipelines/</pr
 	<pre class="code-sample">
 chmod -R 777 $tpdir</pre>
 
-	<h3>Create the first user</h3>
-	<p>At this point, no user exists on the system. The first user to register will automatically be granted with administration privileges.</p>
+	<h3>Open Abstract Lite and create the first user</h3>
+	<p>With Firefox or Chrome, open the url:</p>
+	<pre class="code-sample">http://&lt;my_server&gt;/alite/</pre>
+	<p>The first user to register will automatically be granted administration privileges.
+	In particular, the user that has administration privileges can grant other users the right to use XSL stylesheets (from the menu <i>admin</i>).</p>
+
+	<p>	You can now start using Abstract Lite as explained in the <a href="man.html">User Guide</a>.</p> 
+	
 	
 	<h3>The stream URL</h3>
-	<p>The URL to feed to the tracer would be of the form :</p>
+	<p>To generate a trace in real time, your agent must send the events to this URL:</p>
 	<pre class="code-sample">http://&lt;my_server&gt;/alite/php/stream/</pre>
-	<p>If you set the alias to "/alite" in the apache configuration file.</p>
-	<br />
 	<br />
 	<h3>Contact</h3>
-	<p>Mail <a href="mailto: ronot DOTT py AT gmail DOT com">me</a> for any question.</p>
+	<p>Please contact <a href="mailto: ronot DOTT py AT gmail DOT com">Pierre-Yves Ronot</a> and 
+	<a href="mailto: olivier DOTT georgeon AT liris DOT cnrs DOT fr">Olivier Georgeon</a> for any question.</p>
 
 </body>
 </html>

@@ -8,6 +8,7 @@ require_once 'include/user.inc.php';
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<title>My cookie</title>
+		<link rel="icon" href="../../images/favicon.ico" type="image/ico"/>	
 	</head>
 	<body style="text-align: center;">
 		<div align="center" style="display: inline-block; text-align: left; border: 1px solid gray; padding: 7px; padding-top: 2px; margin-top: 25%;">
