@@ -76,39 +76,40 @@
 		<p>You obtain the page in Figure 1.</p>
 		
 		<p style="text-align: center;">
-		<img class="screenshot" src="images/screen1.png" width="845" /><br/>
+		<img class="screenshot" src="images/figure1.png"  /><br/>
 		<i>Figure 1: Abstract-Lite client interface</i>
 		</p>
 
-		<p><FONT SIZE="+2">➀</font> The <i>Menu Panel</i> (top of the page) provides administrative commands.</p>
-		<p><FONT SIZE="+2">➁</font> The <i>Trace List Panel</i> (right side of the page) lets you select a trace from the list. 
+		<p>1. The <i>Menu Panel</i> (top of the page) provides administrative commands.</p>
+		<p>2. The <i>Trace List Panel</i> (right side of the page) lets you select a trace from the list. 
 		The trace list is initialized with a demo trace when your account is created. 
-		The trace list is then populated when you upload new traces or when your agent generates new traces via streaming. 
+		The trace list is further populated when you upload new traces or when your agent generates new traces via streaming. 
 		Check the <i>Always play last checkbox</i> to automatically display the last trace in the list.
 			
-		<p><FONT SIZE="+2">➂</font> The <i>Customization Panel</i> (central column) lets you manage your different <i>customizations</i>
+		<p>3. The <i>Customization Panel</i> (central column) lets you manage your different <i>customizations</i>
 		that specify how your traces are visualized.
 		A customization is a set of <i>visualization rules</i>.
 		In this panel, the <i>Save customization as</i> form lets you name your customizations and save them. 
 		The <i>Customization List</i> (empty here) lets you reload a customization.</p>	
 		
-		<p><FONT SIZE="+2">4</font> The <i>Visualization Rules Panel</i> (column on the left) lets you define your visualization rules. 
+		<p>4. The <i>Visualization Rules Panel</i> (column on the left) lets you define your visualization rules. 
 		A visualization rule is a rule that defines a graphical symbol to represent an aspect of an event.
 		In this panel, the <i>Instantaneous Symbol form</i> and the <i>Interval Symbol form</i> let you create new visualization rules as explained in Section 2.</p> 
 
 	<h3>2. Customize the trace visualization</h3>
 	
-		<p>Click on the demo trace in the trace list (panel ➁). This makes the player appear as shown in Figure 2.</p>
+		<p>Click on the demo trace in the trace list. This makes the player appear. 
+		In the player, click on the <i>Play</i> button to start playing the trace.
+		You obtain the demo trace visualization in Figure 2.</p>
 		
 		
 		<p style="text-align: center;">
-			<img class="screenshot" src="images/screen2.png" width="840.7" /><br />
+			<img class="screenshot" src="images/figure2.png" width="840.7" /><br />
 			<i>Figure 2: The trace player</i>
 		</p>
 		
-		<p>Click the <i>Play</i> button to start playing the trace.</p> 
-		<p>Click the <i>Pause</i> button to stop playing the trace. 
-		<p>Click the <i>plus</i> and <i>minus</i> buttons to zoom in and out over the horizontal axis, 
+		<p>Click the <i>Pause</i> button to stop playing the trace.</p> 
+		<p>Click the <i>plus</i> and <i>minus</i> buttons to zoom in and out over the horizontal axis.</p> 
 		<p>Click the <i>P</i> button to open a printable copy of the trace in a new window. Use your browser's print function to print the trace from this new window.</p>
 		
 		<p>You can drag the trace to the left or to the right with your mouse by clicking/dragging within the player area.</p> 
@@ -132,13 +133,13 @@
 			<p>On creation, your account was populated with a set of four demo visualization rules shown in Figure 3.</p>
 			
 			<p style="text-align: center;">
-				<img class="screenshot" src="images/screen11.png" /><br />
-				<i>Figure 3: Visualization rules</i>
+				<img class="screenshot" src="images/figure3.png" /><br />
+				<i>Figure 3: The demo visualization rules</i>
 			</p>
 
 			<p>Click on ⎘ (next to the rule identifier) to copy the fields of a specific rule to the symbol form. 
-			This feature is used to copy a rule. 
-			To modify a rule, just copy it, modify it, save the new version, and delete the previous version from the list.</p>
+			This feature is used to edit a rule. 
+			To modify a rule, just edit it, modify it, save the new version, and delete the previous version from the list.</p>
 			<p>Click on ✗ to delete a rule.</p>
 			<p>A new rule is saved and added to the list when you click on the <i>Send</i> button in the symbol form.</p>
 			
@@ -150,25 +151,27 @@
 			The first demo rule is responsible for drawing a green triangle pointing upward for each <i>turn left</i> event: </p>
 			
 			<p style="text-align: center;">
-				<img class="screenshot" src="images/screen4.png" /><br />
-				<i>Figure 4: Creation of the visualization rule  of turn left events.</i>
+				<img class="screenshot" src="images/figure4.png" /><br />
+				<i>Figure 4: Edition of the visualization rule  of turn left events.</i>
 			</p>
 			
 			<p>This rule specifies that the symbol 'up' (a triangle pointing up) should be drawn for each event whose <i>primitive_enacted_schema</i> field is equal to the string '^'.
 			This symbol should be drawn in green ('00EE00') and located 10 pixels above the centre of the player area.
 
-			<p>Similarly, the visualization rule in Figure 5 displays a green triangle pointing downward for each <i>turn right</i> event:</p>
+			<p>Similarly, the visualization rule in Figure 5 displays a green triangle pointing downward for each <i>turn right</i> event.
+			Figure 5 also shows the tooltip window that lists the different shapes available by default.</p> 
+			</p>
 
 			<p style="text-align: center;">
-				<img class="screenshot" src="images/screen6.png" /><br/>
-				<i>Figure 5: Creation of the visualization rule  of turn right events.</i>
+				<img class="screenshot" src="images/figure5.png" /><br/>
+				<i>Figure 5: Edition of the visualization rule  of turn right events.</i>
 			</p>
 
 			<p>The visualization rule in Figure 6 displays a blue triangle pointing frontward for each <i>move forward</i> event:</p>
 
 			<p style="text-align: center;">
-				<img class="screenshot" src="images/screen7.png" /><br />
-				<i>Figure 6: Creation of the visualization rule  of move forward events.</i>
+				<img class="screenshot" src="images/figure6.png" /><br />
+				<i>Figure 6: Edition of the visualization rule  of move forward events.</i>
 			</p>
 			
 			<p>Note that despite the term <i>instantaneous</i>, instantaneous symbols have a width that can be used to represent the event's duration 
@@ -184,8 +187,8 @@
 			These lines are positioned vertically according to the property 'current_observation/distance':</p>
 		
 			<p style="text-align: center;">
-				<img class="screenshot" src="images/screen9.png" /><br />
-				<i>Figure 7: Creation of the visualization rule of a duration symbol.</i>
+				<img class="screenshot" src="images/figure7.png" /><br />
+				<i>Figure 7: Edition of the visualization rule of an interval symbol.</i>
 			</p>
 		
 			<p>In the field <i>End condition</i> of this example, the variable <i>$last</i> represents the previous event in the trace.</p>
@@ -217,7 +220,7 @@
 			The Stylesheet panel lets you modify, download, and upload the stylesheets.</p>
 			
 			<p style="text-align: center;">
-				<img class="screenshot" src="images/screen8.png" /><br/>
+				<img class="screenshot" src="images/figure8.png" /><br/>
 				<i>Figure 8: The stylesheet panel.</i>
 			</p>
 			
