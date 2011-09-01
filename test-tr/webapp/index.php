@@ -93,7 +93,7 @@ $(document).ready(function()
 		&nbsp;&nbsp;&nbsp;&nbsp;<a href="php/session/getCookie.php">My cookie</a>
 	<?php if(ICANHASADMIN) {?>
 		&nbsp;&nbsp;&nbsp;&nbsp;<a href="php/admin.php">Admin</a><?}?>
-		&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://vm.liris.cnrs.fr:34080/abstract/lite/man.html">Help</a>
+		&nbsp;&nbsp;&nbsp;&nbsp;<a href="man.html">Help</a>
 	</div>
 	
 	<!-- Trace display -->
