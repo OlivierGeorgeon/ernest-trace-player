@@ -75,6 +75,7 @@ $(document).ready(function()
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Abstract Lite</title>
+<link rel="icon" href="images/favicon.ico" type="image/ico"/>	
 </head>
 
 <body style="margin: 0px; padding:0px;">

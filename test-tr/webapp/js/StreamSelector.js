@@ -203,7 +203,7 @@ function StreamSelector(div_id, noticeDiv_id, baseURI, tracePlayeInfos, configEd
 	this.deleteStored = function(name, type)
 	{
 
-		if(confirm("Do you really want to delete that trace ?"))
+		if(confirm("Do you want to delete the trace " + name + " ?"))
 		{
 			$.post(baseURI + "/php/streamSelection/streamDelete.php", {traceId: name});
 			this.reload();

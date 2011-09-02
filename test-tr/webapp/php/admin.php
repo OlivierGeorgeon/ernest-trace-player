@@ -9,7 +9,8 @@ require_once 'include/admin.inc.php';
 		<link rel="icon" href="images/favicon.ico" type="image/ico"/>	
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<title>Administration</title>
-		<script type="text/javascript" src="../js/lib/jquery-1.5.2.js"></script>
+		<link rel="icon" href="../images/favicon.ico" type="image/ico"/>	
+		<script type="text/javascript" src="../js/lib/jquery-1.6.2.min.js"></script>
 		<script type="text/javascript" src="../js/admin.js"></script>
 		<script type="text/javascript">
 			$(document).ready(onAdminReady);
