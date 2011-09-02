@@ -120,7 +120,7 @@ function FileLister (divId, editorDivId, baseURL)
 							{
 								e.preventDefault();
 								
-								if(confirm("Do you want to delete the file " + this.getAttribute('name') + " ?"))
+								if(confirm("Delete file " + this.getAttribute('name') + " ?"))
 								{
 									$.ajaxSetup({async:false});
 									$.post(

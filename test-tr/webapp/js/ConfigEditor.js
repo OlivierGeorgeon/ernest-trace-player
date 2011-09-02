@@ -374,7 +374,7 @@ function ConfigEditor(div_id, noticeDiv_id, baseURI)
 	
 	this.deleteSymbole = function(nothing, symboleElement)
 	{
-		if(confirm("Do you want to delete the visualization rule " + symboleElement.attr("id") + " ?"))
+		if(confirm("Delete Visualization Rule " + symboleElement.attr("id") + " ?"))
 		{
 			$.post(baseURI + "/php/config/deleteSymbole.php", {id: symboleElement.attr("id")});
 		}
