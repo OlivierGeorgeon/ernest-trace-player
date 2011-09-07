@@ -213,11 +213,11 @@
 			<p>XSL stylesheets offer a more flexible way of customizing your visualization than the visualization rules presented in Section 2.
 			By customizing your XML stylesheets, you have total freedom to specify how your trace is visualized.</p> 
 			
-			<p>On the Liris server, we, however, had to disable this feature by default because such freedom could open a security flaw. 
-			You can either use this feature with your Abstract Server installation, 
-			or don't hesitate to contact <a href="mailto: olivier DOT georgeon AT liris DOT cnrs DOT fr">Olivier</a> 
+			<p>We, however, had to disable this feature by default because such freedom could open a security flaw on the server. 
+			You can either use this feature on your own server, 
+			or don't hesitate to ask <a href="mailto: olivier DOT georgeon AT liris DOT cnrs DOT fr">Olivier</a> 
 			and <a href="mailto: ronot DOTT py AT gmail DOT com">Pierre-Yves</a> 
-			for being granted this feature in your account on the Liris server. 
+			for being granted this feature on the Liris server. 
 			</p>
 			<p>Once you are granted this feature, you see the <i>Stylesheet panel</i> in Figure 8. 
 			The Stylesheet panel lets you modify, download, and upload the stylesheets.</p>
@@ -631,28 +631,42 @@
 	
 		<p>Download the Abstract-Lite java package by following the <a href="install.html">installation procedure</a>.
 		This package provides the java tracer class that your agent can use to send events to Abstract-Lite. 
-		This java tracer class is located in the subdir java-tracer/ . 
-		A javadoc is available in <a href="java-tracer/tracer-doc/index.html">java-tracer/tracer-doc/index.html</a>.</p>
+		This java tracer class is located in the subdir <i>java-tracer/</i>. 
+		A javadoc is available in <i>java-tracer/tracer-doc/index.html</i> 
+		and <a href="http://ernest-trace-player.googlecode.com/svn/test-tr/java-tracer/tracer-doc/index.html">online</a>.</p>
 	
-		<p> Your agent must first instantiate the tracer with two parameters. 
+		<p> Your agent must first instantiate the tracer of type 
+		<a href ="http://ernest-trace-player.googlecode.com/svn/test-tr/java-tracer/tracer-doc/tracing/XMLStreamTracer.html">XMLStreamTracer</a>
+		with two parameters. 
 		The first parameter is the URL to which the events must be sent.
 		The second parameter is the <i>cookie value</i>.  The instantiation instruction looks like this:</p>
 		<pre class="code-sample">m_tracer = new XMLStreamTracer("http://vm.liris.cnrs.fr:34080/abstract/lite/php/stream/", "fjSmkmyvAKgByfDAfXuYGjAJLzrWrf");</pre>
 		
 		<p>Your agent can then generate events using the following methods:</p> 
 		
-		<p>(a) Generate an event with the <i>newEvent</i> method:</p>
-		<pre class="code-sample">m_tracer.newEvent(timestamp);</pre>
+		<p>(a) Generate an event with the 
+		<a href="http://ernest-trace-player.googlecode.com/svn/test-tr/java-tracer/tracer-doc/tracing/XMLStreamTracer.html#newEvent%28java.lang.String,%20java.lang.String,%20int%29">startNewEvent</a> 
+		method:</p>
+		<pre class="code-sample">m_tracer.startNewEvent(timestamp);</pre>
 		 
-		<p>(b) Populate the event with the <i>addEventElement</i> methods:</p>
-		<pre class="code-sample">Object element = m_tracer.addEventElement("label", "value");</pre>
+		<p>(b) Populate the event with the 
+		<a href="http://ernest-trace-player.googlecode.com/svn/test-tr/java-tracer/tracer-doc/tracing/XMLStreamTracer.html#addEventElement%28java.lang.String,%20java.lang.String%29">addEventElement</a>
+		method:</p>
+		<pre class="code-sample">Object element = m_tracer.addEventElement("label", "textValue");</pre>
 		 
-		<p>(c) If necessary, add any number of element sub-levels with the <i>addSubelement</i> methods:<p>
-		<pre class="code-sample">Object subElement = m_tracer.addSubelement(element, "label", "value");</pre>
+		<p>(c) If necessary, add any number of element sub-levels with the 
+		<a href="http://ernest-trace-player.googlecode.com/svn/test-tr/java-tracer/tracer-doc/tracing/XMLStreamTracer.html#addSubelement%28org.w3c.dom.Element,%20java.lang.String,%20java.lang.String%29">addSubelement</a> 
+		method:<p>
+		<pre class="code-sample">Object subElement = m_tracer.addSubelement(element, "label", "textValue");</pre>
 		 
-		<p>When the event is complete, the agent can finish it with the <i>finishEvent</i> method. Otherwise,  
-		an event will be automatically finished when the agent starts the next event:</p>
+		<p>(d) When the event is completed, the agent can finish it with the 
+		<a href="http://ernest-trace-player.googlecode.com/svn/test-tr/java-tracer/tracer-doc/tracing/XMLStreamTracer.html#finishEvent%28%29">finishEvent</a>
+		method. Otherwise, an event will be automatically finished when the agent starts the next event:</p>
 		<pre class="code-sample">m_tracer.finishEvent();</pre>
+		
+		<p>The agent can signal the end of the trace with the 
+		<a href="http://ernest-trace-player.googlecode.com/svn/test-tr/java-tracer/tracer-doc/tracing/XMLStreamTracer.html#close%28%29">close</a>
+		method.</p>
 		
 		<p>We recommend creating only one event for each timestamp, to facilitate the specification of the visualization rules.</p>
 
