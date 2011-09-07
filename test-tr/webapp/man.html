@@ -142,7 +142,8 @@
 			This feature is used to edit a rule. 
 			To modify a rule, just edit it, modify it, save the new version, and delete the previous version from the list.</p>
 			<p>Click on ✗ to delete a rule.</p>
-			<p>A new rule is saved and added to the list when you click on the <i>Send</i> button in the symbol form.</p>
+			<p>A new rule is saved and added to the list when you click on the <i>Send</i> button in the symbol form.
+			The player is also updated to reflect the new set of rules.</p>
 			
 				
 		<h4>Example of instantaneous symbols</h4>
@@ -181,9 +182,9 @@
 			
 		<h4>Example of interval symbols</h4>
 		
-			<p>An interval symbol is a symbol (a line) that represents the interval from a begin event to an end event.</p>
+			<p>An interval symbol is a symbol (e.g., a line) that represents the interval between a begin event and an end event.</p>
 		
-			<p>The <i>Interval Symbol form</i> works similarly as the <i>Instantaneous Symbol form</i>. 
+			<p>The <i>Interval Symbol form</i> works similarly to the <i>Instantaneous Symbol form</i>. 
 			For example, the fourth rule draws the lines that represent the interval during which the property 'current_observation/color' remains unchanged. 
 			These lines are positioned vertically according to the property 'current_observation/distance':</p>
 		
@@ -192,7 +193,8 @@
 				<i>Figure 7: Editing the visualization rule of an interval symbol.</i>
 			</p>
 		
-			<p>In the field <i>End condition</i> of this example, the variable <i>$last</i> represents the previous event in the trace.</p>
+			<p>In the field <i>End condition</i> of this example, the variable <i>$last</i> represents the previous event in the trace
+			(standard XPATH instruction).</p>
 		
 			<p>To facilitate the specification of the visualization rules, we have defined the additional function my:ifthenelse.</p>
 		
