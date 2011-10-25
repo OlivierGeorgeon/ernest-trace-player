@@ -33,6 +33,30 @@
 		{
 			padding-left: 0;
 		}
+		table.sample {
+			border-width: 1px;
+			border-spacing: 0px;
+			border-style: solid;
+			border-color: gray;
+			border-collapse: separate;
+			background-color: white;
+		}
+		table.sample th {
+			border-width: 0px;
+			padding: 2px;
+			border-style: solid;
+			border-color: gray;
+			background-color: white;
+			-moz-border-radius: ;
+		}
+		table.sample td {
+			border-width: 0px;
+			padding: 2px;
+			border-style: solid;
+			border-color: gray;
+			background-color: white;
+			-moz-border-radius: ;
+		}
 	</style>
 	
 	<script type="text/javascript" src="scripts/auto-toc.js"></script>
@@ -325,17 +349,59 @@
 </pre>
 
 			<h4>The default stylesheets</h4>
-				
-				<p>The default stylesheets compute the basic information needed by the player (<i>clock.xsl</i>), 
-				draw the timestamp ticks (<i>simpleSVG.xsl</i>), 
-				call the visualization rules,
-				and generate the graphical symbols (<i>BufferReconfigureTransformation.php</i> and <i>configSVG.xsl</i>).</p>
-				 
-				<p>The stylesheet <i>select-normalise.xsl</i> can be used to filter the incoming events 
-				(by default, it doesn't filter anything out).
-				The stylesheet <i>simpleSVG.xsl</i> also defines the shapes of the graphical symbols. 
-				The stylesheet <i>tooltip.xsl</i> defines the format of the data in the <i>Event Data box</i>.</p>
 			
+				<p>Table 2 summarizes the main stylesheets provided by default. 
+				
+				<p style="text-align: center;font-style:italic;">Table 2: The main default stylesheets.</p>
+				
+				<table class="sample">
+					<tr>
+						<td><b>Stylesheet</b></td>
+						<td><b>Description</b></td>
+						<td><b>Exemple</b></td>
+					</tr>
+					<tr>
+						<td>pipeline.xml</td>
+						<td>The pipeline.</td>
+						<td>&lt;graph-width&gt; the height of the trace player area.</td>
+					</tr>
+					<tr>
+						<td>clock.xsl</td>
+						<td>Compute the basic information needed by the player.</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>simpleSVG.xsl</td>
+						<td>Draw the various tapes in the trace.</td>
+						<td>The timestamp ticks.</td>
+					</tr>
+					<tr>
+						<td>BufferReconfigureTransformation.php</td>
+						<td>Call the visualization rules.</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>configSVG.xsl</td>
+						<td>Generate the graphical symbols and define their shapes.</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>select-normalise.xsl</td>
+						<td>Can be used to filter the incoming events </td>
+						<td>By default, it doesn't filter anything out.</td>
+					</tr>
+					<tr>
+						<td>tooltip.xsl</td>
+						<td>Define the format of the data in the <i>Event Data box</i>.</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>shapes.xsl</td>
+						<td>Define the shapes of the symbols.</td>
+						<td></td>
+					</tr>
+				</table>
+				
 			<h4>The drawing instructions</h4>
 			
 				<p>The pipeline generates instructions that are passed to the player. 
@@ -355,10 +421,10 @@
 				
 			<h4>Examples</h4>
 			
-				<p>Table 2 shows the demo <i>simpleXML.xsl</i> stylesheet. 
+				<p>Table 3 shows the demo <i>simpleXML.xsl</i> stylesheet. 
 				Notice the <i>include</i> instructions: in particular, <i>shapes.xsl</i> provides shape-drawing facilities in the form of the <i>draw-shape</i> template.</p>
 				
-				<p style="text-align: center;font-style:italic;">Table 2: The default <i>simpleXML.xsl</i> stylesheet.</p>
+				<p style="text-align: center;font-style:italic;">Table 3: The default <i>simpleXML.xsl</i> stylesheet.</p>
 				
 				<pre class="brush: xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;xsl:transform xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
@@ -457,9 +523,9 @@
 				
 				<p>Inside this &lt;g&gt; element, we find the template that will generate the effective SVG code to display. 
 				To generate this code, the <i>draw-num-iter</i> template calls <i>draw-shape</i>. 
-				The parameters taken by the <i>draw-shape</i> template are listed in Table 3.</p>
+				The parameters taken by the <i>draw-shape</i> template are listed in Table 4.</p>
 				
-				<p style="text-align: center;font-style:italic;">Table 3: The draw-shape parameters.</p>
+				<p style="text-align: center;font-style:italic;">Table 4: The draw-shape parameters.</p>
 				
 				<pre class="brush: xml">
 					&lt;xsl:template name="draw-shape"&gt;
@@ -497,9 +563,9 @@
 				If <i>current_observation/color</i> has changed, we must finish the previous obsel and create a new one.</p>
 				
 				<p>The first thing is to make our own drawing template and call it from the entry point. 
-				The call instruction is shown in Table 4</p>
+				The call instruction is shown in Table 5</p>
 				
-				<p style="text-align: center;font-style:italic;">Table 4: Calling the drawing template.</p>
+				<p style="text-align: center;font-style:italic;">Table 5: Calling the drawing template.</p>
 				
 				<pre class="brush: xml">
 					&lt;xsl:template match="obsel" mode="named-saves"&gt;
@@ -546,9 +612,9 @@
 						&lt;/xsl:choose&gt;
 					&lt;/xsl:template&gt;</pre>
 				
-				<p>The drawing template is shown in Table 5.</p>
+				<p>The drawing template is shown in Table 6.</p>
 				
-				<p style="text-align: center;font-style:italic;">Table 5: Exemple drawing template of an interval symbol.</p>
+				<p style="text-align: center;font-style:italic;">Table 6: Exemple drawing template of an interval symbol.</p>
 				
 				
 				<pre class="brush: xml">
