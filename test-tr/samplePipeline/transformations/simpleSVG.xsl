@@ -85,6 +85,15 @@
 							<xsl:with-param name="vertical-offset" select="-50" />
 						</xsl:call-template>
 					</g>
+					<g id="{@id}-v" obsel-id="{@id}" date="{@date}" stroke="#000000"
+						style="opacity: 1">
+						<xsl:call-template name="draw-bundle">
+							<xsl:with-param name="action-type" select="$action-type" />
+							<xsl:with-param name="begin-position" select="$begin-position" />
+							<xsl:with-param name="end-position" select="$end-position" />
+							<xsl:with-param name="vertical-offset" select="-80" />
+						</xsl:call-template>
+					</g>
 				</add>
 			</xsl:when>
 			<xsl:otherwise></xsl:otherwise>
@@ -505,6 +514,26 @@
 			</xsl:call-template>
 		</xsl:if>
 
+	</xsl:template>
+	
+	<xsl:template name="draw-bundle">
+		<xsl:param name="action-type" />
+		<xsl:param name="begin-position" />
+		<xsl:param name="end-position" />
+		<xsl:param name="vertical-offset" />
+
+		<xsl:if test="bundle">
+			<xsl:call-template name="draw-shape">
+				<xsl:with-param name="vert-level" select="$vertical-offset" />
+				<xsl:with-param name="begin-position" select="$begin-position" />
+				<xsl:with-param name="end-position" select="$end-position" />
+				<xsl:with-param name="shape-type" select="'bundle'" />
+				<xsl:with-param name="shape-color" select="concat('#', bundle/visual)" />
+				<xsl:with-param name="shape-color2" select="concat('#', bundle/gustatory)" />
+				<xsl:with-param name="shape-color3" select="concat('#', bundle/tactile)" />
+				<xsl:with-param name="shape-color4" select="concat('#', bundle/kinematic)" />
+			</xsl:call-template>
+		</xsl:if>
 	</xsl:template>
 
 </xsl:transform>
