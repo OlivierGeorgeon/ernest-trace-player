@@ -399,6 +399,106 @@
 						</xsl:call-template>
 					</polygon>
 				</xsl:when>
+				<!-- bundle -->
+				<xsl:when test="$shape-type='bundle'">
+                                  	<g fill="{$shape-color4}" stroke="none">
+                                              <polygon points="-8,4 4,4 4,8 -8,8">
+                                                      <xsl:call-template name="transform-shape">
+                                                              <xsl:with-param name="transform" select="$transform" />
+                                                              <xsl:with-param name="vert-level" select="$vert-level" />
+                                                              <xsl:with-param name="y-name" select="''" />
+                                                      </xsl:call-template>
+                                              </polygon>
+                                  	</g>  
+                                  	<g fill="{$shape-color3}" stroke="none">
+                                              <polygon points="-8,1 4,1 4,5 -8,5">
+                                                      <xsl:call-template name="transform-shape">
+                                                              <xsl:with-param name="transform" select="$transform" />
+                                                              <xsl:with-param name="vert-level" select="$vert-level" />
+                                                              <xsl:with-param name="y-name" select="''" />
+                                                      </xsl:call-template>
+                                              </polygon>
+                                  	</g>  
+                                  	<g fill="{$shape-color2}" stroke="none">
+                                              <polygon points="-8,-2 4,-2 4,2 -8,2">
+                                                      <xsl:call-template name="transform-shape">
+                                                              <xsl:with-param name="transform" select="$transform" />
+                                                              <xsl:with-param name="vert-level" select="$vert-level" />
+                                                              <xsl:with-param name="y-name" select="''" />
+                                                      </xsl:call-template>
+                                              </polygon>
+                                  	</g>  
+                                 	<g fill="{$shape-color}" stroke="none">
+                                              <polygon points="-8,-4 4,-4 4,-1 -8,-1">
+                                                      <xsl:call-template name="transform-shape">
+                                                              <xsl:with-param name="transform" select="$transform" />
+                                                              <xsl:with-param name="vert-level" select="$vert-level" />
+                                                              <xsl:with-param name="y-name" select="''" />
+                                                      </xsl:call-template>
+                                              </polygon>
+                                  	</g>  
+                                  	<g fill="{$shape-color4}" stroke="none">
+                                              <polygon points="9,-1 4,4 4,8 9,3">
+                                                      <xsl:call-template name="transform-shape">
+                                                              <xsl:with-param name="transform" select="$transform" />
+                                                              <xsl:with-param name="vert-level" select="$vert-level" />
+                                                              <xsl:with-param name="y-name" select="''" />
+                                                      </xsl:call-template>
+                                              </polygon>
+                                  	</g>  
+                                  	<g fill="{$shape-color3}" stroke="none">
+                                              <polygon points="9,-4 4,1 4,5 9,0">
+                                                      <xsl:call-template name="transform-shape">
+                                                              <xsl:with-param name="transform" select="$transform" />
+                                                              <xsl:with-param name="vert-level" select="$vert-level" />
+                                                              <xsl:with-param name="y-name" select="''" />
+                                                      </xsl:call-template>
+                                              </polygon>
+                                  	</g>  
+                                  	<g fill="{$shape-color2}" stroke="none">
+                                              <polygon points="9,-7 4,-2 4,2 9,-3">
+                                                      <xsl:call-template name="transform-shape">
+                                                              <xsl:with-param name="transform" select="$transform" />
+                                                              <xsl:with-param name="vert-level" select="$vert-level" />
+                                                              <xsl:with-param name="y-name" select="''" />
+                                                      </xsl:call-template>
+                                              </polygon>
+                                  	</g>  
+                                 	<g fill="{$shape-color}" stroke="none">
+                                              <polygon points="9,-9 4,-4 4,-1 9,-6">
+                                                      <xsl:call-template name="transform-shape">
+                                                              <xsl:with-param name="transform" select="$transform" />
+                                                              <xsl:with-param name="vert-level" select="$vert-level" />
+                                                              <xsl:with-param name="y-name" select="''" />
+                                                      </xsl:call-template>
+                                              </polygon>
+                                  	</g>  
+                                  	<g fill="none" stroke="#000000"  stroke-linejoin="round">
+						<polygon points="-8,-4 4,-4 4,8 -8,8">
+							<xsl:call-template name="transform-shape">
+								<xsl:with-param name="transform" select="$transform" />
+								<xsl:with-param name="vert-level" select="$vert-level" />
+								<xsl:with-param name="y-name" select="''" />
+							</xsl:call-template>
+						</polygon>
+						<polygon points="4,8 9,3 9,-9 4,-4">
+							<xsl:call-template name="transform-shape">
+								<xsl:with-param name="transform" select="$transform" />
+								<xsl:with-param name="vert-level" select="$vert-level" />
+								<xsl:with-param name="y-name" select="''" />
+							</xsl:call-template>
+						</polygon>
+					</g>
+              				<g fill="{$shape-color}" stroke="#000000" stroke-linejoin="round">
+						<polygon points="-8,-4 -3,-9 9,-9 4,-4">
+							<xsl:call-template name="transform-shape">
+								<xsl:with-param name="transform" select="$transform" />
+								<xsl:with-param name="vert-level" select="$vert-level" />
+								<xsl:with-param name="y-name" select="''" />
+							</xsl:call-template>
+						</polygon>
+                                  	</g>
+				</xsl:when>
 				<!-- circle -->
 				<xsl:when test="$shape-type='circle'">
 					<circle cx="{$begin-position}" r="4">

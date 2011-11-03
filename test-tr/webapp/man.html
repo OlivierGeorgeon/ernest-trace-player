@@ -34,7 +34,9 @@
 			padding-left: 0;
 		}
 		table.sample {
+			margin:0 auto; 
 			border-width: 1px;
+			border-right:0px;			
 			border-spacing: 0px;
 			border-style: solid;
 			border-color: gray;
@@ -43,14 +45,18 @@
 		}
 		table.sample th {
 			border-width: 0px;
+			border-bottom:1px;
+			border-right:1px;
 			padding: 2px;
 			border-style: solid;
 			border-color: gray;
 			background-color: white;
 			-moz-border-radius: ;
+			font-weight: bold; 
 		}
 		table.sample td {
 			border-width: 0px;
+			border-right:1px;
 			padding: 2px;
 			border-style: solid;
 			border-color: gray;
@@ -352,38 +358,38 @@
 			
 				<p>Table 2 summarizes the main stylesheets provided by default. 
 				
-				<p style="text-align: center;font-style:italic;">Table 2: The main default stylesheets.</p>
+				<p style="text-align: center;font-style:italic;">Table 2: The main stylesheets provided by default.</p>
 				
 				<table class="sample">
 					<tr>
-						<td><b>Stylesheet</b></td>
-						<td><b>Description</b></td>
-						<td><b>Exemple</b></td>
+						<th>Stylesheet</th>
+						<th>Description</th>
+						<th>Remarks</th>
 					</tr>
 					<tr>
 						<td>pipeline.xml</td>
-						<td>The pipeline.</td>
-						<td>&lt;graph-width&gt; the height of the trace player area.</td>
+						<td>The pipeline defines the order in which the stylesheets are processed.</td>
+						<td>&lt;graph-width&gt; defines the height of the trace player area.</td>
 					</tr>
 					<tr>
 						<td>clock.xsl</td>
 						<td>Compute the basic information needed by the player.</td>
-						<td></td>
+						<td>&nbsp;</td>
 					</tr>
 					<tr>
 						<td>simpleSVG.xsl</td>
 						<td>Draw the various tapes in the trace.</td>
-						<td>The timestamp ticks.</td>
+						<td>The visual field.</td>
 					</tr>
 					<tr>
 						<td>BufferReconfigureTransformation.php</td>
 						<td>Call the visualization rules.</td>
-						<td></td>
+						<td>&nbsp;</td>
 					</tr>
 					<tr>
 						<td>configSVG.xsl</td>
-						<td>Generate the graphical symbols and define their shapes.</td>
-						<td></td>
+						<td>Generate the graphical symbols.</td>
+						<td>&nbsp;</td>
 					</tr>
 					<tr>
 						<td>select-normalise.xsl</td>
@@ -393,12 +399,12 @@
 					<tr>
 						<td>tooltip.xsl</td>
 						<td>Define the format of the data in the <i>Event Data box</i>.</td>
-						<td></td>
+						<td>&nbsp;</td>
 					</tr>
 					<tr>
 						<td>shapes.xsl</td>
 						<td>Define the shapes of the symbols.</td>
-						<td></td>
+						<td>The time-stamps</td>
 					</tr>
 				</table>
 				
