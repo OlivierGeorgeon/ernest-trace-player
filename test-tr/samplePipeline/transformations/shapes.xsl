@@ -10,6 +10,9 @@
 		<xsl:param name="image-url" select="''" />
 		<xsl:param name="text-value" select="''" />
 		<xsl:param name="shape-color" select="''" />
+		<xsl:param name="shape-color2" select="''" />
+		<xsl:param name="shape-color3" select="''" />
+		<xsl:param name="shape-color4" select="''" />
 		<xsl:param name="height" select="'10'" />
 		<xsl:param name="transform" select="''" />
 		<!-- Creation of the shape itself -->
@@ -241,20 +244,20 @@
 					<g>
 						<xsl:call-template name="transform-shape">
 							<xsl:with-param name="transform" select="$transform" />
-							<xsl:with-param name="vert-level" select="$vert-level" />
+							<xsl:with-param name="vert-level" select="$vert-level + 15" />
 							<xsl:with-param name="y-name" select="''" />
 						</xsl:call-template>
 
-						<polyline>
+						<polyline  style="stroke:#DDDDDD;stroke-width:1pt">
 							<xsl:attribute name="points">
 								<xsl:value-of select="$begin-position" /><xsl:text>,</xsl:text>
-								<xsl:value-of select="- 25" /><xsl:text> </xsl:text>
+								<xsl:value-of select="5" /><xsl:text> </xsl:text>
 								<xsl:value-of select="$begin-position" /><xsl:text>,</xsl:text>
-								<xsl:value-of select="- 15" /><xsl:text> </xsl:text>
+								<xsl:value-of select="250" /><xsl:text> </xsl:text>
 							</xsl:attribute>
 						</polyline>
 						<text x="{$begin-position - 5}"
-							style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;stroke:none;font-family:Sans">
+							style="font-size:9px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;stroke:none;font-family:Sans">
 							<xsl:value-of select="$text-value" />
 						</text>
 					</g>
@@ -436,7 +439,7 @@
 						</xsl:call-template>
 					</circle>
 				</xsl:when>
-              	<!-- cube -->
+                          	<!-- cube -->
 				<xsl:when test="$shape-type='cube'">
 					<polygon points="-7,-3 3,-3 3,7 -7,7 -7,-3 -3,-7 7,-7 3,-3 3,7 7,3 7,-7 3,-3 ">
 						<xsl:call-template name="transform-shape">
