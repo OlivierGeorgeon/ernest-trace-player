@@ -79,20 +79,11 @@
 				</xsl:when>
 				<!-- bar up -->
 				<xsl:when test="$shape-type='bar-up'">
-					<rect x="-3" width="6" height="{$height}" stroke="none">
+					<rect x="0" width="1" height="{$height}" stroke="none">
 						<xsl:call-template name="transform-shape">
 							<xsl:with-param name="transform" select="$transform" />
 							<xsl:with-param name="vert-level" select="$vert-level" />
 							<xsl:with-param name="y" select="-$height" />
-						</xsl:call-template>
-					</rect>
-				</xsl:when>
-				<!-- bar down -->
-				<xsl:when test="$shape-type='bar-down'">
-					<rect x="-3" width="6" height="{$height}" stroke="none">
-						<xsl:call-template name="transform-shape">
-							<xsl:with-param name="transform" select="$transform" />
-							<xsl:with-param name="vert-level" select="$vert-level" />
 						</xsl:call-template>
 					</rect>
 				</xsl:when>
@@ -291,6 +282,29 @@
 								<xsl:value-of select="$text-value" />
 							</text>
 						</g>
+					</g>
+				</xsl:when>
+				<!-- Tick bottom -->
+				<xsl:when test="$shape-type='tick-bottom'">
+					<g>
+						<xsl:call-template name="transform-shape">
+							<xsl:with-param name="transform" select="$transform" />
+							<xsl:with-param name="vert-level" select="$vert-level + 15" />
+							<xsl:with-param name="y-name" select="''" />
+						</xsl:call-template>
+
+						<polyline  style="stroke:#DDDDDD;stroke-width:1pt">
+							<xsl:attribute name="points">
+								<xsl:value-of select="$begin-position" /><xsl:text>,</xsl:text>
+								<xsl:value-of select="0" /><xsl:text> </xsl:text>
+								<xsl:value-of select="$begin-position" /><xsl:text>,</xsl:text>
+								<xsl:value-of select="300" /><xsl:text> </xsl:text>
+							</xsl:attribute>
+						</polyline>
+						<text x="{$begin-position - 5}" y="310"
+							style="font-size:9px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;stroke:none;font-family:Sans">
+							<xsl:value-of select="$text-value" />
+						</text>
 					</g>
 				</xsl:when>
 				<!-- Strip -->
@@ -521,7 +535,7 @@
 				</xsl:when>
 				<!-- map -->
 				<xsl:when test="$shape-type='map'">
-				<g transform="scale(1,1.8)"  stroke-linejoin="round" stroke="none">
+				<g transform="scale(1,1)"  stroke-linejoin="round" stroke="none">
 					<g fill="{$shape-color0}" >
 						<xsl:attribute name="style">
 							<xsl:text>opacity:</xsl:text>
@@ -666,7 +680,7 @@
 							</xsl:call-template>
 						</polygon>
 					</g>  
-					<ellipse cx="0" cy="0" rx="7" ry="12" style="fill:none;stroke:gray;stroke-width:1">
+					<ellipse cx="0" cy="0" rx="6" ry="11" style="fill:none;stroke:gray;stroke-width:1">
 							<xsl:call-template name="transform-shape">
 								<xsl:with-param name="transform" select="$transform" />
 								<xsl:with-param name="vert-level" select="$vert-level" />

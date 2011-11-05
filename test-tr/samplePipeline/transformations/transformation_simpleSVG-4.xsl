@@ -30,68 +30,96 @@
 				<xsl:variable name="action-type" select="primitive_enacted_schema" />
 				<!-- We create the embedding group. -->
 				<add>
-					<g id="{@id}-ns" obsel-id="{@id}" date="{@date}" stroke="#000000">
+					<g id="{@id}-t" obsel-id="{@id}" date="{@date}" stroke="#000000">
 						<!-- [-32, -24) -->
 						<xsl:call-template name="draw-num-iter">
 							<xsl:with-param name="action-type" select="$action-type" />
 							<xsl:with-param name="begin-position" select="$begin-position" />
 							<xsl:with-param name="end-position" select="$end-position" />
-							<xsl:with-param name="vertical-offset" select="-155" />
+							<xsl:with-param name="vertical-offset" select="-170" />
 						</xsl:call-template>
 					</g>
-					<g id="{@id}-s" obsel-id="{@id}" date="{@date}" begin="{@date}"
+					<g id="{@id}-s1" obsel-id="{@id}" date="{@date}" begin="{@date}" end="{@date}" 
+                                  		stroke="none" style="opacity:1">
+						<!-- [+10, +50] -->
+						<xsl:call-template name="draw-tactile">
+							<xsl:with-param name="action-type" select="$action-type" />
+							<xsl:with-param name="begin-position" select="$begin-position" />
+							<xsl:with-param name="end-position" select="$end-position" />
+							<xsl:with-param name="vertical-offset" select="135" />
+						</xsl:call-template>
+					</g>
+					<g id="{@id}-s2" obsel-id="{@id}" date="{@date}" stroke="#000000"
+						style="opacity: 1">
+						<xsl:call-template name="draw-other-stimuli">
+							<xsl:with-param name="action-type" select="$action-type" />
+							<xsl:with-param name="begin-position" select="$begin-position" />
+							<xsl:with-param name="end-position" select="$end-position" />
+							<xsl:with-param name="vertical-offset" select="132" />
+						</xsl:call-template>
+					</g>
+					<g id="{@id}-s3" obsel-id="{@id}" date="{@date}" begin="{@date}"
 						end="{@date}" stroke-width="1pt" stroke="#000000">
 						<!-- [+10, +50] -->
 						<xsl:call-template name="draw-vision">
 							<xsl:with-param name="action-type" select="$action-type" />
 							<xsl:with-param name="begin-position" select="$begin-position" />
 							<xsl:with-param name="end-position" select="$end-position" />
-							<xsl:with-param name="vertical-offset" select="100" />
+							<xsl:with-param name="vertical-offset" select="105" />
 						</xsl:call-template>
 					</g>
-					<g id="{@id}-s2" obsel-id="{@id}" date="{@date}" stroke="#000000">
+					<g id="{@id}-s3" obsel-id="{@id}" date="{@date}" begin="{@date}"
+						end="{@date}" stroke-width="1pt" stroke="#000000">
 						<!-- [+10, +50] -->
-						<xsl:call-template name="draw-map2">
+						<xsl:call-template name="draw-cooccurrence">
 							<xsl:with-param name="action-type" select="$action-type" />
 							<xsl:with-param name="begin-position" select="$begin-position" />
 							<xsl:with-param name="end-position" select="$end-position" />
-							<xsl:with-param name="vertical-offset" select="25" />
+							<xsl:with-param name="vertical-offset" select="65" />
 						</xsl:call-template>
 					</g>
-					<g id="{@id}-ns2" obsel-id="{@id}" date="{@date}" stroke="#000000"
+					<g id="{@id}-i" obsel-id="{@id}" date="{@date}" stroke="#000000"
 						style="opacity: 1">
-						<xsl:call-template name="draw-primitive-feedback">
+						<xsl:call-template name="draw-interaction">
 							<xsl:with-param name="action-type" select="$action-type" />
 							<xsl:with-param name="begin-position" select="$begin-position" />
 							<xsl:with-param name="end-position" select="$end-position" />
-							<xsl:with-param name="vertical-offset" select="0" />
+							<xsl:with-param name="vertical-offset" select="20" />
 						</xsl:call-template>
 					</g>
-					<g id="{@id}-s3" obsel-id="{@id}" date="{@date}" stroke="#000000"
-						style="opacity: 1">
+					<g id="{@id}-s3" obsel-id="{@id}" date="{@date}" begin="{@date}" end="{@date}" 
+                                  		stroke="#FFFFFF" style="opacity: 1">
 						<xsl:call-template name="draw-satisfaction">
 							<xsl:with-param name="action-type" select="$action-type" />
 							<xsl:with-param name="begin-position" select="$begin-position" />
 							<xsl:with-param name="end-position" select="$end-position" />
-							<xsl:with-param name="vertical-offset" select="-50" />
+							<xsl:with-param name="vertical-offset" select="-40" />
 						</xsl:call-template>
 					</g>
-					<g id="{@id}-v" obsel-id="{@id}" date="{@date}" stroke="#000000"
+					<g id="{@id}-b" obsel-id="{@id}" date="{@date}" stroke="#000000"
 						style="opacity: 1">
 						<xsl:call-template name="draw-bundle">
 							<xsl:with-param name="action-type" select="$action-type" />
 							<xsl:with-param name="begin-position" select="$begin-position" />
 							<xsl:with-param name="end-position" select="$end-position" />
-							<xsl:with-param name="vertical-offset" select="-85" />
+							<xsl:with-param name="vertical-offset" select="-70" />
 						</xsl:call-template>
 					</g>
-					<g id="{@id}-s3" obsel-id="{@id}" date="{@date}" stroke="#000000"
-						style="opacity: 1">
+					<g id="{@id}-s4" obsel-id="{@id}" date="{@date}" begin="{@date}" end="{@date}" 
+                                  		stroke="#FFFFFF"  style="opacity: 1">
 						<xsl:call-template name="draw-attractiveness">
 							<xsl:with-param name="action-type" select="$action-type" />
 							<xsl:with-param name="begin-position" select="$begin-position" />
 							<xsl:with-param name="end-position" select="$end-position" />
-							<xsl:with-param name="vertical-offset" select="-120" />
+							<xsl:with-param name="vertical-offset" select="-105" />
+						</xsl:call-template>
+					</g>
+					<g id="{@id}-m" obsel-id="{@id}" date="{@date}" stroke="none" style="opacity:1">
+						<xsl:call-template name="draw-local-space">
+							<xsl:with-param name="action-type" select="$action-type" />
+							<xsl:with-param name="begin-position" select="$begin-position" />
+							<xsl:with-param name="end-position" select="$end-position" />
+							<xsl:with-param name="vertical-offset" select="-140" />
 						</xsl:call-template>
 					</g>
 				</add>
@@ -100,6 +128,7 @@
 		</xsl:choose>
 	</xsl:template>
 
+	<!-- The Template that draws the timestamps. -->
 	<xsl:template name="draw-num-iter">
 		<xsl:param name="action-type" />
 		<xsl:param name="begin-position" />
@@ -111,7 +140,7 @@
 				<xsl:with-param name="vert-level" select="$vertical-offset" />
 				<xsl:with-param name="begin-position" select="$begin-position" />
 				<xsl:with-param name="end-position" select="$end-position" />
-				<xsl:with-param name="shape-type" select="'tick'" />
+				<xsl:with-param name="shape-type" select="'tick-bottom'" />
 				<xsl:with-param name="text-value" select="clock" />
 				<xsl:with-param name="shape-color" select="'#000000'" />
 				<xsl:with-param name="height" select="'280'" />
@@ -119,6 +148,99 @@
 		</xsl:if>
 	</xsl:template>
 
+	<!-- The Template that draws the tactile stimuli. -->
+	<xsl:template name="draw-tactile">
+		<xsl:param name="action-type" />
+		<xsl:param name="begin-position" />
+		<xsl:param name="end-position" />
+		<xsl:param name="vertical-offset" />
+
+		<xsl:variable name="skewness">
+			<xsl:choose>
+				<xsl:when test="$action-type = '>'">
+					<xsl:text>0</xsl:text>
+				</xsl:when>
+				<xsl:when test="$action-type = '^'">
+					<xsl:text>70</xsl:text>
+				</xsl:when>
+				<xsl:when test="$action-type = 'v'">
+					<xsl:text>-70</xsl:text>
+				</xsl:when>
+				<xsl:otherwise>
+					0
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+
+		<xsl:variable name="vtrans">
+			<xsl:choose>
+				<xsl:when test="$action-type = '>'">
+					<xsl:text>0</xsl:text>
+				</xsl:when>
+				<xsl:when test="$action-type = '^'">
+					<xsl:text>-3</xsl:text>
+				</xsl:when>
+				<xsl:when test="$action-type = 'v'">
+					<xsl:text>3</xsl:text>
+				</xsl:when>
+				<xsl:otherwise>
+					0
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+
+		<g transform="skewY({$skewness}) translate(0, {$vtrans})">
+			<xsl:for-each select="tactile/child::node()">
+				<xsl:if test="starts-with(name(), 'touch')">
+
+					<xsl:variable name="pixel-num"
+						select="substring-after(name(), 'touch_')" />
+					<xsl:variable name="color" select="concat('#', .)" />
+					<xsl:variable name="voff" select="-$pixel-num*3" />
+
+					<xsl:call-template name="draw-shape">
+						<xsl:with-param name="vert-level" select="$vertical-offset+$voff" />
+						<xsl:with-param name="begin-position" select="$begin-position" />
+						<xsl:with-param name="end-position" select="$end-position" />
+						<xsl:with-param name="shape-type" select="'line-three'" />
+						<xsl:with-param name="shape-color" select="$color" />
+					</xsl:call-template>
+				</xsl:if>
+			</xsl:for-each>
+		</g>
+	</xsl:template>
+
+	<!-- The Template that draws the other stimuli. -->
+	<xsl:template name="draw-other-stimuli">
+		<xsl:param name="action-type" />
+		<xsl:param name="begin-position" />
+		<xsl:param name="end-position" />
+		<xsl:param name="vertical-offset" />
+
+		<xsl:if test="current_observation/gustatory = 'FFFF00'">
+			<xsl:call-template name="draw-shape">
+				<xsl:with-param name="vert-level" select="$vertical-offset - 5" />
+				<xsl:with-param name="begin-position" select="$begin-position" />
+				<xsl:with-param name="end-position" select="$end-position" />
+				<xsl:with-param name="shape-type" select="'circle'" />
+				<xsl:with-param name="transform" select="'scale(0.8,0.8)'" />
+				<xsl:with-param name="shape-color" select="'#FFFF00'" />
+			</xsl:call-template>
+		</xsl:if>
+		<xsl:if test="current_observation/kinematic = 'FF0000'">
+			<xsl:call-template name="draw-shape">
+				<xsl:with-param name="vert-level" select="$vertical-offset - 5" />
+				<xsl:with-param name="begin-position" select="$begin-position" />
+				<xsl:with-param name="end-position" select="$end-position" />
+				<xsl:with-param name="shape-type" select="'circle'" />
+				<xsl:with-param name="transform" select="'scale(0.8,0.8)'" />
+				<xsl:with-param name="shape-color" select="'#FF0000'" />
+			</xsl:call-template>
+		</xsl:if>
+
+	</xsl:template>
+
+        <!-- The Template that draws the visual stimuli. -->
 	<xsl:template name="draw-vision">
 		<xsl:param name="action-type" />
 		<xsl:param name="begin-position" />
@@ -181,60 +303,26 @@
 
 	</xsl:template>
 
-	<xsl:template name="draw-map">
+        <!-- The Template that draws the cooccurrences. -->
+	<xsl:template name="draw-cooccurrence">
 		<xsl:param name="action-type" />
 		<xsl:param name="begin-position" />
 		<xsl:param name="end-position" />
 		<xsl:param name="vertical-offset" />
 
-		<xsl:variable name="skewness">
-			<xsl:choose>
-				<xsl:when test="$action-type = '>'">
-					<xsl:text>0</xsl:text>
-				</xsl:when>
-				<xsl:when test="$action-type = '^'">
-					<xsl:text>70</xsl:text>
-				</xsl:when>
-				<xsl:when test="$action-type = 'v'">
-					<xsl:text>-70</xsl:text>
-				</xsl:when>
-				<xsl:otherwise>
-					0
-				</xsl:otherwise>
-			</xsl:choose>
-		</xsl:variable>
-
-		<xsl:variable name="vtrans">
-			<xsl:choose>
-				<xsl:when test="$action-type = '>'">
-					<xsl:text>0</xsl:text>
-				</xsl:when>
-				<xsl:when test="$action-type = '^'">
-					<xsl:text>-3</xsl:text>
-				</xsl:when>
-				<xsl:when test="$action-type = 'v'">
-					<xsl:text>3</xsl:text>
-				</xsl:when>
-				<xsl:otherwise>
-					0
-				</xsl:otherwise>
-			</xsl:choose>
-		</xsl:variable>
-
-		<g transform="skewY({$skewness}) translate(0, {$vtrans})">
-			<xsl:for-each select="local_space/child::node()">
-				<xsl:if test="starts-with(name(), 'position_')">
-
+		<g>
+			<xsl:for-each select="cooccurrence/child::node()">
+				<xsl:if test="starts-with(name(), 'stimulus')">
 					<xsl:variable name="pixel-num"
-						select="substring-after(name(), 'position_')" />
+						select="substring-after(name(), 'stimulus_')" />
 					<xsl:variable name="color" select="concat('#', .)" />
-					<xsl:variable name="voff" select="-$pixel-num*3" />
+					<xsl:variable name="voff" select="-$pixel-num*8" />
 
 					<xsl:call-template name="draw-shape">
 						<xsl:with-param name="vert-level" select="$vertical-offset+$voff" />
 						<xsl:with-param name="begin-position" select="$begin-position" />
 						<xsl:with-param name="end-position" select="$end-position" />
-						<xsl:with-param name="shape-type" select="'line-three'" />
+						<xsl:with-param name="shape-type" select="'fat-line'" />
 						<xsl:with-param name="shape-color" select="$color" />
 					</xsl:call-template>
 				</xsl:if>
@@ -243,7 +331,8 @@
 
 	</xsl:template>
 
-	<xsl:template name="draw-primitive-feedback">
+        <!-- The Template that draws the primitive interactions. -->
+	<xsl:template name="draw-interaction">
 		<xsl:param name="action-type" />
 		<xsl:param name="begin-position" />
 		<xsl:param name="end-position" />
@@ -320,27 +409,6 @@
 					select="concat('#', focus/salience)" />
 			</xsl:call-template>
 		</xsl:if>
-
-		<xsl:if test="current_observation/dynamic_feature = 'e'">
-			<xsl:call-template name="draw-shape">
-				<xsl:with-param name="vert-level" select="$vertical-offset - 5" />
-				<xsl:with-param name="begin-position" select="$begin-position" />
-				<xsl:with-param name="end-position" select="$end-position" />
-				<xsl:with-param name="shape-type" select="'circle'" />
-				<xsl:with-param name="transform" select="'scale(1,1.5)'" />
-				<xsl:with-param name="shape-color" select="concat('#', current_observation/gustatory)" />
-			</xsl:call-template>
-		</xsl:if>
-		<xsl:if test="current_observation/stimuli = 'w'">
-			<xsl:call-template name="draw-shape">
-				<xsl:with-param name="vert-level" select="$vertical-offset - 5" />
-				<xsl:with-param name="begin-position" select="$begin-position" />
-				<xsl:with-param name="end-position" select="$end-position" />
-				<xsl:with-param name="shape-type" select="'square-8'" />
-				<xsl:with-param name="shape-color" select="concat('#', current_observation/kinematic)" />
-			</xsl:call-template>
-		</xsl:if>
-
 	</xsl:template>
 	
 	<!-- Template to draw the satisfaction bargraph. -->
@@ -349,19 +417,16 @@
 		<xsl:param name="begin-position" />
 		<xsl:param name="end-position" />
 		<xsl:param name="vertical-offset" />
-
 		<xsl:if test="- current_observation/satisfaction > 0">
 			<xsl:call-template name="draw-shape">
 				<xsl:with-param name="vert-level" select="$vertical-offset" />
 				<xsl:with-param name="begin-position" select="$begin-position" />
 				<xsl:with-param name="end-position" select="$end-position" />
-				<xsl:with-param name="shape-type" select="'bar-down'" />
+				<xsl:with-param name="shape-type" select="'bar-up'" />
 				<xsl:with-param name="shape-color" select="'#F08080'" />
-				<xsl:with-param name="height"
-					select="- current_observation/satisfaction div 10" />
+                         	<xsl:with-param name="transform" select="concat('scale(1,', concat(current_observation/satisfaction div 100, ')'))" />
 			</xsl:call-template>
 		</xsl:if>
-
 		<xsl:if test="current_observation/satisfaction > 0">
 			<xsl:call-template name="draw-shape">
 				<xsl:with-param name="vert-level" select="$vertical-offset" />
@@ -369,8 +434,7 @@
 				<xsl:with-param name="end-position" select="$end-position" />
 				<xsl:with-param name="shape-type" select="'bar-up'" />
 				<xsl:with-param name="shape-color" select="'#00FF00'" />
-				<xsl:with-param name="height"
-					select="current_observation/satisfaction div 10" />
+                         	<xsl:with-param name="transform" select="concat('scale(1,', concat(current_observation/satisfaction div 100, ')'))" />
 			</xsl:call-template>
 		</xsl:if>
 
@@ -397,8 +461,8 @@
 		</xsl:if>
 	</xsl:template>
 	
-	<!-- Template to draw the map. -->
-	<xsl:template name="draw-map2">
+	<!-- Template that draws the local space map. -->
+	<xsl:template name="draw-local-space">
 		<xsl:param name="action-type" />
 		<xsl:param name="begin-position" />
 		<xsl:param name="end-position" />
