@@ -49,14 +49,13 @@
 							<xsl:with-param name="vertical-offset" select="100" />
 						</xsl:call-template>
 					</g>
-					<g id="{@id}-s2" obsel-id="{@id}" date="{@date}" begin="{@date}"
-						end="{@date}" stroke-width="1pt" stroke="#000000">
+					<g id="{@id}-s2" obsel-id="{@id}" date="{@date}" stroke="#000000">
 						<!-- [+10, +50] -->
-						<xsl:call-template name="draw-map">
+						<xsl:call-template name="draw-map2">
 							<xsl:with-param name="action-type" select="$action-type" />
 							<xsl:with-param name="begin-position" select="$begin-position" />
 							<xsl:with-param name="end-position" select="$end-position" />
-							<xsl:with-param name="vertical-offset" select="60" />
+							<xsl:with-param name="vertical-offset" select="25" />
 						</xsl:call-template>
 					</g>
 					<g id="{@id}-ns2" obsel-id="{@id}" date="{@date}" stroke="#000000"
@@ -83,7 +82,7 @@
 							<xsl:with-param name="action-type" select="$action-type" />
 							<xsl:with-param name="begin-position" select="$begin-position" />
 							<xsl:with-param name="end-position" select="$end-position" />
-							<xsl:with-param name="vertical-offset" select="-80" />
+							<xsl:with-param name="vertical-offset" select="-85" />
 						</xsl:call-template>
 					</g>
 					<g id="{@id}-s3" obsel-id="{@id}" date="{@date}" stroke="#000000"
@@ -98,80 +97,6 @@
 				</add>
 			</xsl:when>
 			<xsl:otherwise></xsl:otherwise>
-		</xsl:choose>
-	</xsl:template>
-
-	<!-- Template to draw the time to target lines. -->
-	<xsl:template match="new-ttt | lengthen-ttt | finished-ttt">
-		<xsl:param name="state" />
-		<xsl:variable name="ttt-state" select="$state/ttt" />
-
-		<xsl:choose>
-			<xsl:when test="name() = 'new-ttt'">
-
-				<xsl:variable name="new-ttt-state">
-					<ttt>
-						<ttt-interval begin="{@begin}" end="{@end}" color="{@color}"
-							ttt-value="{@ttt-value}" id="{@id}" />
-					</ttt>
-				</xsl:variable>
-
-
-				<save>
-					<xsl:copy-of select="$new-ttt-state" />
-				</save>
-				<add>
-					<!-- (-23, +5] -->
-					<xsl:call-template name="draw-ttt">
-						<xsl:with-param name="color" select="@color" />
-						<xsl:with-param name="ttt-value" select="@ttt-value" />
-						<xsl:with-param name="begin" select="@begin" />
-						<xsl:with-param name="end" select="@end" />
-						<xsl:with-param name="id" select="@id" />
-						<xsl:with-param name="vertical-offset" select="5" />
-					</xsl:call-template>
-				</add>
-			</xsl:when>
-
-			<xsl:when test="name() = 'lengthen-ttt'">
-				<xsl:variable name="new-end" select="." />
-				<xsl:variable name="new-ttt-state">
-					<ttt>
-						<ttt-interval begin="{$ttt-state/ttt-interval/@begin}"
-							end="{$new-end}" ttt-value="{$ttt-state/ttt-interval/@ttt-value}"
-							color="{$ttt-state/ttt-interval/@color}" id="{$ttt-state/ttt-interval/@id}" />
-					</ttt>
-				</xsl:variable>
-
-				<save>
-					<xsl:copy-of select="$new-ttt-state" />
-				</save>
-
-				<delete obsel-id="{@obsel-id}" />
-				<add>
-					<!-- (-23, +5] -->
-					<xsl:call-template name="draw-ttt">
-						<xsl:with-param name="color"
-							select="$ttt-state/ttt-interval/@color" />
-						<xsl:with-param name="ttt-value"
-							select="$ttt-state/ttt-interval/@ttt-value" />
-						<xsl:with-param name="begin"
-							select="$ttt-state/ttt-interval/@begin" />
-						<xsl:with-param name="end" select="$new-end" />
-						<xsl:with-param name="id" select="$ttt-state/ttt-interval/@id" />
-						<xsl:with-param name="vertical-offset" select="5" />
-					</xsl:call-template>
-				</add>
-			</xsl:when>
-
-			<xsl:when test="name() = 'finished-ttt'">
-			</xsl:when>
-
-			<xsl:otherwise>
-				<save>
-					<xsl:copy-of select="$ttt-state" />
-				</save>
-			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
 
@@ -318,45 +243,6 @@
 
 	</xsl:template>
 
-	<xsl:template name="draw-ttt">
-		<xsl:param name="color" />
-		<xsl:param name="begin" />
-		<xsl:param name="end" />
-		<xsl:param name="id" />
-		<xsl:param name="ttt-value" />
-		<xsl:param name="vertical-offset" />
-
-		<xsl:variable name="begin-position" select="0" />
-		<xsl:variable name="end-position"
-			select="$begin-position + number($end) - number($begin)" />
-
-		<g id="{$id}" date="{$begin}" begin="{$begin}" end="{$end}" stroke="#000000">
-			<xsl:variable name="vert-level">
-				<xsl:choose>
-					<xsl:when test="$ttt-value != 'Far'">
-						<xsl:value-of select="10 - ( $ttt-value * 0.18 )" />
-					</xsl:when>
-					<xsl:otherwise>
-						-10
-					</xsl:otherwise>
-				</xsl:choose>
-			</xsl:variable>
-
-			<xsl:variable name="shape-color">
-				<xsl:text>#</xsl:text>
-				<xsl:value-of select="$color" />
-			</xsl:variable>
-
-			<xsl:call-template name="draw-shape">
-				<xsl:with-param name="vert-level" select="$vert-level+$vertical-offset" />
-				<xsl:with-param name="begin-position" select="$begin-position" />
-				<xsl:with-param name="end-position" select="$end-position" />
-				<xsl:with-param name="shape-type" select="'thin-line'" />
-				<xsl:with-param name="shape-color" select="$shape-color" />
-			</xsl:call-template>
-		</g>
-	</xsl:template>
-
 	<xsl:template name="draw-primitive-feedback">
 		<xsl:param name="action-type" />
 		<xsl:param name="begin-position" />
@@ -366,7 +252,7 @@
 		<xsl:if
 			test="current_observation/dynamic_feature = '|-' or current_observation/dynamic_feature = '|_'">
 			<xsl:call-template name="draw-shape">
-				<xsl:with-param name="vert-level" select="$vertical-offset + 12" />
+				<xsl:with-param name="vert-level" select="$vertical-offset + 10" />
 				<xsl:with-param name="begin-position" select="$begin-position" />
 				<xsl:with-param name="end-position" select="$end-position" />
 				<xsl:with-param name="shape-type" select="'down'" />
@@ -378,7 +264,7 @@
 		<xsl:if
 			test="current_observation/dynamic_feature = '|+' or current_observation/dynamic_feature = '|*'">
 			<xsl:call-template name="draw-shape">
-				<xsl:with-param name="vert-level" select="$vertical-offset + 15" />
+				<xsl:with-param name="vert-level" select="$vertical-offset + 13" />
 				<xsl:with-param name="begin-position" select="$begin-position" />
 				<xsl:with-param name="end-position" select="$end-position" />
 				<xsl:with-param name="shape-type" select="'up'" />
@@ -390,7 +276,7 @@
 		<xsl:if
 			test="current_observation/dynamic_feature = '+|' or current_observation/dynamic_feature = '*|'">
 			<xsl:call-template name="draw-shape">
-				<xsl:with-param name="vert-level" select="$vertical-offset - 25" />
+				<xsl:with-param name="vert-level" select="$vertical-offset - 23" />
 				<xsl:with-param name="begin-position" select="$begin-position" />
 				<xsl:with-param name="end-position" select="$end-position" />
 				<xsl:with-param name="shape-type" select="'down'" />
@@ -402,7 +288,7 @@
 		<xsl:if
 			test="current_observation/dynamic_feature = '-|' or current_observation/dynamic_feature = '_|'">
 			<xsl:call-template name="draw-shape">
-				<xsl:with-param name="vert-level" select="$vertical-offset - 23" />
+				<xsl:with-param name="vert-level" select="$vertical-offset - 21" />
 				<xsl:with-param name="begin-position" select="$begin-position" />
 				<xsl:with-param name="end-position" select="$end-position" />
 				<xsl:with-param name="shape-type" select="'up'" />
@@ -490,6 +376,7 @@
 
 	</xsl:template>
 	
+	<!-- Template to draw the bundle construction. -->
 	<xsl:template name="draw-bundle">
 		<xsl:param name="action-type" />
 		<xsl:param name="begin-position" />
@@ -509,6 +396,33 @@
 			</xsl:call-template>
 		</xsl:if>
 	</xsl:template>
+	
+	<!-- Template to draw the map. -->
+	<xsl:template name="draw-map2">
+		<xsl:param name="action-type" />
+		<xsl:param name="begin-position" />
+		<xsl:param name="end-position" />
+		<xsl:param name="vertical-offset" />
+
+		<xsl:if test="local_space">
+			<xsl:call-template name="draw-shape">
+				<xsl:with-param name="vert-level" select="$vertical-offset" />
+				<xsl:with-param name="begin-position" select="$begin-position" />
+				<xsl:with-param name="end-position" select="$end-position" />
+				<xsl:with-param name="shape-type" select="'map'" />
+				<xsl:with-param name="shape-color0" select="concat('#', local_space/position_0)" />
+				<xsl:with-param name="shape-color1" select="concat('#', local_space/position_1)" />
+				<xsl:with-param name="shape-color2" select="concat('#', local_space/position_2)" />
+				<xsl:with-param name="shape-color3" select="concat('#', local_space/position_3)" />
+				<xsl:with-param name="shape-color4" select="concat('#', local_space/position_4)" />
+				<xsl:with-param name="shape-color5" select="concat('#', local_space/position_5)" />
+				<xsl:with-param name="shape-color6" select="concat('#', local_space/position_6)" />
+				<xsl:with-param name="shape-color7" select="concat('#', local_space/position_7)" />
+				<xsl:with-param name="shape-color8" select="concat('#', local_space/position_8)" />
+			</xsl:call-template>
+		</xsl:if>
+	</xsl:template>
+	
 	<!-- Template to draw the attractiveness bargraph. -->
 	<xsl:template name="draw-attractiveness">
 		<xsl:param name="action-type" />

@@ -10,9 +10,15 @@
 		<xsl:param name="image-url" select="''" />
 		<xsl:param name="text-value" select="''" />
 		<xsl:param name="shape-color" select="''" />
+		<xsl:param name="shape-color0" select="''" />
+		<xsl:param name="shape-color1" select="''" />
 		<xsl:param name="shape-color2" select="''" />
 		<xsl:param name="shape-color3" select="''" />
 		<xsl:param name="shape-color4" select="''" />
+		<xsl:param name="shape-color5" select="''" />
+		<xsl:param name="shape-color6" select="''" />
+		<xsl:param name="shape-color7" select="''" />
+		<xsl:param name="shape-color8" select="''" />
 		<xsl:param name="height" select="'10'" />
 		<xsl:param name="transform" select="''" />
 		<!-- Creation of the shape itself -->
@@ -439,7 +445,7 @@
 						</xsl:call-template>
 					</circle>
 				</xsl:when>
-                          	<!-- cube -->
+				<!-- cube -->
 				<xsl:when test="$shape-type='cube'">
 					<polygon points="-7,-3 3,-3 3,7 -7,7 -7,-3 -3,-7 7,-7 3,-3 3,7 7,3 7,-7 3,-3 ">
 						<xsl:call-template name="transform-shape">
@@ -511,6 +517,162 @@
 								<xsl:with-param name="y-name" select="''" />
 							</xsl:call-template>
 						</polygon>
+					</g>
+				</xsl:when>
+				<!-- map -->
+				<xsl:when test="$shape-type='map'">
+				<g transform="scale(1,1.8)"  stroke-linejoin="round" stroke="none">
+					<g fill="{$shape-color0}" >
+						<xsl:attribute name="style">
+							<xsl:text>opacity:</xsl:text>
+							<xsl:choose>
+								<xsl:when test="$shape-color0 = '#FFFFFF'"><xsl:text>.5</xsl:text></xsl:when>
+								<xsl:otherwise><xsl:text>1</xsl:text></xsl:otherwise>
+							</xsl:choose>
+						</xsl:attribute>
+						<polygon points="-6,4 -3,11 -1,3 -2,2">
+							<xsl:call-template name="transform-shape">
+								<xsl:with-param name="transform" select="$transform" />
+								<xsl:with-param name="vert-level" select="$vert-level" />
+								<xsl:with-param name="y-name" select="''" />
+							</xsl:call-template>
+						</polygon>
+					</g>  
+					<g fill="{$shape-color1}">
+						<xsl:attribute name="style">
+							<xsl:text>opacity:</xsl:text>
+							<xsl:choose>
+								<xsl:when test="$shape-color1 = '#FFFFFF'"><xsl:text>.5</xsl:text></xsl:when>
+								<xsl:otherwise><xsl:text>1</xsl:text></xsl:otherwise>
+							</xsl:choose>
+						</xsl:attribute>
+						<polygon points="-3,11 3,11 1,3 -1,3">
+							<xsl:call-template name="transform-shape">
+								<xsl:with-param name="transform" select="$transform" />
+								<xsl:with-param name="vert-level" select="$vert-level" />
+								<xsl:with-param name="y-name" select="''" />
+							</xsl:call-template>
+						</polygon>
+					</g>  
+					<g fill="{$shape-color2}">
+						<xsl:attribute name="style">
+							<xsl:text>opacity:</xsl:text>
+							<xsl:choose>
+								<xsl:when test="$shape-color2 = '#FFFFFF'"><xsl:text>.5</xsl:text></xsl:when>
+								<xsl:otherwise><xsl:text>1</xsl:text></xsl:otherwise>
+							</xsl:choose>
+						</xsl:attribute>
+						<polygon points="3,11 6,4 2,2 1,3">
+							<xsl:call-template name="transform-shape">
+								<xsl:with-param name="transform" select="$transform" />
+								<xsl:with-param name="vert-level" select="$vert-level" />
+								<xsl:with-param name="y-name" select="''" />
+							</xsl:call-template>
+						</polygon>
+					</g>  
+					<g fill="{$shape-color3}">
+						<xsl:attribute name="style">
+							<xsl:text>opacity:</xsl:text>
+							<xsl:choose>
+								<xsl:when test="$shape-color3 = '#FFFFFF'"><xsl:text>.5</xsl:text></xsl:when>
+								<xsl:otherwise><xsl:text>1</xsl:text></xsl:otherwise>
+							</xsl:choose>
+						</xsl:attribute>
+						<polygon points="6,4 6,-4 2,-2 2,2">
+							<xsl:call-template name="transform-shape">
+								<xsl:with-param name="transform" select="$transform" />
+								<xsl:with-param name="vert-level" select="$vert-level" />
+								<xsl:with-param name="y-name" select="''" />
+							</xsl:call-template>
+						</polygon>
+					</g>  
+					<g fill="{$shape-color4}">
+						<xsl:attribute name="style">
+							<xsl:text>opacity:</xsl:text>
+							<xsl:choose>
+								<xsl:when test="$shape-color4 = '#FFFFFF'"><xsl:text>.5</xsl:text></xsl:when>
+								<xsl:otherwise><xsl:text>1</xsl:text></xsl:otherwise>
+							</xsl:choose>
+						</xsl:attribute>
+						<polygon points="6,-4 3,-11 1,-3 2,-2">
+							<xsl:call-template name="transform-shape">
+								<xsl:with-param name="transform" select="$transform" />
+								<xsl:with-param name="vert-level" select="$vert-level" />
+								<xsl:with-param name="y-name" select="''" />
+							</xsl:call-template>
+						</polygon>
+					</g>  
+					<g fill="{$shape-color5}">
+						<xsl:attribute name="style">
+							<xsl:text>opacity:</xsl:text>
+							<xsl:choose>
+								<xsl:when test="$shape-color5 = '#FFFFFF'"><xsl:text>.5</xsl:text></xsl:when>
+								<xsl:otherwise><xsl:text>1</xsl:text></xsl:otherwise>
+							</xsl:choose>
+						</xsl:attribute>
+						<polygon points="3,-11 -3,-11 -1,-3 1,-3">
+							<xsl:call-template name="transform-shape">
+								<xsl:with-param name="transform" select="$transform" />
+								<xsl:with-param name="vert-level" select="$vert-level" />
+								<xsl:with-param name="y-name" select="''" />
+							</xsl:call-template>
+						</polygon>
+					</g>  
+					<g fill="{$shape-color6}">
+						<xsl:attribute name="style">
+							<xsl:text>opacity:</xsl:text>
+							<xsl:choose>
+								<xsl:when test="$shape-color6 = '#FFFFFF'"><xsl:text>.5</xsl:text></xsl:when>
+								<xsl:otherwise><xsl:text>1</xsl:text></xsl:otherwise>
+							</xsl:choose>
+						</xsl:attribute>
+						<polygon points="-3,-11 -6,-4 -2,-2 -1,-3">
+							<xsl:call-template name="transform-shape">
+								<xsl:with-param name="transform" select="$transform" />
+								<xsl:with-param name="vert-level" select="$vert-level" />
+								<xsl:with-param name="y-name" select="''" />
+							</xsl:call-template>
+						</polygon>
+					</g>  
+					<g fill="{$shape-color7}">
+						<xsl:attribute name="style">
+							<xsl:text>opacity:</xsl:text>
+							<xsl:choose>
+								<xsl:when test="$shape-color7 = '#FFFFFF'"><xsl:text>.5</xsl:text></xsl:when>
+								<xsl:otherwise><xsl:text>1</xsl:text></xsl:otherwise>
+							</xsl:choose>
+						</xsl:attribute>
+						<polygon points="-6,-4 -6,4 -2,2 -2,-2">
+							<xsl:call-template name="transform-shape">
+								<xsl:with-param name="transform" select="$transform" />
+								<xsl:with-param name="vert-level" select="$vert-level" />
+								<xsl:with-param name="y-name" select="''" />
+							</xsl:call-template>
+						</polygon>
+					</g>  
+					<g fill="{$shape-color8}">
+						<xsl:attribute name="style">
+							<xsl:text>opacity:</xsl:text>
+							<xsl:choose>
+								<xsl:when test="$shape-color8 = '#FFFFFF'"><xsl:text>.5</xsl:text></xsl:when>
+								<xsl:otherwise><xsl:text>1</xsl:text></xsl:otherwise>
+							</xsl:choose>
+						</xsl:attribute>
+						<polygon points="-2,2 -1,3 1,3 2,2 2,-2 1,-3 -1,-3 -2,-2">
+							<xsl:call-template name="transform-shape">
+								<xsl:with-param name="transform" select="$transform" />
+								<xsl:with-param name="vert-level" select="$vert-level" />
+								<xsl:with-param name="y-name" select="''" />
+							</xsl:call-template>
+						</polygon>
+					</g>  
+					<ellipse cx="0" cy="0" rx="7" ry="12" style="fill:none;stroke:gray;stroke-width:1">
+							<xsl:call-template name="transform-shape">
+								<xsl:with-param name="transform" select="$transform" />
+								<xsl:with-param name="vert-level" select="$vert-level" />
+								<xsl:with-param name="y-name" select="''" />
+							</xsl:call-template>
+					</ellipse>
 					</g>
 				</xsl:when>
 				<xsl:otherwise>
