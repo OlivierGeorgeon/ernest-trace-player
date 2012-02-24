@@ -238,6 +238,34 @@
 			
 				<p>You can now upload your own trace and start customizing its visualization (using "Upload a trace" in the Trace list).</p> 
 				
+		<h4>Trace file format</h4>
+		
+			<p>Your trace file should at least have the tags &lt;trace id=""&gt; &lt;slice date = ""&gt; &lt;event date="" source=""&gt; and &lt;clock&gt;. 
+			The events with the same date should be grouped within the same tag &lt;slice&gt;. Table 1 gives an example of a minimal file.</p>
+			
+				<p style="text-align: center;font-style:italic;">Table 1: Example trace file.</p>
+
+						<pre class="brush: xml">&lt;trace id="1"&gt;
+	&lt;slice date = "1"&gt;
+		&lt;event date="1" source="source1"&gt;
+			&lt;clock&gt;1&lt;/clock&gt;
+			&lt;type&gt;foo1&lt;/type&gt;
+		&lt;/event&gt;
+		&lt;event date="1" source="source2"&gt;
+			&lt;clock&gt;1&lt;/clock&gt;
+			&lt;type&gt;foo1&lt;/type&gt;
+		&lt;/event&gt;
+	&lt;/slice&gt;
+	&lt;slice date = "2"&gt;
+		&lt;event date="2" source="source1"&gt;
+			&lt;clock&gt;2&lt;/clock&gt;
+			&lt;type&gt;foo2&lt;/type&gt;
+		&lt;/event&gt;
+	&lt;/slice&gt;
+&lt;/trace&gt;
+</pre>
+			
+				
 		<h3>3. Customization with XSL Stylesheets</h3>
 		
 			<p>XSL stylesheets offer a more flexible way of customizing your visualization than the visualization rules presented in Section 2.
@@ -277,7 +305,7 @@
 				and <i>__config__</i> that defines events coming from the user interface. 
 				The <i>output</i> element at the end of the pipeline file defines the output of the pipeline.</p>
 				
-				<p style="text-align: center;font-style:italic;">Table 1: The default file pipeline.xml.</p>
+				<p style="text-align: center;font-style:italic;">Table 2: The default file pipeline.xml.</p>
 				
 			<pre class="brush: xml">&lt;pipeline&gt;
 	&lt;default-scale&gt;6.666666&lt;/default-scale&gt;
@@ -356,9 +384,9 @@
 
 			<h4>The default stylesheets</h4>
 			
-				<p>Table 2 summarizes the main stylesheets provided by default. 
+				<p>Table 3 summarizes the main stylesheets provided by default. 
 				
-				<p style="text-align: center;font-style:italic;">Table 2: The main stylesheets provided by default.</p>
+				<p style="text-align: center;font-style:italic;">Table 3: The main stylesheets provided by default.</p>
 				
 				<table class="sample">
 					<tr>
@@ -427,10 +455,10 @@
 				
 			<h4>Examples</h4>
 			
-				<p>Table 3 shows the demo <i>simpleXML.xsl</i> stylesheet. 
+				<p>Table 4 shows the demo <i>simpleXML.xsl</i> stylesheet. 
 				Notice the <i>include</i> instructions: in particular, <i>shapes.xsl</i> provides shape-drawing facilities in the form of the <i>draw-shape</i> template.</p>
 				
-				<p style="text-align: center;font-style:italic;">Table 3: The default <i>simpleXML.xsl</i> stylesheet.</p>
+				<p style="text-align: center;font-style:italic;">Table 4: The default <i>simpleXML.xsl</i> stylesheet.</p>
 				
 				<pre class="brush: xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;xsl:transform xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
@@ -529,9 +557,9 @@
 				
 				<p>Inside this &lt;g&gt; element, we find the template that will generate the effective SVG code to display. 
 				To generate this code, the <i>draw-num-iter</i> template calls <i>draw-shape</i>. 
-				The parameters taken by the <i>draw-shape</i> template are listed in Table 4.</p>
+				The parameters taken by the <i>draw-shape</i> template are listed in Table 5.</p>
 				
-				<p style="text-align: center;font-style:italic;">Table 4: The draw-shape parameters.</p>
+				<p style="text-align: center;font-style:italic;">Table 5: The draw-shape parameters.</p>
 				
 				<pre class="brush: xml">
 					&lt;xsl:template name="draw-shape"&gt;
@@ -569,9 +597,9 @@
 				If <i>current_observation/color</i> has changed, we must finish the previous obsel and create a new one.</p>
 				
 				<p>The first thing is to make our own drawing template and call it from the entry point. 
-				The call instruction is shown in Table 5</p>
+				The call instruction is shown in Table 6</p>
 				
-				<p style="text-align: center;font-style:italic;">Table 5: Calling the drawing template.</p>
+				<p style="text-align: center;font-style:italic;">Table 6: Calling the drawing template.</p>
 				
 				<pre class="brush: xml">
 					&lt;xsl:template match="obsel" mode="named-saves"&gt;
@@ -618,9 +646,9 @@
 						&lt;/xsl:choose&gt;
 					&lt;/xsl:template&gt;</pre>
 				
-				<p>The drawing template is shown in Table 6.</p>
+				<p>The drawing template is shown in Table 7.</p>
 				
-				<p style="text-align: center;font-style:italic;">Table 6: Exemple drawing template of an interval symbol.</p>
+				<p style="text-align: center;font-style:italic;">Table 7: Exemple drawing template of an interval symbol.</p>
 				
 				
 				<pre class="brush: xml">
