@@ -59,7 +59,7 @@ function getUserInfos($username, $password)
 	return $userInfos;
 }
 
-function getAllUsersInfos($limit = 30, $offset = 0)
+function getAllUsersInfos($limit = 200, $offset = 0)
 {
 	$db = getUserDB();
 	$userInfos = @($db->query("SELECT * FROM users ORDER BY ROWID LIMIT $limit OFFSET $offset;"));
