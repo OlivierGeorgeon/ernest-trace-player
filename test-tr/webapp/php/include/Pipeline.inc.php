@@ -191,3 +191,5 @@ class Pipeline
 	protected $deltas_element;
 
 }
+
+?>

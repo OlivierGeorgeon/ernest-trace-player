@@ -50,3 +50,5 @@ class XSLTTransformation extends Transformation
 	protected $xsltProc;
 	protected $xsltFilename;
 };
+
+?>

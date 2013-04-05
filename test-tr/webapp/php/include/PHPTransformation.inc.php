@@ -93,3 +93,5 @@ abstract class PHPTransformation extends Transformation
 	protected $xsltFilename;
 	protected $state;
 };
+
+?>
