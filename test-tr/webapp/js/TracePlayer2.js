@@ -90,11 +90,13 @@ function TracePlayer2(div_id, noticeDiv_id, pipeline, traceHandler, traceRef, tr
 		this.player.onClickPrint = parametrizeCallback(function()
 			{
 				docToPrint = this.player.exportView();
-				var win = window.open('html/void.xhtml', 'print-popup', 'width=1000px, height='+this.yWWidth+'px');
-				//var win = window.open('html/printTemplate.svg', 'print-popup', 'width=1000px, height='+this.yWWidth+'px');
-				win.onload = parametrizeCallback(function(e, win){
-					win.document.body.appendChild(docToPrint);
-				}, {scope: this, args: [win]});
+				//window.open("data:image/svg+xml;charset=utf-8," + encodeURIComponent(($("div[title='graph-div']").html()) ));
+				tmp = document.createElement("div");
+				tmp.appendChild(docToPrint);
+				window.open("data:image/svg+xml;charset=utf-8," + encodeURIComponent(tmp.innerHTML) );
+				//var win = window.open('html/void.xhtml', 'print-popup', 'width=1000px, height='+this.yWWidth+'px');
+				//win.onload = parametrizeCallback(function(e, win){win.document.body.appendChild(docToPrint);
+				//}, {scope: this, args: [win]});
 			}, {scope: this}
 		);	
 
