@@ -22,8 +22,8 @@ function Player2(playerDivElement, noticeDivElement, baseURI, svgTrace, defaultW
 		var svgElt = this.uiDiv.getElementsByTagName('svg')[0];
 		
 		this.frameRect.height.baseVal.value = this.yWWidth*1+2;
-		svgElt.viewBox.baseVal.height = this.yWWidth*1 + 72;
-		svgElt.viewBox.baseVal.width = this.xWWidth;
+		//svgElt.viewBox.baseVal.height = this.yWWidth*1 + 72;
+		//svgElt.viewBox.baseVal.width = this.xWWidth;
 		svgElt.height.baseVal.convertToSpecifiedUnits(SVGLength.SVG_LENGTHTYPE_PX);
 		svgElt.height.baseVal.value = this.yWWidth*1 + 72;
 	}
