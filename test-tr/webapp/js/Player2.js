@@ -24,8 +24,10 @@ function Player2(playerDivElement, noticeDivElement, baseURI, svgTrace, defaultW
 		this.frameRect.height.baseVal.value = this.yWWidth*1+2;
 		//svgElt.viewBox.baseVal.height = this.yWWidth*1 + 72;
 		//svgElt.viewBox.baseVal.width = this.xWWidth;
-		svgElt.height.baseVal.convertToSpecifiedUnits(SVGLength.SVG_LENGTHTYPE_PX);
-		svgElt.height.baseVal.value = this.yWWidth*1 + 72;
+
+		svgElt.height.baseVal.newValueSpecifiedUnits(SVGLength.SVG_LENGTHTYPE_PX,this.yWWidth*1 + 72)
+		//svgElt.height.baseVal.convertToSpecifiedUnits(SVGLength.SVG_LENGTHTYPE_PX);
+		//svgElt.height.baseVal.value = this.yWWidth*1 + 72;
 	}
 	
 	/**
