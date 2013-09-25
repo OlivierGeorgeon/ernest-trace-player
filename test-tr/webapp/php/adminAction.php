@@ -11,10 +11,12 @@ if(isset($_REQUEST['action']))
 {
 	if ($_REQUEST['action'] === 'deleteuser')
 	{
-		if(deleteUser($_REQUEST['username']))
-			echo 'OK';
+		//echo deleteUser($_REQUEST['username']);
+		$username = $_REQUEST['username'];
+		if(deleteUser($username))
+			echo 'User ' . $username . ' deleted.';
 		else{
-			echo 'Failed, for some reason... (SQLite said : '. getUserDB()->lastErrorMsg() . ')';
+			echo 'Failed to delete '. $username . ' (SQLite said : '. getUserDB()->lastErrorMsg() . ')';
 		}
 	}elseif ($_REQUEST['action'] === 'setuserrights')
 	{

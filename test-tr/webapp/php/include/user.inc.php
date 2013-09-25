@@ -40,6 +40,18 @@ function deleteUser($username)
 {
 	$db = getUserDB();
 	$username = $db->escapeString($username);
+	
+	// Delete user data 
+	$userCookie = ($db->querySingle("SELECT cookie FROM users WHERE username='$username';", true));
+	unlink(BASE_DATA_DIR . '/' . $userCookie['cookie'] .'/trace_fragments.db');
+
+	//rmdir(BASE_DATA_DIR . '/' . $userCookie['cookie'] . '/pipelines/config/__current__');
+	//rmdir(BASE_DATA_DIR . '/' . $userCookie['cookie'] . '/pipelines/config/__temp__');
+	//rmdir(BASE_DATA_DIR . '/' . $userCookie['cookie'] . '/pipelines/config');
+	//unlink(BASE_DATA_DIR . '/' . $userCookie['cookie'] .'/pipeline.xml');
+	
+	//return BASE_DATA_DIR . '/' . $userCookie['cookie'];
+	
 	return @($db->exec("DELETE FROM users WHERE username='$username';"));
 }
 
