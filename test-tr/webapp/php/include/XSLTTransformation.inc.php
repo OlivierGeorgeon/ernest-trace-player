@@ -36,7 +36,7 @@ class XSLTTransformation extends Transformation
 		{
 			$this->xsltProc = new XSLTProcessor();
 			
-			//$this->xsltProc->setSecurityPrefs(0); // Olivier Georgeon. 
+			//$this->xsltProc->setSecurityPrefs(0); // Olivier Georgeon for PHP5.4
 				
 			$doc = new DOMDocument;
 			$doc->load($this->xsltFilename);

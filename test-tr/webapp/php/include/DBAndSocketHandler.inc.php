@@ -28,7 +28,7 @@ class DBAndSocketHandler implements TraceHandler
 	{
 		$this->traces[] = &$trace;
 		$this->oldDataTraces[] = &$trace;
-		$this->servers[] = &$trace->getServer();
+		$this->servers[] = $trace->getServer(); // & removed to fix the warning Only variables should be assigned by reference
 	}
 
 	/*
