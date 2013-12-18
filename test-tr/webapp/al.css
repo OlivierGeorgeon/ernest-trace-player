@@ -1,0 +1,29 @@
+					
+div.note        {
+	background-color:LightYellow; 
+    padding: 0.5em 1em 0.5em 1em;
+    border: 1px solid Navy;
+}
+					
+h1 {
+    color: Black;
+    clear: left;
+    margin: 0;
+    padding-top: 0.5em;
+    border-bottom: 1px solid #8CACBB;
+}
+
+div.pathBar {
+    /* The path bar, including breadcrumbs and add to favorites */
+    border-bottom-color: #8CACBB;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    padding-left: 0em;
+    padding-right: 0em;
+	margin-bottom:2em;
+}
+
+.breadcrumbs {
+    float: left;
+    text-transform: lowercase;
+}

@@ -1,0 +1,15 @@
+<trace id="minimal">
+    <slice date = "1">
+        <event date="1">
+            <type>foo1</type>
+        </event>
+        <event date="1">
+            <type>foo2</type>
+        </event>
+    </slice>
+    <slice date = "2">
+        <event date="2">
+            <type>foo1</type>
+        </event>
+    </slice>
+</trace>

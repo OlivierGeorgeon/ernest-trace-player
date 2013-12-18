@@ -482,6 +482,8 @@ class BufferReconfigureTransformation extends PHPTransformation
 		if($this->xsltProc == null)
 		{
 			$this->xsltProc = new XSLTProcessor();
+			
+			//$this->xsltProc->setSecurityPrefs(0); // Olivier Georgeon for PHP5.4 
 				
 			$doc = new DOMDocument;
 			$doc->load("detect-lsymbole.xsl");
