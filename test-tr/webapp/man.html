@@ -121,7 +121,7 @@
 		<p>You obtain the page in Figure 1.</p>
 		
 		<p style="text-align: center;">
-		<img class="screenshot" src="images/figure1.png"  /><br/>
+		<img class="screenshot" src="images/figure1-ALInterface.png"  /><br/>
 		<i>Figure 1: Abstract-Lite client interface</i>
 		</p>
 
@@ -142,13 +142,13 @@
 
 	<h3>2. Customize the trace visualization</h3>
 	
-		<p>Click the demo trace in the trace list. This makes the player appear. 
+		<p>Click the demo-s trace in the trace list. This makes the player appear. 
 		In the player, click the <i>Play</i> button to start playing the trace.
-		The the demo trace is displayed in a similar way as in Figure 2.</p>
+		The trace is displayed as shown in Figure 2.</p>
 		
 		
 		<p style="text-align: center;">
-			<img class="screenshot" src="images/figure2.png" width="840.7" /><br />
+			<img class="screenshot" src="images/Figure2-DemoTrace.png" /><br />
 			<i>Figure 2: The trace player</i>
 		</p>
 		
@@ -175,17 +175,17 @@
 			
 		<h4>Manipulate the list of visualization rules</h4>
 
-			<p>On creation, your account was populated with a set of four demo visualization rules shown in Figure 3.</p>
+			<p>On creation, your account was initialized with the three visualization rules shown in Figure 3.</p>
 			
 			<p style="text-align: center;">
-				<img class="screenshot" src="images/figure3.png" /><br />
-				<i>Figure 3: The demo visualization rules</i>
+				<img class="screenshot" src="images/figure3-rules.png" /><br />
+				<i>Figure 3: The visualization rules</i>
 			</p>
 
-			<p>Click on ⎘ (next to the rule identifier) to copy the fields of a specific rule to the symbol form. 
+			<p>Click ⎘ (next to the rule identifier) to copy the fields of a specific rule to the symbol form. 
 			This feature is used to edit a rule. 
 			To modify a rule, just edit it, modify it, save the new version, and delete the previous version from the list.</p>
-			<p>Click on ✗ to delete a rule.</p>
+			<p>Click ✗ to delete a rule.</p>
 			<p>A new rule is saved and added to the list when you click on the <i>Send</i> button in the symbol form.
 			The player is also updated to reflect the new set of rules.</p>
 			
@@ -197,29 +197,13 @@
 			The first demo rule is responsible for drawing a green triangle pointing upward for each <i>turn left</i> event: </p>
 			
 			<p style="text-align: center;">
-				<img class="screenshot" src="images/figure4.png" /><br />
-				<i>Figure 4: Editing the visualization rule of turn left events.</i>
+				<img class="screenshot" src="images/Figure4-Instantaneous.png" /><br />
+				<i>Figure 4: Editing the visualization rule of an instantaneous symbol.</i>
 			</p>
 			
-			<p>This rule specifies that the symbol 'up' (a triangle pointing up) should be drawn for each event whose <i>primitive_enacted_schema</i> field is equal to the string '^'.
-			This symbol should be drawn in green ('00EE00') and located 10 pixels above the centre of the player area.
+			<p>This rule specifies that the symbol 'square' should be drawn for each event whose <i>type</i> field is equal to the string 'OpenChannel'.
+			This symbol should be drawn in green ('00FF00') and located 80 pixels below the center of the player.
 
-			<p>Similarly, the visualization rule in Figure 5 displays a green triangle pointing downward for each <i>turn right</i> event.
-			Figure 5 also shows the tooltip window that lists the different shapes available by default.</p> 
-			</p>
-
-			<p style="text-align: center;">
-				<img class="screenshot" src="images/figure5.png" /><br/>
-				<i>Figure 5: Editing the visualization rule  of turn right events.</i>
-			</p>
-
-			<p>The visualization rule in Figure 6 displays a blue triangle pointing frontward for each <i>move forward</i> event:</p>
-
-			<p style="text-align: center;">
-				<img class="screenshot" src="images/figure6.png" /><br />
-				<i>Figure 6: Editing the visualization rule  of move forward events.</i>
-			</p>
-			
 			<p>Note that despite the term <i>instantaneous</i>, instantaneous symbols have a width that can be used to represent the event's duration 
 			(provided that the event's duration was recorded in your trace). 
 			To do so, customize the <i>X scale</i> field with an expression that evaluates as the event's duration using the information available in your trace.</p> 
@@ -229,18 +213,16 @@
 			<p>An interval symbol is a symbol (e.g., a line) that represents the interval between a begin event and an end event.</p>
 		
 			<p>The <i>Interval Symbol form</i> works similarly to the <i>Instantaneous Symbol form</i>. 
-			For example, the fourth rule draws the lines that represent the interval during which the property 'current_observation/color' remains unchanged. 
-			These lines are positioned vertically according to the property 'current_observation/distance':</p>
+			For example, the third rule draws the lines that represent the interval from an event whose property 'begin' equals '1386520923582'. 
+			to an event whose property 'begin' equals '1386520980573'.</p>
 		
 			<p style="text-align: center;">
-				<img class="screenshot" src="images/figure7.png" /><br />
+				<img class="screenshot" src="images/Figure5-Interval.png" /><br />
 				<i>Figure 7: Editing the visualization rule of an interval symbol.</i>
 			</p>
-		
-			<p>In the field <i>End condition</i> of this example, the variable <i>$last</i> represents the previous event in the trace
-			(standard XPATH instruction).</p>
-		
-			<p>To facilitate the specification of the visualization rules, we have defined the additional function my:ifthenelse.</p>
+			
+			<p>All the fields accept XPath expressions, meaning that you can specify complex computations based on the properties of your events.
+			To facilitate the specification of the visualization rules, we have defined the additional function my:ifthenelse.</p>
 		
 				<pre class="code-sample">my:ifthenelse(&lt;condition&gt;, &lt;value if true&gt;, &lt;value if false&gt;)</pre>
 				<p>If the first parameter is true, this function returns the value of the second parameter. If the first parameter is false, this function returns the value of the third parameter.</p>
@@ -250,8 +232,6 @@
 				For example, an interval symbol can be displayed in a blue color as long as it is not yet ended, 
 				and turn red or green depending on how it ends.</p>
 			
-				<p>You can now upload your own trace and start customizing its visualization (using "Upload a trace" in the Trace list).</p> 
-				
 		<h4>Trace file format</h4>
 		
 			<p>You can upload your traces through the <i>Upload trace</i> function in the <i>Trace list</i>.
@@ -288,7 +268,7 @@
 	
 		<p><a href="http://www.oliviergeorgeon.com/">Olivier L. Georgeon</a>, <a href="http://liris.cnrs.fr/alain.mille/">Alain Mille</a>, Thierry Bellet, <a href="http://liris.cnrs.fr/~bmathern/">Benoit Mathern</a>, and <a href="http://www.frankritter.com/ritter.html">Frank E. Ritter</a> (2012). <a href="http://liris.cnrs.fr/abstract/Georgeono2010-abstract.pdf">Supporting Activity Modeling from Activity Traces</a>.  Expert Systems 29(3), 261-275. <a href="http://onlinelibrary.wiley.com/doi/10.1111/j.1468-0394.2011.00584.x/abstract">doi:10.1111/j.1468-0394.2011.00584.x</a>.</p> 
 	
-		<p>To cite the usage of Abstract-Lite for autonomous-agent behavior analysis, please use this reference:</p>
+		<p>To cite the usage of Abstract-Lite for autonomous-agent behavioral analysis, please use this reference:</p>
 	
 		<p><a href="http://www.oliviergeorgeon.com/">Olivier L. Georgeon</a> and <a href="http://science.slc.edu/%7Ejmarshall/">James B. Marshall</a> 2013. <a href="http://liris.cnrs.fr/ideal/doc/georgeon2013-IJMC7.pdf">Demonstrating sensemaking emergence in artificial agents: A method and an example</a>. <a href="http://www.worldscientific.com/worldscinet/ijmc">International Journal of Machine Consciousness</a>, 5(2), 131-144. <a href="http://dx.doi.org/10.1142/S1793843013500029">doi:10.1142/S1793843013500029</a>.</p>
 	
