@@ -293,5 +293,6 @@ function deleteStored($traceId)
 	$db = getDB();
 	
 	$db->exec("DELETE FROM obsels WHERE trace_id = '$traceId'");
+	//$db->exec("VACUUM"); // too slow: genereate database lock errors
 }
 ?>
