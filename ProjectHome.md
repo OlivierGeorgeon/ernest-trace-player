@@ -1,0 +1,1 @@
+A trace viewer made to play Ernest's activity trace using a browser.
